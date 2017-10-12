@@ -33,7 +33,7 @@ RSpec.describe Company, type: :model do
     let(:company) { FactoryGirl.create :company }
 
     it "is correctly set" do
-      expect(company.linkedin_id).to eq company.linkedin_url.split("/").last
+      expect(company.linkedin_id).to eq company.linkedin_url.split("/").last.to_i
     end
   end
 end

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20171011161655) do
     t.string "name"
     t.string "slug"
     t.string "website"
-    t.string "linkedin_id"
+    t.integer "linkedin_id"
     t.string "linkedin_url"
     t.string "headquarter_in"
     t.string "founded_in"

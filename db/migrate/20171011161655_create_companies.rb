@@ -4,7 +4,7 @@ class CreateCompanies < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :slug
       t.string :website
-      t.string :linkedin_id
+      t.integer :linkedin_id
       t.string :linkedin_url
       t.string :headquarter_in
       t.string :founded_in

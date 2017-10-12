@@ -17,6 +17,6 @@ class Company < ApplicationRecord
   end
 
   def set_linkedin_id
-    self.linkedin_id = linkedin_url.split("/").last
+    self.linkedin_id = linkedin_url.split("/").last.to_i
   end
 end

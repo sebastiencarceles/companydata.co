@@ -57,7 +57,6 @@ namespace :linkedin do
       staff: session.find(".org-about-company-module__company-staff-count-range")&.text,
       specialities: session.find(".org-about-company-module__specialities")&.text,
       presentation: session.find(".org-about-us-organization-description__text")&.text,
-      # TODO slug, linkedin_id
     }
     logger.info "poltergeist has found info on company #{ARGV[1]}: #{company}"
     session.save_and_open_screenshot
