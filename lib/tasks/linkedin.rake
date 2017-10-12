@@ -13,7 +13,8 @@ namespace :linkedin do
 
     logger.info "poltergeist initialization"
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app,         js_errors: false,
+      Capybara::Poltergeist::Driver.new(app,
+        js_errors: false,
         timeout: 60,
         # debug: true,
         # phantomjs_logger: true,
@@ -42,11 +43,12 @@ namespace :linkedin do
     logger.info "poltergeist is haunting companies"
 
     # open company link
-    session.visit company_links[0]
+    linkedin_url = company_links[0]
+    session.visit linkedin_url
     sleep 3
     company = {
       name: session.find(".org-top-card-module__name")&.text,
-      linkedin_url: company_links[0],
+      linkedin_url: linkedin_url,
       category: session.find(".company-industries")&.text,
       website: session.find(".org-about-us-company-module__website")&.text,
       headquarter_in: session.find(".org-about-company-module__headquarters")&.text,
