@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Company, type: :model do
   it { should validate_presence_of(:name) }
@@ -7,9 +9,9 @@ RSpec.describe Company, type: :model do
   it { should callback(:set_slug).before(:save).if(:name_changed?) }
 
   describe "slug" do
-let(:company_1) { FactoryGirl.create :company, name: "virgin" }
-let(:company_2) { FactoryGirl.create :company, name: "virgin" }
-let(:company_3) { FactoryGirl.create :company, name: "Virgin" }
+    let(:company_1) { FactoryGirl.create :company, name: "virgin" }
+    let(:company_2) { FactoryGirl.create :company, name: "virgin" }
+    let(:company_3) { FactoryGirl.create :company, name: "Virgin" }
 
     context "when multiple companies have the same name" do
       it "remains unique" do

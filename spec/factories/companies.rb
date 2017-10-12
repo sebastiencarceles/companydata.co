@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :company do
     name Faker::Company.name
     slug Faker::Internet.slug
     website Faker::Internet.url
-    linkedin_url Faker::Internet.url('linkedin.com')
+    linkedin_url Faker::Internet.url("linkedin.com")
     linkedin_id 1
     headquarter_in Faker::Address.city
     founded_in "2017"
