@@ -26,7 +26,7 @@ class LinkedinScrapper
 
   def build_session
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 10, phantomjs_options: ["--ignore-ssl-errors=yes", "--load-images=yes"])
+      Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 30, phantomjs_options: ["--ignore-ssl-errors=yes", "--load-images=yes"])
     end
     Capybara.default_driver = :poltergeist
     Capybara.javascript_driver = :poltergeist

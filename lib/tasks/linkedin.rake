@@ -10,11 +10,14 @@ namespace :linkedin do
 
   def scrap(logger, linkedin_id)
     begin
-      logger.info("Scrapping #{linkedin_id}")
+      logger.info("Scrap company with LinkedIn ID #{linkedin_id}")
       LinkedinScrapper.new(linkedin_id).execute
     rescue => exception
       logger.warn("#{exception.class}: #{exception.message}")
-      if exception.class == Capybara::Poltergeist::StatusFailError
+      if [
+          Capybara::Poltergeist::StatusFailError,
+          Capybara::Poltergeist::TimeoutError
+        ].include?(exception.class)
         logger.info("Let's retry")
         scrap(logger, linkedin_id)
       else
