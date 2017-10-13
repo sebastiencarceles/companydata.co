@@ -44,9 +44,9 @@ class LinkedinScrapper
     session.visit linkedin_url
   end
 
+  # TODO manage company logo
   def scrap(session)
     {
-      # TODO manage company logo
       name: session.find(".org-top-card-module__name")&.text,
       linkedin_url: linkedin_url,
       category: session.find(".company-industries")&.text,
