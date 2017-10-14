@@ -4,7 +4,7 @@ class Company < ApplicationRecord
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
 
-  before_create :set_slug
+  before_validation :set_slug, if: :name_changed?
   before_save :set_linkedin_id, if: :linkedin_url_changed?
 
   def set_slug
