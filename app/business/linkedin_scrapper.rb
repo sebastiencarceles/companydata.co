@@ -31,7 +31,7 @@ class LinkedinScrapper
         scrap(linkedin_id)
       rescue => exception
         @logger.error("#{linkedin_id} - #{exception}")
-        @session.save_and_open_screenshot
+        # @session.save_and_open_screenshot
       else
         scrap(linkedin_id + 1)
       end
