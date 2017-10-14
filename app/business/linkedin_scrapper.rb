@@ -68,6 +68,8 @@ class LinkedinScrapper
   end
 
   def read_company_data(linkedin_id)
+    @logger.info("name: #{read_text('.org-top-card-module__name')}")
+    @logger.info("logo url: #{@session.find('.org-top-card-module__logo')}")
     {
       name: read_text(".org-top-card-module__name"),
       logo_url: @session.find(".org-top-card-module__logo")["src"],
