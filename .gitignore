@@ -3,3 +3,4 @@ log/test.log
 db/test.sqlite3
 db/development.sqlite3
 tmp/pids/server.pid
+tmp/cache/
