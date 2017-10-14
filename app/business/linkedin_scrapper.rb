@@ -30,8 +30,8 @@ class LinkedinScrapper
         @logger.info("#{linkedin_id} - Timeout error, let's retry")
         scrap(linkedin_id)
       rescue => exception
-        @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join('\n')}")
-        @session.save_screenshot("#{Rails.root.join("tmp")}/screenshot.png")
+        @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join('\t')}")
+        @session.save_screenshot "public/#{linkedin_id}.png", full: true
       else
         scrap(linkedin_id + 1)
       end
