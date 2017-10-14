@@ -20,16 +20,9 @@ class LinkedinScrapper
   end
 
   def scrap(linkedin_id)
-    @session.visit linkedin_url(linkedin_id)
-    sleep 10
-    if @session.status_code == 404
-      @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
-      scrap(linkedin_id + 1)
-    else
+    if open_company_page(linkedin_id)
       begin
-        company_data = read_company_data(linkedin_id)
-        @logger.info(company_data)
-        Company.create!(company_data)
+        Company.create!(read_company_data(linkedin_id))
       rescue Capybara::Poltergeist::StatusFailError
         @logger.info("#{linkedin_id} - Status fail error, let's retry")
         scrap(linkedin_id)
@@ -37,12 +30,14 @@ class LinkedinScrapper
         @logger.info("#{linkedin_id} - Timeout error, let's retry")
         scrap(linkedin_id)
       rescue => exception
-        @logger.error("#{linkedin_id} - #{exception.class}: #{exception.message}")
-        puts exception.backtrace
+        @logger.error("#{linkedin_id} - #{exception}")
         @session.save_and_open_screenshot
       else
         scrap(linkedin_id + 1)
       end
+    else
+      @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
+      scrap(linkedin_id + 1)
     end
   end
 
@@ -62,6 +57,12 @@ class LinkedinScrapper
     @session.click_button "login-submit"
     sleep 2
     @logger.info("Logged in with username: #{@username}")
+  end
+
+  def open_company_page(linkedin_id)
+    @session.visit linkedin_url(linkedin_id)
+    sleep 5
+    return @session.status_code != 404
   end
 
   def read_company_data(linkedin_id)
