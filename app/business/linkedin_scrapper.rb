@@ -6,23 +6,38 @@ require "capybara/poltergeist"
 require "open-uri"
 
 class LinkedinScrapper
-  attr_reader :session
-
-  def initialize(linkedin_id)
-    @linkedin_id = linkedin_id
+  def initialize(username, password, from_linkedin_id)
+    @from_linkedin_id = from_linkedin_id
+    @username = username
+    @password = password
     @session = build_session
+    @logger = Logger.new($stdout)
   end
 
   def execute
-    login(session)
-    sleep 2
-    open_company_page(session)
+    login
+    scrap(@from_linkedin_id)
+  end
+
+  def scrap(linkedin_id)
+    @session.visit linkedin_url
     sleep 3
-    company_data = scrap(session)
-
-    puts "poltergeist has found info on company: #{company_data}" # TODO remove
-
-    Company.create!(company_data)
+    begin
+      Company.create!(read_company_data)
+    rescue => exception
+      if [Capybara::Poltergeist::StatusFailError, Capybara::Poltergeist::TimeoutError].include?(exception.class)
+        @logger.info("#{linkedin_id} - Timeout, let's retry")
+        scrap(linkedin_id)
+      elsif @session.status_code == 404
+        @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
+        scrap(linkedin_id + 1)
+      else
+        @logger.error("#{linkedin_id} - #{exception.class}: #{exception.message}\n#{exception.backtrace.join('\n')}")
+        @session.save_and_open_screenshot
+      end
+    else
+      scrap(linkedin_id + 1)
+    end
   end
 
   def build_session
@@ -34,30 +49,28 @@ class LinkedinScrapper
     Capybara::Session.new(:poltergeist)
   end
 
-  def login(session)
-    session.visit "https://www.linkedin.com/"
-    session.fill_in "login-email", with: "sebastien.carceles@gmail.com"
-    session.fill_in "login-password", with: "Lptitloup11"
-    session.click_button "login-submit"
+  def login
+    @session.visit "https://www.linkedin.com/"
+    @session.fill_in "login-email", with: @username
+    @session.fill_in "login-password", with: @password
+    @session.click_button "login-submit"
+    sleep 2
+    @logger.info("Logged in with username: #{@username}")
   end
 
-  def open_company_page(session)
-    session.visit linkedin_url
-  end
-
-  def scrap(session)
+  def read_company_data
     # TODO manage company logo
     {
-      name: session.find(".org-top-card-module__name")&.text,
+      name: @session.find(".org-top-card-module__name")&.text,
       linkedin_url: linkedin_url,
-      category: session.find(".company-industries")&.text,
-      website: session.find(".org-about-us-company-module__website")&.text,
-      headquarter_in: session.find(".org-about-company-module__headquarters")&.text,
-      founded_in: session.find(".org-about-company-module__founded")&.text,
-      type: session.find(".org-about-company-module__company-type")&.text,
-      staff: session.find(".org-about-company-module__company-staff-count-range")&.text,
-      specialities: session.find(".org-about-company-module__specialities")&.text,
-      presentation: session.find(".org-about-us-organization-description__text")&.text,
+      category: @session.find(".company-industries")&.text,
+      website: @session.find(".org-about-us-company-module__website")&.text,
+      headquarter_in: @session.find(".org-about-company-module__headquarters")&.text,
+      founded_in: @session.find(".org-about-company-module__founded")&.text,
+      type: @session.find(".org-about-company-module__company-type")&.text,
+      staff: @session.find(".org-about-company-module__company-staff-count-range")&.text,
+      specialities: @session.find(".org-about-company-module__specialities")&.text,
+      presentation: @session.find(".org-about-us-organization-description__text")&.text,
     }
   end
 
