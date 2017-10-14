@@ -55,14 +55,14 @@ class LinkedinScrapper
     @session.fill_in "login-email", with: @username
     @session.fill_in "login-password", with: @password
     @session.click_button "login-submit"
-    sleep 2
+    sleep 5
     @logger.info("Logged in with username: #{@username}")
   end
 
   def open_company_page(linkedin_id)
     @logger.info("#{linkedin_id} - Opening company page")
     @session.visit linkedin_url(linkedin_id)
-    sleep 5
+    sleep 10
     return @session.status_code != 404
   end
 
