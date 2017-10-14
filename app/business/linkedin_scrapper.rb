@@ -31,7 +31,7 @@ class LinkedinScrapper
         scrap(linkedin_id)
       rescue => exception
         @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join('\n')}")
-        @session.save_screenshot
+        @session.save_screenshot("#{Rails.root.join("tmp")}/screenshot.png")
       else
         scrap(linkedin_id + 1)
       end
