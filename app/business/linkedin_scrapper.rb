@@ -34,7 +34,8 @@ class LinkedinScrapper
         @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
         scrap(linkedin_id + 1)
       else
-        @logger.error("#{linkedin_id} - #{exception.class}: #{exception.message}\n#{exception.backtrace.join('\n')}")
+        @logger.error("#{linkedin_id} - #{exception.class}: #{exception.message}")
+        puts exception.backtrace
         @session.save_and_open_screenshot
       end
     else

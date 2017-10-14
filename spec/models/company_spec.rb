@@ -6,7 +6,7 @@ RSpec.describe Company, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:slug) }
   it { should validate_uniqueness_of(:slug) }
-  it { should callback(:set_slug).before(:save).if(:name_changed?) }
+  it { should callback(:set_slug).before(:create) }
   it { should callback(:set_linkedin_id).before(:save).if(:linkedin_url_changed?) }
 
   describe "#set_slug" do
