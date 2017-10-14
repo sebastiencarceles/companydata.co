@@ -30,8 +30,8 @@ class LinkedinScrapper
         @logger.info("#{linkedin_id} - Timeout error, let's retry")
         scrap(linkedin_id)
       rescue => exception
-        @logger.error("#{linkedin_id} - #{exception}")
-        # @session.save_and_open_screenshot
+        @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join('\n')}")
+        @session.save_screenshot
       else
         scrap(linkedin_id + 1)
       end
