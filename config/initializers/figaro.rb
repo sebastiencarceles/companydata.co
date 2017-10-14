@@ -1,0 +1,1 @@
+Figaro.require_keys("linkedin_username", "linkedin_password")
