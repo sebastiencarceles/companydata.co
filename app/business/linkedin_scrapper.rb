@@ -6,13 +6,14 @@ require "capybara/poltergeist"
 require "open-uri"
 
 class LinkedinScrapper
+  attr_reader :session
+
   def initialize(linkedin_id)
     @linkedin_id = linkedin_id
+    @session = build_session
   end
 
   def execute
-    session = build_session
-
     login(session)
     sleep 2
     open_company_page(session)
@@ -26,7 +27,7 @@ class LinkedinScrapper
 
   def build_session
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 30, phantomjs_options: ["--ignore-ssl-errors=yes", "--load-images=yes"])
+      Capybara::Poltergeist::Driver.new(app, js_errors: false, timeout: 60, phantomjs_options: ["--ignore-ssl-errors=yes", "--load-images=yes"])
     end
     Capybara.default_driver = :poltergeist
     Capybara.javascript_driver = :poltergeist
@@ -61,6 +62,6 @@ class LinkedinScrapper
   end
 
   def linkedin_url
-    "https://www.linkedin.com/company/#{@linkedin_id}"
+    "https://www.linkedin.com/company/#{@linkedin_id}/"
   end
 end
