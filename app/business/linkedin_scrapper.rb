@@ -65,7 +65,7 @@ class LinkedinScrapper
   def open_company_page(linkedin_id)
     @logger.info("#{linkedin_id} - Opening company page")
     @session.visit linkedin_url(linkedin_id)
-    sleep 10
+    sleep 30
     return @session.status_code != 404
   end
 
