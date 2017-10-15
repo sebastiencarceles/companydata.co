@@ -53,8 +53,7 @@ class LinkedinScrapper
     #      desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
     #   )
     # end
-
-
+    
     Capybara.register_driver :selenium do |app|
       Capybara::Selenium::Driver.new(app, browser: :chrome)
     end
