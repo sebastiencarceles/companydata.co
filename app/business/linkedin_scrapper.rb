@@ -70,9 +70,6 @@ class LinkedinScrapper
     # session.driver.browser.manage.window.resize_to(2_500, 2_500)
     # session
 
-
-
-
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(app, browser: :chrome)
     end
