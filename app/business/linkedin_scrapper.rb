@@ -2,17 +2,16 @@
 
 require "capybara"
 require "capybara/dsl"
-require "selenium/webdriver"
+require "capybara/poltergeist"
 require "open-uri"
 
 class LinkedinScrapper
-  def initialize(username, password, linkedin_id, batch: true)
+  def initialize(username, password, linkedin_id)
     @linkedin_id = linkedin_id
     @username = username
     @password = password
     @session = build_session
     @logger = Logger.new($stdout)
-    @batch = batch
   end
 
   def execute
@@ -21,94 +20,50 @@ class LinkedinScrapper
   end
 
   def scrap(linkedin_id)
-    return unless @batch || linkedin_id == @linkedin_id
-    open_company_page(linkedin_id)
-    begin
-      Company.create!(read_company_data(linkedin_id))
-      @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
-    # rescue Capybara::Poltergeist::StatusFailError
-    #   @logger.info("#{linkedin_id} - Status fail error, let's retry")
-    #   scrap(linkedin_id)
-    # rescue Capybara::Poltergeist::TimeoutError
-    #   @logger.info("#{linkedin_id} - Timeout error, let's retry")
-    #   scrap(linkedin_id)
-    rescue Net::ReadTimeout
-      @logger.info("#{linkedin_id} - Timeout error, let's retry")
-      scrap(linkedin_id)
-    rescue => exception
-      puts exception
-      @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join(' ; ')}")
-      @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
+    if open_company_page(linkedin_id)
+      begin
+        Company.create!(read_company_data(linkedin_id))
+      rescue Capybara::Poltergeist::StatusFailError
+        @logger.info("#{linkedin_id} - Status fail error, let's retry")
+        scrap(linkedin_id)
+      rescue Capybara::Poltergeist::TimeoutError
+        @logger.info("#{linkedin_id} - Timeout error, let's retry")
+        scrap(linkedin_id)
+      rescue => exception
+        @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join(' ; ')}")
+        @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
+      else
+        scrap(linkedin_id + 1)
+      end
     else
+      @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
       scrap(linkedin_id + 1)
     end
-    # else
-    #   @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
-    #   scrap(linkedin_id + 1)
-    # end
   end
 
   def build_session
-    chromebin = ENV.fetch('chromebin', nil)
-    options = {}
-    options[:args] = ['headless', 'disable-gpu', 'window-size=1280,1024']
-    options[:binary] = chromebin if chromebin
-    Capybara.register_driver :chrome do |app|
-      Capybara::Selenium::Driver.new(
-         app,
-         browser: :chrome,
-         options: Selenium::WebDriver::Chrome::Options.new(options)
-      )
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app, js_errors: false, phantomjs_options: ["--ignore-ssl-errors=yes"])
     end
-    Capybara::Session.new(:chrome)
-
-
-    # Capybara.register_driver :selenium do |app|
-    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
-    # end
-    # Capybara.javascript_driver = :chrome
-    # Capybara.configure do |config|
-    #   config.default_max_wait_time = 10 # seconds
-    #   config.default_driver = :selenium
-    # end
-    # session = Capybara::Session.new(:selenium)
-    # session.driver.browser.manage.window.resize_to(2_500, 2_500)
-    # session
-
-
-    # Capybara.register_driver :chrome do |app|
-    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
-    # end
-
-    # Capybara.register_driver :headless_chrome do |app|
-    #   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    #     chromeOptions: { args: %w(headless disable-gpu) }
-    #   )
-
-    #   Capybara::Selenium::Driver.new app,
-    #     browser: :chrome,
-    #     desired_capabilities: capabilities
-    # end
-
-    # Capybara.javascript_driver = :headless_chrome
-
-    # Capybara::Session.new(:headless_chrome)
+    Capybara.default_driver = :poltergeist
+    Capybara.javascript_driver = :poltergeist
+    Capybara::Session.new(:poltergeist)
   end
 
   def login
-    @session.visit "https://www.linkedin.com/uas/connect/user-signin"
-    @session.fill_in "session_key-connectLoginForm", with: @username
-    @session.fill_in "session_password-oauthAuthorizeForm", with: @password
-    @session.click_button "Sign In"
-    sleep 10
+    @session.visit "https://www.linkedin.com/"
+    @session.fill_in "login-email", with: @username
+    @session.fill_in "login-password", with: @password
+    @session.click_button "login-submit"
     @logger.info("Logged in with username: #{@username}")
+    sleep 10
   end
 
   def open_company_page(linkedin_id)
-    @logger.info("#{linkedin_id} - Opening company page")
     @session.visit linkedin_url(linkedin_id)
+    @logger.info("#{linkedin_id} - Opening company page")
     sleep 10
-    # return @session.status_code != 404
+    return @session.status_code != 404
   end
 
   def read_company_data(linkedin_id)
