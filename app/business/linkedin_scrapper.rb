@@ -2,6 +2,7 @@
 
 require "capybara"
 require "capybara/dsl"
+require "selenium/webdriver"
 require "open-uri"
 
 class LinkedinScrapper
@@ -53,19 +54,42 @@ class LinkedinScrapper
     #      desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
     #   )
     # end
+
+
+
+    # Capybara.register_driver :selenium do |app|
+    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
+    # end
+    # Capybara.javascript_driver = :chrome
+    # Capybara.configure do |config|
+    #   config.default_max_wait_time = 10 # seconds
+    #   config.default_driver = :selenium
+    # end
+
+    # session = Capybara::Session.new(:selenium)
+    # session.driver.browser.manage.window.resize_to(2_500, 2_500)
+    # session
+
+
     
-    Capybara.register_driver :selenium do |app|
+    
+    Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(app, browser: :chrome)
     end
-    Capybara.javascript_driver = :chrome
-    Capybara.configure do |config|
-      config.default_max_wait_time = 10 # seconds
-      config.default_driver = :selenium
+    
+    Capybara.register_driver :headless_chrome do |app|
+      capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+        chromeOptions: { args: %w(headless disable-gpu) }
+      )
+    
+      Capybara::Selenium::Driver.new app,
+        browser: :chrome,
+        desired_capabilities: capabilities
     end
+    
+    Capybara.javascript_driver = :headless_chrome
 
-    session = Capybara::Session.new(:selenium)
-    session.driver.browser.manage.window.resize_to(2_500, 2_500)
-    session
+    Capybara::Session.new(:headless_chrome)
   end
 
   def login
