@@ -97,7 +97,7 @@ class LinkedinScrapper
   end
 
   def login
-    @session.visit "https://www.linkedin.com/uas/login?session_redirect=&goback=&trk=hb_signin"
+    @session.visit "https://fr.linkedin.com/"
     @session.fill_in "session_key-login", with: @username
     @session.fill_in "session_password-login", with: @password
     @session.click_button "btn-primary"
