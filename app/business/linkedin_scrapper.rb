@@ -17,6 +17,7 @@ class LinkedinScrapper
 
   def execute
     login
+    sleep 10
     scrap(@linkedin_id)
   end
 
@@ -32,7 +33,11 @@ class LinkedinScrapper
     # rescue Capybara::Poltergeist::TimeoutError
     #   @logger.info("#{linkedin_id} - Timeout error, let's retry")
     #   scrap(linkedin_id)
+    rescue Net::ReadTimeout
+      @logger.info("#{linkedin_id} - Timeout error, let's retry")
+      scrap(linkedin_id)
     rescue => exception
+      puts exception
       @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join(' ; ')}")
       @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
     else
@@ -45,12 +50,14 @@ class LinkedinScrapper
   end
 
   def build_session
-    chrome_opts = { "chromeOptions" => { "binary" => '/app/.apt/usr/bin/google-chrome-stable' } }
+    chromebin = ENV.fetch('chromebin', nil)
+    options = { args: ['headless', 'disable-gpu', 'window-size=1280,1024'] }
+    options = options.merge({ "chromeOptions" => { "binary" => chromebin } }) if chromebin
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
          app,
          browser: :chrome,
-         desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
+         desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(options)
       )
     end
     Capybara::Session.new(:chrome)
@@ -89,10 +96,10 @@ class LinkedinScrapper
   end
 
   def login
-    @session.visit "https://www.linkedin.com/"
-    @session.fill_in "login-email", with: @username
-    @session.fill_in "login-password", with: @password
-    @session.click_button "login-submit"
+    @session.visit "https://www.linkedin.com/uas/login?session_redirect=&goback=&trk=hb_signin"
+    @session.fill_in "session_key-login", with: @username
+    @session.fill_in "session_password-login", with: @password
+    @session.click_button "btn-primary"
     @logger.info("Logged in with username: #{@username}")
   end
 
