@@ -26,12 +26,12 @@ class LinkedinScrapper
     begin
       Company.create!(read_company_data(linkedin_id))
       @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
-    rescue Capybara::Poltergeist::StatusFailError
-      @logger.info("#{linkedin_id} - Status fail error, let's retry")
-      scrap(linkedin_id)
-    rescue Capybara::Poltergeist::TimeoutError
-      @logger.info("#{linkedin_id} - Timeout error, let's retry")
-      scrap(linkedin_id)
+    # rescue Capybara::Poltergeist::StatusFailError
+    #   @logger.info("#{linkedin_id} - Status fail error, let's retry")
+    #   scrap(linkedin_id)
+    # rescue Capybara::Poltergeist::TimeoutError
+    #   @logger.info("#{linkedin_id} - Timeout error, let's retry")
+    #   scrap(linkedin_id)
     rescue => exception
       @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join(' ; ')}")
       @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
