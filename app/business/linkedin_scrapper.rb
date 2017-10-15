@@ -6,8 +6,6 @@ require "capybara/dsl"
 require "open-uri"
 
 class LinkedinScrapper
-  LOADING_SLEEP = 30
-
   def initialize(username, password)
     @username = username
     @password = password
@@ -17,6 +15,8 @@ class LinkedinScrapper
 
   def execute
     login
+
+
 
     CSV.open("db/seed/companies.csv", "a", headers: true) do |csv|
       csv << [
@@ -39,19 +39,16 @@ class LinkedinScrapper
 
   def scrap(csv, linkedin_id)
     open_company_page(linkedin_id)
-  puts "opened"
     begin
       csv << read_company_data(linkedin_id).values
-      puts "allright"
-    rescue Net::Timeout
-      puts "#{linkedin_id} - Status fail error, let's retry"
-      scrap(csv, linkedin_id)
+    # rescue Net::Timeout
+    #   puts "#{linkedin_id} - Status fail error, let's retry"
+    #   scrap(csv, linkedin_id)
     rescue => exception
       puts exception
       puts exception.backtrace
       @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
     else
-      puts "go scrap next"
       scrap(csv, linkedin_id + 1)
     end
   end
@@ -79,11 +76,10 @@ class LinkedinScrapper
   def open_company_page(linkedin_id)
     @session.visit linkedin_url(linkedin_id)
     puts "#{linkedin_id} - Opening company page"
-    # return @session.status_code != 404
   end
 
   def read_company_data(linkedin_id)
-    puts 'read company data'
+    @session.find(".org-about-company-module__show-details-button").click
     {
       linkedin_id: linkedin_id,
       name: read_text(".org-top-card-module__name"),
@@ -105,6 +101,7 @@ class LinkedinScrapper
   end
 
   def read_text(css_class_name)
+    puts "read text for #{css_class_name}"
     begin
       @session.find(css_class_name).text
     rescue Capybara::ElementNotFound
