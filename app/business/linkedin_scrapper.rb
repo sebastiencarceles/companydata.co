@@ -17,7 +17,6 @@ class LinkedinScrapper
 
   def execute
     login
-    sleep 10
     scrap(@linkedin_id)
   end
 
@@ -101,12 +100,14 @@ class LinkedinScrapper
     @session.fill_in "session_key-connectLoginForm", with: @username
     @session.fill_in "session_password-oauthAuthorizeForm", with: @password
     @session.click_button "Sign In"
+    sleep 10
     @logger.info("Logged in with username: #{@username}")
   end
 
   def open_company_page(linkedin_id)
     @logger.info("#{linkedin_id} - Opening company page")
     @session.visit linkedin_url(linkedin_id)
+    sleep 10
     # return @session.status_code != 404
   end
 
