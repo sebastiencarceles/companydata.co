@@ -44,9 +44,22 @@ class LinkedinScrapper
   end
 
   def build_session
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, browser: :chrome)
+    chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
+    
+    chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
+    
+    Capybara.register_driver :chrome do |app|
+      Capybara::Selenium::Driver.new(
+         app,
+         browser: :chrome,
+         desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
+      )
     end
+
+
+    # Capybara.register_driver :selenium do |app|
+    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
+    # end
     Capybara.javascript_driver = :chrome
     Capybara.configure do |config|
       config.default_max_wait_time = 10 # seconds
