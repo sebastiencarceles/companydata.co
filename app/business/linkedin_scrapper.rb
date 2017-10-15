@@ -1,51 +1,66 @@
 # frozen_string_literal: true
 
+require "csv"
 require "capybara"
 require "capybara/dsl"
 require "capybara/poltergeist"
 require "open-uri"
 
 class LinkedinScrapper
-  def initialize(username, password, linkedin_id)
-    @linkedin_id = linkedin_id
+  LOADING_SLEEP = 30
+
+  def initialize(username, password)
     @username = username
     @password = password
     @session = build_session
-    @logger = Logger.new($stdout)
   end
 
   def execute
     login
-    scrap(@linkedin_id)
+
+    CSV.open("db/seed/companies.csv", "a", headers: true) do |csv|
+      csv << [
+        "linkedin_id",
+        "name",
+        "logo_url",
+        "linkedin_url",
+        "category",
+        "website",
+        "headquarter_in",
+        "founded_in",
+        "company_type",
+        "staff",
+        "specialities",
+        "presentation"
+      ]
+      scrap(csv, 1000)
+    end
   end
 
-  def scrap(linkedin_id)
+  def scrap(csv, linkedin_id)
     if open_company_page(linkedin_id)
       begin
-        Company.create!(read_company_data(linkedin_id))
-      rescue Capybara::Poltergeist::StatusFailError
-        @logger.info("#{linkedin_id} - Status fail error, let's retry")
-        scrap(linkedin_id)
-      rescue Capybara::Poltergeist::TimeoutError
-        @logger.info("#{linkedin_id} - Timeout error, let's retry")
-        scrap(linkedin_id)
+        csv << read_company_data(linkedin_id).values
+      rescue Capybara::Poltergeist::StatusFailError, Capybara::Poltergeist::TimeoutError
+        puts "#{linkedin_id} - Status fail error, let's retry"
+        scrap(csv, linkedin_id)
       rescue => exception
-        @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join(' ; ')}")
+        puts exception
+        puts exception.backtrace
         @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
       else
-        scrap(linkedin_id + 1)
+        scrap(csv, linkedin_id + 1)
       end
     else
-      @logger.warn("#{linkedin_id} - This company does not exist, try the next one")
-      scrap(linkedin_id + 1)
+      puts "#{linkedin_id} - This company does not exist, try the next one"
+      scrap(csv, linkedin_id + 1)
     end
   end
 
   def build_session
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, js_errors: false, phantomjs_options: ["--ignore-ssl-errors=yes"])
+      Capybara::Poltergeist::Driver.new(app, timeout: 60, js_errors: false, phantomjs_options: ["--ignore-ssl-errors=yes", "--load-images=no"])
     end
-    Capybara.default_driver = :poltergeist
     Capybara.javascript_driver = :poltergeist
     Capybara::Session.new(:poltergeist)
   end
@@ -55,19 +70,20 @@ class LinkedinScrapper
     @session.fill_in "login-email", with: @username
     @session.fill_in "login-password", with: @password
     @session.click_button "login-submit"
-    @logger.info("Logged in with username: #{@username}")
-    sleep 10
+    sleep LOADING_SLEEP
+    puts "Logged in with username: #{@username}"
   end
 
   def open_company_page(linkedin_id)
     @session.visit linkedin_url(linkedin_id)
-    @logger.info("#{linkedin_id} - Opening company page")
-    sleep 10
+    sleep LOADING_SLEEP
+    puts "#{linkedin_id} - Opening company page"
     return @session.status_code != 404
   end
 
   def read_company_data(linkedin_id)
     {
+      linkedin_id: linkedin_id,
       name: read_text(".org-top-card-module__name"),
       logo_url: @session.find(".org-top-card-module__logo")["src"],
       linkedin_url: linkedin_url(linkedin_id),

@@ -5,7 +5,6 @@ class Company < ApplicationRecord
   validates_uniqueness_of :slug
 
   before_validation :set_slug, if: :name_changed?
-  before_save :set_linkedin_id, if: :linkedin_url_changed?
 
   def set_slug
     return unless name
@@ -15,9 +14,5 @@ class Company < ApplicationRecord
       id += 1
     end
     self.slug = slug
-  end
-
-  def set_linkedin_id
-    self.linkedin_id = linkedin_url.split("/").last.to_i
   end
 end
