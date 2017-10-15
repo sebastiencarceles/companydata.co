@@ -97,10 +97,10 @@ class LinkedinScrapper
   end
 
   def login
-    @session.visit "https://fr.linkedin.com/"
-    @session.fill_in "session_key-login", with: @username
-    @session.fill_in "session_password-login", with: @password
-    @session.click_button "btn-primary"
+    @session.visit "https://www.linkedin.com/uas/connect/user-signin"
+    @session.fill_in "session_key-connectLoginForm", with: @username
+    @session.fill_in "session_password-oauthAuthorizeForm", with: @password
+    @session.click_button "Sign In"
     @logger.info("Logged in with username: #{@username}")
   end
 
