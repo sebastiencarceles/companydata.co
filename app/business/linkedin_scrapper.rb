@@ -6,23 +6,26 @@ require "capybara/poltergeist"
 require "open-uri"
 
 class LinkedinScrapper
-  def initialize(username, password, from_linkedin_id)
-    @from_linkedin_id = from_linkedin_id
+  def initialize(username, password, linkedin_id, batch: true)
+    @linkedin_id = linkedin_id
     @username = username
     @password = password
     @session = build_session
     @logger = Logger.new($stdout)
+    @batch = batch
   end
 
   def execute
     login
-    scrap(@from_linkedin_id)
+    scrap(@linkedin_id)
   end
 
   def scrap(linkedin_id)
+    return unless @batch || linkedin_id == @linkedin_id
     if open_company_page(linkedin_id)
       begin
         Company.create!(read_company_data(linkedin_id))
+        @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
       rescue Capybara::Poltergeist::StatusFailError
         @logger.info("#{linkedin_id} - Status fail error, let's retry")
         scrap(linkedin_id)
@@ -31,8 +34,7 @@ class LinkedinScrapper
         scrap(linkedin_id)
       rescue => exception
         @logger.error("#{linkedin_id} - #{exception} - #{exception.backtrace.join(' ; ')}")
-        @logger.info("#{Rails.root.join('tmp').to_s}/#{linkedin_id}.png")
-        @session.save_screenshot "#{Rails.root.join('tmp').to_s}/#{linkedin_id}.png", full: true
+        @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
       else
         scrap(linkedin_id + 1)
       end
