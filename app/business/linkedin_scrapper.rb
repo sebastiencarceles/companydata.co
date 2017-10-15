@@ -45,8 +45,7 @@ class LinkedinScrapper
   end
 
   def build_session
-    chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
-    chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
+    chrome_opts = { "chromeOptions" => { "binary" => '/app/.apt/usr/bin/google-chrome-stable' } }
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
          app,
