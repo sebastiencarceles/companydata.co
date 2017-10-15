@@ -3,7 +3,6 @@
 require "csv"
 require "capybara"
 require "capybara/dsl"
-require "capybara/poltergeist"
 require "open-uri"
 
 class LinkedinScrapper
@@ -12,7 +11,8 @@ class LinkedinScrapper
   def initialize(username, password)
     @username = username
     @password = password
-    @session = build_session
+    build_session
+    @session = Capybara.current_session
   end
 
   def execute
@@ -38,31 +38,34 @@ class LinkedinScrapper
   end
 
   def scrap(csv, linkedin_id)
-    if open_company_page(linkedin_id)
-      begin
-        csv << read_company_data(linkedin_id).values
-      rescue Capybara::Poltergeist::StatusFailError, Capybara::Poltergeist::TimeoutError
-        puts "#{linkedin_id} - Status fail error, let's retry"
-        scrap(csv, linkedin_id)
-      rescue => exception
-        puts exception
-        puts exception.backtrace
-        @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
-      else
-        scrap(csv, linkedin_id + 1)
-      end
+    open_company_page(linkedin_id)
+  puts "opened"
+    begin
+      csv << read_company_data(linkedin_id).values
+      puts "allright"
+    rescue Net::Timeout
+      puts "#{linkedin_id} - Status fail error, let's retry"
+      scrap(csv, linkedin_id)
+    rescue => exception
+      puts exception
+      puts exception.backtrace
+      @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
     else
-      puts "#{linkedin_id} - This company does not exist, try the next one"
+      puts "go scrap next"
       scrap(csv, linkedin_id + 1)
     end
   end
 
   def build_session
-    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, timeout: 60, js_errors: false, phantomjs_options: ["--ignore-ssl-errors=yes", "--load-images=no"])
+    Capybara.register_driver :selenium do |app|
+      Capybara::Selenium::Driver.new(app, browser: :chrome)
     end
-    Capybara.javascript_driver = :poltergeist
-    Capybara::Session.new(:poltergeist)
+    Capybara.javascript_driver = :chrome
+    Capybara.configure do |config|
+      config.default_max_wait_time = 30
+      config.default_driver = :selenium
+    end
+    Capybara.current_session.driver.browser.manage.window.resize_to(1_280, 1_024)
   end
 
   def login
@@ -70,18 +73,17 @@ class LinkedinScrapper
     @session.fill_in "login-email", with: @username
     @session.fill_in "login-password", with: @password
     @session.click_button "login-submit"
-    sleep LOADING_SLEEP
     puts "Logged in with username: #{@username}"
   end
 
   def open_company_page(linkedin_id)
     @session.visit linkedin_url(linkedin_id)
-    sleep LOADING_SLEEP
     puts "#{linkedin_id} - Opening company page"
-    return @session.status_code != 404
+    # return @session.status_code != 404
   end
 
   def read_company_data(linkedin_id)
+    puts 'read company data'
     {
       linkedin_id: linkedin_id,
       name: read_text(".org-top-card-module__name"),

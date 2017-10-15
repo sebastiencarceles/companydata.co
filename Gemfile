@@ -33,7 +33,8 @@ gem "jbuilder", "~> 2.5"
 
 # Scrapping
 gem "capybara", "~> 2.15.1"
-gem "poltergeist"
+gem 'selenium-webdriver'
+gem 'chromedriver-helper'
 
 # Manage config var
 gem "figaro"
