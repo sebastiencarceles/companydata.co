@@ -51,13 +51,14 @@ class LinkedinScrapper
 
   def build_session
     chromebin = ENV.fetch('chromebin', nil)
-    options = { args: ['headless', 'disable-gpu', 'window-size=1280,1024'] }
-    options = options.merge({ "chromeOptions" => { "binary" => chromebin } }) if chromebin
+    options = {}
+    options[:args] = ['headless', 'disable-gpu', 'window-size=1280,1024']
+    options[:binary] = chromebin if chromebin
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
          app,
          browser: :chrome,
-         desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(options)
+         options: Selenium::WebDriver::Chrome::Options.new(options)
       )
     end
     Capybara::Session.new(:chrome)

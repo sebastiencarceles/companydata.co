@@ -32,8 +32,8 @@ gem "jbuilder", "~> 2.5"
 # gem 'bcrypt', '~> 3.1.7'
 
 # Scrapping
-gem "capybara", "~> 2.13"
-gem "selenium-webdriver"
+gem 'capybara', '~> 2.15.1'
+gem 'selenium-webdriver', '~> 3.5.1'
 gem "chromedriver-helper"
 
 # Manage config var
