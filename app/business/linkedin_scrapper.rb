@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
-require "csv"
 require "capybara"
 require "capybara/dsl"
 require "open-uri"
 
 class LinkedinScrapper
-  SEED_FILE = "db/seed/companies.csv"
-
   def initialize(username, password)
     @username = username
     @password = password
@@ -17,44 +14,22 @@ class LinkedinScrapper
 
   def execute
     login
-
-    linkedin_id = CSV.readlines("db/seed/companies.csv").map(&:first).select { |v| Integer(v) rescue false }.max.to_i + 1
-
-    CSV.open(SEED_FILE, "a", headers: true) do |csv|
-      csv << [
-        "linkedin_id",
-        "name",
-        "logo_url",
-        "linkedin_url",
-        "category",
-        "website",
-        "headquarter_in",
-        "founded_in",
-        "company_type",
-        "staff",
-        "specialities",
-        "presentation"
-      ]
-      scrap(csv, linkedin_id)
-    end
+    linkedin_id = (Company.order(:linkedin_id).last.linkedin_id + 1) rescue 1000
+    scrap(linkedin_id)
   end
 
-  def scrap(csv, linkedin_id)
-    if open_company_page(linkedin_id)
-      begin
-        csv << read_company_data(linkedin_id).values
-      # rescue Net::Timeout
-      #   puts "#{linkedin_id} - Status fail error, let's retry"
-      #   scrap(csv, linkedin_id)
-      rescue => exception
-        puts exception
-        puts exception.backtrace
-        @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
-      else
-        scrap(csv, linkedin_id + 1)
-      end
+  def scrap(linkedin_id)
+    begin
+      Company.create!(read_company_data(linkedin_id)) if open_company_page(linkedin_id)
+    rescue Net::ReadTimeout
+      puts "#{linkedin_id} - Status fail error, let's retry"
+      scrap(linkedin_id)
+    rescue => exception
+      puts exception
+      puts exception.backtrace
+      @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
     else
-      scrap(csv, linkedin_id + 1)
+      scrap(linkedin_id + 1)
     end
   end
 
