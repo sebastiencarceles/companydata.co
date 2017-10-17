@@ -22,7 +22,7 @@ class LinkedinScrapper
     begin
       Company.create!(read_company_data(linkedin_id)) if open_company_page(linkedin_id)
     rescue Net::ReadTimeout
-      puts "#{linkedin_id} - Status fail error, let's retry"
+      puts "#{linkedin_id} - Timeout, let's retry"
       scrap(linkedin_id)
     rescue => exception
       puts exception
