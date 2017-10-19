@@ -20,7 +20,7 @@ class LinkedinScrapper
 
   def scrap(linkedin_id)
     begin
-      Company.create!(read_company_data(linkedin_id)) if open_company_page(linkedin_id)
+      Company.create(read_company_data(linkedin_id)) if open_company_page(linkedin_id)
     rescue Net::ReadTimeout
       puts "#{linkedin_id} - Timeout, let's retry"
       scrap(linkedin_id)
@@ -66,7 +66,7 @@ class LinkedinScrapper
   end
 
   def read_company_data(linkedin_id)
-    {
+    company_data = {
       linkedin_id: linkedin_id,
       name: read_text(".org-top-card-module__name"),
       logo_url: @session.find(".org-top-card-module__logo")["src"],
@@ -80,6 +80,8 @@ class LinkedinScrapper
       specialities: read_text(".org-about-company-module__specialities"),
       presentation: read_text(".org-about-us-organization-description__text"),
     }
+    pp company_data
+    company_data
   end
 
   def linkedin_url(linkedin_id)
