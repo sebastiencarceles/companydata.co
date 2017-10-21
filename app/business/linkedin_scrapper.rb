@@ -29,6 +29,7 @@ class LinkedinScrapper
       puts exception.backtrace
       @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
     else
+      sleep(Random.rand(30))
       scrap(linkedin_id + 1)
     end
   end
