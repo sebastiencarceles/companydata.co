@@ -57,13 +57,7 @@ class LinkedinScrapper
   def open_company_page(linkedin_id)
     puts "Open company page ##{linkedin_id}"
     @session.visit linkedin_url(linkedin_id)
-    begin
-      @session.find(".org-about-company-module__show-details-button").click
-    rescue Capybara::ElementNotFound
-      false
-    else
-      true
-    end
+    return shows_more? || has_description?
   end
 
   def read_company_data(linkedin_id)
@@ -87,6 +81,20 @@ class LinkedinScrapper
 
   def linkedin_url(linkedin_id)
     "https://www.linkedin.com/company/#{linkedin_id}/"
+  end
+
+  def shows_more?
+    begin
+      @session.find(".org-about-company-module__show-details-button").click
+    rescue Capybara::ElementNotFound
+      false
+    else
+      true
+    end
+  end
+
+  def has_description?
+    read_text(".org-about-us-organization-description__text").present?
   end
 
   def read_text(css_class_name)

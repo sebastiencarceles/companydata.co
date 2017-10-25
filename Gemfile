@@ -63,6 +63,9 @@ group :development do
   # to check code style
   gem "rubocop", require: false
   gem "rubocop-rails"
+
+  # Import data from CSV
+  gem "smarter_csv"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
