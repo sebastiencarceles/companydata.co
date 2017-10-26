@@ -6,7 +6,7 @@ FactoryGirl.define do
     logo_url "http://fr.seaicons.com/wp-content/uploads/2015/08/green-ok-icon.png"
     slug Faker::Internet.slug
     website Faker::Internet.url
-    linkedin_url "https://www.linkedin.com/company/1234"
+    source_url "https://www.linkedin.com/company/1234"
     linkedin_id 1
     headquarter_in Faker::Address.city
     founded_in "2017"
