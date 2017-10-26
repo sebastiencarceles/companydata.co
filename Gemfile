@@ -39,6 +39,9 @@ gem "chromedriver-helper"
 # Manage config var
 gem "figaro"
 
+# Import data from CSV
+gem "smarter_csv"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
@@ -64,8 +67,6 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-rails"
 
-  # Import data from CSV
-  gem "smarter_csv"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
