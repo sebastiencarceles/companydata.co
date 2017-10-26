@@ -5,6 +5,7 @@ class Company < ApplicationRecord
   validates_uniqueness_of :slug
 
   before_validation :set_slug, if: :name_changed?
+  before_save :set_founded_in, if: :founded_at_changed?
 
   def set_slug
     return unless name
@@ -14,5 +15,9 @@ class Company < ApplicationRecord
       id += 1
     end
     self.slug = slug
+  end
+
+  def set_founded_in
+    self.founded_in = founded_at.year
   end
 end

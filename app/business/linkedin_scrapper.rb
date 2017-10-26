@@ -65,7 +65,7 @@ class LinkedinScrapper
       linkedin_id: linkedin_id,
       name: read_text(".org-top-card-module__name"),
       logo_url: @session.find(".org-top-card-module__logo")["src"],
-      linkedin_url: linkedin_url(linkedin_id),
+      source_url: linkedin_url(linkedin_id),
       category: read_text(".company-industries"),
       website: read_text(".org-about-us-company-module__website"),
       headquarter_in: read_text(".org-about-company-module__headquarters"),
