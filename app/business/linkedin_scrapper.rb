@@ -14,7 +14,7 @@ class LinkedinScrapper
 
   def execute
     login
-    linkedin_id = (Company.order(:linkedin_id).last.linkedin_id + 1) rescue 1000
+    linkedin_id = (Company.where.not(linkedin_id: nil).order(:linkedin_id).last.linkedin_id + 1) rescue 1000
     scrap(linkedin_id)
   end
 
