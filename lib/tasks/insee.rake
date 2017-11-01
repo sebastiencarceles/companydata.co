@@ -35,9 +35,9 @@ namespace :insee do
       puts attributes[:name]
       company = Company.find_by_name(attributes[:name])
       if company
-        company.update!(attributes)
+        company.update!(attributes.merge(country: "France"))
       else
-        Company.create!(attributes)
+        Company.create!(attributes.merge(country: "France"))
       end
     end
   end

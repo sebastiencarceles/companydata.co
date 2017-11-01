@@ -14,13 +14,17 @@ class LinkedinScrapper
 
   def execute
     login
-    linkedin_id = (Company.where.not(linkedin_id: nil).order(:linkedin_id).last.linkedin_id + 1) rescue 1000
+    # linkedin_id = (Company.where.not(linkedin_id: nil).order(:linkedin_id).last.linkedin_id + 1) rescue 1000
+    linkedin_id = 2612
     scrap(linkedin_id)
   end
 
   def scrap(linkedin_id)
     begin
-      Company.create(read_company_data(linkedin_id)) if open_company_page(linkedin_id)
+      open_company_page(linkedin_id)
+      company_data = read_company_data(linkedin_id)
+      pp company_data
+      Company.create(company_data)
     rescue Net::ReadTimeout
       puts "#{linkedin_id} - Timeout, let's retry"
       scrap(linkedin_id)
@@ -29,7 +33,6 @@ class LinkedinScrapper
       puts exception.backtrace
       @session.save_screenshot "#{Rails.root.join('public').to_s}/#{linkedin_id}.png", full: true
     else
-      sleep(Random.rand(30))
       scrap(linkedin_id + 1)
     end
   end
@@ -57,50 +60,64 @@ class LinkedinScrapper
   def open_company_page(linkedin_id)
     puts "Open company page ##{linkedin_id}"
     @session.visit linkedin_url(linkedin_id)
-    return shows_more? || has_description?
+    begin
+      @session.find(".org-about-company-module__show-details-button").click
+    rescue
+      nil
+    end
   end
 
   def read_company_data(linkedin_id)
-    company_data = {
-      linkedin_id: linkedin_id,
-      name: read_text(".org-top-card-module__name"),
-      logo_url: @session.find(".org-top-card-module__logo")["src"],
-      source_url: linkedin_url(linkedin_id),
-      category: read_text(".company-industries"),
-      website: read_text(".org-about-us-company-module__website"),
-      headquarter_in: read_text(".org-about-company-module__headquarters"),
-      founded_in: read_text(".org-about-company-module__founded"),
-      company_type: read_text(".org-about-company-module__company-type"),
-      staff: read_text(".org-about-company-module__company-staff-count-range"),
-      specialities: read_text(".org-about-company-module__specialities"),
-      presentation: read_text(".org-about-us-organization-description__text"),
-    }
-    pp company_data
-    company_data
+    data = { linkedin_id: linkedin_id, source_url: linkedin_url(linkedin_id) }
+    add!(data, :name, read_text(".org-top-card-module__name"))
+    add!(data, :logo_url, read_image_source(".org-top-card-module__logo"))
+    add!(data, :category, read_text(".company-industries"))
+    add!(data, :website, read_text(".org-about-us-company-module__website"))
+    add!(data, :headquarter_in, read_text(".org-about-company-module__headquarters"))
+    add!(data, :founded_in, read_text(".org-about-company-module__founded"))
+    add!(data, :company_type, read_text(".org-about-company-module__company-type"))
+    add!(data, :staff, read_text(".org-about-company-module__company-staff-count-range"))
+    add!(data, :specialities, read_text(".org-about-company-module__specialities"))
+    add!(data, :presentation, read_text(".org-about-us-organization-description__text"))
+    # add!(data, :name, read_text(".name"))
+    # add!(data, :logo_url, read_image_source(".image"))
+    # add!(data, :category, read_text(".industry"))
+    # add!(data, :website, read_text(".website"))
+    # add!(data, :headquarter_in, read_text("locality"))
+    # add!(data, :address_line_1, read_text("street-address"))
+    # add!(data, :city, read_text("locality"))
+    # add!(data, :zipcode, read_text("postal-code"))
+    # add!(data, :region, read_text("region"))
+    # add!(data, :country, read_text("country-name"))
+    # add!(data, :founded_in, read_text(".founded"))
+    # add!(data, :company_type, read_text(".type"))
+    # add!(data, :staff, read_text(".company-size"))
+    # add!(data, :specialities, read_text(".specialties"))
+    # add!(data, :presentation, read_text(".basic-info-description"))
+    data
+  end
+
+  def add!(hash, key, value)
+    return unless value
+    hash[key] = value
   end
 
   def linkedin_url(linkedin_id)
     "https://www.linkedin.com/company/#{linkedin_id}/"
   end
 
-  def shows_more?
-    begin
-      @session.find(".org-about-company-module__show-details-button").click
-    rescue Capybara::ElementNotFound
-      false
-    else
-      true
-    end
-  end
-
-  def has_description?
-    read_text(".org-about-us-organization-description__text").present?
-  end
-
   def read_text(css_class_name)
     begin
       @session.find(css_class_name).text
     rescue Capybara::ElementNotFound
+      nil
+    end
+  end
+
+  def read_image_source(css_class_name)
+    begin
+      @session.find(css_class_name)["src"]
+    rescue
       nil
     end
   end
