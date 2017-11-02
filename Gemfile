@@ -43,10 +43,10 @@ gem "figaro"
 gem "smarter_csv"
 
 # Authentication
-gem 'knock'
+gem "knock"
 
 # Serialization
-gem 'active_model_serializers', '~> 0.10.0'
+gem "active_model_serializers", "~> 0.10.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -75,7 +75,7 @@ group :development do
 
   # Continuous testing
   gem "guard"
-  gem 'guard-rspec', require: false
+  gem "guard-rspec", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
