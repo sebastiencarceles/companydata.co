@@ -6,7 +6,7 @@ RSpec.describe Api::CompaniesController, type: :controller do
   describe "getting a company" do
     context "when the company can't be found" do
       it "returns http not found" do
-        get :show, params: { id: 3325564 }
+        get :show, params: { identifier: 3325564 }
         expect(response).to have_http_status(:not_found)
       end
     end
@@ -16,7 +16,21 @@ RSpec.describe Api::CompaniesController, type: :controller do
 
       context "by id" do
         it "returns http success" do
-          get :show, params: { id: company.id }
+          get :show, params: { identifier: company.id }
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context "by slug" do
+        it "returns http success" do
+          get :show, params: { identifier: company.slug }
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context "by name" do
+        it "returns http success" do
+          get :show, params: { identifier: company.name }
           expect(response).to have_http_status(:success)
         end
       end
