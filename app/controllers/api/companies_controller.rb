@@ -8,4 +8,10 @@ class Api::CompaniesController < ApplicationController
     render(json: {}, status: :not_found) && (return) unless company
     render json: company
   end
+
+  def index
+    query = params[:q]
+    render(json: {}, status: :bad_request) && (return) unless query
+    render json: {}
+  end
 end

@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get "ping" => "table_tennis#ping"
 
   namespace :api do
-    resources :companies, only: :show, param: :identifier
+    resources :companies, only: [:show, :index], param: :identifier
   end
 end
