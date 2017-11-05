@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TableTennisController < ApiController
+class Api::TableTennisController < ApiController
   def ping
     if current_user
       render json: { response: "authenticated pong" }
