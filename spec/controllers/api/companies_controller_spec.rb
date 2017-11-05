@@ -63,13 +63,25 @@ RSpec.describe Api::CompaniesController, type: :request do
     end
 
     context "when the query is given" do
-      before { get "/api/companies", params: { q: "something" } }
+      before {
+        FactoryGirl.create :company, name: "totali"
+        FactoryGirl.create :company, name: "TOURIVAL"
+        FactoryGirl.create :company, name: "tube metal"
+        FactoryGirl.create :company, name: "edf"
+        FactoryGirl.create :company, name: "gdf"
+        get "/api/companies", params: { q: "total" }
+      }
 
       it "returns http success" do
         expect(response).to be_success
       end
 
-      it "returns a collection of companies"
+      it "returns a collection of companies" do
+        expect(parsed_body.length).to eq 3
+        expect(parsed_body[0]["name"]).to eq "totali"
+        expect(parsed_body[1]["name"]).to eq "TOURIVAL"
+        expect(parsed_body[2]["name"]).to eq "tube metal"
+      end
     end
   end
 end
