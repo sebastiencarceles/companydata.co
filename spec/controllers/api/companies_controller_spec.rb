@@ -65,10 +65,10 @@ RSpec.describe Api::CompaniesController, type: :request do
     context "when the query is given" do
       before {
         FactoryGirl.create :company, name: "totali"
-        FactoryGirl.create :company, name: "TOURIVAL"
+        FactoryGirl.create :company, name: "TOTEM"
         FactoryGirl.create :company, name: "tube metal"
         FactoryGirl.create :company, name: "edf"
-        FactoryGirl.create :company, name: "gdf"
+        FactoryGirl.create :company, name: "motal"
         get "/api/companies", params: { q: "total" }
       }
 
@@ -79,8 +79,8 @@ RSpec.describe Api::CompaniesController, type: :request do
       it "returns a collection of companies" do
         expect(parsed_body.length).to eq 3
         expect(parsed_body[0]["name"]).to eq "totali"
-        expect(parsed_body[1]["name"]).to eq "TOURIVAL"
-        expect(parsed_body[2]["name"]).to eq "tube metal"
+        expect(parsed_body[1]["name"]).to eq "TOTEM"
+        expect(parsed_body[2]["name"]).to eq "motal"
       end
     end
   end
