@@ -6,10 +6,7 @@ module AuthenticationHelper
   end
 
   def authentication_header
-    token = Knock::AuthToken.new(payload: { sub: current_user.id }).token
-    {
-      'Authorization': "Bearer #{token}"
-    }
+    "todo"
   end
 end
 
