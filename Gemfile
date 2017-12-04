@@ -43,7 +43,7 @@ gem "figaro"
 gem "smarter_csv"
 
 # Authentication
-gem "knock"
+gem "devise"
 
 # Serialization
 gem "active_model_serializers", "~> 0.10.0"
