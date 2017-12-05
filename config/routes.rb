@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'companies/index'
+
   devise_for :users
   root "companies#index"
 
