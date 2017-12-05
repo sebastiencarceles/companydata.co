@@ -17,9 +17,9 @@
  *  require rrt/gemini/granite
  *  require rrt/gemini/ocean
  *
- *  require rrt/lyra/azure
+ *= require rrt/lyra/azure
  *  require rrt/lyra/charcoal
- *= require rrt/lyra/lime
+ *  require rrt/lyra/lime
  *  require rrt/lyra/raspberry
  *
  * To fully customize your theme, run: `rails generate rrt:customize`.

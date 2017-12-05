@@ -2,95 +2,55 @@
 <%= content_for :js_libs, "modernizr parallax" %>
 
 <main class="landing-4">
-<div class="parallax-window" data-parallax="scroll" data-speed="0.5" data-image-src="<%= asset_path('rrt/stock/landscape_12.jpg') %>">
-  <img src="<%= asset_path('rrt/stock/landscape_12.jpg') %>" style="display: none;">
+  <div class="parallax-window" data-parallax="scroll" data-speed="0.5" data-image-src="<%= asset_path('background.jpeg') %>">
+    
+    <div class="container">
+      <nav class="navbar navbar-landing  navbar-expand-lg">
+        <a href="javascript:" class="navbar-brand"><%= image_tag image_path('logo-small.png'), width: 32, height: 32, class: 'mr-2'%>COMPANY.IO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#standardNavbar" aria-controls="standardNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="standardNavbar">
+          <ul class="nav navbar-nav ml-auto">
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a class="btn btn-sm btn-outline-primary" href="javascript:">SIGN IN</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-sm btn-primary text-white" href="javascript:">SIGN UP</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="row pb-5">
+        <div class="col-12 col-md-7 text-white mt-5 pt-5 pb-5">
+          <h1 class="text-shadow-light leading-normal">Company data. Straight.</h1>
+          <p class="lead font-weight-medium text-shadow-light">Boost you business with the data you need about your prospects and customers, in a very simple way.</p>
+          <a class="btn btn-lg btn-success" href="javascript:">Find out more</a>
+        </div>
+        <div class="col-12 col-md-5 mt-5 pt-5 pb-5">
+          <form class="form d-flex flex-column bg-white p-4">
+            <p class="text-center">Give it a try!</p>
 
-  <div class="container">
-    <nav class="navbar navbar-landing  navbar-expand-lg">
-      <a href="javascript:" class="navbar-brand"><%= image_tag image_path('rrt/pyrrmid_64.png'), width: 32, height: 32, class: 'mr-2'%>PYRMID</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#standardNavbar" aria-controls="standardNavbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="standardNavbar">
-        <ul class="nav navbar-nav ml-auto">
-          <li class="nav-item ">
-            <a class="nav-link" href="javascript:">HOME</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="javascript:">ABOUT</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="javascript:">TEAM</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="javascript:">CONTACT</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div class="row pb-5">
-      <div class="col-12 col-md-7 text-white mt-5 pt-5 pb-5">
-        <h1 class="text-shadow-light leading-normal">You'll never have to work again</h1>
-        <p class="lead font-weight-medium mt-5 text-shadow-light">PYRMID is the ultimate in trans-human enhancement. Neural lace interface of the finest quality.</p>
-        <a class="btn btn-lg btn-success" href="javascript:">Find out More</a>
-      </div>
-      <div class="col-12 col-md-5 mt-5 pt-5 pb-5">
-        <form class="form d-flex flex-column bg-white p-4">
-          <p class="text-center">Get started in minutes, sign up now</p>
-          <label class="sr-only" for="inlineFormInputName2">Email</label>
-
-          <div class="input-group input-group-sm mb-2">
-            <span class="input-group-addon" id="basic-addon1"><%= theme_icon_tag "email" %></span>
-            <input type="text" class="form-control" id="inlineFormInputName2" placeholder="Your Email">
-          </div>
-
-          <label class="sr-only" for="inlineFormInputGroupUsername2">Password</label>
-          <div class="mb-2 mb-sm-0">
             <div class="input-group input-group-sm mb-2">
-              <span class="input-group-addon" id="basic-addon1"><%= theme_icon_tag "key" %></span>
-              <input type="password" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Choose a Password">
+              <span class="input-group-addon" id="basic-addon1"><%= theme_icon_tag "search" %></span>
+              <input type="text" class="form-control" placeholder="Company name">
             </div>
-          </div>
 
-          <label class="sr-only" for="inlineFormInputGroupUsername2">Confirm Password</label>
-          <div class="mb-2 mb-sm-0">
-            <div class="input-group input-group-sm mb-2">
-              <span class="input-group-addon" id="basic-addon1"><%= theme_icon_tag "key" %></span>
-              <input type="password" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Confirm Password">
-            </div>
-          </div>
-
-          <button type="button" class="btn btn-primary ml-auto">Sign Up</button>
-        </form>
+            <button type="button" class="btn btn-primary ml-auto mt-2">Search</button>
+          </form>
+        </div>
       </div>
     </div>
-
-  </div>
 </div>
-
 
 </main>
 
 <section class="mt-5 pt-5 mb-5 pb-5">
-  <%= render partial: 'content_blocks/general/6' %>
-</section>
-
-<section class="mt-5 pt-5 pb-5 bg-white">
-  <%= render partial: 'content_blocks/general/9' %>
-</section>
-
-<section class="pt-5 pb-5 bg-dark">
-  <%= render partial: 'content_blocks/general/14' %>
-</section>
-
-<section class="pt-5 pb-5 bg-white">
-  <%= render partial: 'content_blocks/general/15' %>
-</section>
-
-<section class="pt-5 pb-5 bg-gray-300">
-  <%= render partial: 'content_blocks/general/18' %>
+  <%= render partial: 'companies/features' %>
 </section>
 
 <section class="bg-dark">
-  <%= render partial: 'content_blocks/general/31' %>
+  <%= render partial: 'companies/footer' %>
 </section>
