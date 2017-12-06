@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'companies/index'
-
+  root "landing#show"
   devise_for :users
-  root "companies#index"
+  
+  get 'companies/index'
 
   namespace :api do
     get "ping" => "table_tennis#ping"
