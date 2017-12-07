@@ -24,10 +24,10 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-              <a class="btn btn-sm btn-outline-primary" href="javascript:">SIGN IN</a>
+              <%= link_to "SIGN IN", new_user_session_path, class: "btn btn-sm btn-outline-primary" %>
             </li>
             <li class="nav-item">
-              <a class="btn btn-sm btn-primary text-white" href="javascript:">SIGN UP</a>
+              <%= link_to "SIGN UP", new_user_registration_path, class: "btn btn-sm btn-primary text-white" %>
             </li>
           </ul>
         </div>
