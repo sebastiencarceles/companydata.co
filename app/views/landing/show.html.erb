@@ -2,7 +2,7 @@
 <%= content_for :js_libs, "modernizr parallax" %>
 
 <main class="landing-4">
-  <div class="parallax-window" data-parallax="scroll" data-speed="0.5" data-image-src="<%= asset_path('background.jpg') %>">
+  <div class="parallax-window" data-parallax="scroll" data-speed="0.5" data-image-src="<%= image_path('background.jpg') %>">
 
     <div class="container">
       <nav class="navbar navbar-landing  navbar-expand-lg">
@@ -23,12 +23,18 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
             <li class="nav-item">
-              <%= link_to "SIGN IN", new_user_session_path, class: "btn btn-sm btn-outline-primary" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "SIGN UP", new_user_registration_path, class: "btn btn-sm btn-primary text-white" %>
-            </li>
+                <%= link_to "MY_ACCOUNT", edit_user_registration_path, class: "btn btn-sm btn-outline-primary" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "SIGN IN", new_user_session_path, class: "btn btn-sm btn-outline-primary" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "SIGN UP", new_user_registration_path, class: "btn btn-sm btn-primary text-white" %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </nav>
