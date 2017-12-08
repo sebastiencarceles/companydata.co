@@ -28,7 +28,12 @@
   </head>
   <body class='<%= @body_class %>' data-js-libs='bootstrap fitie metis forms sidenav prism clipboard bs-switch <%= yield :js_libs %>'>
 
+    <%= render partial: 'shared/navbar' %>
+
     <%= yield %>
 
+    <section class="bg-dark">
+      <%= render partial: 'shared/footer' %>
+    </section>
   </body>
 <% end %>
