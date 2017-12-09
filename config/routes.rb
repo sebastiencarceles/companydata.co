@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   root "landing#show"
   devise_for :users
   
-  get 'companies/index'
-
-  resources :companies, only: [:show, :index]
+  resources :companies, only: [:show] do
+    collection do
+      get 'search', to: "companies#index"
+    end
+  end
 
   namespace :api do
     get "ping" => "table_tennis#ping"
