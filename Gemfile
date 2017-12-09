@@ -88,4 +88,4 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 source "https://gems.rapidrailsthemes.com/gems" do
   gem "rrt", "~> 1.0.2"
 end
-gem 'jquery-rails'
+gem "jquery-rails"
