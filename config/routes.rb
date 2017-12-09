@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   
   resources :companies, only: [:show] do
     collection do
-      get 'search', to: "companies#search" # TODO is it possible to avoid the "to" part
+      get 'search'
     end
   end
 
