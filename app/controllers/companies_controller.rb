@@ -1,5 +1,5 @@
 class CompaniesController < ApplicationController
-  def index
+  def search
     query = params[:q]
     @companies = Company.fuzzy_search(name: query)
   end
