@@ -1,13 +1,14 @@
 <% @title = "Results" %>
 
-<div class="container">
+<div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-md-9">
       <div class="card card-sheet sheet-condensed">
         <table class="table table-striped table-hover table-sm-responsive">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Company</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -15,6 +16,7 @@
             <% @companies.each do |company| %>
               <tr>
                 <td><%= company.name %></td>
+                <td><small><%= company.country %></small></td>
                 <td class="actions text-right">
                   <div class="btn-group">
                     <%= link_to theme_icon_tag("eye"), company, 'data-toggle': 'tooltip', title: 'Show', class: "btn btn-link" %>
