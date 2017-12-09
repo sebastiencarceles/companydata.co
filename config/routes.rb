@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   
   get 'companies/index'
 
+  resources :companies, only: [:show, :index]
+
   namespace :api do
     get "ping" => "table_tennis#ping"
     resources :companies, only: [:show, :index], param: :identifier
