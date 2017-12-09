@@ -27,8 +27,9 @@
     <%= yield :head %>
   </head>
   <body class='<%= @body_class %>' data-js-libs='bootstrap fitie metis forms sidenav prism clipboard bs-switch <%= yield :js_libs %>'>
-
-    <%= render partial: 'shared/navbar' %>
+    <header>
+      <%= render partial: 'shared/navbar' %>
+    </header>
 
     <%= render "layouts/flashes" %>
 
