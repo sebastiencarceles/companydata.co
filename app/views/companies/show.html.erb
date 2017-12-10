@@ -4,15 +4,39 @@
   <div class="row">
     <div class="col-md-4">
       <div class="card">
+        <% if @company.logo_url.present? %>
           <%= image_tag @company.logo_url, class: "card-img-top", alt: @company.name %>
+        <% end %>
           <div class="card-body">
             <h4 class="card-title"><%= @company.name %></h4>
-            <p class="card-text"><%= simple_format @company.presentation %></p>  
+            <% if @company.presentation.present? %>
+              <p class="card-text"><%= simple_format @company.presentation %></p>  
+            <% end %>
           </div>
         </div>
     </div>
     <div class="col-md-8">
-    
+      <div class="card card-tabbed">
+        <div class="card-header">
+          <h6>Profile</h6>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane fade show active" role="tabpanel">
+              <table class="table table-sm font-size-small">
+                <% profile_labels_attributes.each do |label, attribute| %>
+                  <% if @company[attribute].present? %>
+                    <tr>
+                      <td><strong><%= label %></strong></td>
+                      <td><%= @company[attribute] %></td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
