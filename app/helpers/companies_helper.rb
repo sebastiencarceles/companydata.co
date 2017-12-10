@@ -4,6 +4,7 @@ module CompaniesHelper
       ["Type", :company_type],
       ["Category", :category],
       ["Specialities", :specialities],
+      ["Staff", :staff],
       ["Registration number (part 1)", :registration_1],
       ["Registration number (part 2)", :registration_2],
       ["Activity code", :activity_code],
