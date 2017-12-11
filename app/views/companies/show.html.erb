@@ -12,27 +12,28 @@
             <h4 class="card-title text-primary mt-4 my-2"><%= @company.name %></h4>
             <h6 class="text-center text-muted"><%= founded(@company) %></h6>
           </div>
-          <div class="card-body d-flex justify-content-between text-primary">
-            <i class="ti-instagram cursor-pointer"></i>
-            <i class="ti-dropbox cursor-pointer"></i>
-            <i class="ti-dribbble cursor-pointer"></i>
-            <i class="ti-twitter cursor-pointer"></i>
-          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Presentation</h4>
           <% if @company.presentation.present? %>
             <p class="card-text"><%= simple_format @company.presentation %></p>  
           <% end %>
+          <% if linkedin_url(@company) %>
+            <%= link_to linkedin_url(@company), "data-toggle": "tooltip", "data-original-title": "LinkedIn profile", target: "_blank" do %>
+              <%= fa_icon_tag "linkedin-square" %>
+            <% end %>
+         <% end %>
+          <% if @company.source_url %>
+            <%= link_to @company.source_url, "data-toggle": "tooltip", "data-original-title": "Main data source", target: "_blank" do %>
+              <%= fa_icon_tag "external-link" %>
+            <% end %>
+          <% end %>
         </div>
       </div>  
-    </div>
-    <div class="col-md-4">
-        
     </div>
   </div>
   <div class="row mt-2">
