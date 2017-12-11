@@ -8,7 +8,7 @@ class CompaniesController < ApplicationController
     @companies = Company.fuzzy_search(name: query)
   end
 
-  def show  
+  def show
   end
 
   private

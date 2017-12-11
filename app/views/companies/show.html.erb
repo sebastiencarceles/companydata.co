@@ -3,45 +3,39 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-md-4">
-        <div class="card card-image card-image-avatar card-full-height">
-            <div class="cover-content">
-              <div class="card-header">
-                <% if @company.logo_url.present? %>
-                  <%= image_tag @company.logo_url, class: "img-thumbnail shadow", alt: @company.name, width: "128", height: "128" %>
-                <% end %>
-                <h4 class="card-title text-primary mt-4 my-2"><%= @company.name %></h4>
-                <h6 class="text-center text-muted"><%= founded(@company) %></h6>
-              </div>
-              <div class="card-body d-flex justify-content-between text-primary">
-                <i class="ti-instagram cursor-pointer"></i>
-                <i class="ti-dropbox cursor-pointer"></i>
-                <i class="ti-dribbble cursor-pointer"></i>
-                <i class="ti-twitter cursor-pointer"></i>
-              </div>
-            </div>
+      <div class="card card-image card-image-avatar card-full-height">
+        <div class="cover-content">
+          <div class="card-header">
+            <% if @company.logo_url.present? %>
+              <%= image_tag @company.logo_url, class: "img-thumbnail shadow", alt: @company.name, width: "128", height: "128" %>
+            <% end %>
+            <h4 class="card-title text-primary mt-4 my-2"><%= @company.name %></h4>
+            <h6 class="text-center text-muted"><%= founded(@company) %></h6>
           </div>
+          <div class="card-body d-flex justify-content-between text-primary">
+            <i class="ti-instagram cursor-pointer"></i>
+            <i class="ti-dropbox cursor-pointer"></i>
+            <i class="ti-dribbble cursor-pointer"></i>
+            <i class="ti-twitter cursor-pointer"></i>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-        
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Presentation</h4>
+          <% if @company.presentation.present? %>
+            <p class="card-text"><%= simple_format @company.presentation %></p>  
+          <% end %>
+        </div>
+      </div>  
     </div>
     <div class="col-md-4">
         
     </div>
   </div>
   <div class="row mt-2">
-    <div class="col-md-4">
-      <div class="card">
-        <% if @company.logo_url.present? %>
-          <%= image_tag @company.logo_url, class: "card-img-top", alt: @company.name %>
-        <% end %>
-          <div class="card-body">
-            <h4 class="card-title"><%= @company.name %></h4>
-            <% if @company.presentation.present? %>
-              <p class="card-text"><%= simple_format @company.presentation %></p>  
-            <% end %>
-          </div>
-        </div>
-    </div>
     <div class="col-md-8">
       <div class="card card-tabbed">
         <div class="card-header">
@@ -60,6 +54,9 @@
           </table>
         </div>
       </div>
+    </div>
+    <div class="col-md-4">
+      
     </div>
   </div>
 </div>
