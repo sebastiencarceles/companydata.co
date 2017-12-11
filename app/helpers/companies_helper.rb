@@ -11,4 +11,9 @@ module CompaniesHelper
       ["Country", :country]
     ]
   end
+
+  def founded(company)
+    return "Founded in #{company.founded_in}" if company.founded_in.present?
+    return "Founded in #{company.founded_at.year}" if company.founded_at.present?
+  end
 end
