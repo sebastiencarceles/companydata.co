@@ -9,8 +9,7 @@ module CompaniesHelper
       ["Staff", :staff],
       ["Registration number (part 1)", :registration_1],
       ["Registration number (part 2)", :registration_2],
-      ["Activity code", :activity_code],
-      ["Country", :country]
+      ["Activity code", :activity_code]
     ]
   end
 
@@ -21,5 +20,14 @@ module CompaniesHelper
 
   def linkedin_url(company)
     "https://www.linkedin.com/company/#{company.linkedin_id}/" if company.linkedin_id.present?
+  end
+
+  def full_address(company)
+    [
+      company.address_line_1,
+      company.address_line_2,
+      company.zipcode,
+      company.city
+    ].compact.join("\n")
   end
 end
