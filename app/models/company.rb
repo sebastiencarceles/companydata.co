@@ -4,15 +4,15 @@ class Company < ApplicationRecord
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
 
-  before_validation :set_slug, if: :name_changed?
+  before_validation :set_slug, if: :name?, unless: :slug?
   before_save :set_founded_in, if: :founded_at_changed?
 
   def set_slug
-    return unless name
-    id, slug = 1, name.parameterize
+    counter = 1
+    slug = name.parameterize
     while Company.exists?(slug: slug) do
-      slug = name.parameterize.strip + "-" + id.to_s
-      id += 1
+      slug = name.parameterize.strip + "-" + counter.to_s
+      counter += 1
     end
     self.slug = slug
   end

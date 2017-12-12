@@ -4,7 +4,6 @@ FactoryGirl.define do
   factory :company do
     name Faker::Company.name
     logo_url "http://fr.seaicons.com/wp-content/uploads/2015/08/green-ok-icon.png"
-    slug Faker::Internet.slug
     website Faker::Internet.url
     source_url "https://www.linkedin.com/company/1234"
     linkedin_id 1
