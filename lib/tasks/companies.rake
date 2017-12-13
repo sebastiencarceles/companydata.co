@@ -8,12 +8,11 @@ namespace :companies do
 
   task dump: :environment do
     page = FIRST_PAGE
-    # TODO factorize
-    while(Company.order(:id).page(page).per(PAGE_SIZE).any?) do
-      puts "Dump page #{as_string(page)}"
-      File.open("db/data/companies-#{as_string(page)}.yml", "w") do |file|
-        Company.order(:id).page(page).per(PAGE_SIZE).each do |company|
-          file.write(company.attributes.except("created_at", "updated_at").to_yaml)
+    while companies(page).any? do
+      puts "Dump into #{filepath(page)}"
+      File.open(filepath(page), "w") do |file|
+        companies(page).each do |company|
+          file.write(company.attributes.except("id", "created_at", "updated_at").to_yaml)
         end
       end
       page += 1
@@ -22,11 +21,10 @@ namespace :companies do
 
   task load: :environment do
     page = FIRST_PAGE
-    # TODO factorize
-    while(File.exists?("db/data/companies-#{as_string(page)}.yml")) do
-      puts "Load page #{as_string(page)}"
-      YAML.load_stream(File.read("db/data/companies-#{as_string(page)}.yml")) do |company_data|
-        Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data.except("id") }
+    while File.exists?(filepath(page)) do
+      puts "Load from #{filepath(page)}"
+      YAML.load_stream(File.read(filepath(page))) do |company_data|
+        Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data }
       end
       page += 1
     end
@@ -34,7 +32,11 @@ namespace :companies do
 
   private
 
-    def as_string(page)
-      page.to_s.rjust(4, '0')
+    def filepath(page)
+      "db/data/companies-#{page.to_s.rjust(4, '0')}.yml"
+    end
+
+    def companies(page)
+      Company.order(:id).page(page).per(PAGE_SIZE)
     end
 end
