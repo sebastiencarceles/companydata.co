@@ -4,7 +4,7 @@ require "smarter_csv"
 
 namespace :insee do
   task companies: :environment do
-    filename = "db/raw/entreprises-immatriculees-2017.csv"
+    filename = "db/raw/insee/entreprises-immatriculees-2017.csv"
     options = {
       col_sep: ";",
       key_mapping: {
