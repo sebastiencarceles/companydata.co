@@ -7,8 +7,9 @@ namespace :sirene do
     # source = "db/raw/sirene/sirc-17804_9075_14211_2017341_E_Q_20171208_022413655.csv"
     source = "db/raw/sirene/sirc-17804_9075_14209_201711_L_M_20171201_044556778.csv"
 
+    batch = []
     CSV.foreach(source, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
-      attributes = {
+      batch << Company.new(
         registration_1: row["SIREN"],
         registration_2: row["NIC"],
         name: row["NOMEN_LONG"],
@@ -27,11 +28,17 @@ namespace :sirene do
         category: row["LIBAPET"],
         legal_form: row["LIBNJ"],
         staff: row["LIBTEFEN"],
-        founded_at: row["DCREN"].nil? ? nil : Date.parse(row["DCREN"]),
+        founded_at: row["DCREN"].nil? ? nil : (Date.parse(row["DCREN"]) rescue nil),
         revenue: revenue(row["TCA"]),
         country: "France",
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret"
-      }
+      )
+
+      if batch.count >= 10000
+        puts "Import the batch of #{batch.count} companies"
+        Company.import!(batch)
+        batch.clear
+      end
 
       # t.string "website"
       # t.integer "linkedin_id"
@@ -40,13 +47,13 @@ namespace :sirene do
       # t.string "logo_url"
       # t.string "geolocation"
 
-      pp attributes
-      company = Company.where(registration_1: attributes[:registration_1], registration_2: attributes[:registration_2]).first
-      if company
-        company.update!(attributes)
-      else
-        Company.create!(attributes)
-      end
+      # pp attributes
+      # company = Company.where(registration_1: attributes[:registration_1], registration_2: attributes[:registration_2]).first
+      # if company
+      #   company.update!(attributes)
+      # else
+      #   Company.create!(attributes)
+      # end
     end
   end
 
