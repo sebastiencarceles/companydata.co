@@ -11,7 +11,7 @@ namespace :insee do
         "dénomination": :name,
         "siren": :registration_1,
         "nic": :registration_2,
-        "forme_juridique": :company_type,
+        "forme_juridique": :legal_form,
         "code_ape": :activity_code,
         "secteur_d'activité": :category,
         "adresse": :address_line_1,

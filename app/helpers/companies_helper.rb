@@ -3,7 +3,7 @@
 module CompaniesHelper
   def profile_labels_attributes
     [
-      ["Type", :company_type],
+      ["Legal form", :legal_form],
       ["Category", :category],
       ["Specialities", :specialities],
       ["Staff", :staff],
