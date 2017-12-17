@@ -35,8 +35,8 @@ namespace :sirene do
       )
 
       if batch.count >= 10000
-        puts "Import the batch of #{batch.count} companies"
         Company.import!(batch)
+        puts "Total companies in database: #{Company.count}"
         batch.clear
       end
 
@@ -47,14 +47,9 @@ namespace :sirene do
       # t.string "logo_url"
       # t.string "geolocation"
 
-      # pp attributes
-      # company = Company.where(registration_1: attributes[:registration_1], registration_2: attributes[:registration_2]).first
-      # if company
-      #   company.update!(attributes)
-      # else
-      #   Company.create!(attributes)
-      # end
     end
+    Company.import!(batch)
+    puts "Total companies in database: #{Company.count}"
   end
 
   private
