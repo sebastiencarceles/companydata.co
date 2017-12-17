@@ -33,7 +33,6 @@ namespace :companies do
   task dedupe: :environment do
     scope = Company.where.not(registration_1: nil).where.not(registration_2: nil).where(country: "France")
     grouped = scope.group_by { |company| [company.registration_1, company.registration_2, company.country] }
-    counter = 0
     grouped.values.each do |duplicates|
       first_one = duplicates.shift
       puts "Destroy #{duplicates.count} entries"
