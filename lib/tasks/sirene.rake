@@ -7,10 +7,10 @@ namespace :sirene do
     # source = "db/raw/sirene/sirc-17804_9075_14211_2017341_E_Q_20171208_022413655.csv"
     source = "db/raw/sirene/sirc-17804_9075_14209_201711_L_M_20171201_044556778.csv"
 
-    CSV.foreach(source, col_sep: ';', encoding: "ISO-8859-1", headers: :first_row) do |row|
+    CSV.foreach(source, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
       attributes = {
-        registration_1: row['SIREN'],
-        registration_2: row['NIC'],
+        registration_1: row["SIREN"],
+        registration_2: row["NIC"],
         name: row["NOMEN_LONG"],
         address_line_1: row["L1_NORMALISEE"],
         address_line_2: row["L2_NORMALISEE"],
@@ -32,7 +32,7 @@ namespace :sirene do
         country: "France",
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret"
       }
-      
+
       # t.string "website"
       # t.integer "linkedin_id"
       # t.text "specialities"
@@ -54,26 +54,26 @@ namespace :sirene do
 
     def revenue(tca)
       case tca
-        when "9"
-          "200 millions d'euros ou plus"
-        when "8"
-          "De 100 millions à moins de 200 millions d'euros"
-        when "7"
-          "De 50 millions à moins de 100 millions d'euros"
-        when "6"
-          "De 20 millions à moins de 50 millions d'euros"
-        when "5"
-          "De 10 millions à moins de 20 millions d'euros"
-        when "4"
-          "De 5 millions à moins de 10 millions d' euros"
-        when "3"
-          "De 2 millions à moins de 5 millions d'euros"
-        when "2"
-          "De 1 million à moins de 2 millions d'euros"
-        when "1"
-          "Moins de 0,5 million d'euros"
-        else
-          nil
-        end
+      when "9"
+        "200 millions d'euros ou plus"
+      when "8"
+        "De 100 millions à moins de 200 millions d'euros"
+      when "7"
+        "De 50 millions à moins de 100 millions d'euros"
+      when "6"
+        "De 20 millions à moins de 50 millions d'euros"
+      when "5"
+        "De 10 millions à moins de 20 millions d'euros"
+      when "4"
+        "De 5 millions à moins de 10 millions d' euros"
+      when "3"
+        "De 2 millions à moins de 5 millions d'euros"
+      when "2"
+        "De 1 million à moins de 2 millions d'euros"
+      when "1"
+        "Moins de 0,5 million d'euros"
+      else
+        nil
+      end
     end
 end
