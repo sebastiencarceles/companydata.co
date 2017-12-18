@@ -31,15 +31,8 @@ namespace :companies do
   end
 
   task dedupe: :environment do
-    Company
-      .where.not(registration_1: nil)
-      .where.not(registration_2: nil)
-      .where(country: "France")
-      .select(:registration_1, :registration_2)
-      .group(:registration_1, :registration_2)
-      .having("count(*) > 1")
-      .size
-      .each do |k, v| 
+    scope = Company.where.not(registration_1: nil).where.not(registration_2: nil).where(country: "France")
+    scope.select(:registration_1, :registration_2).group(:registration_1, :registration_2).having("count(*) > 1").size.each do |k, v|
       raise "only one!" if v <= 1
       reg1 = k.first
       reg2 = k.last
