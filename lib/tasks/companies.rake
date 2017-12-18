@@ -31,9 +31,21 @@ namespace :companies do
   end
 
   task dedupe: :environment do
-    scope = Company.where.not(registration_1: nil).where.not(registration_2: nil).where(country: "France")
-    grouped = scope.group_by { |company| [company.registration_1, company.registration_2, company.country] }
-    grouped.values.each do |duplicates|
+    Company
+      .where.not(registration_1: nil)
+      .where.not(registration_2: nil)
+      .where(country: "France")
+      .select(:registration_1, :registration_2)
+      .group(:registration_1, :registration_2)
+      .having("count(*) > 1")
+      .size
+      .each do |k, v| 
+      raise "only one!" if v <= 1
+      reg1 = k.first
+      reg2 = k.last
+      raise "reg1 is nil!" if reg1.nil?
+      raise "reg2 is nil!" if reg2.nil?
+      duplicates = Company.where(registration_1: reg1, registration_2: reg2).map { |company| company }
       first_one = duplicates.shift
       puts "Destroy #{duplicates.count} entries"
       duplicates.each { |duplicate| duplicate.destroy! }
