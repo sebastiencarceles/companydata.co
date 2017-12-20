@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171217174855) do
+ActiveRecord::Schema.define(version: 20171220164953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,115 +53,6 @@ ActiveRecord::Schema.define(version: 20171217174855) do
     t.string "revenue"
     t.index ["registration_1", "registration_2"], name: "index_companies_on_registration_1_and_registration_2"
     t.index ["slug"], name: "index_companies_on_slug", unique: true
-  end
-
-  create_table "entreprises", id: false, force: :cascade do |t|
-    t.string "siren", limit: 9
-    t.string "nic", limit: 5
-    t.string "l1_normalisee", limit: 38
-    t.string "l2_normalisee", limit: 38
-    t.string "l3_normalisee", limit: 38
-    t.string "l4_normalisee", limit: 38
-    t.string "l5_normalisee", limit: 38
-    t.string "l6_normalisee", limit: 38
-    t.string "l7_normalisee", limit: 38
-    t.string "l1_declaree", limit: 38
-    t.string "l2_declaree", limit: 38
-    t.string "l3_declaree", limit: 38
-    t.string "l4_declaree", limit: 38
-    t.string "l5_declaree", limit: 38
-    t.string "l6_declaree", limit: 38
-    t.string "l7_declaree", limit: 38
-    t.string "numvoie", limit: 4
-    t.string "indrep", limit: 1
-    t.string "typvoie", limit: 4
-    t.string "libvoie", limit: 32
-    t.string "codpos", limit: 5
-    t.string "cedex", limit: 5
-    t.string "rpet", limit: 2
-    t.string "libreg", limit: 70
-    t.string "depet", limit: 2
-    t.string "arronet", limit: 2
-    t.string "ctonet", limit: 3
-    t.string "comet", limit: 3
-    t.string "libcom", limit: 32
-    t.string "du", limit: 2
-    t.string "tu", limit: 1
-    t.string "uu", limit: 2
-    t.string "epci", limit: 9
-    t.string "tcd", limit: 2
-    t.string "zemet", limit: 4
-    t.string "siege", limit: 1
-    t.string "enseigne", limit: 40
-    t.string "ind_publipo", limit: 1
-    t.string "diffcom", limit: 1
-    t.string "amintret", limit: 6
-    t.string "natetab", limit: 1
-    t.string "libnatetab", limit: 30
-    t.string "apet700", limit: 5
-    t.string "libapet", limit: 65
-    t.integer "dapet", limit: 2
-    t.string "tefet", limit: 2
-    t.string "libtefet", limit: 23
-    t.string "efetcent", limit: 6
-    t.integer "defet", limit: 2
-    t.string "origine", limit: 2
-    t.string "dcret", limit: 8
-    t.string "date_deb_etat_adm_et", limit: 8
-    t.string "activnat", limit: 2
-    t.string "lieuact", limit: 2
-    t.string "actisurf", limit: 2
-    t.string "saisonat", limit: 2
-    t.string "modet", limit: 1
-    t.string "prodet", limit: 1
-    t.string "prodpart", limit: 1
-    t.integer "auxilt", limit: 2
-    t.string "nomen_long", limit: 131
-    t.string "sigle", limit: 20
-    t.string "nom", limit: 100
-    t.string "prenom", limit: 30
-    t.string "civilite", limit: 1
-    t.string "rna", limit: 10
-    t.string "nicsiege", limit: 5
-    t.string "rpen", limit: 2
-    t.string "depcomen", limit: 5
-    t.string "adr_mail", limit: 80
-    t.string "nj", limit: 4
-    t.string "libnj", limit: 100
-    t.string "apen700", limit: 5
-    t.string "libapen", limit: 65
-    t.integer "dapen", limit: 2
-    t.string "aprm", limit: 6
-    t.string "essen", limit: 1
-    t.string "dateess", limit: 8
-    t.string "tefen", limit: 2
-    t.string "libtefen", limit: 23
-    t.string "efencent", limit: 6
-    t.integer "defen", limit: 2
-    t.string "categorie", limit: 5
-    t.string "dcren", limit: 8
-    t.string "amintren", limit: 6
-    t.string "monoact", limit: 1
-    t.string "moden", limit: 1
-    t.string "proden", limit: 1
-    t.integer "esaann", limit: 2
-    t.string "tca", limit: 1
-    t.string "esaapen", limit: 5
-    t.string "esasec1n", limit: 5
-    t.string "esasec2n", limit: 5
-    t.string "esasec3n", limit: 5
-    t.string "esasec4n", limit: 5
-    t.string "vmaj", limit: 1
-    t.integer "vmaj1", limit: 2
-    t.integer "vmaj2", limit: 2
-    t.integer "vmaj3", limit: 2
-    t.string "datemaj", limit: 100
-  end
-
-  create_table "tests", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
