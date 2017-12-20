@@ -8,7 +8,7 @@ FactoryGirl.define do
     source_url "https://www.linkedin.com/company/1234"
     linkedin_id 1
     headquarter_in Faker::Address.city
-    company_type "Limited"
+    legal_form "Limited"
     category "Retail"
     staff "1-10 employees"
     specialities Faker::Lorem.paragraph
