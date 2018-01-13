@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 require "yaml"
+require "net/http"
 
 namespace :companies do
   FIRST_PAGE = 1
-  PAGE_SIZE = 25000
+  PAGE_SIZE = 100000
 
   task dump: :environment do
     page = FIRST_PAGE
@@ -30,6 +31,23 @@ namespace :companies do
     end
   end
 
+  task load_from_s3: :environment do
+    ARGV.each { |a| task a.to_sym do ; end }
+    subfolder = ARGV[1]
+    return "No subfolder given" if subfolder.nil?
+
+    page = FIRST_PAGE
+    while remote_file_exists?(url(subfolder, page)) do
+      puts "Load from #{url(subfolder, page)}"
+      open(url(subfolder, page)) do |file|
+        YAML.load_stream(file) do |company_data|
+          Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data }
+        end
+      end
+      page += 1
+    end
+  end
+
   task dedupe: :environment do
     scope = Company.where.not(registration_1: nil).where.not(registration_2: nil).where(country: "France")
     scope.select(:registration_1, :registration_2).group(:registration_1, :registration_2).having("count(*) > 1").size.each do |k, v|
@@ -48,10 +66,25 @@ namespace :companies do
   private
 
     def filepath(page)
-      "db/data/companies-#{page.to_s.rjust(4, '0')}.yml"
+      "db/raw/companies/companies-#{rjust(page)}.yml"
     end
 
     def companies(page)
       Company.order(:id).page(page).per(PAGE_SIZE)
+    end
+
+    def url(subfolder, page)
+      "https://s3.eu-west-3.amazonaws.com/company-io/companies/#{subfolder}/companies-#{rjust(page)}.yml"
+    end
+
+    def remote_file_exists?(uri)
+      url = URI.parse(uri)
+      request = Net::HTTP.new(url.host, url.port)
+      request.use_ssl = true
+      request.request_head(url.path).code == "200"
+    end
+
+    def rjust(page)
+      page.to_s.rjust(4, '0')
     end
 end
