@@ -50,6 +50,8 @@ gem "active_model_serializers", "~> 0.10.0"
 
 # Search
 gem "textacular", "~> 5.0"
+gem 'elasticsearch', '>= 1.0.15'
+gem 'faraday_middleware-aws-signers-v4', '>= 0.1.9'
 
 # Pagination
 gem 'kaminari'
