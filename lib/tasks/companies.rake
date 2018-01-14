@@ -8,10 +8,10 @@ namespace :companies do
   PAGE_SIZE = 100000
 
   task dump: :environment do
-    logger = Logger.new(STDOUT)
+    Rails.logger.info "Dump companies into local files"
     page = FIRST_PAGE
     while companies(page).any? do
-      logger.info "Dump into #{filepath(page)}"
+      Rails.logger.info "Dump into #{filepath(page)}"
       File.open(filepath(page), "w") do |file|
         companies(page).each do |company|
           file.write(company.attributes.except("id", "created_at", "updated_at").to_yaml)
@@ -22,26 +22,27 @@ namespace :companies do
   end
 
   task load: :environment do
-    logger = Logger.new(STDOUT)
+    Rails.logger.info "Load companies from local files"
     page = FIRST_PAGE
     while File.exists?(filepath(page)) do
-      logger.info "Load from #{filepath(page)}"
+      Rails.logger.info "Load from #{filepath(page)}"
       YAML.load_stream(File.read(filepath(page))) do |company_data|
         Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data }
       end
       page += 1
     end
+    Company.reindex
   end
 
   task load_from_s3: :environment do
-    logger = Logger.new(STDOUT)
+    Rails.logger.info "Load companies from AWS S3"
     ARGV.each { |a| task a.to_sym do ; end }
     subfolder = ARGV[1]
     return "No subfolder given" if subfolder.nil?
 
     page = FIRST_PAGE
     while remote_file_exists?(url(subfolder, page)) do
-      logger.info "Load from #{url(subfolder, page)}"
+      Rails.logger.info "Load from #{url(subfolder, page)}"
       open(url(subfolder, page)) do |file|
         YAML.load_stream(file) do |company_data|
           Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data }
@@ -49,10 +50,11 @@ namespace :companies do
       end
       page += 1
     end
+    Company.reindex
   end
 
   task dedupe: :environment do
-    logger = Logger.new(STDOUT)
+    Rails.logger.info "Deduplicate companies"
     scope = Company.where.not(registration_1: nil).where.not(registration_2: nil).where(country: "France")
     scope.select(:registration_1, :registration_2).group(:registration_1, :registration_2).having("count(*) > 1").size.each do |k, v|
       raise "only one!" if v <= 1
@@ -62,7 +64,7 @@ namespace :companies do
       raise "reg2 is nil!" if reg2.nil?
       duplicates = Company.where(registration_1: reg1, registration_2: reg2).map { |company| company }
       first_one = duplicates.shift
-      logger.info "Destroy #{duplicates.count} entries"
+      Rails.logger.info "Destroy #{duplicates.count} entries"
       duplicates.each { |duplicate| duplicate.destroy! }
     end
   end
