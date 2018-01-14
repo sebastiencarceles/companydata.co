@@ -12,6 +12,6 @@ class Api::CompaniesController < ApplicationController
   def index
     query = params[:q]
     render(json: {}, status: :bad_request) && (return) unless query
-    render json: Company.fuzzy_search(name: query)
+    render json: Company.search(query, fields: [:name])
   end
 end
