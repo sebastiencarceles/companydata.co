@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
+  searchkick
+
   QUALITIES = %w[headquarter branch]
 
   validates_presence_of :name, :slug

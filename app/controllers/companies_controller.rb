@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
 
   def search
     query = params[:q]
-    @companies = Company.fuzzy_search(name: query)
+    @companies = Company.search(query, fields: [:name])
   end
 
   def show

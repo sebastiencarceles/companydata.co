@@ -13,5 +13,12 @@ FactoryGirl.define do
     staff "1-10 employees"
     specialities Faker::Lorem.paragraph
     presentation Faker::Lorem.paragraphs
+
+    # Note: This should be the last trait in the list so `reindex` is called after all the other callbacks complete.
+    trait :reindex do
+      after(:create) do |company, _evaluator|
+        company.reindex(refresh: true)
+      end
+    end
   end
 end
