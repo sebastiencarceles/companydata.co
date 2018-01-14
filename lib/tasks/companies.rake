@@ -69,6 +69,11 @@ namespace :companies do
     end
   end
 
+  task reindex: :environment do
+    Rails.logger.info "Reindex companies"
+    Company.reindex
+  end
+
   private
 
     def filepath(page)
