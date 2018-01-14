@@ -31,7 +31,6 @@ namespace :companies do
       end
       page += 1
     end
-    Company.reindex
   end
 
   task load_from_s3: :environment do
@@ -50,7 +49,6 @@ namespace :companies do
       end
       page += 1
     end
-    Company.reindex
   end
 
   task dedupe: :environment do
