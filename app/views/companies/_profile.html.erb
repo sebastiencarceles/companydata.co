@@ -5,12 +5,12 @@
   <div class="card-body">
     <table class="table table-sm font-size-small">
       <% profile_labels_attributes.each do |label, attribute| %>
-      <% if @company[attribute].present? %>
-      <tr>
-        <td><strong><%= label %></strong></td>
-        <td><%= @company[attribute] %></td>
-      </tr>
-      <% end %>
+        <% if @company[attribute].present? %>
+          <tr>
+            <td><strong><%= label %></strong></td>
+            <td><%= @company[attribute] %></td>
+          </tr>
+        <% end %>
       <% end %>
     </table>
   </div>
