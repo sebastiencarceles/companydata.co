@@ -12,6 +12,6 @@ class Api::CompaniesController < ApplicationController
   def index
     query = params[:q]
     render(json: {}, status: :bad_request) && (return) unless query
-    render json: Company.search(query, fields: [:name])
+    render json: Company.search(query, fields: [:name], limit: 50)
   end
 end

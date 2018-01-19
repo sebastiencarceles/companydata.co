@@ -10,12 +10,14 @@
               <th>Company</th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <% @companies.each do |company| %>
               <tr>
-                <td><%= company.name %></td>
+                <td><%= link_to company.name, company %></td>
+                <td><small><%= company.city %></small></td>                
                 <td><small><%= company.country %></small></td>
                 <td class="actions text-right">
                   <div class="btn-group">
