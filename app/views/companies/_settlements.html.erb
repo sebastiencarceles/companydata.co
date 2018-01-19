@@ -1,0 +1,17 @@
+<div class="m-1 card card-tabbed">
+  <div class="card-header">
+    <h6>Settlements</h6>
+  </div>
+  <div class="card-body">
+    <table class="table table-sm font-size-small">
+      <% profile_labels_attributes.each do |label, attribute| %>
+      <% if @company[attribute].present? %>
+      <tr>
+        <td><strong><%= label %></strong></td>
+        <td><%= @company[attribute] %></td>
+      </tr>
+      <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

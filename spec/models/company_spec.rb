@@ -11,6 +11,26 @@ RSpec.describe Company, type: :model do
   it { should callback(:set_founded_in).before(:save).if(:founded_at?).unless(:founded_in?) }
   it { should callback(:set_headquarter_in).before(:save).if(:quality? && :city?).unless(:headquarter_in?) }
 
+  describe "#headquarter" do
+    context "when the company is a headquarter" do
+      it "returns self"
+    end
+
+    context "when the company is a branch" do
+      it "returns the headquarter when it exists"
+
+      it "returns nil otherwise"
+    end
+  end
+
+  describe "#branches" do
+    context "when the company is a headquarter" do
+      it "returns the branches when any"
+
+      it "returns an empty association otherwise"
+    end
+  end
+
   describe "#set_slug" do
     let(:company_1) { FactoryGirl.create :company, name: "virgin" }
     let(:company_2) { FactoryGirl.create :company, name: "virgin" }

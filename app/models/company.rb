@@ -17,6 +17,17 @@ class Company < ApplicationRecord
     define_method("#{quality}?") do
       self.quality == quality
     end
+
+    scope quality, -> { where(quality: quality) }
+  end
+
+  def headquarter
+    return self if headquarter?
+    headquarters.where(registration_1: registration_1).first
+  end
+
+  def branches
+    branchs.where(registration_1: registration_1).where.not(id: id)
   end
 
   private
