@@ -13,6 +13,12 @@ class Company < ApplicationRecord
   before_save :set_founded_in, if: :founded_at?, unless: :founded_in?
   before_save :set_headquarter_in, if: :quality? && :city?, unless: :headquarter_in?
 
+  QUALITIES.each do |quality|
+    define_method("#{quality}?") do
+      self.quality == quality
+    end
+  end
+
   private
 
     def set_slug
@@ -30,6 +36,6 @@ class Company < ApplicationRecord
     end
 
     def set_headquarter_in
-      self.headquarter_in = city if quality == "headquarter" && city.present?
+      self.headquarter_in = city if headquarter? && city.present?
     end
 end
