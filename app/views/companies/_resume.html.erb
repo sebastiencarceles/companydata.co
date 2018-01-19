@@ -1,0 +1,11 @@
+<div class="m-1 card card-image card-image-avatar card-full-height">
+  <div class="cover-content">
+    <div class="card-header">
+      <% if @company.logo_url.present? %>
+      <%= image_tag @company.logo_url, class: "img-thumbnail shadow", alt: @company.name, width: "128", height: "128" %>
+      <% end %>
+      <h4 class="card-title text-primary mt-4 my-2"><%= @company.name %></h4>
+      <h6 class="text-center text-muted"><%= founded(@company) %></h6>
+    </div>
+  </div>
+</div>  
