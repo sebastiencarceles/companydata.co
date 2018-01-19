@@ -94,6 +94,6 @@ namespace :companies do
     end
 
     def rjust(page)
-      page.to_s.rjust(4, '0')
+      page.to_s.rjust(4, "0")
     end
 end

@@ -8,11 +8,11 @@
           <a class="btn btn-lg btn-success" href="javascript:">Find out more</a>
         </div>
         <div class="col-12 col-md-5 mt-5 pt-5 pb-5">
-          <%= form_for "", url: search_companies_path, html: { method: :get, novalidate: true, class: "form d-flex flex-column bg-white p-4" } do |f| %>
+          <%= form_for Search.new(user: current_user), url: searches_path, html: { novalidate: true, class: "form d-flex flex-column bg-white p-4" } do |f| %>
             <p class="text-center">Give it a try!</p>
             <div class="input-group input-group-sm mb-2">
               <span class="input-group-addon" id="basic-addon1"><%= theme_icon_tag "search" %></span>
-              <%= f.text_field :q, required: true, autofocus: true, class: "form-control", placeholder: "Company name" %>
+              <%= f.text_field :query, required: true, autofocus: true, class: "form-control", placeholder: "Company name" %>
             </div>
             <%= f.submit "Search", class: "btn btn-primary ml-auto mt-2" %>
           <% end %>

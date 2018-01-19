@@ -13,7 +13,6 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require popper
 //= require rails-ujs
 //= require turbolinks
 //= require rrt

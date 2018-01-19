@@ -49,19 +49,18 @@ gem "devise"
 gem "active_model_serializers", "~> 0.10.0"
 
 # Search
-gem 'elasticsearch', '>= 1.0.15'
-gem 'faraday_middleware-aws-signers-v4', '>= 0.1.9'
-gem 'searchkick'
+gem "elasticsearch", ">= 1.0.15"
+gem "faraday_middleware-aws-signers-v4", ">= 0.1.9"
+gem "searchkick"
 
 # Pagination
-gem 'kaminari'
+gem "kaminari"
 
 # Bulk import
 gem "activerecord-import"
 
 # Forms
-gem 'simple_form'
-gem 'popper_js', '~> 1.12.9'
+gem "simple_form"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
