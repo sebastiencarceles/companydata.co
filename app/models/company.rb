@@ -25,11 +25,12 @@ class Company < ApplicationRecord
   end
 
   def headquarter
-    return nil if headquarter?
+    return nil if headquarter? || registration_1.nil?
     Company.headquarters.where(registration_1: registration_1).first
   end
 
   def branches
+    return [] if registration_1.nil?
     Company.branchs.where(registration_1: registration_1).where.not(id: id)
   end
 
