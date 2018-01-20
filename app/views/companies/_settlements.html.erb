@@ -1,0 +1,13 @@
+<div class="m-1 card card-tabbed">
+  <div class="card-header">
+    <h6>Settlements</h6>
+  </div>
+  <div class="card-body">
+    <table class="table table-sm font-size-small">
+      <%= render "settlement", company: @company.headquarter if @company.headquarter %>
+      <% @company.branches.each do |branch| %>
+        <%= render "settlement", company: branch %>
+      <% end %>
+    </table>
+  </div>
+</div>

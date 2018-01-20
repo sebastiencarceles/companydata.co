@@ -7,8 +7,8 @@ module CompaniesHelper
       ["Category", :category],
       ["Specialities", :specialities],
       ["Staff", :staff],
-      ["Registration number 1", :registration_1],
-      ["Registration number 2", :registration_2],
+      ["Registration #1", :registration_1],
+      ["Registration #2", :registration_2],
       ["Activity code", :activity_code]
     ]
   end

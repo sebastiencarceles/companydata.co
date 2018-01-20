@@ -1,0 +1,13 @@
+<tr>
+  <td>
+    <%= link_to fa_icon_tag(company.headquarter? ? "building" : "building-o"), company, target: "_blank", 'data-toggle': 'tooltip', title: (company.headquarter? ? "Headquarter" : "Branch"), class: "btn btn-link" %>
+    <%= link_to company.name, company, target: "_blank" %>
+  </td>
+  <td><small><%= company.city %></small></td>                
+  <td><small><%= company.country %></small></td>
+  <td class="actions text-right">
+    <div class="btn-group">
+      <%= link_to theme_icon_tag("eye"), company, target: "_blank", 'data-toggle': 'tooltip', title: 'Company details', class: "btn btn-link" %>
+    </div>
+  </td>
+</tr>

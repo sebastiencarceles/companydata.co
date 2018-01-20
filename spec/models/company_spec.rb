@@ -11,6 +11,60 @@ RSpec.describe Company, type: :model do
   it { should callback(:set_founded_in).before(:save).if(:founded_at?).unless(:founded_in?) }
   it { should callback(:set_headquarter_in).before(:save).if(:quality? && :city?).unless(:headquarter_in?) }
 
+  let(:registration_1) { "rego" }
+
+  describe "#headquarter" do
+    context "when the company is a headquarter" do
+      before { subject.update(quality: "headquarter") }
+
+      it "returns nil" do
+        expect(subject.headquarter).to be_nil
+      end
+    end
+
+    context "when the company is a branch" do
+      it "returns the headquarter when it exists" do
+        headquarter = FactoryGirl.create :company, quality: "headquarter", registration_1: registration_1, registration_2: "1"
+        subject.update(quality: "branch", registration_1: registration_1, registration_2: "2")
+        expect(subject.headquarter).to eq(headquarter)
+      end
+
+      it "returns nil otherwise" do
+        expect(subject.headquarter).to be_nil
+      end
+    end
+  end
+
+  describe "#branches" do
+    context "when the company is a headquarter" do
+      before { subject.update(quality: "headquarter", registration_1: registration_1, registration_2: "1") }
+
+      it "returns the branches when any" do
+        branch_1 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "2"
+        branch_2 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "3"
+        expect(subject.branches.to_a).to eq([branch_1, branch_2])
+      end
+
+      it "returns an empty association otherwise" do
+        expect(subject.branches).to be_empty
+      end
+    end
+
+    context "when the company is a branch" do
+      before { subject.update(quality: "branch", registration_1: registration_1, registration_2: "1") }
+
+      it "returns the other branches when any" do
+        branch_1 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "2"
+        branch_2 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "3"
+        expect(subject.branches.to_a).to eq([branch_1, branch_2])
+      end
+
+      it "returns an empty association otherwise" do
+        expect(subject.branches).to be_empty
+      end
+    end
+  end
+
   describe "#set_slug" do
     let(:company_1) { FactoryGirl.create :company, name: "virgin" }
     let(:company_2) { FactoryGirl.create :company, name: "virgin" }
