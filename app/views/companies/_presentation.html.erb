@@ -1,14 +1,6 @@
 <div class="m-1 card">
   <div class="card-body">
     <h6 class="card-title">Presentation</h6>
-    <% if @company.presentation.present? %>
-      <p class="card-text"><%= simple_format @company.presentation %></p>  
-    <% end %>
-    <% if linkedin_url(@company) %>
-      <%= link_to fa_icon_tag("linkedin-square"), linkedin_url(@company), "data-toggle": "tooltip", "data-original-title": "LinkedIn profile", target: "_blank" %>
-    <% end %>
-    <% if @company.source_url %>
-      <%= link_to fa_icon_tag("external-link"), @company.source_url, "data-toggle": "tooltip", "data-original-title": "Main data source", target: "_blank" %>    
-    <% end %>
+    <p class="card-text"><%= simple_format @company.presentation %></p>  
   </div>
 </div>

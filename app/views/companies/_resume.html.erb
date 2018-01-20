@@ -7,5 +7,14 @@
       <h4 class="card-title text-primary mt-4 my-2"><%= @company.name %></h4>
       <h6 class="text-center text-muted"><%= founded(@company) %></h6>
     </div>
+
+    <div class="card-body">
+      <% if linkedin_url(@company) %>
+        <%= link_to fa_icon_tag("linkedin-square"), linkedin_url(@company), "data-toggle": "tooltip", "data-original-title": "LinkedIn profile", target: "_blank" %>
+      <% end %>
+      <% if @company.source_url %>
+        <%= link_to fa_icon_tag("external-link"), @company.source_url, "data-toggle": "tooltip", "data-original-title": "Main data source", target: "_blank" %>    
+      <% end %>
+    </div>
   </div>
 </div>  
