@@ -6,24 +6,25 @@
       <div class="row">
         <%= render "resume" %>
       </div>
-      <div class="row">
-        <%= render "profile" %>
-      </div>
-    </div>
-    <div class="col-md-6">
       <% if @company.presentation.present? %>
         <div class="row">
           <%= render "presentation" %>
         </div>
       <% end %>
+      <div class="row">
+        <%= render "localization" %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <%= render "profile" %>
+      </div>
       <% if @company.headquarter.present? || @company.branches.any? %>
         <div class="row">
           <%= render  "settlements" %>
         </div>
       <% end %>
-      <div class="row">
-        <%= render "localization" %>
-      </div>
+      
     </div>
   </div>
 </div>
