@@ -51,14 +51,20 @@ namespace :companies do
     page = FIRST_PAGE
     while remote_file_exists?(url(subfolder, page)) do
       Rails.logger.info "Load from #{url(subfolder, page)}"
+      companies = []
       open(url(subfolder, page)) do |file|
-        companies = []
         YAML.load_stream(file) do |company_data|
           companies << company_data
+          if companies.size >= 5000
+            Rails.logger.info "Import #{companies.count} companies"
+            Company.import companies, on_duplicate_key_ignore: true
+            companies.clear
+          end
         end
-        Rails.logger.info "Import #{companies.count} companies"      
-        Company.import companies, on_duplicate_key_ignore: true
       end
+      Rails.logger.info "Import #{companies.count} companies"      
+      Company.import companies, on_duplicate_key_ignore: true
+      companies.clear
       page += 1
     end
   end
