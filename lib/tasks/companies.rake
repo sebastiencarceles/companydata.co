@@ -26,9 +26,18 @@ namespace :companies do
     page = FIRST_PAGE
     while File.exists?(filepath(page)) do
       Rails.logger.info "Load from #{filepath(page)}"
+      companies = []
       YAML.load_stream(File.read(filepath(page))) do |company_data|
-        Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data }
+        companies << company_data
+        if companies.size >= 5000
+          Rails.logger.info "Import #{companies.count} companies"
+          Company.import companies, on_duplicate_key_ignore: true
+          companies.clear
+        end
       end
+      Rails.logger.info "Import #{companies.count} companies"      
+      Company.import companies, on_duplicate_key_ignore: true
+      companies.clear
       page += 1
     end
   end
@@ -42,11 +51,20 @@ namespace :companies do
     page = FIRST_PAGE
     while remote_file_exists?(url(subfolder, page)) do
       Rails.logger.info "Load from #{url(subfolder, page)}"
+      companies = []
       open(url(subfolder, page)) do |file|
         YAML.load_stream(file) do |company_data|
-          Company.find_or_create_by(slug: company_data["slug"]) { |company| company.attributes = company_data }
+          companies << company_data
+          if companies.size >= 5000
+            Rails.logger.info "Import #{companies.count} companies"
+            Company.import companies, on_duplicate_key_ignore: true
+            companies.clear
+          end
         end
       end
+      Rails.logger.info "Import #{companies.count} companies"      
+      Company.import companies, on_duplicate_key_ignore: true
+      companies.clear
       page += 1
     end
   end
