@@ -13,21 +13,24 @@ class Company < ApplicationRecord
   before_save :set_founded_in, if: :founded_at?, unless: :founded_in?
   before_save :set_headquarter_in, if: :quality? && :city?, unless: :headquarter_in?
 
-  QUALITIES.each do |quality|
-    define_method("#{quality}?") do
-      self.quality == quality
-    end
+  scope :headquarters, -> { where(quality: "headquarter") }
+  scope :branchs, -> { where(quality: "branch") }
 
-    scope quality, -> { where(quality: quality) }
+  def headquarter?
+    quality == "headquarter"
+  end
+
+  def branch?
+    quality == "branch"
   end
 
   def headquarter
     return self if headquarter?
-    headquarters.where(registration_1: registration_1).first
+    Company.headquarters.where(registration_1: registration_1).first
   end
 
   def branches
-    branchs.where(registration_1: registration_1).where.not(id: id)
+    Company.branchs.where(registration_1: registration_1).where.not(id: id)
   end
 
   private
