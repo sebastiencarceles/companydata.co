@@ -17,8 +17,8 @@ RSpec.describe Company, type: :model do
     context "when the company is a headquarter" do
       before { subject.update(quality: "headquarter") }
 
-      it "returns self" do
-        expect(subject.headquarter).to eq(subject)
+      it "returns nil" do
+        expect(subject.headquarter).to be_nil
       end
     end
 

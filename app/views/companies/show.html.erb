@@ -4,18 +4,23 @@
   <div class="row mt-2 mb-2">
     <div class="col-md-6">
       <div class="row">
-        <%= render "resume", company: @company %>
+        <%= render "resume" %>
       </div>
       <div class="row">
-        <%= render "profile", company: @company %>
+        <%= render "profile" %>
       </div>
     </div>
     <div class="col-md-6">
       <div class="row">
-        <%= render "presentation", company: @company %>
+        <%= render "presentation" %>
       </div>
+      <% if @company.headquarter || @company.branches.any? %>
+        <div class="row">
+          <%= render  "settlements" %>
+        </div>
+      <% end %>
       <div class="row">
-        <%= render "localization", company: @company %>
+        <%= render "localization" %>
       </div>
     </div>
   </div>

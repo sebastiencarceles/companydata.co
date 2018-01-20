@@ -25,7 +25,7 @@ class Company < ApplicationRecord
   end
 
   def headquarter
-    return self if headquarter?
+    return nil if headquarter?
     Company.headquarters.where(registration_1: registration_1).first
   end
 
