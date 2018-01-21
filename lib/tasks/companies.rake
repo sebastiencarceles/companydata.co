@@ -48,7 +48,7 @@ namespace :companies do
     subfolder = ARGV[1]
     return "No subfolder given" if subfolder.nil?
 
-    page = FIRST_PAGE
+    page = ARGV[2].blank? ? FIRST_PAGE : ARGV[2].to_i
     while remote_file_exists?(url(subfolder, page)) do
       Rails.logger.info "Load from #{url(subfolder, page)}"
       companies = []
