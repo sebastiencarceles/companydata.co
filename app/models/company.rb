@@ -5,6 +5,8 @@ class Company < ApplicationRecord
 
   QUALITIES = %w[headquarter branch]
 
+  has_many :financial_years
+
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
   validates_inclusion_of :quality, in: QUALITIES, allow_blank: true
