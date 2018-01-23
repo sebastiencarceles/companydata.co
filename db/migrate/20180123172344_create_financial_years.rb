@@ -1,6 +1,7 @@
 class CreateFinancialYears < ActiveRecord::Migration[5.1]
   def change
     create_table :financial_years do |t|
+      t.string :year
       t.string :currency
       t.integer :revenue
       t.integer :income
