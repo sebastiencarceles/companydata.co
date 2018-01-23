@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119111125) do
+ActiveRecord::Schema.define(version: 20180123172344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,19 @@ ActiveRecord::Schema.define(version: 20180119111125) do
     t.index ["slug"], name: "index_companies_on_slug", unique: true
   end
 
+  create_table "financial_years", force: :cascade do |t|
+    t.string "currency"
+    t.integer "revenue"
+    t.integer "income"
+    t.integer "staff"
+    t.integer "duration"
+    t.date "closing_date"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_financial_years_on_company_id"
+  end
+
   create_table "searches", force: :cascade do |t|
     t.string "query"
     t.bigint "user_id"
@@ -79,5 +92,6 @@ ActiveRecord::Schema.define(version: 20180119111125) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "financial_years", "companies"
   add_foreign_key "searches", "users"
 end

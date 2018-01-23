@@ -35,7 +35,7 @@ namespace :companies do
           companies.clear
         end
       end
-      Rails.logger.info "Import #{companies.count} companies"      
+      Rails.logger.info "Import #{companies.count} companies"
       Company.import companies, on_duplicate_key_ignore: true
       companies.clear
       page += 1
@@ -62,7 +62,7 @@ namespace :companies do
           end
         end
       end
-      Rails.logger.info "Import #{companies.count} companies"      
+      Rails.logger.info "Import #{companies.count} companies"
       Company.import companies, on_duplicate_key_ignore: true
       companies.clear
       page += 1
