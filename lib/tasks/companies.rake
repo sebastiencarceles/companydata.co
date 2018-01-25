@@ -4,42 +4,14 @@ require "yaml"
 require "net/http"
 
 namespace :companies do
-  FIRST_PAGE = 1
-  PAGE_SIZE = 100000
-
   task dump: :environment do
-    Rails.logger.info "Dump companies into local files"
-    page = FIRST_PAGE
-    while companies(page).any? do
-      Rails.logger.info "Dump into #{filepath(page)}"
-      File.open(filepath(page), "w") do |file|
-        companies(page).each do |company|
-          file.write(company.attributes.except("id", "created_at", "updated_at").to_yaml)
-        end
-      end
-      page += 1
-    end
+    DataYaml.dump("db/raw", FinancialYear, 1, 100000)
+    # DataYaml.dump("db/raw", Company)
   end
 
   task load: :environment do
-    Rails.logger.info "Load companies from local files"
-    page = FIRST_PAGE
-    while File.exists?(filepath(page)) do
-      Rails.logger.info "Load from #{filepath(page)}"
-      companies = []
-      YAML.load_stream(File.read(filepath(page))) do |company_data|
-        companies << company_data
-        if companies.size >= 5000
-          Rails.logger.info "Import #{companies.count} companies"
-          Company.import companies, on_duplicate_key_ignore: true
-          companies.clear
-        end
-      end
-      Rails.logger.info "Import #{companies.count} companies"
-      Company.import companies, on_duplicate_key_ignore: true
-      companies.clear
-      page += 1
-    end
+    DataYaml.load("db/raw", FinancialYear)
+    # DataYaml.load("db/raw", Company)
   end
 
   task load_from_s3: :environment do

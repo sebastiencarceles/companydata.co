@@ -9,6 +9,4 @@ tmp/cache/
 /config/application.yml
 
 # Ignore raw data
-db/raw/insee/
-db/raw/sirene/
-db/raw/companies/
+db/raw/
