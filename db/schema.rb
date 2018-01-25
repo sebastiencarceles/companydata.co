@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20180123172344) do
   create_table "financial_years", force: :cascade do |t|
     t.string "year"
     t.string "currency"
-    t.integer "revenue"
-    t.integer "income"
+    t.bigint "revenue"
+    t.bigint "income"
     t.integer "staff"
     t.integer "duration"
     t.date "closing_date"
