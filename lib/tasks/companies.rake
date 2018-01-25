@@ -1,44 +1,24 @@
 # frozen_string_literal: true
 
-require "yaml"
-require "net/http"
-
 namespace :companies do
   task dump: :environment do
-    DataYaml.dump("db/raw", FinancialYear, 1, 100000)
-    # DataYaml.dump("db/raw", Company)
+    DataYaml.dump("db/raw", FinancialYear)
+    DataYaml.dump("db/raw", Company)
   end
 
   task load: :environment do
     DataYaml.load("db/raw", FinancialYear)
-    # DataYaml.load("db/raw", Company)
+    DataYaml.load("db/raw", Company)
   end
 
   task load_from_s3: :environment do
-    Rails.logger.info "Load companies from AWS S3"
     ARGV.each { |a| task a.to_sym do ; end }
     subfolder = ARGV[1]
-    return "No subfolder given" if subfolder.nil?
+    return "No subfolder given" if subfolder.nil? # TODO use fail instead
 
-    page = ARGV[2].blank? ? FIRST_PAGE : ARGV[2].to_i
-    while remote_file_exists?(url(subfolder, page)) do
-      Rails.logger.info "Load from #{url(subfolder, page)}"
-      companies = []
-      open(url(subfolder, page)) do |file|
-        YAML.load_stream(file) do |company_data|
-          companies << company_data
-          if companies.size >= 5000
-            Rails.logger.info "Import #{companies.count} companies"
-            Company.import companies, on_duplicate_key_ignore: true
-            companies.clear
-          end
-        end
-      end
-      Rails.logger.info "Import #{companies.count} companies"
-      Company.import companies, on_duplicate_key_ignore: true
-      companies.clear
-      page += 1
-    end
+    indir_url = "https://s3.eu-west-3.amazonaws.com/company-io/#{subfolder}"
+    DataYaml.load(indir_url, FinancialYear)
+    DataYaml.load(indir_url, Company)
   end
 
   task dedupe: :environment do
@@ -61,29 +41,4 @@ namespace :companies do
     Rails.logger.info "Reindex companies"
     Company.reindex
   end
-
-  private
-
-    def filepath(page)
-      "db/raw/companies/companies-#{rjust(page)}.yml"
-    end
-
-    def companies(page)
-      Company.order(:id).page(page).per(PAGE_SIZE)
-    end
-
-    def url(subfolder, page)
-      "https://s3.eu-west-3.amazonaws.com/company-io/companies/#{subfolder}/companies-#{rjust(page)}.yml"
-    end
-
-    def remote_file_exists?(uri)
-      url = URI.parse(uri)
-      request = Net::HTTP.new(url.host, url.port)
-      request.use_ssl = true
-      request.request_head(url.path).code == "200"
-    end
-
-    def rjust(page)
-      page.to_s.rjust(4, "0")
-    end
 end
