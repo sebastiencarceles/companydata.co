@@ -47,7 +47,7 @@ module DataYaml
         open(fileurl(base_url, page)) do |file|
           YAML.load_stream(file) do |data|
             entries << data
-            if entries.size >= 1000
+            if entries.size >= 10000
               Rails.logger.info "Import #{entries.count} entries"
               cls.import entries, on_duplicate_key_ignore: on_duplicate_key_ignore
               entries.clear
