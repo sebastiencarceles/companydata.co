@@ -5,8 +5,6 @@ require "csv"
 namespace :infogreffe do
   task financial_years: :environment do
     ARGV.each { |a| task a.to_sym do ; end }
-    year =
-    source =
 
     fail "No year given" if ARGV[1].blank?
     fail "No source given" if ARGV[2].blank?

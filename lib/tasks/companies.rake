@@ -14,7 +14,7 @@ namespace :companies do
   task load_from_s3: :environment do
     ARGV.each { |a| task a.to_sym do ; end }
     subfolder = ARGV[1]
-    return "No subfolder given" if subfolder.nil? # TODO use fail instead
+    fail "No subfolder given" if subfolder.nil?
 
     indir_url = "https://s3.eu-west-3.amazonaws.com/company-io/#{subfolder}"
     DataYaml.load(indir_url, FinancialYear)
