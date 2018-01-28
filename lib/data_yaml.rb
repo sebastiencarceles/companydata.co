@@ -2,15 +2,22 @@
 
 module DataYaml
   class << self
-    def dump(outdir, cls, per_page: 100000)
+    def dump(outdir, cls, per_page: 100000, gzip: true)
       Rails.logger.info "Dump entries of #{cls} into #{outdir}"
       prepare_output_directory(outdir, cls)
       page = 1
       while scope(cls, page, per_page).any? do
-        Rails.logger.info "Dump into #{filepath(outdir, cls, page)}"
-        File.open(filepath(outdir, cls, page), "w") do |file|
-          scope(cls, page, per_page).each do |entity|
-            file.write(entity.attributes.to_yaml)
+        filepath = filepath(outdir, cls, page, gzip: gzip)
+        Rails.logger.info "Dump into #{filepath}"
+        if gzip
+          File.open(filepath, "wb") do |file|
+            Zlib::GzipWriter.wrap(file) do |gz|
+              write_into(gz, scope(cls, page, per_page))
+            end
+          end
+        else
+          File.open(filepath, "w") do |file|
+            write_into(file, scope(cls, page, per_page))
           end
         end
         page += 1
@@ -41,6 +48,15 @@ module DataYaml
       Rails.logger.info "Load companies from AWS S3 #{indir_url}"
       base_url = base_url(indir_url, cls)
 
+      # File.open("data.tar.gz", "rb") do |file|
+      #   Zlib::GzipReader.wrap(file) do |gz|
+      #     Gem::Package::TarReader.new(gz) do |tar|
+      #       tar.each { |entry| puts entry.full_name }
+      #     end
+      #   end
+      # end
+
+
       while remote_file_exists?(fileurl(base_url, page)) do
         Rails.logger.info "Load from #{fileurl(base_url, page)}"
         entries = []
@@ -62,6 +78,12 @@ module DataYaml
 
     private
 
+      def write_into(file, scope)
+        scope.each do |entity|
+          file.write(entity.attributes.to_yaml)
+        end
+      end
+
       def scope(cls, page, per_page)
         cls.order(:id).page(page).per(per_page)
       end
@@ -74,8 +96,9 @@ module DataYaml
         File.join(dir, cls.name.tableize)
       end
 
-      def filepath(dir, cls, page)
-        File.join(dirpath(dir, cls), "#{rjust(page)}.yml")
+      def filepath(dir, cls, page, gzip: false)
+        additional_extension = ".gz" if gzip
+        File.join(dirpath(dir, cls), "#{rjust(page)}.yml#{additional_extension}")
       end
 
       def rjust(page)
@@ -86,10 +109,11 @@ module DataYaml
         [indir_url, "/", cls.name.tableize].join("/")
       end
 
-      def fileurl(base_url, page)
-        [base_url, "#{rjust(page)}.yml"].join("/")
+      def fileurl(base_url, page, gzip: false)
+        additional_extension = ".gz" if gzip
+        [base_url, "#{rjust(page)}.yml#{additional_extension}"].join("/")
       end
-  
+
       def remote_file_exists?(uri)
         url = URI.parse(uri)
         request = Net::HTTP.new(url.host, url.port)
