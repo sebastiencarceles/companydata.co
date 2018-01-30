@@ -38,12 +38,12 @@ module DataYaml
         if gzip
           File.open(filepath, "rb") do |file|
             Zlib::GzipReader.wrap(file) do |gz|
-              read_from(gz)
+              read_from(gz, cls, on_duplicate_key_ignore)
             end
           end
         else
           File.open(filepath, "r") do |file|
-            read_from(file)
+            read_from(file, cls, on_duplicate_key_ignore)
           end
         end
 
@@ -52,7 +52,7 @@ module DataYaml
       end
     end
 
-    def load_from_s3(indir_url, cls, gzip: true, on_duplicate_key_error: true)
+    def load_from_s3(indir_url, cls, gzip: true, on_duplicate_key_ignore: true)
       Rails.logger.info "Load companies from AWS S3 #{indir_url}"
       base_url = base_url(indir_url, cls)
       page = 1
@@ -63,12 +63,12 @@ module DataYaml
         if gzip
           open(fileurl) do |file|
             Zlib::GzipReader.wrap(file) do |gz|
-              read_from(gz)
+              read_from(gz, cls, on_duplicate_key_ignore)
             end
           end
         else
           open(fileurl) do |file|
-            read_from(file)
+            read_from(file, cls, on_duplicate_key_ignore)
           end
         end
 
@@ -85,7 +85,7 @@ module DataYaml
         end
       end
 
-      def read_from(file)
+      def read_from(file, cls, on_duplicate_key_ignore)
         entries = []
         YAML.load_stream(file) do |data|
           entries << data
@@ -111,7 +111,7 @@ module DataYaml
         File.join(dir, cls.name.tableize)
       end
 
-      def filepath(dir, cls, page, gzip: false) # TODO rename
+      def filepath(dir, cls, page, gzip) # TODO rename
         additional_extension = ".gz" if gzip
         File.join(dirpath(dir, cls), "#{rjust(page)}.yml#{additional_extension}")
       end
@@ -120,8 +120,8 @@ module DataYaml
         page.to_s.rjust(4, "0")
       end
 
-      def base_url(indir_url, cls)
-        [indir_url, "/", cls.name.tableize].join("/")
+      def base_url(indir_url, cls) # TODO fault tolerance
+        [indir_url, "/", cls.name.tableize].join("")
       end
 
       def fileurl(base_url, page, gzip: false) # TODO rename

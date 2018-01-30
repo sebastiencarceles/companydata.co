@@ -2,13 +2,13 @@
 
 namespace :companies do
   task dump: :environment do
-    DataYaml.dump("db/raw", FinancialYear)
     DataYaml.dump("db/raw", Company)
+    DataYaml.dump("db/raw", FinancialYear)
   end
 
   task load: :environment do
-    DataYaml.load("db/raw", FinancialYear)
     DataYaml.load("db/raw", Company)
+    DataYaml.load("db/raw", FinancialYear)
   end
 
   task load_from_s3: :environment do
@@ -17,8 +17,8 @@ namespace :companies do
     fail "No subfolder given" if subfolder.nil?
 
     indir_url = "https://s3.eu-west-3.amazonaws.com/company-io/#{subfolder}"
-    DataYaml.load(indir_url, FinancialYear)
-    DataYaml.load(indir_url, Company)
+    DataYaml.load_from_s3(indir_url, Company)
+    DataYaml.load_from_s3(indir_url, FinancialYear)
   end
 
   task dedupe: :environment do
