@@ -11,6 +11,7 @@ RSpec.describe Company, type: :model do
   it { should callback(:set_slug).before(:validation).if(:name?).unless(:slug?) }
   it { should callback(:set_founded_in).before(:save).if(:founded_at?).unless(:founded_in?) }
   it { should callback(:set_headquarter_in).before(:save).if(:quality? && :city?).unless(:headquarter_in?) }
+  it { should callback(:set_smooth_name).before(:save).if(:name?).unless(:smooth_name?) }
 
   let(:registration_1) { "rego" }
 
@@ -99,6 +100,14 @@ RSpec.describe Company, type: :model do
 
     it "sets headquarter_in from city when the company is the headquarter" do
       expect(subject.headquarter_in).to eq(subject.city)
+    end
+  end
+
+  describe "#set_smooth_name" do
+    let(:company) { FactoryGirl.build :company, name: "JANOT*THIERRY/" }
+
+    it "sets the smooth name" do
+      expect { company.save! }.to change { company.smooth_name }.from(nil).to("Janot Thierry")
     end
   end
 end

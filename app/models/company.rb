@@ -14,6 +14,7 @@ class Company < ApplicationRecord
   before_validation :set_slug, if: :name?, unless: :slug?
   before_save :set_founded_in, if: :founded_at?, unless: :founded_in?
   before_save :set_headquarter_in, if: :quality? && :city?, unless: :headquarter_in?
+  before_save :set_smooth_name, if: :name?, unless: :smooth_name?
 
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
@@ -54,5 +55,9 @@ class Company < ApplicationRecord
 
     def set_headquarter_in
       self.headquarter_in = city if headquarter? && city.present?
+    end
+
+    def set_smooth_name
+      self.smooth_name = name.gsub("*", " ").gsub("/", " ").titleize.strip
     end
 end

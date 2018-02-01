@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123172344) do
+ActiveRecord::Schema.define(version: 20180201101154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,8 +50,11 @@ ActiveRecord::Schema.define(version: 20180123172344) do
     t.string "cedex"
     t.string "quality"
     t.string "revenue"
+    t.string "smooth_name"
+    t.index ["name"], name: "index_companies_on_name"
     t.index ["registration_1", "registration_2"], name: "index_companies_on_registration_1_and_registration_2"
     t.index ["slug"], name: "index_companies_on_slug", unique: true
+    t.index ["smooth_name"], name: "index_companies_on_smooth_name"
   end
 
   create_table "financial_years", force: :cascade do |t|

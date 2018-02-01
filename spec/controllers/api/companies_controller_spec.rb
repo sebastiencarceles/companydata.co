@@ -50,6 +50,18 @@ RSpec.describe Api::CompaniesController, type: :request do
           expect(parsed_body["id"]).to eq company.id
         end
       end
+
+      context "by smooth name" do
+        before { get "/api/companies/#{company.smooth_name.parameterize}" }
+
+        it "returns http success" do
+          expect(response).to be_success
+        end
+
+        it "returns the company" do
+          expect(parsed_body["id"]).to eq company.id
+        end
+      end
     end
   end
 
