@@ -3,30 +3,29 @@
 require "rails_helper"
 
 RSpec.describe Api::TableTennisController, type: :request do
-  describe "getting a pong response to a ping request" do
+  describe "Getting a ping with GET /ping" do
     context "when unauthenticated" do
       before { get "/api/ping" }
+
+      it "returns http unauthorized" do
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it "returns an error detail" do
+        expect(parsed_body["error"]).to eq "unauthenticated or unauthorized user"
+      end
+    end
+
+    context "when authenticated" do
+      before { get "/api/ping", headers: authentication_header }
 
       it "returns http success" do
         expect(response).to be_success
       end
 
-      it "returns unauthenticated pong" do
-        expect(parsed_body["response"]).to eq "unauthenticated pong"
+      it "returns authenticated pong" do
+        expect(parsed_body["response"]).to eq "pong"
       end
     end
-
-    # TODO
-    # context "when authenticated" do
-    #   before { get "/api/ping", headers: authentication_header }
-
-    #   it "returns http success" do
-    #     expect(response).to be_success
-    #   end
-
-    #   it "returns authenticated pong" do
-    #     expect(parsed_body["response"]).to eq "authenticated pong"
-    #   end
-    # end
   end
 end

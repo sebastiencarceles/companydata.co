@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::CompaniesController < ApplicationController
+class Api::CompaniesController < ApiController
   def show
     company = Company.find_by_id(params[:identifier])
     company ||= Company.find_by_slug(params[:identifier])

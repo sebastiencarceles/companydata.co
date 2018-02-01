@@ -2,10 +2,6 @@
 
 class Api::TableTennisController < ApiController
   def ping
-    if current_user
-      render json: { response: "authenticated pong" }
-    else
-      render json: { response: "unauthenticated pong" }
-    end
+    render json: { response: "pong" }
   end
 end
