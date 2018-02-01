@@ -24,13 +24,17 @@ namespace :infogreffe do
       company = Company.where(registration_1: reg_1, registration_2: reg_2).first
       if company
         (1..3).each do |index|
-          financial_year = company.financial_years.find_or_initialize_by(year: (year - (index - 1)))
+          closing_date = row["Date de cloture exercice #{index}"]
+          financial_year = company.financial_years.find_or_initialize_by(
+            year: (year - (index - 1)),
+            closing_date: closing_date
+          )
           financial_year.currency = "€"
           financial_year.revenue = row["CA #{index}"]
           financial_year.income = row["Résultat #{index}"]
           financial_year.staff = row["Effectif #{index}"]
           financial_year.duration = row["Durée #{index}"]
-          financial_year.closing_date = row["Date de cloture exercice #{index}"]
+          financial_year.closing_date = closing_date
           financial_year.save!
         end
       else
