@@ -3,7 +3,7 @@
 module CompaniesHelper
   def profile_attributes(company)
     attributes = []
-    attributes << ["Registered name", company.name] if company.name.present?
+    attributes << ["Legal name", company.name] if company.name.present?
     attributes << ["Legal form", company.legal_form] if company.legal_form.present?
     attributes << ["Category", company.category] if company.category.present?
     attributes << ["Specialities", company.specialities] if company.specialities.present?
@@ -47,8 +47,20 @@ module CompaniesHelper
       [
         company.address_line_1,
         company.address_line_2,
-        company.zipcode,
-        company.city
-      ].compact
+        company.address_line_3,
+        company.address_line_4,
+        company.address_line_5,
+        [zipcode(company), city(company)].join(" ")
+      ].reject(&:blank?)
+    end
+
+    def zipcode(company)
+      return company.cedex if company.cedex.present?
+      company.zipcode
+    end
+
+    def city(company)
+      return "#{company.city} CEDEX" if company.cedex.present?
+      company.city
     end
 end
