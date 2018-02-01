@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 module CompaniesHelper
-  def profile_labels_attributes
-    [
-      ["Registered name", :name],
-      ["Legal form", :legal_form],
-      ["Category", :category],
-      ["Specialities", :specialities],
-      ["Staff", :staff],
-      ["Registration #1", :registration_1],
-      ["Registration #2", :registration_2],
-      ["Activity code", :activity_code]
-    ]
+  def profile_attributes(company)
+    attributes = []
+    attributes << ["Registered name", company.name] if company.name.present?
+    attributes << ["Legal form", company.legal_form] if company.legal_form.present?
+    attributes << ["Category", company.category] if company.category.present?
+    attributes << ["Specialities", company.specialities] if company.specialities.present?
+    attributes << ["Staff", company.staff] if company.staff.present?
+    attributes << ["Registration #1", company.registration_1] if company.registration_1.present?
+    attributes << ["Registration #2", company.registration_2] if company.registration_2.present?
+    attributes << ["Activity", activity(company)] if activity(company)
   end
 
   def founded(company)
@@ -36,14 +35,20 @@ module CompaniesHelper
     address_components(company).join(" ")
   end
 
+  def activity(company)
+    code = company.activity_code
+    return nil if code.blank?
+    "#{I18n.t("activity_codes.#{code}")} (#{code})"
+  end
+
   private
 
-  def address_components(company)
-    [
-      company.address_line_1,
-      company.address_line_2,
-      company.zipcode,
-      company.city
-    ].compact
-  end
+    def address_components(company)
+      [
+        company.address_line_1,
+        company.address_line_2,
+        company.zipcode,
+        company.city
+      ].compact
+    end
 end
