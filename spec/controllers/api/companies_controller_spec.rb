@@ -138,6 +138,18 @@ RSpec.describe Api::CompaniesController, type: :request do
             expect(parsed_body.count).to eq(5)
           end
         end
+
+        it "returns the pagination data in the response headers" do
+          get "/api/companies", params: { q: "company", page: 2, per_page: 5 }, headers: authentication_header
+          expect(response.headers["X-Pagination-Limit-Value"]).to eq(5)
+          expect(response.headers["X-Pagination-Total-Pages"]).to eq(4)
+          expect(response.headers["X-Pagination-Current-Page"]).to eq(2)
+          expect(response.headers["X-Pagination-Next-Page"]).to eq(3)
+          expect(response.headers["X-Pagination-Prev-Page"]).to eq(1)
+          expect(response.headers["X-Pagination-First-Page"]).to be false
+          expect(response.headers["X-Pagination-Last-Page"]).to be false
+          expect(response.headers["X-Pagination-Out-Of-Range"]).to be false
+        end
       end
     end
   end

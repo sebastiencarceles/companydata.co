@@ -14,7 +14,16 @@ class Api::CompaniesController < ApiController
   def index
     query = params[:q]
     render(json: {}, status: :bad_request) && (return) unless query
-    render json: Company.search(query, fields: [:name, :smooth_name], page: page, per_page: per_page)
+    scope = Company.search(query, fields: [:name, :smooth_name], page: page, per_page: per_page)
+    response.headers["X-Pagination-Limit-Value"] = scope.limit_value
+    response.headers["X-Pagination-Total-Pages"] = scope.total_pages
+    response.headers["X-Pagination-Current-Page"] = scope.current_page
+    response.headers["X-Pagination-Next-Page"] = scope.next_page
+    response.headers["X-Pagination-Prev-Page"] = scope.prev_page
+    response.headers["X-Pagination-First-Page"] = scope.first_page?
+    response.headers["X-Pagination-Last-Page"] = scope.last_page?
+    response.headers["X-Pagination-Out-Of-Range"] = scope.out_of_range?
+    render json: scope
   end
 
   private
