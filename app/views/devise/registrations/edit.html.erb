@@ -8,9 +8,31 @@
         <p class="p-0 m-0 text-uppercase">My Account Details</p>
       </header>
     </div>
+
     <div class="row m-5">
       <div class="col-12 col-md-8 mr-auto ml-auto">
         <div class="card">
+          <div class="card-header">
+            <h6>API</h6>
+          </div>
+          <div class="card-body">
+            <p>Keep you API key safe and secret! Don't store it in a repository, set it as an environment variable. If you feel like it has been stolen, just renew it and update the environment variable.</p>
+            <table class="table">
+              <td><strong>Secret API Key</strong></td>
+              <td><%= resource.api_key %></td>
+            </table>
+            <%= link_to "Renew API key", renew_api_key_path, data: { confirm: "Really?" }, class: "btn btn-primary pull-right mt-3 mb-3" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-5">
+      <div class="col-12 col-md-8 mr-auto ml-auto">
+        <div class="card">
+          <div class="card-header">
+            <h6>Account</h6>
+          </div>
           <div class="card-body">
             <div class="container">
               <%= form_for resource, as: resource_name, url: registration_path(resource_name),
