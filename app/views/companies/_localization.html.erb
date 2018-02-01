@@ -2,8 +2,16 @@
   <div class="card-header text-center">
     <i class="ti-map display-1 text-brand-primary-lightest"></i>
   </div>
-  <div class="card-body text-center">
-    <small><%= simple_format(full_address(@company)) %></small>
-    <h3 class="m-0 leading-normal"><%= @company.country %></h3>
+  <div class="card-body">
+    <div class="text-center">
+      <small><%= simple_format(full_address(@company)) %></small>
+      <h3 class="m-0 leading-normal"><%= @company.country %></h3>
+    </div>
+
+    <% if google_maps_url(@company) %>
+      <div>
+        <%= link_to fa_icon_tag("map"), google_maps_url(@company), "data-toggle": "tooltip", "data-original-title": "Google Maps", target: "_blank" %>
+      </div>
+    <% end %>
   </div>
 </div>      
