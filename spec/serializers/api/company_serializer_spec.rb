@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Api::CompanySerializer, type: :serializer do
   before(:all) {
@@ -23,5 +25,5 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
 
   it { expect(subject["id"]).to eql(@company.id) }
 
-  
+
 end

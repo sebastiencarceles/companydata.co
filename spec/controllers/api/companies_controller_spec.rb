@@ -112,16 +112,16 @@ RSpec.describe Api::CompaniesController, type: :request do
       context "when the query is given" do
         context "without pagination parameter" do
           before { get "/api/companies", params: { q: "total" }, headers: authentication_header }
-          
+
           it "returns http success" do
             expect(response).to be_success
           end
-          
+
           it "returns a collection of companies" do
             expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totali", "motal"]
           end
         end
-          
+
         context "with pagination parameters" do
           it "returns the asked page" do
             get "/api/companies", params: { q: "company", page: 1 }, headers: authentication_header

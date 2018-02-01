@@ -19,11 +19,11 @@ class Api::CompaniesController < ApiController
 
   private
 
-  def page
-    params[:page].presence || 1
-  end
+    def page
+      params[:page].presence || 1
+    end
 
-  def per_page
-    params[:per_page].presence || 10
-  end
+    def per_page
+      params[:per_page].presence || 10
+    end
 end
