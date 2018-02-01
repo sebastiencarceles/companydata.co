@@ -14,6 +14,16 @@ class Api::CompaniesController < ApiController
   def index
     query = params[:q]
     render(json: {}, status: :bad_request) && (return) unless query
-    render json: Company.search(query, fields: [:name, :smooth_name], limit: 50)
+    render json: Company.search(query, fields: [:name, :smooth_name], page: page, per_page: per_page)
+  end
+
+  private
+
+  def page
+    params[:page].presence || 1
+  end
+
+  def per_page
+    params[:per_page].presence || 10
   end
 end

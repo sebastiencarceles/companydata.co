@@ -13,7 +13,6 @@ RSpec.describe Api::CompaniesController, type: :request do
     end
 
     context "when authenticated" do
-
       context "when the company can't be found" do
         before { get "/api/companies/3323344", headers: authentication_header }
 
@@ -77,6 +76,22 @@ RSpec.describe Api::CompaniesController, type: :request do
   end
 
   describe "Searching for companies with GET /api/companies/" do
+    before(:all) {
+      (1..20).each do |index|
+        FactoryGirl.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
+      end
+
+      FactoryGirl.create :company, :reindex, name: "totali"
+      FactoryGirl.create :company, :reindex, name: "tube metal"
+      FactoryGirl.create :company, :reindex, name: "total"
+      FactoryGirl.create :company, :reindex, name: "edf"
+      FactoryGirl.create :company, :reindex, name: "motal"
+    }
+
+    after(:all) {
+      Company.delete_all
+    }
+
     context "when unauthenticated" do
       before { get "/api/companies/" }
 
@@ -95,21 +110,33 @@ RSpec.describe Api::CompaniesController, type: :request do
       end
 
       context "when the query is given" do
-        before {
-          FactoryGirl.create :company, :reindex, name: "totali"
-          FactoryGirl.create :company, :reindex, name: "tube metal"
-          FactoryGirl.create :company, :reindex, name: "total"
-          FactoryGirl.create :company, :reindex, name: "edf"
-          FactoryGirl.create :company, :reindex, name: "motal"
-          get "/api/companies", params: { q: "total" }, headers: authentication_header
-        }
-
-        it "returns http success" do
-          expect(response).to be_success
+        context "without pagination parameter" do
+          before { get "/api/companies", params: { q: "total" }, headers: authentication_header }
+          
+          it "returns http success" do
+            expect(response).to be_success
+          end
+          
+          it "returns a collection of companies" do
+            expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totali", "motal"]
+          end
         end
+          
+        context "with pagination parameters" do
+          it "returns the asked page" do
+            get "/api/companies", params: { q: "company", page: 1 }, headers: authentication_header
+            first_page = parsed_body.map { |body| body["name"] }
 
-        it "returns a collection of companies" do
-          expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totali", "motal"]
+            get "/api/companies", params: { q: "company", page: 2 }, headers: authentication_header
+            second_page = parsed_body.map { |body| body["name"] }
+
+            expect(first_page & second_page).to be_empty
+          end
+
+          it "returns the asked quantity" do
+            get "/api/companies", params: { q: "company", per_page: 5 }, headers: authentication_header
+            expect(parsed_body.count).to eq(5)
+          end
         end
       end
     end
