@@ -21,10 +21,18 @@
       </div>
       <% if @company.headquarter.present? || @company.branches.any? %>
         <div class="row">
-          <%= render  "settlements" %>
+          <%= render "settlements" %>
         </div>
       <% end %>
-      
     </div>
   </div>
+  <% if @company.financial_years.any? %>
+    <div class="row mt-2 mb-2">
+      <div class="col-md-12">
+        <div class="row">
+          <%= render "financial_years" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

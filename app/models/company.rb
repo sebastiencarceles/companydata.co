@@ -5,7 +5,7 @@ class Company < ApplicationRecord
 
   QUALITIES = %w[headquarter branch]
 
-  has_many :financial_years
+  has_many :financial_years, -> { order(year: :desc) }, dependent: :destroy
 
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug

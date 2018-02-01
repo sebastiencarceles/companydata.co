@@ -1,0 +1,40 @@
+<tr>
+  <td>
+    <%= financial_year.year %>
+  </td>
+  <td>
+    <% if financial_year.revenue.present? %>
+      <%= number_to_currency financial_year.revenue, unit: financial_year.currency %>
+    <% else %>
+      -  
+    <% end %>
+  </td>
+  <td>
+    <% if financial_year.income.present? %>
+      <%= number_to_currency financial_year.income, unit: financial_year.currency %>
+    <% else %>
+      -      
+    <% end %>
+  </td>
+  <td>
+    <% if financial_year.staff.present? %>
+      <%= financial_year.staff %> employees
+    <% else %>
+      -
+    <% end %>
+  </td>
+  <td>
+    <% if financial_year.duration.present? %>
+      <%= financial_year.duration %> months  
+    <% else %>
+      -
+    <% end %>
+  </td>
+  <td>
+    <% if financial_year.closing_date.present? %>
+      <%= I18n.l(financial_year.closing_date) %>
+    <% else %>
+      -
+    <% end %>
+  </td>
+</tr>
