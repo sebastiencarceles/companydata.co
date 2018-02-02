@@ -4,7 +4,6 @@ class Api::CompanySerializer < ActiveModel::Serializer
   attributes :id,
     :name,
     :slug,
-    :website,
     :source_url,
     :headquarter_in,
     :founded_in,
