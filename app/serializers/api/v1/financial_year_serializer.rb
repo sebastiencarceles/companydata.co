@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::FinancialYearSerializer < ActiveModel::Serializer
+class Api::V1::FinancialYearSerializer < ActiveModel::Serializer
   attributes :year,
     :currency,
     :revenue,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::CompanySerializer < ActiveModel::Serializer
+class Api::V1::CompanySerializer < ActiveModel::Serializer
   attributes :id,
     :name,
     :slug,

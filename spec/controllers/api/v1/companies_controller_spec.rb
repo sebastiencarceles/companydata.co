@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe Api::CompaniesController, type: :request do
+RSpec.describe Api::V1::CompaniesController, type: :request do
   describe "Getting a company with GET /api/companies/[:identifier]" do
     context "when unauthenticated" do
-      before { get "/api/companies/3323344" }
+      before { get "/api/v1/companies/3323344" }
 
       it "returns http unauthorized" do
         expect(response).to have_http_status(:unauthorized)
@@ -14,7 +14,7 @@ RSpec.describe Api::CompaniesController, type: :request do
 
     context "when authenticated" do
       context "when the company can't be found" do
-        before { get "/api/companies/3323344", headers: authentication_header }
+        before { get "/api/v1/companies/3323344", headers: authentication_header }
 
         it "returns http not found" do
           expect(response).to have_http_status(:not_found)
@@ -25,7 +25,7 @@ RSpec.describe Api::CompaniesController, type: :request do
         let(:company) { create :company }
 
         context "by id" do
-          before { get "/api/companies/#{company.id}", headers: authentication_header }
+          before { get "/api/v1/companies/#{company.id}", headers: authentication_header }
 
           it "returns http success" do
             expect(response).to be_success
@@ -37,7 +37,7 @@ RSpec.describe Api::CompaniesController, type: :request do
         end
 
         context "by slug" do
-          before { get "/api/companies/#{company.slug}", headers: authentication_header }
+          before { get "/api/v1/companies/#{company.slug}", headers: authentication_header }
 
           it "returns http success" do
             expect(response).to be_success
@@ -49,7 +49,7 @@ RSpec.describe Api::CompaniesController, type: :request do
         end
 
         context "by name" do
-          before { get "/api/companies/#{company.name.parameterize}", headers: authentication_header }
+          before { get "/api/v1/companies/#{company.name.parameterize}", headers: authentication_header }
 
           it "returns http success" do
             expect(response).to be_success
@@ -61,7 +61,7 @@ RSpec.describe Api::CompaniesController, type: :request do
         end
 
         context "by smooth name" do
-          before { get "/api/companies/#{company.smooth_name.parameterize}", headers: authentication_header }
+          before { get "/api/v1/companies/#{company.smooth_name.parameterize}", headers: authentication_header }
 
           it "returns http success" do
             expect(response).to be_success
@@ -93,7 +93,7 @@ RSpec.describe Api::CompaniesController, type: :request do
     }
 
     context "when unauthenticated" do
-      before { get "/api/companies/" }
+      before { get "/api/v1/companies/" }
 
       it "returns http unauthorized" do
         expect(response).to have_http_status(:unauthorized)
@@ -102,7 +102,7 @@ RSpec.describe Api::CompaniesController, type: :request do
 
     context "when authenticated" do
       context "when the query is not given" do
-        before { get "/api/companies/", headers: authentication_header }
+        before { get "/api/v1/companies/", headers: authentication_header }
 
         it "returns http bad request" do
           expect(response).to have_http_status(:bad_request)
@@ -111,7 +111,7 @@ RSpec.describe Api::CompaniesController, type: :request do
 
       context "when the query is given" do
         context "without pagination parameter" do
-          before { get "/api/companies", params: { q: "total" }, headers: authentication_header }
+          before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
 
           it "returns http success" do
             expect(response).to be_success
@@ -124,23 +124,23 @@ RSpec.describe Api::CompaniesController, type: :request do
 
         context "with pagination parameters" do
           it "returns the asked page" do
-            get "/api/companies", params: { q: "company", page: 1 }, headers: authentication_header
+            get "/api/v1/companies", params: { q: "company", page: 1 }, headers: authentication_header
             first_page = parsed_body.map { |body| body["name"] }
 
-            get "/api/companies", params: { q: "company", page: 2 }, headers: authentication_header
+            get "/api/v1/companies", params: { q: "company", page: 2 }, headers: authentication_header
             second_page = parsed_body.map { |body| body["name"] }
 
             expect(first_page & second_page).to be_empty
           end
 
           it "returns the asked quantity" do
-            get "/api/companies", params: { q: "company", per_page: 5 }, headers: authentication_header
+            get "/api/v1/companies", params: { q: "company", per_page: 5 }, headers: authentication_header
             expect(parsed_body.count).to eq(5)
           end
         end
 
         it "returns the pagination data in the response headers" do
-          get "/api/companies", params: { q: "company", page: 2, per_page: 5 }, headers: authentication_header
+          get "/api/v1/companies", params: { q: "company", page: 2, per_page: 5 }, headers: authentication_header
           expect(response.headers["X-Pagination-Limit-Value"]).to eq(5)
           expect(response.headers["X-Pagination-Total-Pages"]).to eq(4)
           expect(response.headers["X-Pagination-Current-Page"]).to eq(2)

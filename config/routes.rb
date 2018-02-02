@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :companies, only: [:show]
 
   namespace :api do
-    get "ping" => "table_tennis#ping"
-    resources :companies, only: [:show, :index], param: :identifier
+    namespace :v1 do
+      get "ping" => "table_tennis#ping"
+      resources :companies, only: [:show, :index], param: :identifier
+    end
   end
 end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::CompanySerializer, type: :serializer do
+RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   before(:all) {
     @company = create :full_company
   }
@@ -13,7 +13,7 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
     @company.reload
   }
 
-  let(:serializer) { Api::CompanySerializer.new(@company) }
+  let(:serializer) { Api::V1::CompanySerializer.new(@company) }
   let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
   let(:subject) { JSON.parse(serialization.to_json) }
 
