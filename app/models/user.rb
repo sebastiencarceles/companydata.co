@@ -20,4 +20,8 @@ class User < ApplicationRecord
     email = request.params["auth"] && request.params["auth"]["email"]
     self.find_by_email(email)
   end
+
+  def plan_limit
+    PLANS[plan.to_sym]
+  end
 end
