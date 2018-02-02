@@ -50,7 +50,8 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
       "country",
       "quality",
       "revenue",
-      "smooth_name"
+      "smooth_name",
+      "financial_years"
     )
   end
 
@@ -86,6 +87,14 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
   it { expect(subject["quality"]).not_to be_nil }
   it { expect(subject["revenue"]).not_to be_nil }
   it { expect(subject["smooth_name"]).not_to be_nil }
+  it { expect(subject["financial_years"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["year"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["currency"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["revenue"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["income"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["staff"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["duration"]).not_to be_nil }
+  it { expect(subject["financial_years"][0]["closing_date"]).not_to be_nil }
 
   it { expect(subject["id"]).to eql(@company.id) }
   it { expect(subject["name"]).to eql(@company.name) }
@@ -118,6 +127,14 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
   it { expect(subject["quality"]).to eql(@company.quality) }
   it { expect(subject["revenue"]).to eql(@company.revenue) }
   it { expect(subject["smooth_name"]).to eql(@company.smooth_name) }
+  it { expect(subject["financial_years"].length).to eq(@company.financial_years.count) }
+  it { expect(subject["financial_years"][0]["year"]).to eql(@company.financial_years.first.year) }
+  it { expect(subject["financial_years"][0]["currency"]).to eql(@company.financial_years.first.currency) }
+  it { expect(subject["financial_years"][0]["revenue"]).to eql(@company.financial_years.first.revenue) }
+  it { expect(subject["financial_years"][0]["income"]).to eql(@company.financial_years.first.income) }
+  it { expect(subject["financial_years"][0]["staff"]).to eql(@company.financial_years.first.staff) }
+  it { expect(subject["financial_years"][0]["duration"]).to eql(@company.financial_years.first.duration) }
+  it { expect(subject["financial_years"][0]["closing_date"]).to eql(I18n.l(@company.financial_years.first.closing_date)) }
 
   context "when there is an activity code" do
     it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }
@@ -127,5 +144,4 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
     before { @company.activity_code = nil }
     it { expect(subject["activity"]).to eql(@company.category) }
   end
-
 end

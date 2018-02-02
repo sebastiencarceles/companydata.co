@@ -8,6 +8,7 @@ FactoryBot.define do
     staff 1
     duration 1
     closing_date "2018-01-23"
+    year "2018"
     company
   end
 end

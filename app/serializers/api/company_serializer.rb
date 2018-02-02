@@ -32,7 +32,8 @@ class Api::CompanySerializer < ActiveModel::Serializer
     :country,
     :quality,
     :revenue,
-    :smooth_name
+    :smooth_name,
+    :financial_years
 
   def activity
     return object.category if object.activity_code.blank?
