@@ -118,14 +118,14 @@ RSpec.describe Api::CompanySerializer, type: :serializer do
   it { expect(subject["quality"]).to eql(@company.quality) }
   it { expect(subject["revenue"]).to eql(@company.revenue) }
   it { expect(subject["smooth_name"]).to eql(@company.smooth_name) }
-  
+
   context "when there is an activity code" do
-    it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }    
+    it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }
   end
 
   context "when there is no activity code" do
     before { @company.activity_code = nil }
-    it { expect(subject["activity"]).to eql(@company.category) }        
+    it { expect(subject["activity"]).to eql(@company.category) }
   end
 
 end
