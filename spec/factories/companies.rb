@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :company do
     name Faker::Company.name
     logo_url "http://fr.seaicons.com/wp-content/uploads/2015/08/green-ok-icon.png"
@@ -22,7 +22,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :full_company, class: "Company" do
+  factory :full_company, class: Company do
     name Faker::Company.name
     website Faker::Internet.url
     source_url "https://www.linkedin.com/company/1234"

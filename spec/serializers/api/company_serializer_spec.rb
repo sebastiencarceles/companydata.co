@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::CompanySerializer, type: :serializer do
   before(:all) {
-    @company = FactoryGirl.create :full_company
+    @company = create :full_company
   }
   after(:all) {
     @company.destroy!

@@ -22,7 +22,7 @@ RSpec.describe Api::CompaniesController, type: :request do
       end
 
       context "when the company is found" do
-        let(:company) { FactoryGirl.create :company }
+        let(:company) { create :company }
 
         context "by id" do
           before { get "/api/companies/#{company.id}", headers: authentication_header }
@@ -78,14 +78,14 @@ RSpec.describe Api::CompaniesController, type: :request do
   describe "Searching for companies with GET /api/companies/" do
     before(:all) {
       (1..20).each do |index|
-        FactoryGirl.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
+        create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
       end
 
-      FactoryGirl.create :company, :reindex, name: "totali"
-      FactoryGirl.create :company, :reindex, name: "tube metal"
-      FactoryGirl.create :company, :reindex, name: "total"
-      FactoryGirl.create :company, :reindex, name: "edf"
-      FactoryGirl.create :company, :reindex, name: "motal"
+      create :company, :reindex, name: "totali"
+      create :company, :reindex, name: "tube metal"
+      create :company, :reindex, name: "total"
+      create :company, :reindex, name: "edf"
+      create :company, :reindex, name: "motal"
     }
 
     after(:all) {

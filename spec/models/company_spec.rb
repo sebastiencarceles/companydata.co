@@ -26,7 +26,7 @@ RSpec.describe Company, type: :model do
 
     context "when the company is a branch" do
       it "returns the headquarter when it exists" do
-        headquarter = FactoryGirl.create :company, quality: "headquarter", registration_1: registration_1, registration_2: "1"
+        headquarter = create :company, quality: "headquarter", registration_1: registration_1, registration_2: "1"
         subject.update(quality: "branch", registration_1: registration_1, registration_2: "2")
         expect(subject.headquarter).to eq(headquarter)
       end
@@ -42,8 +42,8 @@ RSpec.describe Company, type: :model do
       before { subject.update(quality: "headquarter", registration_1: registration_1, registration_2: "1") }
 
       it "returns the branches when any" do
-        branch_1 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "2"
-        branch_2 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "3"
+        branch_1 = create :company, quality: "branch", registration_1: registration_1, registration_2: "2"
+        branch_2 = create :company, quality: "branch", registration_1: registration_1, registration_2: "3"
         expect(subject.branches.to_a).to eq([branch_1, branch_2])
       end
 
@@ -56,8 +56,8 @@ RSpec.describe Company, type: :model do
       before { subject.update(quality: "branch", registration_1: registration_1, registration_2: "1") }
 
       it "returns the other branches when any" do
-        branch_1 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "2"
-        branch_2 = FactoryGirl.create :company, quality: "branch", registration_1: registration_1, registration_2: "3"
+        branch_1 = create :company, quality: "branch", registration_1: registration_1, registration_2: "2"
+        branch_2 = create :company, quality: "branch", registration_1: registration_1, registration_2: "3"
         expect(subject.branches.to_a).to eq([branch_1, branch_2])
       end
 
@@ -68,9 +68,9 @@ RSpec.describe Company, type: :model do
   end
 
   describe "#set_slug" do
-    let(:company_1) { FactoryGirl.create :company, name: "virgin" }
-    let(:company_2) { FactoryGirl.create :company, name: "virgin" }
-    let(:company_3) { FactoryGirl.create :company, name: "Virgin" }
+    let(:company_1) { create :company, name: "virgin" }
+    let(:company_2) { create :company, name: "virgin" }
+    let(:company_3) { create :company, name: "Virgin" }
 
     context "when multiple companies have the same name" do
       it "remains unique" do
@@ -88,7 +88,7 @@ RSpec.describe Company, type: :model do
   end
 
   describe "#set_founded_in" do
-    subject { FactoryGirl.create :company, founded_at: 900.days.ago, founded_in: nil }
+    subject { create :company, founded_at: 900.days.ago, founded_in: nil }
 
     it "sets founded in from founded at" do
       expect(subject.founded_in).to eq(900.days.ago.year.to_s)
@@ -96,7 +96,7 @@ RSpec.describe Company, type: :model do
   end
 
   describe "#set_headquarter_in" do
-    subject { FactoryGirl.create :company, quality: "headquarter", headquarter_in: nil }
+    subject { create :company, quality: "headquarter", headquarter_in: nil }
 
     it "sets headquarter_in from city when the company is the headquarter" do
       expect(subject.headquarter_in).to eq(subject.city)
@@ -104,7 +104,7 @@ RSpec.describe Company, type: :model do
   end
 
   describe "#set_smooth_name" do
-    let(:company) { FactoryGirl.build :company, name: "JANOT*THIERRY/" }
+    let(:company) { build :company, name: "JANOT*THIERRY/" }
 
     it "sets the smooth name" do
       expect { company.save! }.to change { company.smooth_name }.from(nil).to("Janot Thierry")
