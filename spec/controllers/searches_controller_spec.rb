@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe SearchesController, type: :controller do
 
   describe "GET #create" do
-    let(:search) { FactoryGirl.build :search }
+    let(:search) { build :search }
 
     subject { get :create, params: { search: search.attributes } }
     it "returns http success" do

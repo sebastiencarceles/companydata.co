@@ -111,10 +111,10 @@ GEM
       multi_json
     erubi (1.7.0)
     execjs (2.7.0)
-    factory_girl (4.8.1)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.8.0)
-      factory_girl (~> 4.8.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
@@ -346,7 +346,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   elasticsearch (>= 1.0.15)
-  factory_girl_rails (~> 4.0)
+  factory_bot_rails (~> 4.0)
   faker!
   faraday_middleware-aws-signers-v4 (>= 0.1.9)
   figaro

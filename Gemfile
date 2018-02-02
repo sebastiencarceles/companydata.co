@@ -69,7 +69,7 @@ group :development, :test do
   # Test tools
   gem "rspec-rails", "~> 3.6"
   gem "faker", git: "git://github.com/stympy/faker.git", branch: "master"
-  gem "factory_girl_rails", "~> 4.0"
+  gem "factory_bot_rails", "~> 4.0"
   gem "shoulda-matchers", "~> 3.1"
   gem "shoulda-callback-matchers", "~> 1.1", ">= 1.1.3"
 end
