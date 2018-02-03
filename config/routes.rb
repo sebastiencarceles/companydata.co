@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get "renew_api_key", to: "users#renew"
   get "pricing", to: "pricing#show"
   post "pricing", to: "pricing#choose"
-
+  get 'payment', to: "payment#show"
+  
   resources :searches, only: [:create]
   resources :companies, only: [:show]
 
