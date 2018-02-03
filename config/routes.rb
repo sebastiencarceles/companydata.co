@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'searches/create'
-
   root "landing#show"
   devise_for :users
   
+  get 'searches/create'
   get "renew_api_key", to: "users#renew"
+  get "pricing", to: "pricing#show"
   
   resources :searches, only: [:create]
   resources :companies, only: [:show]

@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   PLANS = {
     free: 100,
-    small: 1000,
-    medium: 10000,
+    normal: 1000,
+    huge: 10000,
     unlimited: 0
   }
 
