@@ -30,20 +30,22 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
       end
 
       context "when user has no usage for the current month" do
+        before { current_user.usages.delete_all }
+
         it "creates an usage" do
           expect { subject }.to change { current_user.usages.count }.by(1)
         end
+      end
 
-        User::PLANS.each do |plan, limit|
-          context "when user has a #{plan} plan" do
-            before { 
-              current_user.update!(plan: plan)
-              subject 
-            }
+      User::PLANS.each do |plan, limit|
+        context "when user has a #{plan} plan" do
+          before { 
+            current_user.update!(plan: plan)
+            subject 
+          }
 
-            it "sets the limit to #{limit}" do
-              expect(current_user.usages.last.limit).to eq(limit)
-            end
+          it "sets the limit to #{limit}" do
+            expect(current_user.usages.last.limit).to eq(limit)
           end
         end
       end

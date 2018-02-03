@@ -12,6 +12,25 @@ RSpec.describe User, type: :model do
   it { should validate_inclusion_of(:plan).in_array(User::PLANS.keys.map(&:to_s)) }
 
   describe "plans and usage" do
+    let(:user) { build :user }
+    
+    context "after creation" do
+      it "creates an usage" do
+        expect { user.save! }.to change { user.usages.count }.by(1)
+      end
+
+      it "has the corresponding limit" do
+        user.save!
+        expect(user.usages.last.limit).to eq(user.plan_limit)
+      end
+
+      it "has the current year and month" do
+        user.save!
+        expect(user.usages.last.year).to eq(Date.today.year)
+        expect(user.usages.last.month).to eq(Date.today.month)
+      end
+    end
+
     context "when the plan is changed" do
       let(:user) { create :user }
 

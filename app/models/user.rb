@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   validates_inclusion_of :plan, in: PLANS.keys.map(&:to_s)
   
+  after_create :create_usage!
   after_update :update_usage_limit!, if: :saved_change_to_plan?
 
   def self.from_token_request(request)
@@ -29,12 +30,16 @@ class User < ApplicationRecord
 
   private
 
+    def create_usage!
+      usages.create!(year: Date.today.year, month: Date.today.month, limit: plan_limit)
+    end
+
     def update_usage_limit!
       usage = usages.find_by(year: Date.today.year, month: Date.today.month)
       if usage
         usage.update!(limit: plan_limit)
       else
-        usages.create!(year: Date.today.year, month: Date.today.month, limit: plan_limit)
+        create_usage!
       end
     end
 end
