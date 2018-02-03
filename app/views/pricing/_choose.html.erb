@@ -1,11 +1,15 @@
-<% if user_signed_in? %>
-  <% if plan_higher?(plan, current_user.plan) %>
-    <%= link_to "Upgrade", edit_user_registration_path(plan: plan), class: "btn btn-info p-4" %>
-  <% elsif plan_lower?(plan, current_user.plan) %>
-    <%= link_to "Downgrade", edit_user_registration_path(plan: plan), class: "btn btn-info p-4" %>
-  <% else current_user.plan == plan %>
-   <%= button_tag "Your current plan", class: "btn btn-info p-4", disabled: true %>
+<%= simple_form_for :pricing do |f| %>
+  <%= f.hidden_field :plan, value: plan %>
+  <% if user_signed_in? %>
+    <% if plan_higher?(plan, current_user.plan) %>
+      <%= f.submit "Upgrade", class: "btn btn-info p-4" %>
+    <% elsif plan_lower?(plan, current_user.plan) %>
+      <%= f.submit "Downgrade", class: "btn btn-info p-4" %>
+    <% else current_user.plan == plan %>
+      <%= f.submit "Your current plan", class: "btn btn-info p-4", disabled: true %>
+    <% end %>
+  <% else %>
+    <%= f.submit "Choose", class: "btn btn-info p-4" %>
   <% end %>
-<% else %>
-  <%= link_to "Choose", new_user_registration_path(plan: plan), class: "btn btn-info p-4" %>
 <% end %>
+

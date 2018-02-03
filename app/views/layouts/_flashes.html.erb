@@ -1,3 +1,10 @@
+<% if success %>
+  <div class="alert alert-success">
+    <a class="close" data-dismiss="success">&times;</a>
+    <%= fa_icon_tag "remove" %> <%= success %>
+  </div>
+<% end %>
+
 <% if alert %>
   <div class="alert alert-error">
     <a class="close" data-dismiss="alert">&times;</a>
