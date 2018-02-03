@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PricingController < ApplicationController
   def show
   end
