@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   root "landing#show"
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
   
   get 'searches/create'
   get "renew_api_key", to: "users#renew"
