@@ -25,7 +25,7 @@
                 <li><small>Enought to try before you pay, or for small needs.</small></li>
               </ul>
               <div class="bg-dark d-flex align-items-center justify-content-center p-3">
-                <a href="#" class="btn btn-info p-4">Sign up</a>
+                <%= render "choose", plan: :free %>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
                 <li><small>Perfect for start-ups and small businesses, and still cheap.</small></li>
               </ul>
               <div class="bg-dark d-flex align-items-center justify-content-center p-3">
-                <a href="#" class="btn btn-info p-4">Buy Now</a>
+                <%= render "choose", plan: :normal %>
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@
                 <li><small>For frequent and recurrent needs, like for big sales teams.</small></li>
               </ul>
               <div class="bg-dark d-flex align-items-center justify-content-center p-3">
-                <a href="#" class="btn btn-info p-4">Buy Now</a>
+                <%= render "choose", plan: :huge %>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@
                 <li><small>Yup.<br>That's a lot.</small></li>
               </ul>
               <div class="bg-dark d-flex align-items-center justify-content-center p-3">
-                <a href="#" class="btn btn-info p-4">Buy Now</a>
+                <%= render "choose", plan: :unlimited %>
               </div>
             </div>
           </div>

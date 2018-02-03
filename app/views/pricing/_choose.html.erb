@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+  <% if plan_higher?(plan, current_user.plan) %>
+    <%= link_to "Upgrade", edit_user_registration_path(plan: plan), class: "btn btn-info p-4" %>
+  <% elsif plan_lower?(plan, current_user.plan) %>
+    <%= link_to "Downgrade", edit_user_registration_path(plan: plan), class: "btn btn-info p-4" %>
+  <% else current_user.plan == plan %>
+   <%= button_tag "Your current plan", class: "btn btn-info p-4", disabled: true %>
+  <% end %>
+<% else %>
+  <%= link_to "Choose", new_user_registration_path(plan: plan), class: "btn btn-info p-4" %>
+<% end %>
