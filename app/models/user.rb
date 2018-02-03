@@ -3,9 +3,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are: :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
-  
+
   has_secure_token :api_key
-  has_many :usages
+  has_many :usages, -> { order(year: :desc).order(month: :desc) }
 
   PLANS = {
     free: 100,
@@ -15,7 +15,7 @@ class User < ApplicationRecord
   }
 
   validates_inclusion_of :plan, in: PLANS.keys.map(&:to_s)
-  
+
   after_create :create_usage!
   after_update :update_usage_limit!, if: :saved_change_to_plan?
 

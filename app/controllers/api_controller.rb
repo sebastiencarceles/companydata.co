@@ -32,7 +32,7 @@ class ApiController < ActionController::API
       end
       count = usage.count + 1
       usage.update_columns(count: count)
-      
+
       render json: { error: "plan limit reached" }, status: :forbidden unless usage.limit == 0 || count <= usage.limit
     end
 end

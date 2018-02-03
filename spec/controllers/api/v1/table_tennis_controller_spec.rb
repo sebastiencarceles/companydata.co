@@ -39,9 +39,9 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
 
       User::PLANS.each do |plan, limit|
         context "when user has a #{plan} plan" do
-          before { 
+          before {
             current_user.update!(plan: plan)
-            subject 
+            subject
           }
 
           it "sets the limit to #{limit}" do
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
           end
         end
       end
-      
+
       context "when user already has an usage for the current month" do
         before { current_user.usages << create(:usage, user: current_user) }
 
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
       end
 
       context "when the usage limit is reached" do
-        before { 
+        before {
           usage = create :usage, user: current_user
           usage.update!(count: usage.limit)
           subject
@@ -73,14 +73,14 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         it "returns http forbidden" do
           expect(response).to have_http_status(:forbidden)
         end
-  
+
         it "returns a detailed error" do
           expect(parsed_body["error"]).to eq "plan limit reached"
         end
       end
 
       context "when the usage limit is 0" do
-        before { 
+        before {
           current_user.update!(plan: User::PLANS.keys.last)
           subject
         }

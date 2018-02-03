@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
   describe "plans and usage" do
     let(:user) { build :user }
-    
+
     context "after creation" do
       it "creates an usage" do
         expect { user.save! }.to change { user.usages.count }.by(1)
