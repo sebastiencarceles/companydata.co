@@ -12,10 +12,7 @@ class PricingController < ApplicationController
         flash.notice = "Success! Your plan is now #{plan}"
         redirect_to root_path
       else
-        # TODO do not update and redirect to payment
-        current_user.update(plan: plan)
-        flash.notice = "Congrats! Your plan is now #{plan}"
-        redirect_to root_path
+        redirect_to payment_path(plan: plan)
       end
     else
       flash.notice = "You will be redirected to the payment after creating an account"

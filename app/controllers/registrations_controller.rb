@@ -16,7 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
       if plan.present? && plan != "free"
         payment_path(plan: plan)
       else
-        root_path
+        root_path # TODO redirect to API documentation
       end
     end
 end

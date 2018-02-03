@@ -20,8 +20,8 @@
             <table class="table">
               <tr>
                 <td><strong>Current plan</strong></td>
-                <td><%= resource.plan.titleize %>: <%= current_user.plan_limit %> API calls per month</td>
-                <td><%= link_to "Change plan", "#", class: "btn btn-primary btn-registrations pull-right" %></td>
+                <td><%= resource.plan.titleize %>: <%= current_user.plan_limit == 0 ? "unlimited" : current_user.plan_limit %> API calls per month</td>
+                <td><%= link_to "Change plan", pricing_path, class: "btn btn-primary btn-registrations pull-right" %></td>
               </tr>
               <tr>
                 <td><strong>Secret API Key</strong></td>
