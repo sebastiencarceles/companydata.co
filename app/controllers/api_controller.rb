@@ -3,6 +3,7 @@
 class ApiController < ActionController::API
   before_action :authenticate_from_api_key!
   before_action :check_authentication
+  before_action :increment_api_calls
 
   private
 
@@ -22,6 +23,16 @@ class ApiController < ActionController::API
     end
 
     def check_authentication
-      render json: { error: "unauthenticated or unauthorized user" }, status: :unauthorized unless user_signed_in?
+      render json: { error: "unauthenticated user" }, status: :unauthorized unless user_signed_in?
+    end
+
+    def increment_api_calls
+      usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month) do |usage|
+        usage.limit = current_user.plan_limit
+      end
+      count = usage.count + 1
+      usage.update_columns(count: count)
+
+      render json: { error: "plan limit reached" }, status: :forbidden unless usage.limit == 0 || count <= usage.limit
     end
 end

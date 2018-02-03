@@ -1,0 +1,91 @@
+<% @title = "Pricing" %>
+
+<%= content_for :js_libs, "modernizr" %>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="pt-5 text-center header-separator">A plan to use the API</h2>
+            <p class="lead text-center">You need a plan (even a free one) to use the API. Sign up and get started instantly. You can change your plan at any time.</p>
+            <p class="lead text-center">Searches throught the website remain free and don't count in the API usage.</p>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12 col-md-3">
+            <div class="pricing-table-2">
+              <header class="bg-dark">
+                <h1 class="text-white m-0">$0</h2>
+                <p class="text-muted text-uppercase mb-0">Like, free</p>
+              </header>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Starter</h5>
+              <ul class="tiere-feature-list">
+                <li><%= number_with_delimiter User::PLANS[:free] %> API calls per month</li>
+                <li><small>Enought to try before you pay, or for small needs.</small></li>
+              </ul>
+              <div class="bg-dark d-flex align-items-center justify-content-center p-3">
+                <%= render "choose", plan: :free %>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="pricing-table-2">
+              <header class="bg-dark">
+                <h1 class="text-white m-0">$9</h2>
+                <p class="text-muted text-uppercase mb-0">Per Month</p>
+              </header>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Normal</h5>
+              <ul class="tiere-feature-list">
+                <li><%= number_with_delimiter User::PLANS[:normal] %> API calls per month</li>
+                <li><small>Perfect for start-ups and small businesses, and still cheap.</small></li>
+              </ul>
+              <div class="bg-dark d-flex align-items-center justify-content-center p-3">
+                <%= render "choose", plan: :normal %>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="pricing-table-2">
+              <header class="bg-dark">
+                <h1 class="text-white m-0">$49</h2>
+                <p class="text-muted text-uppercase mb-0">Per Month</p>
+              </header>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Huge</h5>
+              <ul class="tiere-feature-list">
+                <li><%= number_with_delimiter User::PLANS[:huge] %> API calls per month</li>
+                <li><small>For frequent and recurrent needs, like for big sales teams.</small></li>
+              </ul>
+              <div class="bg-dark d-flex align-items-center justify-content-center p-3">
+                <%= render "choose", plan: :huge %>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="pricing-table-2">
+              <header class="bg-dark">
+                <h1 class="text-white m-0">$99</h2>
+                <p class="text-muted text-uppercase mb-0">Per Month</p>
+              </header>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Unlimited</h5>
+              <ul class="tiere-feature-list">
+                <li>Unlimited API calls per month</li>
+                <li><small>Yup.<br>That's a lot.</small></li>
+              </ul>
+              <div class="bg-dark d-flex align-items-center justify-content-center p-3">
+                <%= render "choose", plan: :unlimited %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-12">
+            <p class="lead text-center">First payment will be due on the first day of next month (meanwhile it's free, yay!), then the first day of each month. You will receive a PDF invoice each time a payment is performed.</p>
+            <p class="lead text-center">Need something different? Feel free to contact us. TODO contact link</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -18,10 +18,38 @@
           <div class="card-body">
             <p>Keep you API key safe and secret! Don't store it in a repository, set it as an environment variable. If you feel like it has been stolen, just renew it and update the environment variable.</p>
             <table class="table">
-              <td><strong>Secret API Key</strong></td>
-              <td><%= resource.api_key %></td>
+              <tr>
+                <td><strong>Current plan</strong></td>
+                <td><%= resource.plan.titleize %>: <%= current_user.plan_limit == 0 ? "unlimited" : current_user.plan_limit %> API calls per month</td>
+                <td><%= link_to "Change plan", pricing_path, class: "btn btn-primary btn-registrations pull-right" %></td>
+              </tr>
+              <tr>
+                <td><strong>Secret API Key</strong></td>
+                <td><%= resource.api_key %></td>
+                <td><%= link_to "Renew API key", renew_api_key_path, data: { confirm: "Really?" }, class: "btn btn-primary btn-registrations  pull-right" %></td>
+              </tr>
             </table>
-            <%= link_to "Renew API key", renew_api_key_path, data: { confirm: "Really?" }, class: "btn btn-primary pull-right mt-3 mb-3" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-5">
+      <div class="col-12 col-md-8 mr-auto ml-auto">
+        <div class="card">
+          <div class="card-header">
+            <h6>Usage</h6>
+          </div>
+          <div class="card-body">
+            <p>Here is your historial usage.</p>
+            <table class="table">
+              <% current_user.usages.each do |usage| %>
+                <tr>
+                  <td><strong><%= usage.year %>/<%= usage.month.to_s.rjust(2,"0") %></strong></td>
+                  <td><%= usage.count %> API calls / <%= usage.limit %></td>
+                </tr>
+              <% end %>
+            </table>
           </div>
         </div>
       </div>
@@ -43,7 +71,7 @@
                 <%= f.form_group :email, class:"row" do |f| %>
                   <%= f.label :email, class: "col-sm-4 col-form-label" %>
                   <div class="col-md-8">
-                    <%= f.email_field :email, required: true, autofocus: true, class: "form-control" %>
+                    <%= f.email_field :email, required: true, class: "form-control" %>
                     <%= f.error_messages %>
                   </div>
                 <% end %>
@@ -82,7 +110,7 @@
                   <%= link_to "Cancel my account", registration_path(resource_name), confirm: "Are you sure?", method: :delete, class: "mr-auto text-danger" %>
                   <div>
                     <%= link_to "Back", :back, class: "btn btn-outline-defualt" %>
-                    <%= f.submit "Update", class: "btn btn-primary" %>
+                    <%= f.submit "Update", class: "btn btn-primary btn-registrations" %>
                   </div>
                 </div>
               <% end %>
