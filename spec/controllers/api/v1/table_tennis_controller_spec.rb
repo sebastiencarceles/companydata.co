@@ -76,6 +76,18 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
           expect(parsed_body["error"]).to eq "plan limit reached"
         end
       end
+
+      context "when the usage limit is 0" do
+        before { 
+          current_user.update!(plan: User::PLANS.keys.last)
+          subject
+        }
+
+        it "means that the limit can't be reached" do
+          expect(current_user.usages.last.limit).to eq(0)
+          expect(current_user.usages.last.count).to eq(1)
+        end
+      end
     end
   end
 end

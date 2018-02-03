@@ -11,7 +11,7 @@ class User < ApplicationRecord
     free: 100,
     small: 1000,
     medium: 10000,
-    unlimited: -1
+    unlimited: 0
   }
 
   validates_inclusion_of :plan, in: PLANS.keys.map(&:to_s)
