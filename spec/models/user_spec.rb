@@ -10,4 +10,36 @@ RSpec.describe User, type: :model do
   it { should validate_uniqueness_of(:email).case_insensitive }
   it { should validate_presence_of(:password) }
   it { should validate_inclusion_of(:plan).in_array(User::PLANS.keys.map(&:to_s)) }
+
+  describe "plans and usage" do
+    context "when the plan is changed" do
+      let(:user) { create :user }
+
+      context "when there is no usage" do
+        before { user.usages.delete_all }
+
+        it "creates a usage" do
+          expect { user.update!(plan: User::PLANS.keys.last) }.to change { user.usages.count }.by(1)
+        end
+
+        it "has the corresponding limit" do
+          user.update!(plan: User::PLANS.keys.last)
+          expect(user.usages.last.limit).to eq(user.plan_limit)
+        end
+      end
+
+      context "when there is a current usage" do
+        let!(:usage) { create :usage, user: user }
+
+        it "does not create an usage" do
+          expect { user.update!(plan: User::PLANS.keys.last) }.not_to change { user.usages.count }
+        end
+
+        it "updates it's limit" do
+          user.update!(plan: User::PLANS.keys.last)
+          expect(usage.reload.limit).to eq(user.plan_limit)
+        end
+      end
+    end
+  end
 end
