@@ -1,13 +1,28 @@
+---
 en:
-  navigation: 
-    home: HOME
-    pricing: PRICING
-    docs: DOCS
-    contact: CONTACT
-    my_account: MY ACCOUNT
-    sign_in: SIGN IN
-    sign_up: SIGN UP
-    sign_out: SIGN OUT
+  devise:
+    mailer:
+      invitation_instructions:
+        accept: Accept
+        hello: Hello
+        ignore: Ignore
+        someone_invited_you: Someone invited you
+  landing:
+    show:
+      company_name: Company name
+      search: Search
+      sub_value_proposition: Boost you business with the data you need about your prospects and customers, in a very simple way.
+      try_title: Give it a try!
+      value_proposition: Company data. Straight.
+  navigation:
     about: About
-    terms_of_service: Terms of service
+    contact: CONTACT
+    docs: DOCS
+    home: HOME
+    my_account: MY ACCOUNT
+    pricing: PRICING
     privacy: Privacy policy
+    sign_in: SIGN IN
+    sign_out: SIGN OUT
+    sign_up: SIGN UP
+    terms_of_service: Terms of service

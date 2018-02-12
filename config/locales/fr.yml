@@ -1,13 +1,28 @@
+---
 fr:
-  navigation: 
-    home: ACCUEIL
-    pricing: PRIX
-    docs: DOCS
-    contact: CONTACT
-    my_account: MON COMPTE
-    sign_in: CONNEXION
-    sign_up: ENREGISTREMENT
-    sign_out: DÉCONNEXION
+  devise:
+    mailer:
+      invitation_instructions:
+        accept: Accepter
+        hello: Hello
+        ignore: Ignorer
+        someone_invited_you: Quelqu'un vous a invité
+  landing:
+    show:
+      company_name: Nom de société
+      search: Chercher
+      sub_value_proposition: Boostez votre business avec les infos qu'il vous faut sur vos prospects et clients.
+      try_title: Essayez !
+      value_proposition: Tout sur les sociétés. Directement.
+  navigation:
     about: À propos
-    terms_of_service: Conditions générales de vente et d'utilisation
+    contact: CONTACT
+    docs: DOCS
+    home: ACCUEIL
+    my_account: MON COMPTE
+    pricing: PRIX
     privacy: Confidentialité
+    sign_in: CONNEXION
+    sign_out: DÉCONNEXION
+    sign_up: ENREGISTREMENT
+    terms_of_service: Conditions générales de vente et d'utilisation
