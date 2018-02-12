@@ -11,13 +11,13 @@
         <%= link_to "HOME", root_path, class: "nav-link" %>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="javascript:">ABOUT</a>
-      </li>
-      <li class="nav-item ">
         <%= link_to "PRICING", pricing_path, class: "nav-link" %>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="javascript:">CONTACT</a>
+        <a class="nav-link" href="javascript:">DOCS</a>
+      </li>
+      <li class="nav-item ">
+        <%= mail_to contact_email, "CONTACT", class: "nav-link" %>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

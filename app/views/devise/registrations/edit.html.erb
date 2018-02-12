@@ -107,7 +107,7 @@
                 <% end %>
 
                 <div class="row d-flex align-items-center mt-5">
-                  <%= mail_to "sebastien@companydata.co", "Cancel my account", class: "mr-auto text-danger", subject: "Cancel my account" %>
+                  <%= mail_to contact_email, "Cancel my account", class: "mr-auto text-danger", subject: "Cancel my account" %>
                   <div>
                     <%= link_to "Back", :back, class: "btn btn-outline-defualt" %>
                     <%= f.submit "Update", class: "btn btn-primary btn-registrations" %>
