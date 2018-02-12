@@ -14,3 +14,7 @@
  *= require_self
  *= require rrt
  */
+
+.image--xxs {
+  max-height: 1.8em;
+}

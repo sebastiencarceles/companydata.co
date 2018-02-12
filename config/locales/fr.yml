@@ -1,0 +1,13 @@
+fr:
+  navigation: 
+    home: ACCUEIL
+    pricing: PRIX
+    docs: DOCS
+    contact: CONTACT
+    my_account: MON COMPTE
+    sign_in: CONNEXION
+    sign_up: ENREGISTREMENT
+    sign_out: DÉCONNEXION
+    about: À propos
+    terms_of_service: Conditions générales de vente et d'utilisation
+    privacy: Confidentialité

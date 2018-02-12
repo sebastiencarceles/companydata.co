@@ -7,33 +7,44 @@
   </button>
   <div class="collapse navbar-collapse" id="standardNavbar">
     <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item ">
-        <%= link_to "HOME", root_path, class: "nav-link" %>
+      <li class="nav-item">
+        <% if I18n.locale == :fr %>
+          <%= link_to url_for(locale: 'en'), class: "nav-link" do %>
+            <%= image_tag "flag_en.png", class: 'image--xxs' %> &nbsp; EN
+          <% end %>
+        <% else %>
+          <%= link_to url_for(locale: 'fr'), class: "nav-link" do %>
+            <%= image_tag "flag_fr.png", class: 'image--xxs' %> &nbsp; FR
+          <% end %>
+        <% end %>
       </li>
       <li class="nav-item ">
-        <%= link_to "PRICING", pricing_path, class: "nav-link" %>
+        <%= link_to t("navigation.home"), root_path, class: "nav-link" %>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="javascript:">DOCS</a>
+        <%= link_to t("navigation.pricing"), pricing_path, class: "nav-link" %>
       </li>
       <li class="nav-item ">
-        <%= mail_to contact_email, "CONTACT", class: "nav-link" %>
+        <a class="nav-link" href="javascript:"><%= t("navigation.docs") %></a>
+      </li>
+      <li class="nav-item ">
+        <%= mail_to contact_email, t("navigation.contact"), class: "nav-link" %>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to "MY ACCOUNT", edit_user_registration_path, class: "btn btn-sm btn-primary text-white" %>
+          <%= link_to t("navigation.my_account"), edit_user_registration_path, class: "btn btn-sm btn-primary text-white" %>
         </li>
         <li class="nav-item">
-            <%= link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to t("navigation.sign_out"), destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-primary" %>
           </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to "SIGN IN", new_user_session_path, class: "btn btn-sm btn-primary text-white" %>
+          <%= link_to t("navigation.sign_in"), new_user_session_path, class: "btn btn-sm btn-primary text-white" %>
         </li>
         <li class="nav-item">
-          <%= link_to "SIGN UP", new_user_registration_path, class: "btn btn-sm btn-outline-primary" %>
+          <%= link_to t("navigation.sign_up"), new_user_registration_path, class: "btn btn-sm btn-outline-primary" %>
         </li>
       <% end %>
     </ul>
