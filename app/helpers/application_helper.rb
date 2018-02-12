@@ -2,6 +2,6 @@
 
 module ApplicationHelper
   def app_name
-    "Company.io"
+    "Companydata.co"
   end
 end
