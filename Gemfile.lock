@@ -132,6 +132,7 @@ GEM
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
+    high_voltage (3.0.0)
     highline (1.7.10)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
@@ -354,6 +355,7 @@ DEPENDENCIES
   faker!
   faraday_middleware-aws-signers-v4 (>= 0.1.9)
   figaro
+  high_voltage (~> 3.0.0)
   i18n-tasks (~> 0.9.20)
   jbuilder (~> 2.5)
   jquery-rails
