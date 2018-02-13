@@ -11,6 +11,7 @@ module CompaniesHelper
     attributes << ["Registration #1", company.registration_1] if company.registration_1.present?
     attributes << ["Registration #2", company.registration_2] if company.registration_2.present?
     attributes << ["Activity", activity(company)] if activity(company)
+    attributes
   end
 
   def founded(company)
