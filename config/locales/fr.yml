@@ -60,3 +60,10 @@ fr:
     data_source: Source de données
     founded: Fondée en %{year}
     linkedin: Profil LinkedIn
+  settlement:
+    branch: Filiale
+    details: Détails de société
+    financial_data: Avec données financières
+    headquarter: Siège social
+  settlements:
+    title: Établissements

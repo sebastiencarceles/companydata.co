@@ -60,3 +60,10 @@ en:
     data_source: Main data source
     founded: Founded in %{year}
     linkedin: LinkedIn profile
+  settlement:
+    branch: Branch
+    details: Company details
+    financial_data: With financial data
+    headquarter: Headquarter
+  settlements:
+    title: Settlements
