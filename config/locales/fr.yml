@@ -2,6 +2,8 @@
 fr:
   about:
     description: "%{app_name} est un service créé et maintenu par"
+    email_us: Envoyez-nous un email.
+    need: Besoin de quelque chose ?
     title: À propos
   devise:
     mailer:

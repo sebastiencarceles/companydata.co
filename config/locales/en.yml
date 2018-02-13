@@ -2,6 +2,8 @@
 en:
   about:
     description: "%{app_name} is a service created and maintained with love by"
+    email_us: Just email us.
+    need: Need anything?
     title: About
   devise:
     mailer:
