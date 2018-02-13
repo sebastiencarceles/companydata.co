@@ -7,8 +7,7 @@
           <h6 class="text-white m-0 mr-4"><%= app_name %></h6>
           <ul class="list-inline m-0">
             <li class="list-inline-item"><a href="javascript:" class="text-hover-light"><%= link_to t("navigation.about"), page_path('about') %></a></li>
-            <li class="list-inline-item"><a href="javascript:" class="text-hover-light"><%= t("navigation.terms_of_service") %></a></li>
-            <li class="list-inline-item"><a href="javascript:" class="text-hover-light"><%= t("navigation.privacy") %></a></li>
+            <li class="list-inline-item"><a href="javascript:" class="text-hover-light"><%= link_to t("navigation.legal"), page_path('legal') %></a></li>
           </ul>
         </div>
         <p class="small text-muted m-0">JustDo &copy; <%= Date.today.year %></p>
