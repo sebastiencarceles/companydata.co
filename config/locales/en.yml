@@ -5,6 +5,10 @@ en:
     email_us: Just email us.
     need: Need anything?
     title: About
+  confirmations:
+    new:
+      action: Resend confirmation instructions
+      title: Resend account confirmation instructions
   features:
     action_1: Try now
     action_2: TODO Find out more

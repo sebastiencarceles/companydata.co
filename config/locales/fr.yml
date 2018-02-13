@@ -5,6 +5,10 @@ fr:
     email_us: Envoyez-nous un email.
     need: Besoin de quelque chose ?
     title: À propos
+  confirmations:
+    new:
+      action: Renvoyer
+      title: Renvoyer les instructions de confirmation de compte
   features:
     action_1: Try now
     action_2: En savoir plus

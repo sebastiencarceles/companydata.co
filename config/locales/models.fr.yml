@@ -1,0 +1,6 @@
+fr:
+  activerecord:
+    errors:
+      messages:
+        blank: "%{value} est vide"
+        invalid: "%{value} est invalide"
