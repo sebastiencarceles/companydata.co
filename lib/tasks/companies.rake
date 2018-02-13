@@ -41,4 +41,12 @@ namespace :companies do
     Rails.logger.info "Reindex companies"
     Company.reindex
   end
+
+  task reslug: :environment do
+    Rails.logger.info "Reslug companies"
+    Company.where(slug: nil).find_each do |company|
+      company.save
+      Rails.logger.info "Slugged company: #{company.slug}"
+    end
+  end
 end
