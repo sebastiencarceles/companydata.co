@@ -23,6 +23,16 @@ fr:
     title_1: Consultation gratuite
     title_2: API pour enrichir
     title_3: Autocomplétion de nom
+  financial_year:
+    duration: "%{months} mois"
+  financial_years:
+    closing_date: Date de clôture
+    duration: Durée
+    income: Résultat
+    revenue: Chiffre d'affaires
+    staff: Salarié·e·s
+    title: Exercices
+    year: Année
   landing:
     show:
       company_name: Nom de société

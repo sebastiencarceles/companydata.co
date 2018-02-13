@@ -23,6 +23,16 @@ en:
     title_1: Free search
     title_2: Enrichment API
     title_3: Company autocomplete
+  financial_year:
+    duration: "%{months} months"
+  financial_years:
+    closing_date: Closing date
+    duration: Duration
+    income: Income
+    revenue: Revenue
+    staff: Staff
+    title: Financial years
+    year: Year
   landing:
     show:
       company_name: Company name

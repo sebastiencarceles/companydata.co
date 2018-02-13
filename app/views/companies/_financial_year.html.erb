@@ -4,14 +4,14 @@
   </td>
   <td>
     <% if financial_year.revenue.present? %>
-      <%= number_to_currency financial_year.revenue, unit: financial_year.currency %>
+      <%= number_to_currency financial_year.revenue, unit: financial_year.currency, precision: 0 %>
     <% else %>
       -  
     <% end %>
   </td>
   <td>
     <% if financial_year.income.present? %>
-      <%= number_to_currency financial_year.income, unit: financial_year.currency %>
+      <%= number_to_currency financial_year.income, unit: financial_year.currency, precision: 0 %>
     <% else %>
       -      
     <% end %>
@@ -25,7 +25,7 @@
   </td>
   <td>
     <% if financial_year.duration.present? %>
-      <%= financial_year.duration %> months  
+      <%= t("financial_year.duration", months: financial_year.duration) %>
     <% else %>
       -
     <% end %>

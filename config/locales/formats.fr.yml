@@ -1,0 +1,11 @@
+---
+fr:
+  date:
+    formats:
+      default: "%d-%m-%Y"
+  number:
+    currency:
+      format:
+        delimiter: " "
+        format: "%n %u"
+        separator: ","

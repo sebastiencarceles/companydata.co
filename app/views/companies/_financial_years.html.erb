@@ -1,17 +1,17 @@
 <div class="m-1 card card-tabbed">
   <div class="card-header">
-    <h6>Financial years</h6>
+    <h6><%= t("financial_years.title") %></h6>
   </div>
   <div class="card-body">
     <table class="table table-sm font-size-small">
       <thead>
         <tr>
-          <th>Year</th>
-          <th>Revenue</th>
-          <th>Income</th>
-          <th>Staff</th>
-          <th>Duration</th>
-          <th>Closing date</th>
+          <th><%= t("financial_years.year") %></th>
+          <th><%= t("financial_years.revenue") %></th>
+          <th><%= t("financial_years.income") %></th>
+          <th><%= t("financial_years.staff") %></th>
+          <th><%= t("financial_years.duration") %></th>
+          <th><%= t("financial_years.closing_date") %></th>
         </tr>
       </thead>
       <% @company.financial_years.each do |financial_year| %>
