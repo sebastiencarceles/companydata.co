@@ -15,8 +15,8 @@ module CompaniesHelper
   end
 
   def founded(company)
-    return "Founded in #{company.founded_in}" if company.founded_in.present?
-    return "Founded in #{company.founded_at.year}" if company.founded_at.present?
+    return t("resume.founded", year: company.founded_in) if company.founded_in.present?
+    return t("resume.founded", year: company.founded_at.year) if company.founded_at.present?
   end
 
   def linkedin_url(company)

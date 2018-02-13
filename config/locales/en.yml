@@ -51,8 +51,12 @@ en:
     category: Category
     legal_form: Legal form
     legal_name: Legal name
-    registration_1: "Registration #1"
-    registration_2: "Registration #2"
+    registration_1: 'Registration #1'
+    registration_2: 'Registration #2'
     specialities: Specialities
     staff: Staff
     title: Profile
+  resume:
+    data_source: Main data source
+    founded: Founded in %{year}
+    linkedin: LinkedIn profile

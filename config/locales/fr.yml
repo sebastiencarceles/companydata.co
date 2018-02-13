@@ -56,3 +56,7 @@ fr:
     specialities: Spécialités
     staff: Salarié·e·s
     title: Profil
+  resume:
+    data_source: Source de données
+    founded: Fondée en %{year}
+    linkedin: Profil LinkedIn
