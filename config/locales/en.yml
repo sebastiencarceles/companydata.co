@@ -12,6 +12,17 @@ en:
         hello: Hello
         ignore: Ignore
         someone_invited_you: Someone invited you
+  features:
+    action_1: Try now
+    action_2: TODO Find out more
+    action_3: TODO Find out more
+    description_1: All the data about companies, instantly and freely available. No registration needed.
+    description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
+    description_3: Help your users type in their company with our free autocomplete solution. Follow the tutorial.
+    main_title: The no bullshit engine to get company data
+    title_1: Free search
+    title_2: Enrichment API
+    title_3: Company autocomplete
   landing:
     show:
       company_name: Company name

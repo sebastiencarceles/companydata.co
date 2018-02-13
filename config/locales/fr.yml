@@ -12,6 +12,17 @@ fr:
         hello: Hello
         ignore: Ignorer
         someone_invited_you: Quelqu'un vous a invité
+  features:
+    action_1: Try now
+    action_2: En savoir plus
+    action_3: En savoir plus
+    description_1: Toutes les infos sur les sociétés, gratuitement et immédiatement accessibles. Sans même créer un compte.
+    description_2: Besoin d'intégration dans votre propre workflow ? Démarrez immédiatement et soyez opérationnels en quelques minutes.
+    description_3: Aidez vos utilisateurs à saisir le nom de leur société avec notre solution d'autocomplétion gratuite. Suivez le guide.
+    main_title: La manière la plus directe d'obtenir des infos sur les sociétés
+    title_1: Consultation gratuite
+    title_2: API pour enrichir
+    title_3: Autocomplétion de nom
   landing:
     show:
       company_name: Nom de société

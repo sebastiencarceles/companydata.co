@@ -1,28 +1,31 @@
 <div class="container">
   <div class="row">
-    <h2 class="header-separator text-center col-12 my-4 mb-5">The no bullshit engine to get company data</h2>
+    <h2 class="header-separator text-center col-12 my-4 mb-5"><%= t("features.main_title") %></h2>
   </div>
   <div class="row">
     <div class="col-12 col-md-4 text-center mb-5">
       <div class="bg-circle bg-primary-lightest text-white mb-4">
         <%= theme_icon_tag "search", class: "display-3" %>
       </div>
-      <h3>Free search</h3>
-      <p>Ipsum aliquam earum nesciunt officia accusantium optio aliquid enim quasi numquam sunt autem? Omnis odio earum aspernatur reprehenderit ab? </p>
+      <h3><%= t("features.title_1") %></h3>
+      <p><%= t("features.description_1") %></p>
+      <%= link_to t("features.action_1"), "#", class: "btn btn-primary" %>
     </div>
     <div class="col-12 col-md-4 text-center mb-5">
       <div class="bg-circle bg-primary-lightest text-white mb-4">
         <%= fa_icon_tag "connectdevelop", class: "display-3" %>
       </div>
-      <h3>API</h3>
-      <p>Ipsum aliquam earum nesciunt officia accusantium optio aliquid enim quasi numquam sunt autem? Omnis odio earum aspernatur reprehenderit ab? </p>
+      <h3><%= t("features.title_2") %></h3>
+      <p><%= t("features.description_2") %></p>
+      <%= link_to t("features.action_2"), "#", class: "btn btn-primary" %>      
     </div>
     <div class="col-12 col-md-4 text-center mb-5">
       <div class="bg-circle bg-primary-lightest text-white mb-4">
         <%= theme_icon_tag "heart", class: "display-3" %>
       </div>
-      <h3>Ask for more</h3>
-      <p>Ipsum aliquam earum nesciunt officia accusantium optio aliquid enim quasi numquam sunt autem? Omnis odio earum aspernatur reprehenderit ab? </p>
+      <h3><%= t("features.title_3") %></h3>
+      <p><%= t("features.description_3") %></p>
+      <%= link_to t("features.action_3"), "#", class: "btn btn-primary" %>      
     </div>
   </div>
-</div>
+</div>3
