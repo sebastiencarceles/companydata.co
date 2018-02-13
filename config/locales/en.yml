@@ -46,3 +46,13 @@ en:
     sign_up: SIGN UP
   presentation:
     title: Presentation
+  profile:
+    activity: Activity
+    category: Category
+    legal_form: Legal form
+    legal_name: Legal name
+    registration_1: "Registration #1"
+    registration_2: "Registration #2"
+    specialities: Specialities
+    staff: Staff
+    title: Profile

@@ -3,14 +3,14 @@
 module CompaniesHelper
   def profile_attributes(company)
     attributes = []
-    attributes << ["Legal name", company.name] if company.name.present?
-    attributes << ["Legal form", company.legal_form] if company.legal_form.present?
-    attributes << ["Category", company.category] if company.category.present?
-    attributes << ["Specialities", company.specialities] if company.specialities.present?
-    attributes << ["Staff", company.staff] if company.staff.present?
-    attributes << ["Registration #1", company.registration_1] if company.registration_1.present?
-    attributes << ["Registration #2", company.registration_2] if company.registration_2.present?
-    attributes << ["Activity", activity(company)] if activity(company)
+    attributes << [t("profile.legal_name"), company.name] if company.name.present?
+    attributes << [t("profile.legal_form"), company.legal_form] if company.legal_form.present?
+    attributes << [t("profile.category"), company.category] if company.category.present?
+    attributes << [t("profile.specialities"), company.specialities] if company.specialities.present?
+    attributes << [t("profile.staff"), company.staff] if company.staff.present?
+    attributes << [t("profile.registration_1"), company.registration_1] if company.registration_1.present?
+    attributes << [t("profile.registration_2"), company.registration_2] if company.registration_2.present?
+    attributes << [t("profile.activity"), activity(company)] if activity(company)
     attributes
   end
 

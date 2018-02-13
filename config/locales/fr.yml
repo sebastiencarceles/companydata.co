@@ -46,3 +46,13 @@ fr:
     sign_up: ENREGISTREMENT
   presentation:
     title: Présentation
+  profile:
+    activity: Activité
+    category: Catégorie
+    legal_form: Forme juridique
+    legal_name: Nom légal
+    registration_1: SIREN
+    registration_2: NIC
+    specialities: Spécialités
+    staff: Salarié·e·s
+    title: Profil
