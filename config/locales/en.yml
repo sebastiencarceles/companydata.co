@@ -5,13 +5,6 @@ en:
     email_us: Just email us.
     need: Need anything?
     title: About
-  devise:
-    mailer:
-      invitation_instructions:
-        accept: Accept
-        hello: Hello
-        ignore: Ignore
-        someone_invited_you: Someone invited you
   features:
     action_1: Try now
     action_2: TODO Find out more
@@ -51,3 +44,5 @@ en:
     sign_in: SIGN IN
     sign_out: SIGN OUT
     sign_up: SIGN UP
+  presentation:
+    title: Presentation

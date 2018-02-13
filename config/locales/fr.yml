@@ -5,13 +5,6 @@ fr:
     email_us: Envoyez-nous un email.
     need: Besoin de quelque chose ?
     title: À propos
-  devise:
-    mailer:
-      invitation_instructions:
-        accept: Accepter
-        hello: Hello
-        ignore: Ignorer
-        someone_invited_you: Quelqu'un vous a invité
   features:
     action_1: Try now
     action_2: En savoir plus
@@ -51,3 +44,5 @@ fr:
     sign_in: CONNEXION
     sign_out: DÉCONNEXION
     sign_up: ENREGISTREMENT
+  presentation:
+    title: Présentation
