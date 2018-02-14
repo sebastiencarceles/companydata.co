@@ -59,7 +59,7 @@
       <div class="col-12 col-md-8 mr-auto ml-auto">
         <div class="card">
           <div class="card-header">
-            <h6>Account</h6>
+            <h6><%= t("devise.registrations.edit.title") %></h6>
           </div>
           <div class="card-body">
             <div class="container">
@@ -101,16 +101,16 @@
                     <%= f.password_field :current_password, class: "form-control" %>
                     <%= f.error_messages %>
                     <div class="help-block">
-                      We need your current password to confirm your changes.
+                      <%= t("devise.registrations.edit.current_password_needed") %>
                     </div>
                   </div>
                 <% end %>
 
                 <div class="row d-flex align-items-center mt-5">
-                  <%= mail_to contact_email, "Cancel my account", class: "mr-auto text-danger", subject: "Cancel my account" %>
+                  <%= mail_to contact_email, t("devise.registrations.edit.cancel_account"), class: "mr-auto text-danger", subject: t("devise.registrations.edit.cancel_account") %>
                   <div>
-                    <%= link_to "Back", :back, class: "btn btn-outline-defualt" %>
-                    <%= f.submit "Update", class: "btn btn-primary btn-registrations" %>
+                    <%= link_to t("devise.registrations.edit.back"), :back, class: "btn btn-outline-defualt" %>
+                    <%= f.submit t("devise.registrations.edit.action"), class: "btn btn-primary btn-registrations" %>
                   </div>
                 </div>
               <% end %>

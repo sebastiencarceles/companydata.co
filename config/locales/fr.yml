@@ -53,6 +53,17 @@ fr:
       new:
         action: Envoyer les instructions de renouvellement de mot de passe
         title: Mot de passe oublier
+    registrations:
+      edit:
+        action: Mettre à jour
+        back: Retour
+        cancel_account: Supprimer mon compte
+        current_password_needed: Nous avons besoin de votre mot de passe actuel pour confirmer vos changements.
+        title: Compte
+      new:
+        action: S'enregistrer
+        log_in: Se connecter ?
+        title: Enregistrement
   landing:
     data:
       companies: de sociétés

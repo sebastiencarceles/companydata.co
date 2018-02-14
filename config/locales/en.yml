@@ -53,6 +53,17 @@ en:
       new:
         action: Send me reset password instructions
         title: Forgot my password
+    registrations:
+      edit:
+        action: Update
+        back: Back
+        cancel_account: Cancel my account
+        current_password_needed: We need your current password to confirm your changes.
+        title: Account
+      new:
+        action: Sign up
+        log_in: Log in?
+        title: Registration
   landing:
     data:
       companies: Companies
