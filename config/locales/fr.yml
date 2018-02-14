@@ -39,10 +39,20 @@ fr:
       headquarter: Siège social
     settlements:
       title: Établissements
-  confirmations:
-    new:
-      action: Renvoyer
-      title: Renvoyer les instructions de confirmation de compte
+  devise:
+    confirmations:
+      new:
+        action: Renvoyer
+        title: Renvoyer les instructions de confirmation de compte
+    passwords:
+      edit:
+        action: Changer le mot de passe
+        confirm_new_password: Confirmation du nouveau mot de passe
+        new_password: Nouveau mot de passe
+        title: Changer le mot de passe
+      new:
+        action: Envoyer les instructions de renouvellement de mot de passe
+        title: Mot de passe oublier
   landing:
     data:
       companies: de sociétés

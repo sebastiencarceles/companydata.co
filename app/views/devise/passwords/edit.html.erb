@@ -4,7 +4,7 @@
     <div class="row">
       <header class="text-center">
         <h1><%=app_name%></h1>
-        <p class="p-0 m-0 text-uppercase">Change My Password</p>
+        <p class="p-0 m-0 text-uppercase"><%= t("devise.passwords.edit.title") %></p>
       </header>
     </div>
     <div class="row mt-5">
@@ -12,27 +12,26 @@
         <div class="card">
           <div class="card-body">
             <div class="container">
-              <%= form_for resource, as: resource_name, url: password_path(resource_name),
-                html: { method: :put, class: "form-horizontal" } do |f| %>
+              <%= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "form-horizontal" } do |f| %>
                 <%= f.error_notification %>
 
                 <%= f.hidden_field :reset_password_token %>
                 <%= f.error_messages_for :reset_password_token %>
 
                 <%= f.form_group :password, class: "row" do |f| %>
-                  <%= f.label :password, "New password", class: "form-label" %>
+                  <%= f.label :password, t("devise.passwords.edit.new_password"), class: "form-label" %>
                   <%= f.password_field :password, class: "form-control" %>
                   <%= f.error_messages %>
                 <% end %>
 
                 <%= f.form_group :password_confirmation, class: "row" do |f| %>
-                  <%= f.label :password_confirmation, "Confirm your new password", class: "form-label" %>
+                  <%= f.label :password_confirmation, t("devise.passwords.edit.confirm_new_password"), class: "form-label" %>
                   <%= f.password_field :password_confirmation, class: "form-control" %>
                   <%= f.error_messages %>
                 <% end %>
 
                 <div class="row d-flex align-items-center mt-5">
-                  <%= f.submit "Change my password", class: "btn btn-primary ml-auto" %>
+                  <%= f.submit t("devise.passwords.edit.action"), class: "btn btn-primary ml-auto" %>
                 </div>
               <% end %>
             </div>

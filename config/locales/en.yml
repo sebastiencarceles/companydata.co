@@ -39,10 +39,20 @@ en:
       headquarter: Headquarter
     settlements:
       title: Settlements
-  confirmations:
-    new:
-      action: Resend confirmation instructions
-      title: Resend account confirmation instructions
+  devise:
+    confirmations:
+      new:
+        action: Resend confirmation instructions
+        title: Resend account confirmation instructions
+    passwords:
+      edit:
+        action: Change my password
+        confirm_new_password: Confirm your new password
+        new_password: New password
+        title: Change my password
+      new:
+        action: Send me reset password instructions
+        title: Forgot my password
   landing:
     data:
       companies: Companies
