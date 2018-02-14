@@ -31,6 +31,11 @@ en:
     title: Financial years
     year: Year
   landing:
+    data:
+      companies: Companies
+      description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms like Opencorporates or company pages on LinkedIn and Facebook.
+      financial_years: Financial data
+      title: Covered countries
     show:
       company_name: Company name
       search: Search

@@ -31,6 +31,11 @@ fr:
     title: Exercices
     year: Année
   landing:
+    data:
+      companies: de sociétés
+      description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes comme Opencorporates et des pages sociétés sur LinkedIn et Facebook.
+      financial_years: de données financières
+      title: Pays couverts
     show:
       company_name: Nom de société
       search: Chercher

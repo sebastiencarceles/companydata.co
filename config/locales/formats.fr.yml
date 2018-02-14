@@ -4,6 +4,19 @@ fr:
     formats:
       default: "%d-%m-%Y"
   number:
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand:
+            one: millier
+            other: milliers
+          million:
+            one: million
+            other: millions
+      format:
+        separator: ","
     currency:
       format:
         delimiter: " "
