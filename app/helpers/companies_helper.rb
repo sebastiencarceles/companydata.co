@@ -3,20 +3,20 @@
 module CompaniesHelper
   def profile_attributes(company)
     attributes = []
-    attributes << [t("profile.legal_name"), company.name] if company.name.present?
-    attributes << [t("profile.legal_form"), company.legal_form] if company.legal_form.present?
-    attributes << [t("profile.category"), company.category] if company.category.present?
-    attributes << [t("profile.specialities"), company.specialities] if company.specialities.present?
-    attributes << [t("profile.staff"), company.staff] if company.staff.present?
-    attributes << [t("profile.registration_1"), company.registration_1] if company.registration_1.present?
-    attributes << [t("profile.registration_2"), company.registration_2] if company.registration_2.present?
-    attributes << [t("profile.activity"), activity(company)] if activity(company)
+    attributes << [t("companies.profile.legal_name"), company.name] if company.name.present?
+    attributes << [t("companies.profile.legal_form"), company.legal_form] if company.legal_form.present?
+    attributes << [t("companies.profile.category"), company.category] if company.category.present?
+    attributes << [t("companies.profile.specialities"), company.specialities] if company.specialities.present?
+    attributes << [t("companies.profile.staff"), company.staff] if company.staff.present?
+    attributes << [t("companies.profile.registration_1"), company.registration_1] if company.registration_1.present?
+    attributes << [t("companies.profile.registration_2"), company.registration_2] if company.registration_2.present?
+    attributes << [t("companies.profile.activity"), activity(company)] if activity(company)
     attributes
   end
 
   def founded(company)
-    return t("resume.founded", year: company.founded_in) if company.founded_in.present?
-    return t("resume.founded", year: company.founded_at.year) if company.founded_at.present?
+    return t("companies.resume.founded", year: company.founded_in) if company.founded_in.present?
+    return t("companies.resume.founded", year: company.founded_at.year) if company.founded_at.present?
   end
 
   def linkedin_url(company)

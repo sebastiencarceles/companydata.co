@@ -5,37 +5,61 @@ en:
     email_us: Just email us.
     need: Need anything?
     title: About
+  companies:
+    financial_year:
+      duration: "%{months} months"
+    financial_years:
+      closing_date: Closing date
+      duration: Duration
+      income: Income
+      revenue: Revenue
+      staff: Staff
+      title: Financial years
+      year: Year
+    presentation:
+      title: Presentation
+    profile:
+      activity: Activity
+      category: Category
+      legal_form: Legal form
+      legal_name: Legal name
+      registration_1: 'Registration #1'
+      registration_2: 'Registration #2'
+      specialities: Specialities
+      staff: Staff
+      title: Profile
+    resume:
+      data_source: Main data source
+      founded: Founded in %{year}
+      linkedin: LinkedIn profile
+    settlement:
+      branch: Branch
+      details: Company details
+      financial_data: With financial data
+      headquarter: Headquarter
+    settlements:
+      title: Settlements
   confirmations:
     new:
       action: Resend confirmation instructions
       title: Resend account confirmation instructions
-  features:
-    action_1: Try now
-    action_2: TODO Find out more
-    action_3: TODO Find out more
-    description_1: All the data about companies, instantly and freely available. No registration needed.
-    description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
-    description_3: Help your users type in their company with our free autocomplete solution. Follow the tutorial.
-    main_title: The no bullshit engine to get company data
-    title_1: Free search
-    title_2: Enrichment API
-    title_3: Company autocomplete
-  financial_year:
-    duration: "%{months} months"
-  financial_years:
-    closing_date: Closing date
-    duration: Duration
-    income: Income
-    revenue: Revenue
-    staff: Staff
-    title: Financial years
-    year: Year
   landing:
     data:
       companies: Companies
       description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms like Opencorporates or company pages on LinkedIn and Facebook.
       financial_years: Financial data
       title: Covered countries
+    features:
+      action_1: Try now
+      action_2: TODO Find out more
+      action_3: TODO Find out more
+      description_1: All the data about companies, instantly and freely available. No registration needed.
+      description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
+      description_3: Help your users type in their company with our free autocomplete solution. Follow the tutorial.
+      main_title: The no bullshit engine to get company data
+      title_1: Free search
+      title_2: Enrichment API
+      title_3: Company autocomplete
     show:
       company_name: Company name
       search: Search
@@ -53,26 +77,3 @@ en:
     sign_in: SIGN IN
     sign_out: SIGN OUT
     sign_up: SIGN UP
-  presentation:
-    title: Presentation
-  profile:
-    activity: Activity
-    category: Category
-    legal_form: Legal form
-    legal_name: Legal name
-    registration_1: 'Registration #1'
-    registration_2: 'Registration #2'
-    specialities: Specialities
-    staff: Staff
-    title: Profile
-  resume:
-    data_source: Main data source
-    founded: Founded in %{year}
-    linkedin: LinkedIn profile
-  settlement:
-    branch: Branch
-    details: Company details
-    financial_data: With financial data
-    headquarter: Headquarter
-  settlements:
-    title: Settlements
