@@ -45,8 +45,15 @@ namespace :companies do
   task reslug: :environment do
     Rails.logger.info "Reslug companies"
     Company.where(slug: nil).find_each do |company|
-      company.save
-      Rails.logger.info "Slugged company: #{company.slug}"
+      counter = 1
+      slug = company.name.parameterize
+      while Company.exists?(slug: slug) do
+        slug = company.name.parameterize.strip + "-" + counter.to_s
+        counter += 1
+      end
+      company.update_columns(slug: slug)
+
+      Rails.logger.info "Slugged company: #{slug}"
     end
   end
 end
