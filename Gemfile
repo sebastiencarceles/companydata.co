@@ -69,10 +69,10 @@ gem "sendgrid-ruby"
 gem "airbrake"
 
 # Translations
-gem 'i18n-tasks', '~> 0.9.20'
+gem "i18n-tasks", "~> 0.9.20"
 
 # Static pages
-gem 'high_voltage', '~> 3.0.0'
+gem "high_voltage", "~> 3.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
