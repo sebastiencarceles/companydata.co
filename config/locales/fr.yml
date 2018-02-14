@@ -64,6 +64,13 @@ fr:
         action: S'enregistrer
         log_in: Se connecter ?
         title: Enregistrement
+    sessions:
+      new:
+        action: Se connecter
+        confirmation_instructions: Instructions de confirmations non reçues ?
+        forgot_your_password: Mot de passe oublié ?
+        sign_up: Enregistrement
+        title: Connexion
   landing:
     data:
       companies: de sociétés

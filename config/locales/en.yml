@@ -64,6 +64,13 @@ en:
         action: Sign up
         log_in: Log in?
         title: Registration
+    sessions:
+      new:
+        action: Log in
+        confirmation_instructions: Didn't receive confirmation instructions?
+        forgot_your_password: Forgot your password?
+        sign_up: Sign up
+        title: Login
   landing:
     data:
       companies: Companies

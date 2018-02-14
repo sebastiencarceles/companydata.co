@@ -5,7 +5,7 @@
     <div class="row">
       <header class="text-center">
         <h1><%=app_name%></h1>
-        <p class="p-0 m-0 text-uppercase">Login</p>
+        <p class="p-0 m-0 text-uppercase"><%= t("devise.sessions.new.title") %></p>
       </header>
     </div>
     <div class="row mt-5">
@@ -14,8 +14,7 @@
         <div class="card">
           <div class="card-body">
             <div class="container">
-              <%= form_for resource, as: resource_name, url: session_path(resource_name),
-                html: { class: "form-horizontal" } do |f| %>
+              <%= form_for resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal" } do |f| %>
 
                 <%- if devise_mapping.omniauthable? %>
                   <p>
@@ -45,7 +44,7 @@
                       <%= f.check_box :remember_me %>
                       <%= f.label :remember_me, class: "checkbox m-0 mr-auto" %>
                     </div>
-                    <%= f.submit "Log in", class: "btn btn-primary" %>
+                    <%= f.submit t("devise.sessions.new.action"), class: "btn btn-primary" %>
                   </div>
                 <% end %>
               <% end %>
@@ -58,14 +57,14 @@
     <div class="row">
       <div class="col-12 col-md-6 mr-md-auto ml-md-auto">
         <ul class="list-unstyled options row">
-          <li class="col-12 col-md-6"><%= link_to "Sign up", new_registration_path(resource_name) %></li>
+          <li class="col-12 col-md-6"><%= link_to t("devise.sessions.new.sign_up"), new_registration_path(resource_name) %></li>
 
           <%- if devise_mapping.recoverable? %>
-            <li class="col-12 col-md-6"><%= link_to "Forgot your password?", new_password_path(resource_name) %></li>
+            <li class="col-12 col-md-6"><%= link_to t("devise.sessions.new.forgot_your_password"), new_password_path(resource_name) %></li>
           <% end -%>
 
           <%- if devise_mapping.confirmable? %>
-            <li class="col-12 col-md-6"><%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %></li>
+            <li class="col-12 col-md-6"><%= link_to t("devise.sessions.new.confirmation_instructions"), new_confirmation_path(resource_name) %></li>
           <% end -%>
 
           <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) %>
