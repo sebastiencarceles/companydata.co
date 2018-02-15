@@ -25,7 +25,7 @@
         <%= link_to t("navigation.pricing"), pricing_path, class: "nav-link" %>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" href="http://sebastiencarceles.github.io/companydata-api-docs"><%= t("navigation.docs") %></a>
+        <%= link_to t("navigation.docs"), "http://sebastiencarceles.github.io/companydata-api-docs", class: "nav-link", target: "_blank" %>
       </li>
       <li class="nav-item ">
         <%= mail_to contact_email, t("navigation.contact"), class: "nav-link" %>
