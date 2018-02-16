@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center justify-content-center mt-5 mb-5">
   <div class="container text-center mt-5 mb-5">
-    <div class="row mt-5 mb-5">
+    <div class="row">
       <div class="col-12 col-md-6 ml-md-auto mr-md-auto">
         <div class="card">
           <div class="card-body pt-5 pb-5 px-5">
@@ -8,6 +8,9 @@
             <h3 class="mt-4"><%= t("payment.show.title") %></h3>
             <p><%= t("payment.show.description") %></p>
             <small><%= t("payment.show.subtitle") %></small>
+
+            <h3 class="mt-5"><%= t("payment.show.what_now.title") %></h3>
+            <p><%= link_to t("payment.show.what_now.docs"), docs_url, target: "_blank" %></p>
           </div>
         </div>
       </div>

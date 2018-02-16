@@ -125,6 +125,9 @@ fr:
       description: Le service est gratuit pour le moment. Vous avez un compte illimité. Vous serez notifié·e lorsque la période de gratuité se terminera.
       subtitle: Sympa, non ?
       title: C'était une blague !
+      what_now:
+        docs: Consulter la documentation et démarrer
+        title: Et maintenant ?
   pricing:
     choose:
       choose: Choisir

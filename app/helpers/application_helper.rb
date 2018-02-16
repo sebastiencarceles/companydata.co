@@ -8,4 +8,8 @@ module ApplicationHelper
   def contact_email
     "sebastien@companydata.co"
   end
+
+  def docs_url
+    "http://sebastiencarceles.github.io/companydata-api-docs"
+  end
 end

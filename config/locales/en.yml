@@ -125,13 +125,16 @@ en:
       description: The service is free for now. You have an unlimited account. You will be notified when the free period ends.
       subtitle: How awesome is that, right?
       title: It's a joke!
+      what_now:
+        docs: Check out the docs and get started
+        title: What now?
   pricing:
     choose:
       choose: Choose
       current: Your current plan
       downgrade: Downgrade
       not_signed_in: You will be redirected to the payment after creating an account
-      success: "Success! Your plan is now %{plan}"
+      success: Success! Your plan is now %{plan}
       upgrade: Upgrade
     show:
       description_1: You need a plan (even a free one) to use the API. Sign up and get started instantly. You can change your plan at any time.
