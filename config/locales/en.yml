@@ -105,3 +105,8 @@ en:
     sign_in: SIGN IN
     sign_out: SIGN OUT
     sign_up: SIGN UP
+  payment:
+    show:
+      description: The service is free for now. You have an unlimited account. You will be notified when the free period ends.
+      subtitle: How awesome is that, right?
+      title: It's a joke!
