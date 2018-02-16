@@ -1,0 +1,11 @@
+fr:
+  activerecord:
+    models:
+      user: Utilisateur
+    attributes:
+      user:
+        email: Email
+        password: Mot de passe
+        password_confirmation: Confirmation de mot de passe
+        current_password: Mot de passe actuel
+        remember_me: Rester connecté
