@@ -74,6 +74,9 @@ gem "i18n-tasks", "~> 0.9.20"
 # Static pages
 gem "high_voltage", "~> 3.0.0"
 
+# Analytics
+gem "mixpanel-ruby"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

@@ -16,7 +16,10 @@ class User < ApplicationRecord
   validates_inclusion_of :plan, in: PLANS.keys.map(&:to_s)
 
   after_create :create_usage!
+  after_create :track_creation
   after_update :update_usage_limit!, if: :saved_change_to_plan?
+  after_update :track_update
+  
 
   def self.from_token_request(request)
     email = request.params["auth"] && request.params["auth"]["email"]
@@ -40,5 +43,17 @@ class User < ApplicationRecord
       else
         create_usage!
       end
+    end
+
+    def track_creation
+      Tracking::Mixpanel.track(id, 'Registration')
+      track_update
+    end
+    
+    def track_update
+      Tracking::Mixpanel.people.set(id, { 
+        'email': email,
+        'plan': plan
+      })
     end
 end
