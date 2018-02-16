@@ -111,6 +111,11 @@ fr:
       subtitle: Sympa, non ?
       title: C'est une blague !
   pricing:
+    choose:
+      choose: Choisir
+      current: Plan actuel
+      downgrade: Réduire
+      upgrade: Augmenter
     show:
       description_1: Vous devez utiliser un plan (même un gratuit) pour utiliser l'API. Enregistrez-vous et commencez dès maintenant avec le plan gratuit. Vous pourrez changer de plan à tout moment.
       description_2: Les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels effectués.
