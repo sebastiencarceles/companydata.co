@@ -94,8 +94,8 @@ en:
       title: Covered countries
     features:
       action_1: Try now
-      action_2: TODO Documentation
-      action_3: TODO Tutorial
+      action_2: Documentation
+      action_3: Tutorial
       description_1: All the data about companies, instantly and freely available. No registration needed.
       description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
       description_3: Help your users type in their company with our free autocomplete solution. Follow the tutorial.

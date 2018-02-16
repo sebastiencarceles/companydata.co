@@ -16,12 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
       if plan.present? && plan != "free"
         payment_path(plan: plan)
       else
-        root_path # TODO redirect to API documentation
+        root_path
       end
     end
-
-  # TODO redirect to API documentation
-  # def after_confirmation_path_for(resource_name, resource)
-  #   your_new_after_confirmation_path
-  # end
 end
