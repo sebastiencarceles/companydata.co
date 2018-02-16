@@ -1,0 +1,3 @@
+$ ->
+  mixpanel.track("Visit landing")
+  
