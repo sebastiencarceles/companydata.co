@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'ready page:load turbolinks:load', ->
   mixpanel.track_links("#js-choose-free", "Choose plan", { 'plan': 'free' })
   mixpanel.track_links("#js-choose-normal", "Choose plan", { 'plan': 'normal' })
   mixpanel.track_links("#js-choose-huge", "Choose plan", { 'plan': 'huge' })
