@@ -124,12 +124,14 @@ fr:
     show:
       description: Le service est gratuit pour le moment. Vous avez un compte illimité. Vous serez notifié·e lorsque la période de gratuité se terminera.
       subtitle: Sympa, non ?
-      title: C'est une blague !
+      title: C'était une blague !
   pricing:
     choose:
       choose: Choisir
       current: Plan actuel
       downgrade: Réduire
+      not_signed_in: Vous serez redirigé vers la page de paiement après vous être enregistré
+      success: Bravo ! Votre plan est maintenant %{plan}
       upgrade: Augmenter
     show:
       description_1: Vous devez utiliser un plan (même un gratuit) pour utiliser l'API. Enregistrez-vous et commencez dès maintenant avec le plan gratuit. Vous pourrez changer de plan à tout moment.

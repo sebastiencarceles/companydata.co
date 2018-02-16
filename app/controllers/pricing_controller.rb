@@ -9,13 +9,13 @@ class PricingController < ApplicationController
     if user_signed_in?
       if plan == "free"
         current_user.update(plan: :free)
-        flash.notice = "Success! Your plan is now #{plan}"
+        flash.notice = t("pricing.choose.success", plan: plan)
         redirect_to root_path
       else
         redirect_to payment_path(plan: plan)
       end
     else
-      flash.notice = "You will be redirected to the payment after creating an account"
+      flash.notice = t("pricing.choose.not_signed_in")
       redirect_to new_user_registration_path(plan: plan)
     end
   end

@@ -130,6 +130,8 @@ en:
       choose: Choose
       current: Your current plan
       downgrade: Downgrade
+      not_signed_in: You will be redirected to the payment after creating an account
+      success: "Success! Your plan is now %{plan}"
       upgrade: Upgrade
     show:
       description_1: You need a plan (even a free one) to use the API. Sign up and get started instantly. You can change your plan at any time.
