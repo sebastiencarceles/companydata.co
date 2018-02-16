@@ -139,3 +139,10 @@ en:
           description: Yup.<br>That's a lot.
           name: Unlimited
       title: Choose a plan to use the API
+  searches:
+    create:
+      no_companies: Oops, no companies.
+      search:
+        action: Search
+        placeholder: Company name
+        title: Search for something else!

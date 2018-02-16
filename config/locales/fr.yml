@@ -139,3 +139,10 @@ fr:
           description: Oui.<br>Ça fait beaucoup.
           name: Unlimited
       title: Choisissez un plan pour utiliser l'API
+  searches:
+    create:
+      no_companies: Oups, pas de résultat.
+      search:
+        action: Chercher
+        placeholder: Nom de société
+        title: Vous cherchez autre chose ?
