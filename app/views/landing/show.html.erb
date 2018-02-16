@@ -29,3 +29,6 @@
   <%= render partial: 'landing/data' %>
 </section>
 
+<script type="text/javascript">
+  mixpanel.track_links("#js-landing-search", "Search", { 'query': $("#search_query").val() });
+</script>
