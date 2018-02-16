@@ -2,14 +2,14 @@
   <%= f.hidden_field :plan, value: plan %>
   <% if user_signed_in? %>
     <% if plan_higher?(plan, current_user.plan) %>
-      <%= f.submit t("pricing.choose.upgrade"), class: "btn btn-info p-4" %>
+      <%= f.submit t("pricing.choose.upgrade"), class: "btn btn-info p-4 js-choose" %>
     <% elsif plan_lower?(plan, current_user.plan) %>
-      <%= f.submit t("pricing.choose.downgrade"), class: "btn btn-info p-4" %>
+      <%= f.submit t("pricing.choose.downgrade"), class: "btn btn-info p-4 js-choose" %>
     <% else current_user.plan == plan %>
       <%= f.submit t("pricing.choose.current"), class: "btn btn-info p-4", disabled: true %>
     <% end %>
   <% else %>
-    <%= f.submit t("pricing.choose.choose"), class: "btn btn-info p-4" %>
+    <%= f.submit t("pricing.choose.choose"), class: "btn btn-info p-4 js-choose" %>
   <% end %>
 <% end %>
 
