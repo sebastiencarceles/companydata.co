@@ -56,10 +56,25 @@ fr:
     registrations:
       edit:
         action: Mettre à jour
+        api:
+          api_key_title: Clé d'API
+          change_plan: Changer de plan
+          confirm: Vraiment ?
+          current_plan_title: Plan actuel
+          description: Gardez votre clé d'API secrète ! Ne la stockez pas sur un dépôt public, préférez l'usage d'une variable d'environnement. Si vous pensez que votre clé a été volée, renouvelez-la et mettez à jour la variable d'environnement.
+          limited_plan: "%{limit} appels à l'API par mois"
+          renew_api_key: Renouveler
+          title: API
+          unlimited_plan: appels illimités par mois
         back: Retour
         cancel_account: Supprimer mon compte
         current_password_needed: Nous avons besoin de votre mot de passe actuel pour confirmer vos changements.
+        do_not_change_password: Laissez vide si vous ne souhaitez pas changer le mot de passe.
         title: Compte
+        usage:
+          description: Voici votre historique d'utilisation.
+          title: Usage
+          usage: "%{count} appels à l'API / %{limit}"
       new:
         action: S'enregistrer
         log_in: Se connecter ?
@@ -125,19 +140,15 @@ fr:
         calls_count: "%{count} appels à l'API par mois"
         free:
           description: Assez pour essayer avant de payer, ou pour les besoins occasionnels.
-          name: Starter
           period: Oui, c'est gratuit
         huge:
           description: Pour les besoins plus importants, comme les équipes commerciales conséquentes.
-          name: Huge
         normal:
           description: Parfait pour les start-ups et les petites entreprises, et ça reste pas cher.
-          name: Normal
         period: Par mois
         unlimited:
           calls_count: Appels illimités à l'API
           description: Oui.<br>Ça fait beaucoup.
-          name: Unlimited
       title: Choisissez un plan pour utiliser l'API
   searches:
     create:

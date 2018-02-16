@@ -56,10 +56,25 @@ en:
     registrations:
       edit:
         action: Update
+        api:
+          api_key_title: API Key
+          change_plan: Change plan
+          confirm: Really?
+          current_plan_title: Current plan
+          description: Keep your API Key safe and secret! Don't store it in a repository, set it as an environment variable. If you feel like it has been stolen, just renew it and update the environment variable.
+          limited_plan: "%{limit} API calls per month"
+          renew_api_key: Renew API Key
+          title: API
+          unlimited_plan: unlimited API calls per month
         back: Back
         cancel_account: Cancel my account
         current_password_needed: We need your current password to confirm your changes.
+        do_not_change_password: Leave it blank if you don't want to change it.
         title: Account
+        usage:
+          description: Here is your historial usage.
+          title: Usage
+          usage: "%{count} API calls / %{limit}"
       new:
         action: Sign up
         log_in: Log in?
@@ -125,19 +140,15 @@ en:
         calls_count: "%{count} API calls per month"
         free:
           description: Enought to try before you pay, or for small needs.
-          name: Starter
           period: Like, free
         huge:
           description: For frequent and recurrent needs, like for big sales teams.
-          name: Huge
         normal:
           description: Perfect for start-ups and small businesses, and still cheap.
-          name: Normal
         period: Per Month
         unlimited:
           calls_count: Unlimited API calls
           description: Yup.<br>That's a lot.
-          name: Unlimited
       title: Choose a plan to use the API
   searches:
     create:

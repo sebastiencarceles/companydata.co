@@ -19,7 +19,7 @@
                 <h1 class="text-white m-0">0 €</h2>
                 <p class="text-muted text-uppercase mb-0"><%= t("pricing.show.plans.free.period") %></p>
               </header>
-              <h5 class="bg-gray-900 text-center p-3 text-white m-0"><%= t("pricing.show.plans.free.name") %></h5>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Free</h5>
               <ul class="tiere-feature-list">
                 <li><%= t("pricing.show.plans.calls_count", count: number_with_delimiter(User::PLANS[:free])) %></li>
                 <li><small><%= t("pricing.show.plans.free.description") %></small></li>
@@ -35,7 +35,7 @@
                 <h1 class="text-white m-0">9 €</h2>
                 <p class="text-muted text-uppercase mb-0"><%= t("pricing.show.plans.period") %></p>
               </header>
-              <h5 class="bg-gray-900 text-center p-3 text-white m-0"><%= t("pricing.show.plans.normal.name") %></h5>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Normal</h5>
               <ul class="tiere-feature-list">
                 <li><%= t("pricing.show.plans.calls_count", count: number_with_delimiter(User::PLANS[:normal])) %></li>
                 <li><small><%= t("pricing.show.plans.normal.description") %></small></li>
@@ -51,7 +51,7 @@
                 <h1 class="text-white m-0">29 €</h2>
                 <p class="text-muted text-uppercase mb-0"><%= t("pricing.show.plans.period") %></p>
               </header>
-              <h5 class="bg-gray-900 text-center p-3 text-white m-0"><%= t("pricing.show.plans.huge.name") %></h5>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Huge</h5>
               <ul class="tiere-feature-list">
                 <li><%= t("pricing.show.plans.calls_count", count: number_with_delimiter(User::PLANS[:huge])) %></li>
                 <li><small><%= t("pricing.show.plans.huge.description") %></small></li>
@@ -67,7 +67,7 @@
                 <h1 class="text-white m-0">99 €</h2>
                 <p class="text-muted text-uppercase mb-0"><%= t("pricing.show.plans.period") %></p>
               </header>
-              <h5 class="bg-gray-900 text-center p-3 text-white m-0"><%= t("pricing.show.plans.unlimited.name") %></h5>
+              <h5 class="bg-gray-900 text-center p-3 text-white m-0">Unlimited</h5>
               <ul class="tiere-feature-list">
                 <li><%= t("pricing.show.plans.unlimited.calls_count") %></li>
                 <li><small><%= raw t("pricing.show.plans.unlimited.description") %></small></li>
