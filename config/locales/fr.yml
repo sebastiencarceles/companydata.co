@@ -111,12 +111,12 @@ fr:
       value_proposition: Tout sur les sociétés. Directement.
   navigation:
     about: À propos
-    contact: CONTACT
-    docs: DOCS
+    contact: Contact
+    docs: Docs
     home: ACCUEIL
     legal: Mentions légales
     my_account: MON COMPTE
-    pricing: PRIX
+    pricing: Prix
     sign_in: CONNEXION
     sign_out: DÉCONNEXION
     sign_up: ENREGISTREMENT

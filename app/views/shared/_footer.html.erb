@@ -6,8 +6,21 @@
           <img src="<%= image_path('logo-small.png') %>" class="mr-3" width="32" height="32" >
           <h6 class="text-white m-0 mr-4"><%= app_name %></h6>
           <ul class="list-inline m-0">
-            <li class="list-inline-item"><a href="javascript:" class="text-hover-light"><%= link_to t("navigation.about"), page_path('about') %></a></li>
-            <li class="list-inline-item"><a href="javascript:" class="text-hover-light"><%= link_to t("navigation.legal"), page_path('legal') %></a></li>
+            <li class="list-inline-item">
+              <%= link_to t("navigation.pricing"), pricing_path %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to t("navigation.docs"), "http://sebastiencarceles.github.io/companydata-api-docs", target: "_blank" %>
+            </li>
+            <li class="list-inline-item">
+              <%= mail_to contact_email, t("navigation.contact") %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to t("navigation.about"), page_path('about') %>
+            </li>
+            <li class="list-inline-item">
+              <%= link_to t("navigation.legal"), page_path('legal') %>
+            </li>
           </ul>
         </div>
         <p class="small text-muted m-0">JustDo &copy; <%= Date.today.year %></p>

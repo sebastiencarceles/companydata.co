@@ -111,12 +111,12 @@ en:
       value_proposition: Company data. Straight.
   navigation:
     about: About
-    contact: CONTACT
-    docs: DOCS
+    contact: Contact
+    docs: Docs
     home: HOME
     legal: Legal
     my_account: MY ACCOUNT
-    pricing: PRICING
+    pricing: Pricing
     sign_in: SIGN IN
     sign_out: SIGN OUT
     sign_up: SIGN UP
