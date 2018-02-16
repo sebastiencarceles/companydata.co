@@ -110,3 +110,27 @@ fr:
       description: Le service est gratuit pour le moment. Vous avez un compte illimité. Vous serez notifié·e lorsque la période de gratuité se terminera.
       subtitle: Sympa, non ?
       title: C'est une blague !
+  pricing:
+    show:
+      description_1: Vous devez utiliser un plan (même un gratuit) pour utiliser l'API. Enregistrez-vous et commencez dès maintenant avec le plan gratuit. Vous pourrez changer de plan à tout moment.
+      description_2: Les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels effectués.
+      description_3: Le premier paiement est dû le premier jour du mois prochain (en attendant, c'est gratuit !). Vous recevrez une facture PDF à chaque paiement.
+      description_4: Il vous faut quelque chose de différent ? Contactez-nous !
+      plans:
+        calls_count: "%{count} appels à l'API par mois"
+        free:
+          description: Assez pour essayer avant de payer, ou pour les besoins occasionnels.
+          name: Starter
+          period: Oui, c'est gratuit
+        huge:
+          description: Pour les besoins plus importants, comme les équipes commerciales conséquentes.
+          name: Huge
+        normal:
+          description: Parfait pour les start-ups et les petites entreprises, et ça reste pas cher.
+          name: Normal
+        period: Par mois
+        unlimited:
+          calls_count: Appels illimités à l'API
+          description: Oui.<br>Ça fait beaucoup.
+          name: Unlimited
+      title: Choisissez un plan pour utiliser l'API

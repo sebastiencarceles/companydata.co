@@ -110,3 +110,27 @@ en:
       description: The service is free for now. You have an unlimited account. You will be notified when the free period ends.
       subtitle: How awesome is that, right?
       title: It's a joke!
+  pricing:
+    show:
+      description_1: You need a plan (even a free one) to use the API. Sign up and get started instantly. You can change your plan at any time.
+      description_2: Searches through the website remain free and don't count in the API usage.
+      description_3: First payment will is due on the first day of next month (meanwhile it's free, yay!). You receive a PDF invoice for each payment.
+      description_4: Need something different? Feel free to contact us.
+      plans:
+        calls_count: "%{count} API calls per month"
+        free:
+          description: Enought to try before you pay, or for small needs.
+          name: Starter
+          period: Like, free
+        huge:
+          description: For frequent and recurrent needs, like for big sales teams.
+          name: Huge
+        normal:
+          description: Perfect for start-ups and small businesses, and still cheap.
+          name: Normal
+        period: Per Month
+        unlimited:
+          calls_count: Unlimited API calls
+          description: Yup.<br>That's a lot.
+          name: Unlimited
+      title: Choose a plan to use the API
