@@ -1,1 +1,48 @@
-<h1><%= t("getting_started.title") %></h1>
+<section class="bg-dark p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-white">
+        <h1><%= t("getting_started.title") %></h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-2">
+    </div>
+    <div class="col-12 col-md-10">
+      <h2><%= t("getting_started.subtitle") %></h2>
+      <p><%= t("getting_started.intro") %></p>
+      <ol>
+        <li>
+          <% if user_signed_in? %>
+            <%= t("getting_started.step_1.signed_in") %>
+            <ul>
+              <li>
+                <strong><%= t("getting_started.email") %></strong>
+                <%= current_user.email %>
+              </li>
+              <li>
+                <strong><%= t("getting_started.api_key") %></strong>
+                <%= current_user.api_key %>
+              </li>
+            </ul>
+          <% else %>
+            <%= t("getting_started.step_1.not_signed_in") %>
+            <%= link_to t("navigation.sign_up"), new_user_registration_path %>
+          <% end %>
+        </li>
+        <li>
+          <%= t("getting_started.step_2") %>
+        </li>
+      </ol>
+      <pre>curl -u <% if user_signed_in? %><%= current_user.email %>:<%= current_user.api_key %><% else %>email@domain.com:api_key<% end %> \
+        "https://www.companydata.co/api/v1/companies?q=librairie mollat"</pre>
+      <p><%= t("getting_started.done") %></p>
+      <p><%= t("getting_started.go_docs") %></p>
+      <%= link_to t("navigation.docs"), docs_url, target: "_blank" %>
+    </div>
+  </div>
+</div>

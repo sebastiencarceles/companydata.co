@@ -87,6 +87,12 @@ en:
         sign_up: Sign up
         title: Login
   getting_started:
+    intro: Intro
+    step_1:
+      not_signed_in: Not signed in
+      signed_in: Signed in
+    step_2: Step 2
+    subtitle: Subtitle
     title: Title
   landing:
     data:
