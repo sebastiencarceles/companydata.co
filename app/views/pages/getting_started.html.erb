@@ -14,7 +14,6 @@
     </div>
     <div class="col-12 col-md-10">
       <h2><%= t("getting_started.subtitle") %></h2>
-      <p><%= t("getting_started.intro") %></p>
       <ol>
         <li>
           <% if user_signed_in? %>
@@ -39,10 +38,15 @@
         </li>
       </ol>
       <pre>curl -u <% if user_signed_in? %><%= current_user.email %>:<%= current_user.api_key %><% else %>email@domain.com:api_key<% end %> \
-        "https://www.companydata.co/api/v1/companies?q=librairie mollat"</pre>
+        "https://www.companydata.co/api/v1/companies?q=librairie%20mollat"</pre>
+      <% unless user_signed_in? %>
+        <small><%= t("getting_started.replace") %></small>        
+      <% end %>
       <p><%= t("getting_started.done") %></p>
-      <p><%= t("getting_started.go_docs") %></p>
-      <%= link_to t("navigation.docs"), docs_url, target: "_blank" %>
+      <p>
+        <%= t("getting_started.go_docs") %>
+        <%= link_to t("navigation.docs"), docs_url, target: "_blank" %>
+      </p>
     </div>
   </div>
 </div>

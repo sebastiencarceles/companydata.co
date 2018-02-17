@@ -34,17 +34,17 @@
     <ul class="nav navbar-nav navbar-right">
       <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to t("navigation.my_account"), edit_user_registration_path, class: "btn btn-sm btn-primary text-white" %>
+          <%= link_to t("navigation.my_account"), edit_user_registration_path, class: "btn btn-sm btn-primary text-white text-uppercase" %>
         </li>
         <li class="nav-item">
-            <%= link_to t("navigation.sign_out"), destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to t("navigation.sign_out"), destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-primary text-uppercase" %>
           </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to t("navigation.sign_in"), new_user_session_path, class: "btn btn-sm btn-primary text-white" %>
+          <%= link_to t("navigation.sign_in"), new_user_session_path, class: "btn btn-sm btn-primary text-white text-uppercase" %>
         </li>
         <li class="nav-item">
-          <%= link_to t("navigation.sign_up"), new_user_registration_path, class: "btn btn-sm btn-outline-primary" %>
+          <%= link_to t("navigation.sign_up"), new_user_registration_path, class: "btn btn-sm btn-outline-primary text-uppercase" %>
         </li>
       <% end %>
     </ul>

@@ -86,6 +86,18 @@ fr:
         forgot_your_password: Mot de passe oublié ?
         sign_up: Enregistrement
         title: Connexion
+  getting_started:
+    api_key: 'Api Key : '
+    done: Vos résultats s'affichent en JSON. C'est fini !
+    email: 'Email :'
+    go_docs: 'Maintenant consultez la documentation de l''API pour découvrir comment intégrer l''API Companydata.co à votre système d''information :'
+    replace: "(Remplacez 'email@domain.com' et 'api_key' avec vos valeurs.)"
+    step_1:
+      not_signed_in: 'Enregistrez-vous et consultez votre compte pour noter votre API Key :'
+      signed_in: 'Notez votre email et votre API Key :'
+    step_2: 'Pour effectuer votre premier appel à l''API, ouvrez un terminal et collez-y :'
+    subtitle: Deux étapes pour démarrer
+    title: Démarrage rapide
   landing:
     data:
       companies: de sociétés
@@ -117,13 +129,13 @@ fr:
     about: À propos
     contact: Contact
     docs: Docs
-    home: ACCUEIL
+    home: Accueil
     legal: Mentions légales
-    my_account: MON COMPTE
+    my_account: Mon compte
     pricing: Prix
-    sign_in: CONNEXION
-    sign_out: DÉCONNEXION
-    sign_up: ENREGISTREMENT
+    sign_in: Connexion
+    sign_out: Déconnexion
+    sign_up: Enregistrement
   payment:
     show:
       description: Le service est gratuit pour le moment. Vous avez un compte illimité. Vous serez notifié·e lorsque la période de gratuité se terminera.
