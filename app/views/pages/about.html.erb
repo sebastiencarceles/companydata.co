@@ -7,7 +7,7 @@
             <i class="display-3 fa fa-rocket text-gray-900"></i>
             <h3 class="mt-4"><%= t("about.title") %></h3>
             <p><%= t("about.description", app_name: app_name) %> <%= link_to "JustDo", company_path("justdo") %>.</p>
-            <small><%= t("about.need") %> <%= mail_to "sebastien@companydata.co", t("about.email_us") %></small>
+            <small><%= t("about.need") %> <%= mail_to contact_email, t("about.email_us") %></small>
           </div>
         </div>
       </div>

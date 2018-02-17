@@ -102,7 +102,7 @@ fr:
       main_title: La manière la plus directe d'obtenir des infos sur les sociétés
       title_1: Consultation gratuite
       title_2: API pour enrichir
-      title_3: Autocomplétion de nom
+      title_3: Autocomplétion
     show:
       company_name: Nom de société
       search: Chercher
@@ -140,7 +140,8 @@ fr:
       description_1: Vous devez utiliser un plan (même un gratuit) pour utiliser l'API. Enregistrez-vous et commencez dès maintenant avec le plan gratuit. Vous pourrez changer de plan à tout moment.
       description_2: Les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels effectués.
       description_3: Le premier paiement est dû le premier jour du mois prochain (en attendant, c'est gratuit !). Vous recevrez une facture PDF à chaque paiement.
-      description_4: Il vous faut quelque chose de différent ? Contactez-nous !
+      description_4: Il vous faut quelque chose de différent ?
+      email_us: Contactez-nous !
       plans:
         calls_count: "%{count} appels à l'API par mois"
         free:

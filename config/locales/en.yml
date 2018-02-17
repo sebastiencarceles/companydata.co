@@ -106,7 +106,7 @@ en:
     show:
       company_name: Company name
       search: Search
-      sub_value_proposition: Boost you business with the data you need about your prospects and customers, in a very simple way.
+      sub_value_proposition: Boost your business with the data you need about your prospects and customers, in a very simple way.
       try_title: Give it a try!
       value_proposition: Company data. Straight.
   navigation:
@@ -140,7 +140,8 @@ en:
       description_1: You need a plan (even a free one) to use the API. Sign up and get started instantly. You can change your plan at any time.
       description_2: Searches through the website remain free and don't count in the API usage.
       description_3: First payment will is due on the first day of next month (meanwhile it's free, yay!). You receive a PDF invoice for each payment.
-      description_4: Need something different? Feel free to contact us.
+      description_4: Need something different?
+      email_us: Feel free to contact us.
       plans:
         calls_count: "%{count} API calls per month"
         free:
