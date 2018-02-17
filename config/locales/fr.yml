@@ -92,6 +92,10 @@ fr:
       description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes comme Opencorporates et des pages sociétés sur LinkedIn et Facebook.
       financial_years: de données financières
       title: Pays couverts
+    example:
+      action: Démarrer
+      description: Ça ne pourrait pas être plus simple. Quand vous souhaitez chercher des sociétés, voici la requête. Et ci-contre, voici le résultat.
+      title: Facile à utiliser
     features:
       action_1: Essayer
       action_2: Documentation

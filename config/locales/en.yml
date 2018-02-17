@@ -92,6 +92,10 @@ en:
       description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms like Opencorporates or company pages on LinkedIn and Facebook.
       financial_years: Financial data
       title: Covered countries
+    example:
+      action: Get started
+      description: This can't be simpler. When you want to search for companies, here is the request. Beside is the result.
+      title: Super simple use
     features:
       action_1: Try now
       action_2: Documentation
