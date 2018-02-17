@@ -86,6 +86,8 @@ en:
         forgot_your_password: Forgot your password?
         sign_up: Sign up
         title: Login
+  getting_started:
+    title: Title
   landing:
     data:
       companies: Companies
