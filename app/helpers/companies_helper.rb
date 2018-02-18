@@ -15,7 +15,6 @@ module CompaniesHelper
   end
 
   def founded(company)
-    return t("companies.resume.founded", year: company.founded_in) if company.founded_in.present?
     return t("companies.resume.founded", year: company.founded_at.year) if company.founded_at.present?
   end
 

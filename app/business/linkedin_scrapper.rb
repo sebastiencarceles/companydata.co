@@ -74,7 +74,7 @@ class LinkedinScrapper
     add!(data, :category, read_text(".company-industries"))
     add!(data, :website, read_text(".org-about-us-company-module__website"))
     add!(data, :headquarter_in, read_text(".org-about-company-module__headquarters"))
-    add!(data, :founded_in, read_text(".org-about-company-module__founded"))
+    add!(data, :founded_in, read_text(".org-about-company-module__founded")) # TODO fix founded in -> founded at
     add!(data, :legal_form, read_text(".org-about-company-module__company-type"))
     add!(data, :staff, read_text(".org-about-company-module__company-staff-count-range"))
     add!(data, :specialities, read_text(".org-about-company-module__specialities"))

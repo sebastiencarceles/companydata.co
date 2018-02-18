@@ -56,14 +56,6 @@ namespace :companies do
     end
   end
 
-  task refoundedin: :environment do
-    Rails.logger.info "Recompute founded_in"
-    Company.where(founded_in: nil).where.not(founded_at: nil).find_each do |company|
-      company.update_columns(founded_in: company.founded_at.year)
-      Rails.logger.info "Company #{company.id} founded in #{company.founded_at.year}"
-    end
-  end
-
   task redepartment: :environment do
     Rails.logger.info "Recompute department"
     departments = {

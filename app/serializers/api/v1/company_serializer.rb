@@ -6,7 +6,6 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :slug,
     :source_url,
     :headquarter_in,
-    :founded_in,
     :legal_form,
     :staff,
     :specialities,
