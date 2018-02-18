@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'open-uri'
 
 namespace :companies do
   task dump: :environment do
@@ -164,5 +165,39 @@ namespace :companies do
       Company.where(department_code: code).where(department: [nil, ""]).update_all(department: name)
       Rails.logger.info "Update companies with department code #{code}: #{name}"
     end
+  end
+
+  task geocode: :environment do
+    Rails.logger.info "Geocode 2500 companies"
+    Company.where(geolocation: [nil, ""]).where.not(address_line_1: [nil, ""]).limit(2500).each do |company|
+      full_address = [
+        company.address_line_1,
+        company.address_line_2,
+        company.address_line_3,        
+        company.zipcode,
+        company.city,
+        company.country
+      ].reject(&:blank?).join(", ")
+      uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{full_address}&key=#{Figaro.env.GOOGLE_API_KEY}")
+      puts uri
+      response = open(uri).read()
+      results = JSON.parse(response)["results"]
+      pp results
+      if results.any?
+        lat = results.first["geometry"]["location"]["lat"]
+        lng = results.first["geometry"]["location"]["lng"]
+        if lat.present? && lng.present?
+          company.update_columns(geolocation: [lat, lng].join(", "))
+          Rails.logger.info "Update company #{company.id} with geolocation: #{[lat, lng].join(", ")}"
+        else
+          company.update_columns(geolocation: "unknown")          
+          Rails.logger.warn "No geolocation for company #{company.id}"
+        end
+      else
+        company.update_columns(geolocation: "unknown")        
+        Rails.logger.warn "No result for company #{company.id}"        
+      end
+    end
+    Rails.logger.info "Done"
   end
 end
