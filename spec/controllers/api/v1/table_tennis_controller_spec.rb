@@ -65,7 +65,7 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
 
       context "when the usage limit is reached" do
         before {
-          usage = create :usage, user: current_user
+          usage = current_user.usages.last
           usage.update!(count: usage.limit)
           subject
         }

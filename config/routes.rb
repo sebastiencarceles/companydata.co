@@ -16,7 +16,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get "ping" => "table_tennis#ping"
-      resources :companies, only: [:show, :index], param: :identifier
+      resources :companies, only: [:show, :index], param: :identifier do
+        collection do
+          get "autocomplete", to: "unauth_companies#autocomplete"
+        end
+      end
     end
   end
 end

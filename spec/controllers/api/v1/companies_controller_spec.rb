@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::CompaniesController, type: :request do
-  describe "Getting a company with GET /api/companies/[:identifier]" do
+  describe "Getting a company with GET /api/v1/companies/[:identifier]" do
     context "when unauthenticated" do
       before { get "/api/v1/companies/3323344" }
 
@@ -75,23 +75,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     end
   end
 
-  describe "Searching for companies with GET /api/companies/" do
-    before(:all) {
-      (1..20).each do |index|
-        create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
-      end
-
-      create :company, :reindex, name: "totali"
-      create :company, :reindex, name: "tube metal"
-      create :company, :reindex, name: "total"
-      create :company, :reindex, name: "edf"
-      create :company, :reindex, name: "motal"
-    }
-
-    after(:all) {
-      Company.delete_all
-    }
-
+  describe "Searching for companies with GET /api/v1/companies/" do
     context "when unauthenticated" do
       before { get "/api/v1/companies/" }
 
