@@ -3,11 +3,15 @@
     <div class="col-12 col-md-5 mx-md-auto">
       <h2 class="leading-normal"><%= t("landing.example.title") %></h2>
       <p class="lead"><%= t("landing.example.description") %></p>
-      <img src="<%= image_path('example_request.png') %>" class="mb-3 mb-md-0"  >
+      <%= link_to image_path('example_request.png'), target: "_blank" do %> 
+        <img src="<%= image_path('example_request.png') %>" class="mb-3 mb-md-0"  >
+      <% end %>
       <%= link_to t("landing.example.action"), page_path("getting_started"), class:"d-table btn btn-success btn-large text-uppercase" %>
     </div>
     <div class="col-12 col-md-5">
-      <img src="<%= image_path('example_result.png') %>" class="mb-3 mb-md-0" >
+      <%= link_to image_path('example_result.png'), target: "_blank" do %> 
+        <img src="<%= image_path('example_result.png') %>" class="mb-3 mb-md-0" >
+      <% end %>
     </div>
   </div>
 </div>
