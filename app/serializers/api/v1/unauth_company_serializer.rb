@@ -4,7 +4,6 @@ class Api::V1::UnauthCompanySerializer < ActiveModel::Serializer
   attributes :id,
     :smooth_name,
     :name,
-    :slug,
     :website_url,
     :api_url,
     :city,

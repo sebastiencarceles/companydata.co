@@ -24,7 +24,7 @@ RSpec.describe Api::V1::UnauthCompaniesController, type: :request do
       end
 
       it "returns incomplete companies" do
-        expect(parsed_body.first.keys.sort).to eq(["id", "name", "smooth_name", "slug", "website_url", "api_url", "city", "country"].sort)
+        expect(parsed_body.first.keys.sort).to eq(["id", "name", "smooth_name", "website_url", "api_url", "city", "country"].sort)
       end
     end
   end
