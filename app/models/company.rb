@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  searchkick
+  searchkick word_start: [:smooth_name]
 
   QUALITIES = %w[headquarter branch]
 

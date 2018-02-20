@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require 'open-uri'
+
+require "open-uri"
 
 namespace :companies do
   task dump: :environment do
@@ -173,7 +174,7 @@ namespace :companies do
       full_address = [
         company.address_line_1,
         company.address_line_2,
-        company.address_line_3,        
+        company.address_line_3,
         company.zipcode,
         company.city,
         company.country
@@ -188,12 +189,12 @@ namespace :companies do
           company.update_columns(geolocation: [lat, lng].join(", "))
           Rails.logger.info "Update company #{company.id} with geolocation: #{[lat, lng].join(", ")}"
         else
-          company.update_columns(geolocation: "unknown")          
+          company.update_columns(geolocation: "unknown")
           Rails.logger.warn "No geolocation for company #{company.id}"
         end
       else
-        company.update_columns(geolocation: "unknown")        
-        Rails.logger.warn "No result for company #{company.id}"        
+        company.update_columns(geolocation: "unknown")
+        Rails.logger.warn "No result for company #{company.id}"
       end
     end
     Rails.logger.info "Done"

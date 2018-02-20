@@ -7,5 +7,5 @@ $(document).on 'turbolinks:load', ->
     mixpanel.track("Autocomplete clicked")
     event.stopPropagation()
     false
-    
+
   false

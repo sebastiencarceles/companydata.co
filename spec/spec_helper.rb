@@ -98,11 +98,26 @@ RSpec.configure do |config|
 
   # Searchkick and ElasticSearch
   config.before(:suite) do
+    # create a few companies
+    (1..20).each do |index|
+      FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
+    end
+
+    FactoryBot.create :company, :reindex, name: "totali"
+    FactoryBot.create :company, :reindex, name: "tube metal"
+    FactoryBot.create :company, :reindex, name: "total"
+    FactoryBot.create :company, :reindex, name: "edf"
+    FactoryBot.create :company, :reindex, name: "motal"
+
     # reindex models
     Company.reindex
 
     # and disable callbacks
     Searchkick.disable_callbacks
+  end
+
+  config.after(:suite) do
+    Company.delete_all
   end
 
   config.around(:each, search: true) do |example|

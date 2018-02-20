@@ -20,7 +20,6 @@ class User < ApplicationRecord
   after_update :update_usage_limit!, if: :saved_change_to_plan?
   after_update :track_update
 
-
   def self.from_token_request(request)
     email = request.params["auth"] && request.params["auth"]["email"]
     self.find_by_email(email)
