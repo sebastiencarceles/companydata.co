@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  mixpanel.track_forms("#new_search", "Search", { 'query': $("#search_query").val() })
+  mixpanel.track_forms("#new_search", "Search", { 'query': $("#js-search-autocomplete").val() })
   mixpanel.track_links("#js-getting-started", "Visit getting started")
   mixpanel.track_links("#nav-pricing", "Visit pricing")
   mixpanel.track_links("#nav-docs", "Visit docs")
