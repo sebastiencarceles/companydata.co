@@ -78,7 +78,7 @@ gem "high_voltage", "~> 3.0.0"
 gem "mixpanel-ruby"
 
 # Autocomplete
-gem 'twitter-typeahead-rails'
+gem "twitter-typeahead-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
