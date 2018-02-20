@@ -121,6 +121,7 @@ en:
       title_3: Company autocomplete
     show:
       company_name: Company name
+      description: Companydata.co is the no bullshit engine to get company data. Get started instantly for free. Register for API integration.
       search: Search
       sub_value_proposition: Boost your business with the data you need about your prospects and customers, in a very simple way.
       try_title: Give it a try!
