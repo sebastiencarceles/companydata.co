@@ -180,3 +180,8 @@ en:
         action: Search
         placeholder: Company name
         title: Search for something else!
+    new:
+      search:
+        action: Search
+        placeholder: Company name
+        title: Search for something awesome!

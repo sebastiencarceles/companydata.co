@@ -180,3 +180,8 @@ fr:
         action: Chercher
         placeholder: Nom de société
         title: Vous cherchez autre chose ?
+    new:
+      search:
+        action: Chercher
+        placeholder: Nom de société
+        title: Trouver une société
