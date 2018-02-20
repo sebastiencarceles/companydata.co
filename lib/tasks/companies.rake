@@ -179,10 +179,8 @@ namespace :companies do
         company.country
       ].reject(&:blank?).join(", ")
       uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{full_address}&key=#{Figaro.env.GOOGLE_API_KEY}")
-      puts uri
       response = open(uri).read()
       results = JSON.parse(response)["results"]
-      pp results
       if results.any?
         lat = results.first["geometry"]["location"]["lat"]
         lng = results.first["geometry"]["location"]["lng"]
