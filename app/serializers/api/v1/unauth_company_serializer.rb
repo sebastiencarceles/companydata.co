@@ -6,18 +6,20 @@ class Api::V1::UnauthCompanySerializer < ActiveModel::Serializer
     :name,
     :slug,
     :website_url,
-    :api_url
+    :api_url,
+    :city,
+    :country
 
   def id
-    return object.id
+    object.id
   end
 
   def name
-    return object.name
+    object.name
   end
 
   def smooth_name
-    return object.smooth_name
+    object.smooth_name
   end
 
   def website_url
@@ -26,5 +28,13 @@ class Api::V1::UnauthCompanySerializer < ActiveModel::Serializer
 
   def api_url
     "https://www.companydata.co/api/v1/companies/#{object.slug}"
+  end
+
+  def city
+    object.city
+  end
+
+  def country
+    object.country
   end
 end

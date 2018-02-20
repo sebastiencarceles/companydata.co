@@ -18,3 +18,5 @@
 //= require rrt
 //= require_tree .
 //= require twitter/typeahead
+//= require handlebars
+

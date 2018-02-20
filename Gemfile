@@ -79,6 +79,7 @@ gem "mixpanel-ruby"
 
 # Autocomplete
 gem "twitter-typeahead-rails"
+gem 'handlebars_assets'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

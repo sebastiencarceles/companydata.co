@@ -24,7 +24,9 @@ RSpec.describe Api::V1::UnauthCompanySerializer, type: :serializer do
       "name",
       "slug",
       "website_url",
-      "api_url"
+      "api_url",
+      "city",
+      "country"
     )
   end
 
@@ -34,6 +36,7 @@ RSpec.describe Api::V1::UnauthCompanySerializer, type: :serializer do
   it { expect(subject["smooth_name"]).not_to be_nil }
   it { expect(subject["website_url"]).not_to be_nil }
   it { expect(subject["api_url"]).not_to be_nil }
+  it { expect(subject["country"]).not_to be_nil }
 
   it { expect(subject["id"]).to eql(@company.id) }
   it { expect(subject["name"]).to eql(@company.name) }
@@ -41,4 +44,6 @@ RSpec.describe Api::V1::UnauthCompanySerializer, type: :serializer do
   it { expect(subject["smooth_name"]).to eql(@company.smooth_name) }
   it { expect(subject["website_url"]).to eql("https://www.companydata.co/companies/#{@company.slug}") }
   it { expect(subject["api_url"]).to eql("https://www.companydata.co/api/v1/companies/#{@company.slug}") }
+  it { expect(subject["city"]).to eql(@company.city) }
+  it { expect(subject["country"]).to eql(@company.country) }
 end
