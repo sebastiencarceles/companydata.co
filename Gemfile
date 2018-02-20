@@ -79,7 +79,10 @@ gem "mixpanel-ruby"
 
 # Autocomplete
 gem "twitter-typeahead-rails"
-gem 'handlebars_assets'
+gem "handlebars_assets"
+
+# Cross origin calls
+gem "rack-cors", require: "rack/cors"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
