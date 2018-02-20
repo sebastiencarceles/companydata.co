@@ -17,3 +17,4 @@
 //= require turbolinks
 //= require rrt
 //= require_tree .
+//= require twitter/typeahead
