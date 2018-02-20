@@ -174,14 +174,9 @@ fr:
           description: Oui.<br>Ça fait beaucoup.
       title: Choisissez un plan pour utiliser l'API
   searches:
+    form:
+      action: Chercher
+      placeholder: Nom de société
+      title: Trouver une société
     create:
       no_companies: Oups, pas de résultat.
-      search:
-        action: Chercher
-        placeholder: Nom de société
-        title: Vous cherchez autre chose ?
-    new:
-      search:
-        action: Chercher
-        placeholder: Nom de société
-        title: Trouver une société
