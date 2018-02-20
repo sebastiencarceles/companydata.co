@@ -41,6 +41,7 @@ namespace :companies do
 
   task reindex: :environment do
     Rails.logger.info "Reindex companies"
+    Company.search_index.clean_indices
     Company.reindex
   end
 

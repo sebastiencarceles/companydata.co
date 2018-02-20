@@ -18,6 +18,15 @@ class Company < ApplicationRecord
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
 
+  def search_data
+    {
+      smooth_name: smooth_name,
+      name: name,
+      city: city,
+      country: country
+    }
+  end
+
   def headquarter?
     quality == "headquarter"
   end
