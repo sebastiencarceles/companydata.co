@@ -9,6 +9,12 @@
       you're doing. Please read very carefully: https://github.com/turbolinks/turbolinks %>
     <meta name="turbolinks-cache-control" content="no-cache">
 
+    <!-- start Open Graph / Facebook -->
+    <meta property="og:title" content="<%= t('landing.show.value_proposition')%>&nbsp;<%= t('landing.show.sub_value_proposition') %>" />
+    <meta property="og:image" content="<%= image_url "example_result.png" %>" />
+    <meta property="og:description" content="<%= t('landing.show.description') %>" />
+    <!-- end Open Graph / Facebook -->
+
     <title><%= [@title, app_name].compact.join(" - ") %></title>
 
     <%= csrf_meta_tags %>
@@ -22,12 +28,6 @@
     <%= render 'layouts/external_js_libs' %>
     <%= yield :external_js_libs %>
     <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
-
-    <!-- start Open Graph / Facebook -->
-    <meta property="og:title" content="<%= t('landing.show.value_proposition')%>&nbsp;<%= t('landing.show.sub_value_proposition') %>" />
-    <meta property="og:image" content="<%= image_url "example_result.png" %>" />
-    <meta property="og:description" content="<%= t('landing.show.description') %>" />
-    <!-- end Open Graph / Facebook -->
 
     <%= yield :javascript %>
     <%= yield :head %>
