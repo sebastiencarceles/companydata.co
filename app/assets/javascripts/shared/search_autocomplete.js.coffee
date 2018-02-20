@@ -4,7 +4,7 @@ $(document).on 'turbolinks:load', ->
       Bloodhound.tokenizers.whitespace d.smooth_name
     queryTokenizer: Bloodhound.tokenizers.whitespace
     remote:
-      url: 'https://www.companydata.co/api/v1/companies/autocomplete?q=%QUERY'
+      url: '/api/v1/companies/autocomplete?q=%QUERY'
       wildcard: '%QUERY'
   )
   engine.initialize()
