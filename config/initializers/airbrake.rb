@@ -57,6 +57,12 @@ end
 # https://github.com/airbrake/airbrake#requestbodyfilter
 # Airbrake.add_filter(Airbrake::Rack::RequestBodyFilter.new)
 
+Airbrake.add_filter do |notice|
+  if notice[:errors].any? { |error| error[:type] == 'ActiveRecord::RecordNotFound' }
+    notice.ignore!
+  end
+end
+
 # If you want to convert your log messages to Airbrake errors, we offer an
 # integration with the Logger class from stdlib.
 # https://github.com/airbrake/airbrake#logger
