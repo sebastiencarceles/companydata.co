@@ -121,6 +121,7 @@ fr:
       title_3: Autocomplétion
     show:
       company_name: Nom de société
+      description: Companydata.co is est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.
       search: Chercher
       sub_value_proposition: Boostez votre business avec les infos qu'il vous faut sur vos prospects et vos clients.
       try_title: Essayez !
@@ -179,3 +180,8 @@ fr:
         action: Chercher
         placeholder: Nom de société
         title: Vous cherchez autre chose ?
+    new:
+      search:
+        action: Chercher
+        placeholder: Nom de société
+        title: Trouver une société
