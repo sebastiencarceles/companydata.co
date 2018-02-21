@@ -117,6 +117,7 @@ GEM
     elasticsearch-transport (6.0.0)
       faraday
       multi_json
+    ephemeral_response (0.4.0)
     erubi (1.7.0)
     execjs (2.7.0)
     factory_bot (4.8.2)
@@ -382,6 +383,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   elasticsearch (>= 1.0.15)
+  ephemeral_response
   factory_bot_rails (~> 4.0)
   faker!
   faraday_middleware-aws-signers-v4 (>= 0.1.9)

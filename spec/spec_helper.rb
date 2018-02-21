@@ -96,21 +96,22 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 
-  # Searchkick and ElasticSearch
   config.before(:suite) do
-    # create a few companies
-    (1..20).each do |index|
-      FactoryBot.create :company, name: "company #{index.to_s.rjust(2, "0")}"
-    end
-
-    FactoryBot.create :company, name: "totali"
-    FactoryBot.create :company, name: "tube metal"
-    FactoryBot.create :company, name: "total"
-    FactoryBot.create :company, name: "edf"
-    FactoryBot.create :company, name: "motal"
+    EphemeralResponse.activate
 
     # reindex models
     Company.reindex
+
+    # create a few companies
+    (1..20).each do |index|
+      FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
+    end
+
+    FactoryBot.create :company, :reindex, name: "totali"
+    FactoryBot.create :company, :reindex, name: "tube metal"
+    FactoryBot.create :company, :reindex, name: "total"
+    FactoryBot.create :company, :reindex, name: "edf"
+    FactoryBot.create :company, :reindex, name: "motal"
 
     # and disable callbacks
     Searchkick.disable_callbacks
@@ -118,6 +119,8 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     Company.delete_all
+    
+    EphemeralResponse.deactivate
   end
 
   config.around(:each, search: true) do |example|

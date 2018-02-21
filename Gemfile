@@ -90,13 +90,16 @@ gem "savon", "~> 2.0"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-
+  
   # Test tools
   gem "rspec-rails", "~> 3.6"
   gem "faker", git: "git://github.com/stympy/faker.git", branch: "master"
   gem "factory_bot_rails", "~> 4.0"
   gem "shoulda-matchers", "~> 3.1"
   gem "shoulda-callback-matchers", "~> 1.1", ">= 1.1.3"
+
+  # Fixtures for HTTP responses while testing
+  gem "ephemeral_response"
 end
 
 group :development do
