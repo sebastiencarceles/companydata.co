@@ -1,3 +1,3 @@
 module Tracking
-  Mixpanel = Mixpanel::Tracker.new(Figaro.env.MIXPANEL_TOKEN)
+  Mixpanel = Rails.env.production? ? Mixpanel::Tracker.new(Figaro.env.MIXPANEL_TOKEN) : nil
 end
