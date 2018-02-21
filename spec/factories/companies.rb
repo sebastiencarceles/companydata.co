@@ -34,7 +34,7 @@ FactoryBot.define do
     specialities Faker::Lorem.paragraph
     presentation Faker::Lorem.paragraphs
     logo_url "http://fr.seaicons.com/wp-content/uploads/2015/08/green-ok-icon.png"
-    registration_1 "123456789"
+    registration_1 "828022053"
     registration_2 "00015"
     activity_code "6201Z"
     address_line_1 Faker::Address.street_address

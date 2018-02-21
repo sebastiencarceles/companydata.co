@@ -31,7 +31,8 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :country,
     :quality,
     :revenue,
-    :smooth_name
+    :smooth_name,
+    :vat_number
   has_many :financial_years
 
   def activity

@@ -11,7 +11,7 @@ class Vat < ApplicationRecord
   validates_inclusion_of :status, in: STATUSES
 
   def vat_number
-    I18n.t("activerecord.attributes.vat.vat_number.#{status}", value: value)
+    value if status == "valid"
   end
 
   def validate!
@@ -27,7 +27,7 @@ class Vat < ApplicationRecord
 
     def set_value
       return unless country_code == "FR"
-      
+
       key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
       self.value = "FR#{key}#{company.registration_1}"
     end
