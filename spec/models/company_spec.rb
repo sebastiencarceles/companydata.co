@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe Company, type: :model do
   it { should have_many(:financial_years) }
+  it { should have_one(:vat) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:slug) }
   it { should validate_uniqueness_of(:slug) }
@@ -11,6 +12,7 @@ RSpec.describe Company, type: :model do
   it { should callback(:set_slug).before(:validation).if(:name?).unless(:slug?) }
   it { should callback(:set_headquarter_in).before(:save).if(:quality? && :city?).unless(:headquarter_in?) }
   it { should callback(:set_smooth_name).before(:save).if(:name?).unless(:smooth_name?) }
+  it { should delegate_method(:vat_number).to(:vat) }
 
   let(:registration_1) { "rego" }
 

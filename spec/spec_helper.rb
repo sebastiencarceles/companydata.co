@@ -100,14 +100,14 @@ RSpec.configure do |config|
   config.before(:suite) do
     # create a few companies
     (1..20).each do |index|
-      FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
+      FactoryBot.create :company, name: "company #{index.to_s.rjust(2, "0")}"
     end
 
-    FactoryBot.create :company, :reindex, name: "totali"
-    FactoryBot.create :company, :reindex, name: "tube metal"
-    FactoryBot.create :company, :reindex, name: "total"
-    FactoryBot.create :company, :reindex, name: "edf"
-    FactoryBot.create :company, :reindex, name: "motal"
+    FactoryBot.create :company, name: "totali"
+    FactoryBot.create :company, name: "tube metal"
+    FactoryBot.create :company, name: "total"
+    FactoryBot.create :company, name: "edf"
+    FactoryBot.create :company, name: "motal"
 
     # reindex models
     Company.reindex

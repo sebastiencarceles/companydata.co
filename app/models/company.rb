@@ -6,6 +6,7 @@ class Company < ApplicationRecord
   QUALITIES = %w[headquarter branch]
 
   has_many :financial_years, -> { order(year: :desc) }, dependent: :destroy
+  has_one :vat, dependent: :destroy
 
   validates_presence_of :name, :slug
   validates_uniqueness_of :slug
@@ -17,6 +18,8 @@ class Company < ApplicationRecord
 
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
+
+  delegate :vat_number, to: :vat
 
   def search_data
     {
