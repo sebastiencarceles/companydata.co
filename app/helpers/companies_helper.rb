@@ -10,6 +10,7 @@ module CompaniesHelper
     attributes << [t("companies.profile.staff"), company.staff] if company.staff.present?
     attributes << [t("companies.profile.registration_1"), company.registration_1] if company.registration_1.present?
     attributes << [t("companies.profile.registration_2"), company.registration_2] if company.registration_2.present?
+    attributes << [t("companies.profile.vat_number"), company.vat_number] if company.vat_number.present?
     attributes << [t("companies.profile.activity"), activity(company)] if activity(company)
     attributes
   end

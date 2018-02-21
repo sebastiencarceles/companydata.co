@@ -12,6 +12,7 @@ RSpec.describe Company, type: :model do
   it { should callback(:set_slug).before(:validation).if(:name?).unless(:slug?) }
   it { should callback(:set_headquarter_in).before(:save).if(:quality? && :city?).unless(:headquarter_in?) }
   it { should callback(:set_smooth_name).before(:save).if(:name?).unless(:smooth_name?) }
+  it { should callback(:set_vat!).after(:create).if(:country? && :registration_1?) }
   it { should delegate_method(:vat_number).to(:vat) }
 
   let(:registration_1) { "rego" }
@@ -101,6 +102,28 @@ RSpec.describe Company, type: :model do
 
     it "sets the smooth name" do
       expect { company.save! }.to change { company.smooth_name }.from(nil).to("Janot Thierry")
+    end
+  end
+
+  describe "#set_vat!" do
+    let(:company) { build :company, country: "France", registration_1: "123456789" }
+
+    it "creates a Vat with when country is France" do
+      expect { company.save! }.to change { Vat.count }.by(1)
+      expect(company.vat.id).to eq(Vat.last.id)
+    end
+
+    describe "created Vat" do
+      before { company.save! }
+
+      it "has the correct country code" do
+        expect(company.vat.country_code).to eq("FR")
+      end
+    end
+
+    it "does not create a Vat when country is not France" do
+      company.country = "Belgium"
+      expect { company.save! }.not_to change { Vat.count }
     end
   end
 end

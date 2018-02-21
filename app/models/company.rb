@@ -15,6 +15,7 @@ class Company < ApplicationRecord
   before_validation :set_slug, if: :name?, unless: :slug?
   before_save :set_headquarter_in, if: :quality? && :city?, unless: :headquarter_in?
   before_save :set_smooth_name, if: :name?, unless: :smooth_name?
+  after_create :set_vat!, if: :country? && :registration_1?
 
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
@@ -46,6 +47,10 @@ class Company < ApplicationRecord
   def branches
     return [] if registration_1.nil?
     Company.branchs.where(registration_1: registration_1).where.not(id: id)
+  end
+
+  def set_vat!
+    create_vat!(country_code: "FR") if country == "France"
   end
 
   private

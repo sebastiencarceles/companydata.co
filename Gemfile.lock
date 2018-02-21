@@ -59,6 +59,9 @@ GEM
     airbrake (7.2.0)
       airbrake-ruby (~> 2.5)
     airbrake-ruby (2.8.1)
+    akami (1.3.1)
+      gyoku (>= 0.4.0)
+      nokogiri
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     arel (8.0.0)
@@ -131,6 +134,8 @@ GEM
       thor (~> 0.14)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gyoku (1.3.1)
+      builder (>= 2.1.2)
     handlebars_assets (0.23.2)
       execjs (~> 2.0)
       sprockets (>= 2.0.0)
@@ -138,6 +143,9 @@ GEM
     hashie (3.5.7)
     high_voltage (3.0.0)
     highline (1.7.10)
+    httpi (2.4.3)
+      rack
+      socksify
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.20)
@@ -192,6 +200,7 @@ GEM
     nio4r (2.2.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    nori (2.6.0)
     orm_adapter (0.5.0)
     parallel (1.12.0)
     parser (2.4.0.0)
@@ -282,6 +291,14 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    savon (2.12.0)
+      akami (~> 1.2)
+      builder (>= 2.1.2)
+      gyoku (~> 1.2)
+      httpi (~> 2.3)
+      nokogiri (>= 1.8.1)
+      nori (~> 2.4)
+      wasabi (~> 3.4)
     searchkick (2.4.0)
       activemodel (>= 4.1)
       elasticsearch (>= 1)
@@ -305,6 +322,7 @@ GEM
       rack-protection (= 2.0.0)
       tilt (~> 2.0)
     smarter_csv (1.1.4)
+    socksify (1.7.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -337,6 +355,9 @@ GEM
     unicode-display_width (1.3.0)
     warden (1.2.7)
       rack (>= 1.0)
+    wasabi (3.5.0)
+      httpi (~> 2.0)
+      nokogiri (>= 1.4.2)
     web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -382,6 +403,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   sass-rails (~> 5.0)
+  savon (~> 2.0)
   searchkick
   selenium-webdriver
   sendgrid-ruby

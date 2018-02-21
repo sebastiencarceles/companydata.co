@@ -84,6 +84,9 @@ gem "handlebars_assets"
 # Cross origin calls
 gem "rack-cors", require: "rack/cors"
 
+# SOAP client
+gem "savon", "~> 2.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

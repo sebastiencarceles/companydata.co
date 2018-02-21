@@ -13,6 +13,7 @@ FactoryBot.define do
     staff "1-10 employees"
     specialities Faker::Lorem.paragraph
     presentation Faker::Lorem.paragraphs
+    country "France"
 
     # Note: This should be the last trait in the list so `reindex` is called after all the other callbacks complete.
     trait :reindex do
@@ -49,9 +50,9 @@ FactoryBot.define do
     region "Rhône-Alpes"
     founded_at "2013-06-06"
     geolocation "#{Faker::Address.latitude}, #{Faker::Address.longitude}"
-    country Faker::Address.country
     quality "headquarter"
     revenue "1 to 5 billions USD"
+    country "France"
 
     after :create do |company|
       create_list :financial_year, 3, company: company

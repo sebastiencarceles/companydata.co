@@ -28,6 +28,7 @@ fr:
       specialities: Spécialités
       staff: Salarié·e·s
       title: Profil
+      vat_number: TVA intracommunautaire
     resume:
       data_source: Source de données
       founded: Fondée en %{year}
@@ -174,9 +175,9 @@ fr:
           description: Oui.<br>Ça fait beaucoup.
       title: Choisissez un plan pour utiliser l'API
   searches:
+    create:
+      no_companies: Oups, pas de résultat.
     form:
       action: Chercher
       placeholder: Nom de société
       title: Trouver une société
-    create:
-      no_companies: Oups, pas de résultat.

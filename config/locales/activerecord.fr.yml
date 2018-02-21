@@ -9,3 +9,8 @@ fr:
         password_confirmation: Confirmation de mot de passe
         current_password: Mot de passe actuel
         remember_me: Rester connecté
+      vat:
+        vat_number:
+          waiting_for_validation: "%{value} (En attente de vérification)"
+          valid: "%{value} (Vérifié)"
+          invalid: "Invalide ou sans objet"
