@@ -87,6 +87,9 @@ gem "rack-cors", require: "rack/cors"
 # SOAP client
 gem "savon", "~> 2.0"
 
+# Fixtures for HTTP responses while testing
+gem "ephemeral_response"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
@@ -97,9 +100,6 @@ group :development, :test do
   gem "factory_bot_rails", "~> 4.0"
   gem "shoulda-matchers", "~> 3.1"
   gem "shoulda-callback-matchers", "~> 1.1", ">= 1.1.3"
-
-  # Fixtures for HTTP responses while testing
-  gem "ephemeral_response"
 end
 
 group :development do
