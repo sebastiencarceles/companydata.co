@@ -7,9 +7,6 @@ class CompaniesController < ApplicationController
     @company ||= Company.find_by_name(params[:id])
     @company ||= Company.find_by_smooth_name(params[:id])
 
-    @company.set_vat! if @company.vat.nil?
-    @company.vat&.validate!
-
     raise ActiveRecord::RecordNotFound.new("#{params[:id]} not found") unless @company
   end
 end

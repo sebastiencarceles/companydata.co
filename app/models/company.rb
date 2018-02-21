@@ -20,8 +20,6 @@ class Company < ApplicationRecord
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
 
-  delegate :vat_number, to: :vat
-
   def search_data
     {
       smooth_name: smooth_name,
@@ -49,8 +47,10 @@ class Company < ApplicationRecord
     Company.branchs.where(registration_1: registration_1).where.not(id: id)
   end
 
-  def set_vat!
-    create_vat!(country_code: "FR") if country == "France"
+  def vat_number
+    set_vat! if vat.nil?
+    vat&.validate!
+    vat&.vat_number
   end
 
   private
@@ -71,5 +71,9 @@ class Company < ApplicationRecord
 
     def set_smooth_name
       self.smooth_name = name.gsub("*", " ").gsub("/", " ").titleize.strip
+    end
+
+    def set_vat!
+      create_vat!(country_code: "FR") if country == "France"
     end
 end
