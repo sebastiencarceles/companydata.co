@@ -21,6 +21,10 @@ class Vat < ApplicationRecord
     response = client.call(:check_vat, message: { vatNumber: value.gsub(country_code, ""), countryCode: country_code })
     status = response.body[:check_vat_response][:valid] ? "valid" : "invalid"
     update_columns(status: status, validated_at: DateTime.now)
+
+    rescue Savon::SOAPFault => error
+      Rails.logger.error error.to_hash
+      Airbrake.notify(error)
   end
 
   private
