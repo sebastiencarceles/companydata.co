@@ -33,6 +33,6 @@ class Api::V1::CompaniesController < ApiController
     end
 
     def per_page
-      params[:per_page].presence || 10
+      [params[:per_page].presence&.to_i || 10, 25].min
     end
 end
