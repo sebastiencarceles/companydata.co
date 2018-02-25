@@ -8,7 +8,7 @@ class Api::V1::CompaniesController < ApiController
     company ||= Company.find_by_smooth_name(params[:identifier])
 
     render(json: {}, status: :not_found) && (return) unless company
-    render json: company
+    render json: company, serializer: Api::V1::FullCompanySerializer
   end
 
   def index

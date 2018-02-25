@@ -34,6 +34,44 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           it "returns the company" do
             expect(parsed_body["id"]).to eq company.id
           end
+
+          it "returns full companies" do
+            expect(parsed_body.keys.sort).to eq([
+              "id",
+              "name",
+              "slug",
+              "source_url",
+              "legal_form",
+              "staff",
+              "specialities",
+              "presentation",
+              "logo_url",
+              "registration_1",
+              "registration_2",
+              "activity_code",
+              "activity",
+              "address",
+              "address_line_1",
+              "address_line_2",
+              "address_line_3",
+              "address_line_4",
+              "address_line_5",
+              "cedex",
+              "zipcode",
+              "city",
+              "department_code",
+              "department",
+              "region",
+              "founded_at",
+              "geolocation",
+              "country",
+              "quality",
+              "revenue",
+              "smooth_name",
+              "financial_years",
+              "vat_number"
+            ].sort)
+          end
         end
 
         context "by slug" do

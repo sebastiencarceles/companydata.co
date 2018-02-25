@@ -119,7 +119,7 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     Company.delete_all
-    
+
     EphemeralResponse.deactivate
   end
 

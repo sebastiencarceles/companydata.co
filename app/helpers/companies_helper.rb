@@ -29,11 +29,11 @@ module CompaniesHelper
   end
 
   def full_address(company)
-    address_components(company).join("\n")
+    company.address_components.join("\n")
   end
 
   def full_address_inline(company)
-    address_components(company).join(" ")
+    company.address_components.join(" ")
   end
 
   def activity(company)
@@ -41,27 +41,4 @@ module CompaniesHelper
     return nil if code.blank?
     "#{I18n.t("activity_codes.#{code}")} (#{code})"
   end
-
-  private
-
-    def address_components(company)
-      [
-        company.address_line_1,
-        company.address_line_2,
-        company.address_line_3,
-        company.address_line_4,
-        company.address_line_5,
-        [zipcode(company), city(company)].join(" ")
-      ].reject(&:blank?)
-    end
-
-    def zipcode(company)
-      return company.cedex if company.cedex.present?
-      company.zipcode
-    end
-
-    def city(company)
-      return "#{company.city} CEDEX" if company.cedex.present?
-      company.city
-    end
 end

@@ -53,6 +53,19 @@ class Company < ApplicationRecord
     vat&.vat_number
   end
 
+  def address_components
+    zc = cedex.present? ? cedex : zipcode
+    city_suffix = cedex.present? ? " CEDEX" : ""
+    [
+      address_line_1,
+      address_line_2,
+      address_line_3,
+      address_line_4,
+      address_line_5,
+      [zc, "#{city}#{city_suffix}"].join(" ")
+    ].reject(&:blank?)
+  end
+
   private
 
     def set_slug
