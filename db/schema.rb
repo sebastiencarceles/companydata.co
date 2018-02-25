@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221171348) do
+ActiveRecord::Schema.define(version: 20180225144812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20180221171348) do
     t.string "department"
     t.string "region"
     t.date "founded_at"
-    t.string "geolocation"
     t.string "country"
     t.string "address_line_3"
     t.string "address_line_4"
@@ -50,6 +49,9 @@ ActiveRecord::Schema.define(version: 20180221171348) do
     t.string "quality"
     t.string "revenue"
     t.string "smooth_name"
+    t.float "lat"
+    t.float "lng"
+    t.datetime "geolocalized_at"
     t.index ["name"], name: "index_companies_on_name"
     t.index ["registration_1", "registration_2"], name: "index_companies_on_registration_1_and_registration_2"
     t.index ["slug"], name: "index_companies_on_slug", unique: true
