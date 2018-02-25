@@ -128,7 +128,7 @@ en:
       title_3: Company autocomplete
     metrics:
       companies: Companies
-      description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms like Opencorporates or company pages on LinkedIn and Facebook.
+      description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms or company pages on LinkedIn and Facebook.
       financial_years: Financial data
       title: Covered countries
     show:

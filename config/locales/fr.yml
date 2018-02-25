@@ -128,7 +128,7 @@ fr:
       title_3: Autocomplétion
     metrics:
       companies: de sociétés
-      description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes comme Opencorporates et des pages sociétés sur LinkedIn et Facebook.
+      description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes et des pages sociétés sur LinkedIn et Facebook.
       financial_years: de données financières
       title: Pays couverts
     show:
