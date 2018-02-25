@@ -101,10 +101,16 @@ en:
     title: Getting started
   landing:
     data:
-      companies: Companies
-      description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms like Opencorporates or company pages on LinkedIn and Facebook.
-      financial_years: Financial data
-      title: Covered countries
+      description_1: Legal name, logo, presentation and activity / industry...
+      description_2: Verified VAT number, registration number, legal form
+      description_3: Simplified address, full detailled address and geolocation 
+      description_4: "For the last years of activity: staff, revenue, income..."
+      subtitle: Get all the useful data about any company
+      title: All the data you need
+      title_1: General
+      title_2: Legal and administrative
+      title_3: Localization
+      title_4: Financial
     example:
       action: Get started
       description: This can't be simpler. When you want to search for companies, here is the request. Beside is the result.
@@ -120,6 +126,11 @@ en:
       title_1: Free search
       title_2: Enrichment API
       title_3: Company autocomplete
+    metrics:
+      companies: Companies
+      description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms like Opencorporates or company pages on LinkedIn and Facebook.
+      financial_years: Financial data
+      title: Covered countries
     show:
       company_name: Company name
       description: Companydata.co is the no bullshit engine to get company data. Get started instantly for free. Register for API integration.

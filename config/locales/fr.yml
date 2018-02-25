@@ -101,10 +101,16 @@ fr:
     title: Démarrage rapide
   landing:
     data:
-      companies: de sociétés
-      description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes comme Opencorporates et des pages sociétés sur LinkedIn et Facebook.
-      financial_years: de données financières
-      title: Pays couverts
+      description_1: Nom légal, logo, présentation, activité ou industrie...
+      description_2: TVA intracommunautaire (vérifiée), SIREN, NIC, forme légale
+      description_3: Adresse simplifiée ou très détaillée, géolocalisation
+      description_4: "Pour les derniers exercices fiscaux : équipe, chiffre d'affaires, revenu..."
+      subtitle: Obtenez toutes les informations pertinentes sur les sociétés
+      title: Toutes les infos qu'il vous faut
+      title_1: Général
+      title_2: Légal et administratif
+      title_3: Localisation
+      title_4: Financier
     example:
       action: Démarrer
       description: Ça ne pourrait pas être plus simple. Quand vous souhaitez chercher des sociétés, voici la requête. Et ci-contre, voici le résultat.
@@ -120,6 +126,11 @@ fr:
       title_1: Consultation gratuite
       title_2: API pour enrichir
       title_3: Autocomplétion
+    metrics:
+      companies: de sociétés
+      description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes comme Opencorporates et des pages sociétés sur LinkedIn et Facebook.
+      financial_years: de données financières
+      title: Pays couverts
     show:
       company_name: Nom de société
       description: Companydata.co is est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.

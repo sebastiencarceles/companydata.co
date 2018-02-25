@@ -1,42 +1,50 @@
 <div class="container">
-  <div class="row no-gutters equal-cols align-items-center">
-    <div class="col-12">
-      <h2 class="leading-normal"><%= t("landing.data.title") %></h2>
-      <p class="lead"><%= t("landing.data.description") %></p>
-      <div class="row no-gutters mt-5">
-        <div class="col-12 col-md-5">
-          <div class="card card-mini">
-            <div class="card-body">
-              <div class="media">
-                <div class="d-flex align-self-center mr-3">
-                  <span>
-                    <i class="ti-world display-4"></i>
-                  </span>
-                </div>
-                <div class="media-body text-right">
-                  <h4 class="m-0"><%= number_to_human 10872416, precision: 2 %></h4>
-                  <h6 class="m-0 text-muted"><%= t("landing.data.companies") %></h6>
-                </div>
+  <div class="row">
+    <div class="col-12 col-md-8 mr-md-auto ml-md-auto text-center">
+      <h3><%= t("landing.data.title") %></h3>
+      <p class="lead"><%= t("landing.data.subtitle") %></p>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12 col-md-10 ml-md-auto mr-md-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="media mb-4">
+              <i class="d-flex mr-3 ion-easel h2"></i>
+              <div class="media-body">
+                <h6 class="mt-0"><%= t("landing.data.title_1") %></h6>
+                <p><%= t("landing.data.description_1") %></p>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-md-5 ml-md-auto">
-          <div class="card card-mini">
-              <div class="card-body">
-                <div class="media">
-                  <div class="d-flex align-self-center mr-3">
-                    <span>
-                      <i class="ti-money display-4"></i>
-                    </span>
-                  </div>
-                  <div class="media-body text-right">
-                    <h4 class="m-0"><%= number_to_human 4200912, precision: 2 %></h4>
-                    <h6 class="m-0 text-muted"><%= t("landing.data.financial_years") %></h6>
-                  </div>
-                </div>
+          <div class="col-12 col-md-6">
+            <div class="media mb-4">
+              <i class="d-flex mr-3 ion-ios-box h2"></i>
+              <div class="media-body">
+                <h6 class="mt-0"><%= t("landing.data.title_2") %></h6>
+                <p><%= t("landing.data.description_2") %></p>
               </div>
             </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="media mb-4">
+              <i class="d-flex mr-3 ion-map h2"></i>
+              <div class="media-body">
+                <h6 class="mt-0"><%= t("landing.data.title_3") %></h6>
+                <p><%= t("landing.data.description_3") %></p>
+              </div>
+            </div>
+          </div>            
+          <div class="col-12 col-md-6">
+            <div class="media mb-4">
+              <i class="d-flex mr-3 ion-ios-calculator h2"></i>
+              <div class="media-body">
+                <h6 class="mt-0"><%= t("landing.data.title_4") %></h6>
+                <p><%= t("landing.data.description_4") %></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
