@@ -1,0 +1,119 @@
+--- !ruby/object:EphemeralResponse::Fixture
+uri: !ruby/object:URI::HTTPS
+  scheme: https
+  user: 
+  password: 
+  host: maps.googleapis.com
+  port: 443
+  path: "/maps/api/geocode/json"
+  query: address=France&key=AIzaSyC06Xoyx9JL8X2y75VzkLY1CFG3uvjYcrI
+  opaque: 
+  fragment: 
+  parser: !ruby/object:URI::RFC3986_Parser
+    regexp:
+      :SCHEME: !ruby/regexp /\A[A-Za-z][A-Za-z0-9+\-.]*\z/
+      :USERINFO: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=A-Z_a-z~])*\z/
+      :HOST: !ruby/regexp /\A(?:(?<IP-literal>\[(?:(?<IPv6address>(?:\h{1,4}:){6}(?<ls32>\h{1,4}:\h{1,4}|(?<IPv4address>(?<dec-octet>[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]|\d)\.\g<dec-octet>\.\g<dec-octet>\.\g<dec-octet>))|::(?:\h{1,4}:){5}\g<ls32>|\h{,4}::(?:\h{1,4}:){4}\g<ls32>|(?:(?:\h{1,4}:)?\h{1,4})?::(?:\h{1,4}:){3}\g<ls32>|(?:(?:\h{1,4}:){,2}\h{1,4})?::(?:\h{1,4}:){2}\g<ls32>|(?:(?:\h{1,4}:){,3}\h{1,4})?::\h{1,4}:\g<ls32>|(?:(?:\h{1,4}:){,4}\h{1,4})?::\g<ls32>|(?:(?:\h{1,4}:){,5}\h{1,4})?::\h{1,4}|(?:(?:\h{1,4}:){,6}\h{1,4})?::)|(?<IPvFuture>v\h+\.[!$&-.0-;=A-Z_a-z~]+))\])|\g<IPv4address>|(?<reg-name>(?:%\h\h|[!$&-.0-9;=A-Z_a-z~])*))\z/
+      :ABS_PATH: !ruby/regexp /\A\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+      :REL_PATH: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~])+(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+      :QUERY: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+      :FRAGMENT: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+      :OPAQUE: !ruby/regexp /\A(?:[^\/].*)?\z/
+      :PORT: !ruby/regexp /\A[\x09\x0a\x0c\x0d ]*\d*[\x09\x0a\x0c\x0d ]*\z/
+request: !ruby/object:Net::HTTP::Get
+  method: GET
+  request_has_body: false
+  response_has_body: true
+  uri: 
+  path: "/maps/api/geocode/json?address=France&key=AIzaSyC06Xoyx9JL8X2y75VzkLY1CFG3uvjYcrI"
+  decode_content: true
+  header:
+    accept-encoding:
+    - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    accept:
+    - "*/*"
+    user-agent:
+    - Ruby
+  body: 
+  body_stream: 
+  body_data: 
+created_at: 2018-02-25 18:14:47.530274574 +01:00
+response: !ruby/object:Net::HTTPOK
+  http_version: '1.1'
+  code: '200'
+  message: OK
+  header:
+    content-type:
+    - application/json; charset=UTF-8
+    date:
+    - Sun, 25 Feb 2018 17:14:47 GMT
+    expires:
+    - Mon, 26 Feb 2018 17:14:47 GMT
+    cache-control:
+    - public, max-age=86400
+    vary:
+    - Accept-Language
+    access-control-allow-origin:
+    - "*"
+    server:
+    - mafe
+    content-length:
+    - '367'
+    x-xss-protection:
+    - 1; mode=block
+    x-frame-options:
+    - SAMEORIGIN
+    alt-svc:
+    - hq=":443"; ma=2592000; quic=51303431; quic=51303339; quic=51303338; quic=51303337;
+      quic=51303335,quic=":443"; ma=2592000; v="41,39,38,37,35"
+  body: |
+    {
+       "results" : [
+          {
+             "address_components" : [
+                {
+                   "long_name" : "France",
+                   "short_name" : "FR",
+                   "types" : [ "country", "political" ]
+                }
+             ],
+             "formatted_address" : "France",
+             "geometry" : {
+                "bounds" : {
+                   "northeast" : {
+                      "lat" : 51.1241999,
+                      "lng" : 9.6624999
+                   },
+                   "southwest" : {
+                      "lat" : 41.3253001,
+                      "lng" : -5.5591
+                   }
+                },
+                "location" : {
+                   "lat" : 46.227638,
+                   "lng" : 2.213749
+                },
+                "location_type" : "APPROXIMATE",
+                "viewport" : {
+                   "northeast" : {
+                      "lat" : 51.1241999,
+                      "lng" : 9.6624999
+                   },
+                   "southwest" : {
+                      "lat" : 41.3253001,
+                      "lng" : -5.5591
+                   }
+                }
+             },
+             "place_id" : "ChIJMVd4MymgVA0R99lHx5Y__Ws",
+             "types" : [ "country", "political" ]
+          }
+       ],
+       "status" : "OK"
+    }
+  read: true
+  uri: 
+  decode_content: true
+  socket: 
+  body_exist: true
+file_name: maps.googleapis.com_GET_maps-api-geocode-json_7d10a03.yml

@@ -49,7 +49,8 @@ FactoryBot.define do
     department "Nouveau Rhône"
     region "Rhône-Alpes"
     founded_at "2013-06-06"
-    geolocation "#{Faker::Address.latitude}, #{Faker::Address.longitude}"
+    lat Faker::Address.latitude
+    lng Faker::Address.longitude
     quality "headquarter"
     revenue "1 to 5 billions USD"
     country "France"

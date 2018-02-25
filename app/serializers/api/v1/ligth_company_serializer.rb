@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::UnauthCompanySerializer < ActiveModel::Serializer
+class Api::V1::LigthCompanySerializer < ActiveModel::Serializer
   attributes :id,
     :smooth_name,
     :name,
