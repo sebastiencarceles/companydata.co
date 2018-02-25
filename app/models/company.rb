@@ -55,24 +55,24 @@ class Company < ApplicationRecord
 
   def geolocation
     return [lat, lng].join(",") if lat.present? && lng.present?
-    return nil if geolocalized_at.present?
+    # return nil if geolocalized_at.present?
 
-    update_columns(geolocalized_at: DateTime.now)
+    # update_columns(geolocalized_at: DateTime.now)
+
+    # full_address = [address_line_1, address_line_2, address_line_3, zipcode, city, country].reject(&:blank?).join(", ")
+    # uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{full_address}&key=#{Figaro.env.GOOGLE_API_KEY}")
+    # response = open(uri).read()
+    # results = JSON.parse(response)["results"]
     
-    full_address = [address_line_1, address_line_2, address_line_3, zipcode, city, country].reject(&:blank?).join(", ")
-    uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{full_address}&key=#{Figaro.env.GOOGLE_API_KEY}")
-    response = open(uri).read()
-    results = JSON.parse(response)["results"]
-    
-    if results.any?
-      lat = results.first["geometry"]["location"]["lat"]&.to_f
-      lng = results.first["geometry"]["location"]["lng"]&.to_f
+    # if results.any?
+    #   lat = results.first["geometry"]["location"]["lat"]&.to_f
+    #   lng = results.first["geometry"]["location"]["lng"]&.to_f
       
-      if lat.present? && lng.present? && lat != 0 && lng != 0
-        update_columns(lat: lat, lng: lng) 
-        return [lat, lng].join(",")
-      end
-    end
+    #   if lat.present? && lng.present? && lat != 0 && lng != 0
+    #     update_columns(lat: lat, lng: lng) 
+    #     return [lat, lng].join(",")
+    #   end
+    # end
   end
 
   def address_components
