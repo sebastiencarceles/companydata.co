@@ -53,8 +53,8 @@ class Company < ApplicationRecord
     vat&.vat_number
   end
 
-  def geolocation
-    return [lat, lng].join(",") if lat.present? && lng.present?
+  # def geolocation
+    # return [lat, lng].join(",") if lat.present? && lng.present?
     # return nil if geolocalized_at.present?
 
     # update_columns(geolocalized_at: DateTime.now)
@@ -73,7 +73,7 @@ class Company < ApplicationRecord
     #     return [lat, lng].join(",")
     #   end
     # end
-  end
+  # end
 
   def address_components
     zc = cedex.present? ? cedex : zipcode
