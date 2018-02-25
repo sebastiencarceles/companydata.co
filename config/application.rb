@@ -29,5 +29,8 @@ module CompanyIo
         resource "*", headers: :any, methods: [:get]
       end
     end
+
+    config.i18n.available_locales = [:en, :fr]
+    config.i18n.default_locale = :fr
   end
 end
