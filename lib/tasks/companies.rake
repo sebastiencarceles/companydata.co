@@ -168,18 +168,4 @@ namespace :companies do
       Rails.logger.info "Update companies with department code #{code}: #{name}"
     end
   end
-
-  task migrate_geolocations: :environment do 
-    Rails.logger.info "Start geolocations migration"
-    
-    Company.where.not(geolocation: [nil, ""]).find_each do |company|
-      Rails.logger.info "Migrate geolocation for company #{company.id}: #{company.geolocation}"
-
-      lat = company.geolocation.split(",").first.strip.to_f 
-      lng = company.geolocation.split(",").last.strip.to_f
-      company.update_columns(lat: lat, lng: lng) if lat != 0 && lng != 0
-    end
-
-    Rails.logger.info "Done"    
-  end
 end
