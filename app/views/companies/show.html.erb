@@ -35,4 +35,14 @@
       </div>
     </div>
   <% end %>
+
+  <% unless user_signed_in? %>
+    <div class="row mt-2 mb-2">
+      <div class="col-md-12">
+        <div class="row">
+          <%= render "api_connection" %>  
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
