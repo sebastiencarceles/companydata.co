@@ -6,6 +6,13 @@ en:
     need: Need anything?
     title: About
   companies:
+    api_connection:
+      description: "Hey! It looks like you haven't registered yet. Once registered, you can use the API from your own application, even with a free plan. So you can enrich your own company database, build a company name autocomplete for your users or anything than make sense for you. Don't miss it!"
+      get_started: Get started
+      important: Important
+      register: Register
+      subtitle: Get the most out of Companydata.co
+      title: API Connection
     financial_year:
       duration: "%{months} months"
     financial_years:
@@ -103,8 +110,8 @@ en:
     data:
       description_1: Legal name, logo, presentation and activity / industry, headquarter and branches...
       description_2: Verified VAT number, registration number, legal form
-      description_3: Simplified address, full detailled address and geolocation 
-      description_4: "For the last years of activity: staff, revenue, income..."
+      description_3: Simplified address, full detailled address and geolocation
+      description_4: 'For the last years of activity: staff, revenue, income...'
       subtitle: Get all the useful data about any company
       title: All the data you need
       title_1: General

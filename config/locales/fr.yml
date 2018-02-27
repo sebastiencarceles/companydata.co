@@ -6,6 +6,13 @@ fr:
     need: Besoin de quelque chose ?
     title: À propos
   companies:
+    api_connection:
+      description: Hello ! Il semblerait que vous ne vous soyez pas encore enregistré. Une fois votre compte créé, vous pouvez utiliser l'API depuis votre propre application, même avec un plan gratuit. Ainsi vous pouvez enrichir votre propre base de sociétés, proposer  une autocomplétion de noms de sociétés à vos utilisateurs ou construire quoi que ce soit d'utile pour votre business. Essayez !
+      get_started: Démarrage rapide
+      important: Important
+      register: Enregistrement
+      subtitle: Obtenez le maximum de Companydata.co
+      title: "Connexion à l'API"
     financial_year:
       duration: "%{months} mois"
     financial_years:
@@ -104,7 +111,7 @@ fr:
       description_1: Nom légal, logo, présentation, activité ou industrie, siège et établissements...
       description_2: TVA intracommunautaire (vérifiée), SIREN, NIC, forme légale
       description_3: Adresse simplifiée ou très détaillée, géolocalisation
-      description_4: "Pour les derniers exercices fiscaux : équipe, chiffre d'affaires, revenu..."
+      description_4: 'Pour les derniers exercices fiscaux : équipe, chiffre d''affaires, revenu...'
       subtitle: Obtenez toutes les informations pertinentes sur les sociétés
       title: Toutes les infos qu'il vous faut
       title_1: Général
