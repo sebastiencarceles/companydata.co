@@ -6,9 +6,10 @@ class SearchesController < ApplicationController
   end
 
   def create
-    Search.create(search_params).save
-    @companies = Company.search(search_params[:query], fields: [:smooth_name], match: :word_start, page: params[:page], per_page: 20)
-    @search = Search.new(search_params)
+    redirect_to companies_index_path(query: search_params[:query])
+    # Search.create(search_params).save
+    # @companies = Company.search(search_params[:query], fields: [:smooth_name], match: :word_start, page: params[:page], per_page: 20)
+    # @search = Search.new(search_params)
   end
 
   def index

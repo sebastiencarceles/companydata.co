@@ -12,7 +12,7 @@ fr:
       important: Important
       register: Enregistrement
       subtitle: Obtenez le maximum de Companydata.co
-      title: "Connexion à l'API"
+      title: Connexion à l'API
     financial_year:
       duration: "%{months} mois"
     financial_years:
@@ -192,6 +192,10 @@ fr:
           calls_count: Appels illimités à l'API
           description: Oui.<br>Ça fait beaucoup.
       title: Choisissez un plan pour utiliser l'API
+  search:
+    company_name: Société
+    search: Chercher
+    try_title: Entrez un nom de société
   searches:
     create:
       no_companies: Oups, pas de résultat.

@@ -1,0 +1,5 @@
+<%= form_for :search, url: companies_path, method: :get, html: { novalidate: true, class: "form d-flex flex-column bg-white p-4" } do |f| %>
+  <p class="text-center"><%= t("search.try_title") %></p>
+  <%= f.text_field :query, required: true, class: "form-control", placeholder: t("search.company_name"), id: "js-search-autocomplete", value: @query %>
+  <%= f.submit t("search.search"), class: "btn btn-primary ml-auto mt-2" %>
+<% end %>

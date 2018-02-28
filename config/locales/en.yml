@@ -7,7 +7,7 @@ en:
     title: About
   companies:
     api_connection:
-      description: "Hey! It looks like you haven't registered yet. Once registered, you can use the API from your own application, even with a free plan. So you can enrich your own company database, build a company name autocomplete for your users or anything than make sense for you. Don't miss it!"
+      description: Hey! It looks like you haven't registered yet. Once registered, you can use the API from your own application, even with a free plan. So you can enrich your own company database, build a company name autocomplete for your users or anything than make sense for you. Don't miss it!
       get_started: Get started
       important: Important
       register: Register
@@ -192,6 +192,10 @@ en:
           calls_count: Unlimited API calls
           description: Yup.<br>That's a lot.
       title: Choose a plan to use the API
+  search:
+    company_name: Company name
+    search: Search
+    try_title: Search for a company
   searches:
     create:
       no_companies: Oops, no companies.
