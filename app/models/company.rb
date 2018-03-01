@@ -63,13 +63,13 @@ class Company < ApplicationRecord
     uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{full_address}&key=#{Figaro.env.GOOGLE_API_KEY}")
     response = open(uri).read()
     results = JSON.parse(response)["results"]
-    
+
     if results.any?
       lat = results.first["geometry"]["location"]["lat"]&.to_f
       lng = results.first["geometry"]["location"]["lng"]&.to_f
-      
+
       if lat.present? && lng.present? && lat != 0 && lng != 0
-        update_columns(lat: lat, lng: lng) 
+        update_columns(lat: lat, lng: lng)
         return [lat, lng].join(",")
       end
     end
