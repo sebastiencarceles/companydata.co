@@ -13,6 +13,8 @@ en:
       register: Register
       subtitle: Get the most out of Companydata.co
       title: API Connection
+    breadcrumb:
+      title: Search result
     financial_year:
       duration: "%{months} months"
     financial_years:
@@ -139,11 +141,8 @@ en:
       financial_years: Financial data
       title: Covered countries
     show:
-      company_name: Company name
       description: Companydata.co is the no bullshit engine to get company data. Get started instantly for free. Register for API integration.
-      search: Search
       sub_value_proposition: Boost your business with the data you need about your prospects and customers, in a very simple way.
-      try_title: Give it a try!
       value_proposition: Company data. Straight.
   navigation:
     about: About
@@ -199,7 +198,3 @@ en:
   searches:
     create:
       no_companies: Oops, no companies.
-    form:
-      action: Search
-      placeholder: Company name
-      title: Search for something awesome!

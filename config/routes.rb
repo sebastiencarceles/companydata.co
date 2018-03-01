@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   post "pricing", to: "pricing#choose"
   get "payment", to: "payment#show"
   
-  resources :searches, only: [:new, :create, :index]
   resources :companies, only: [:show, :index]
 
   namespace :api do

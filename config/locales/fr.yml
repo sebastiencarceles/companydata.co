@@ -13,6 +13,8 @@ fr:
       register: Enregistrement
       subtitle: Obtenez le maximum de Companydata.co
       title: Connexion à l'API
+    breadcrumb:
+      title: Résultat de recherche
     financial_year:
       duration: "%{months} mois"
     financial_years:
@@ -139,11 +141,8 @@ fr:
       financial_years: de données financières
       title: Pays couverts
     show:
-      company_name: Nom de société
       description: Companydata.co is est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.
-      search: Chercher
       sub_value_proposition: Boostez votre business avec les infos qu'il vous faut sur vos prospects et vos clients.
-      try_title: Essayez !
       value_proposition: Tout sur les sociétés. Directement.
   navigation:
     about: À propos
@@ -199,7 +198,3 @@ fr:
   searches:
     create:
       no_companies: Oups, pas de résultat.
-    form:
-      action: Chercher
-      placeholder: Nom de société
-      title: Trouver une société

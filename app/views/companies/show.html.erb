@@ -1,7 +1,14 @@
 <% @title = @company.name %>
 
 <div class="container">
-  <div class="row mt-2 mb-2">
+  <% if @query.present? %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= render "breadcrumb" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="row mb-2">
     <div class="col-md-6">
       <div class="row">
         <%= render "resume" %>

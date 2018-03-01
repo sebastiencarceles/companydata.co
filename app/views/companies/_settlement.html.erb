@@ -1,9 +1,9 @@
 <tr>
   <td>
-    <%= link_to fa_icon_tag(company.headquarter? ? "building" : "building-o"), company, 'data-toggle': 'tooltip', title: (company.headquarter? ? t("companies.settlement.headquarter") : t("companies.settlement.branch")), class: "btn btn-link" %>
-    <%= link_to company.smooth_name, company %>
+    <%= link_to fa_icon_tag(company.headquarter? ? "building" : "building-o"), company_path(company.id, query: @query), 'data-toggle': 'tooltip', title: (company.headquarter? ? t("companies.settlement.headquarter") : t("companies.settlement.branch")), class: "btn btn-link" %>
+    <%= link_to company.smooth_name, company_path(company.id, query: @query) %>
     <% if company.financial_years.any? %>
-      <%= link_to fa_icon_tag("usd"), company, 'data-toggle': 'tooltip', title: t("companies.settlement.financial_data"), class: "btn btn-link" %>
+      <%= link_to fa_icon_tag("usd"), company_path(company.id, query: @query), 'data-toggle': 'tooltip', title: t("companies.settlement.financial_data"), class: "btn btn-link" %>
     <% end %>
   </td>
   <td><small><%= company.name %></small></td>                  
@@ -11,7 +11,7 @@
   <td><small><%= company.country %></small></td>
   <td class="actions text-right">
     <div class="btn-group">
-      <%= link_to theme_icon_tag("eye"), company, 'data-toggle': 'tooltip', title: t("companies.settlement.details"), class: "btn btn-link" %>
+      <%= link_to theme_icon_tag("eye"), company_path(company.id, query: @query), 'data-toggle': 'tooltip', title: t("companies.settlement.details"), class: "btn btn-link" %>
     </div>
   </td>
 </tr>

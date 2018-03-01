@@ -2,6 +2,8 @@
 
 class CompaniesController < ApplicationController
   def show
+    @query = params[:query]
+    
     @company = Company.find_by_id(params[:id])
     @company ||= Company.find_by_slug(params[:id])
     @company ||= Company.find_by_name(params[:id])
