@@ -61,7 +61,7 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["specialities"]).to eql(@company.specialities) }
   it { expect(subject["presentation"]).to eql(@company.presentation) }
   it { expect(subject["logo_url"]).to eql(@company.logo_url) }
-  it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at)) }
+  it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at, format: "%Y-%m-%d")) }
   it { expect(subject["country"]).to eql(@company.country) }
   it { expect(subject["quality"]).to eql(@company.quality) }
   it { expect(subject["revenue"]).to eql(@company.revenue) }

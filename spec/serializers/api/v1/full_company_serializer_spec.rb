@@ -120,7 +120,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["department_code"]).to eql(@company.department_code) }
   it { expect(subject["department"]).to eql(@company.department) }
   it { expect(subject["region"]).to eql(@company.region) }
-  it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at)) }
+  it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at, format: "%Y-%m-%d")) }
   it { expect(subject["geolocation"]).to eql(@company.geolocation) }
   it { expect(subject["country"]).to eql(@company.country) }
   it { expect(subject["quality"]).to eql(@company.quality) }
@@ -134,7 +134,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["financial_years"][0]["income"]).to eql(@company.financial_years.first.income) }
   it { expect(subject["financial_years"][0]["staff"]).to eql(@company.financial_years.first.staff) }
   it { expect(subject["financial_years"][0]["duration"]).to eql(@company.financial_years.first.duration) }
-  it { expect(subject["financial_years"][0]["closing_date"]).to eql(I18n.l(@company.financial_years.first.closing_date)) }
+  it { expect(subject["financial_years"][0]["closing_date"]).to eql(I18n.l(@company.financial_years.first.closing_date, format: "%Y-%m-%d")) }
 
   context "when there is an activity code" do
     it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }
