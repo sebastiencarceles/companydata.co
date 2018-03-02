@@ -9,7 +9,7 @@ $(document).on 'turbolinks:load', ->
   )
   engine.initialize()
   
-  $("#js-search-autocomplete").typeahead null,
+  $("#js-search-autocomplete").typeahead(null,
     name: 'engine'
     displayKey: 'smooth_name'
     source: engine.ttAdapter()
@@ -23,5 +23,8 @@ $(document).on 'turbolinks:load', ->
           </small>
         </div>
       ")
-
+  ).on 'typeahead:selected', (e, data) ->
+    $(this).closest('form').submit()
+    return
+    
   false
