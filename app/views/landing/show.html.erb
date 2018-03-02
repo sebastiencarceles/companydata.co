@@ -7,7 +7,7 @@
           <p class="lead font-weight-medium text-shadow-light"><%= t("landing.show.sub_value_proposition") %></p>
         </div>
         <div class="col-12 col-md-5 mt-5 pt-5 pb-5">
-          <%= render "shared/search" %>
+          <%= image_tag image_path("demo.gif") %>
         </div>
       </div>
     </div>
@@ -16,6 +16,10 @@
 
 <section class="mt-5 pt-5 mb-5 pb-5">
   <%= render partial: 'landing/features' %>
+</section>
+
+<section class="bg-dark py-5" id="try">
+  <%= render "landing/try" %>
 </section>
 
 <section class="mt-5 pt-5 mb-5 pb-5">
