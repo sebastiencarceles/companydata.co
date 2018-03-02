@@ -13,9 +13,10 @@ class CompaniesController < ApplicationController
   end
 
   def index
-    redirect_to(root_path) && (return) if params[:search].nil?
-    @query = search_params[:query]
-    @companies = Company.search(@query, fields: [:smooth_name], match: :word_start, page: params[:page], per_page: 20)
+    unless params[:search].nil?
+      @query = search_params[:query]
+      @companies = Company.search(@query, fields: [:smooth_name], match: :word_start, page: params[:page], per_page: 20)
+    end
   end
 
   private
