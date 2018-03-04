@@ -18,7 +18,7 @@
   </td>
   <td>
     <% if financial_year.staff.present? %>
-      <%= financial_year.staff %> employees
+      <%= financial_year.staff %> <%= t("companies.financial_year.employees") %>
     <% else %>
       -
     <% end %>

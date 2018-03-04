@@ -17,6 +17,7 @@ en:
       title: Search result
     financial_year:
       duration: "%{months} months"
+      employees: employees
     financial_years:
       closing_date: Closing date
       duration: Duration
