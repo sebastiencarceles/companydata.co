@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+# Sources: 
+# - SIRENE: https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/
+# - Geocoded SIRENE: http://212.47.238.202/geo_sirene/last/
+
 require "csv"
 
 namespace :sirene do
-  task companies: :environment do
-    # source = "db/raw/sirene/sirc-17804_9075_14211_2017341_E_Q_20171208_022413655.csv"
+  task initial_import: :environment do
     source = "db/raw/sirene/sirc-17804_9075_14209_201711_L_M_20171201_044556778.csv"
 
     batch = []
@@ -29,7 +32,6 @@ namespace :sirene do
         legal_form: row["LIBNJ"],
         staff: row["LIBTEFEN"],
         founded_at: row["DCREN"].nil? ? nil : (Date.parse(row["DCREN"]) rescue nil),
-        revenue: revenue(row["TCA"]),
         country: "France",
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret"
       )
@@ -39,43 +41,36 @@ namespace :sirene do
         puts "Total companies in database: #{Company.count}"
         batch.clear
       end
-
-      # t.string "website"
-      # t.integer "linkedin_id"
-      # t.text "specialities"
-      # t.text "presentation"
-      # t.string "logo_url"
-      # t.string "geolocation"
-
     end
     Company.import!(batch)
     puts "Total companies in database: #{Company.count}"
   end
 
-  private
+  task update_geolocations: :environment do
+    Rails.logger.info "Update companies geolocations"
 
-    def revenue(tca)
-      case tca
-      when "9"
-        "200 millions d'euros ou plus"
-      when "8"
-        "De 100 millions à moins de 200 millions d'euros"
-      when "7"
-        "De 50 millions à moins de 100 millions d'euros"
-      when "6"
-        "De 20 millions à moins de 50 millions d'euros"
-      when "5"
-        "De 10 millions à moins de 20 millions d'euros"
-      when "4"
-        "De 5 millions à moins de 10 millions d' euros"
-      when "3"
-        "De 2 millions à moins de 5 millions d'euros"
-      when "2"
-        "De 1 million à moins de 2 millions d'euros"
-      when "1"
-        "Moins de 0,5 million d'euros"
-      else
-        nil
+    Dir.glob("db/raw/sirene/geocoded/*.csv").each do |source|
+      Rails.logger.info "Read from #{source}"
+
+      CSV.foreach(source, col_sep: ",", encoding: "ISO-8859-1", headers: :first_row) do |row|
+        score = row["geo_score"].to_f
+        next if score == 0
+
+        company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
+        fail "Unknown company #{row["SIREN"]} #{row["NIC"]}" unless company
+        
+        next if company.lat.present? && company.lng.present?
+
+        lat = row["latitude"].to_f
+        lng = row["longitude"].to_f
+
+        if lat != 0 && lng != 0
+          Rails.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
+          Company.update_columns(lat: lat, lng: lng) 
+        end
       end
+
+      File.delete(source)
     end
+  end
 end
