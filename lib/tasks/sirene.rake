@@ -66,7 +66,7 @@ namespace :sirene do
 
         if lat != 0 && lng != 0
           Rails.logger.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
-          Company.update_columns(lat: lat, lng: lng) 
+          ompany.update_columns(lat: lat, lng: lng) 
         end
       end
 
