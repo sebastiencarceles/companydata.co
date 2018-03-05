@@ -55,12 +55,10 @@ namespace :sirene do
     url = "http://files.data.gouv.fr/sirene/#{filename}"
     Rails.logger.info "Company daily update from #{url}"
     IO.copy_stream(open(url), filename)
-    
+
     Zip::File.open(filename) do |zip_file|
       zip_file.each do |entry|
         unziped_filename = entry.name
-        Rails.logger.info "Extracting #{unziped_filename}"
-
         entry.extract(unziped_filename)
         update_from(unziped_filename)
         File.delete(unziped_filename)
@@ -69,9 +67,14 @@ namespace :sirene do
     File.delete(filename)
   end
 
+  task stock_update: :environment do
+    update_from("db/raw/sirene/sirc-17804_9075_14209_201802_L_M_20180301_031325537.csv")
+  end
+
   private
 
     def update_from(source)
+      Rails.logger.info "Update companies from #{source}"
       CSV.foreach(source, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
         company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
         if company
