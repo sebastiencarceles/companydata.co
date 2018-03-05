@@ -49,7 +49,7 @@ namespace :sirene do
   task update_geolocations: :environment do
     Rails.logger.info "Update companies geolocations"
 
-    Dir.glob("db/raw/sirene/geocoded/*.csv").each do |source|
+    Dir.glob("db/raw/sirene/geocoded/*.csv").sort.each do |source|
       Rails.logger.info "Read from #{source}"
 
       CSV.foreach(source, col_sep: ",", encoding: "ISO-8859-1", headers: :first_row) do |row|
@@ -65,7 +65,7 @@ namespace :sirene do
         lng = row["longitude"].to_f
 
         if lat != 0 && lng != 0
-          Rails.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
+          Rails.logger.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
           Company.update_columns(lat: lat, lng: lng) 
         end
       end
