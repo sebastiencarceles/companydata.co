@@ -27,11 +27,14 @@ class ApiController < ActionController::API
     end
 
     def increment_api_calls
-      usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month) do |usage|
-        usage.limit = current_user.plan_limit
+      usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month) do |u|
+        u.limit = current_user.plan_limit
       end
       count = usage.count + 1
       usage.update_columns(count: count)
+
+      Tracking::Mixpanel&.track(current_user.id, "Authenticated API call")
+      Tracking::Mixpanel&.people&.increment(current_user.id, "calls": 1)
 
       render json: { error: "plan limit reached" }, status: :forbidden unless usage.limit == 0 || count <= usage.limit
     end
