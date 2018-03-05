@@ -133,10 +133,10 @@ namespace :migrations do
 
   task rerevenue: :environment do
     Rails.logger.info "Recompute revenue"
-    
+
     FinancialYear.where(year: ["2017", "2016", "2015"]).where.not(revenue: nil).order(year: :desc).each do |financial_year|
       next if financial_year.company.revenue.present?
-      Rails.logger.info "Update revenue for company #{financial_year.company.id}: #{financial_year.revenue}" 
+      Rails.logger.info "Update revenue for company #{financial_year.company.id}: #{financial_year.revenue}"
       financial_year.company.update_columns(revenue: financial_year.revenue)
     end
   end
