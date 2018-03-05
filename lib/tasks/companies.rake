@@ -168,4 +168,16 @@ namespace :companies do
       Rails.logger.info "Update companies with department code #{code}: #{name}"
     end
   end
+
+  task rerevenue: :environment do
+    Rails.logger.info "Recompute revenue"
+    
+    ["2017", "2016", "2015"].each do |year|
+      FinancialYear.where(year: year).where.not(revenue: nil).each do |financial_year|
+        next if financial_year.company.revenue.present?
+        Rails.logger.info "Update revenue for company #{financial_year.company.id}: #{financial_year.revenue}" 
+        financial_year.company.update!(revenue: financial_year.revenue)
+      end
+    end
+  end
 end
