@@ -24,7 +24,7 @@ namespace :sirene do
     puts "Total companies in database: #{Company.count}"
   end
 
-  task update_geolocations: :environment do
+  task geolocations: :environment do
     Rails.logger.info "Update companies geolocations"
 
     Dir.glob("db/raw/sirene/geocoded/*.csv").sort.each do |source|
