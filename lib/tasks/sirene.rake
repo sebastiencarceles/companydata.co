@@ -12,7 +12,55 @@ namespace :sirene do
 
     batch = []
     CSV.foreach(source, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
-      batch << Company.new(
+      batch << Company.new(base_attributes_from_row)
+
+      if batch.count >= 10000
+        Company.import!(batch)
+        puts "Total companies in database: #{Company.count}"
+        batch.clear
+      end
+    end
+    Company.import!(batch)
+    puts "Total companies in database: #{Company.count}"
+  end
+
+  task update_geolocations: :environment do
+    Rails.logger.info "Update companies geolocations"
+
+    Dir.glob("db/raw/sirene/geocoded/*.csv").sort.each do |source|
+      Rails.logger.info "Read from #{source}"
+
+      CSV.foreach(source, col_sep: ",", encoding: "ISO-8859-1", headers: :first_row) do |row|
+        lat = row["latitude"].to_f
+        lng = row["longitude"].to_f
+        score = row["geo_score"].to_f
+
+        company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
+        unless company
+          attributes = base_attributes_from_row(row)
+          attributes[:lat] = lat if score != 0
+          attributes[:lng] = lng if score != 0
+          
+          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
+          company = Company.create!(attributes)
+          fail "Missing smooth name" if company.smooth_name.blank?
+          fail "Missing VAT" if company.vat.nil?
+        end
+      
+        next if score == 0 || (company.lat.present? && company.lng.present?) || (lat == 0 || lng == 0)
+        
+        Rails.logger.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
+        company.update_columns(lat: lat, lng: lng) 
+      end
+
+      File.delete(source)
+    end
+  end
+
+  private
+
+    def base_attributes_from_row(row)
+      {
         registration_1: row["SIREN"],
         registration_2: row["NIC"],
         name: row["NOMEN_LONG"],
@@ -34,43 +82,6 @@ namespace :sirene do
         founded_at: row["DCREN"].nil? ? nil : (Date.parse(row["DCREN"]) rescue nil),
         country: "France",
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret"
-      )
-
-      if batch.count >= 10000
-        Company.import!(batch)
-        puts "Total companies in database: #{Company.count}"
-        batch.clear
-      end
+      }
     end
-    Company.import!(batch)
-    puts "Total companies in database: #{Company.count}"
-  end
-
-  task update_geolocations: :environment do
-    Rails.logger.info "Update companies geolocations"
-
-    Dir.glob("db/raw/sirene/geocoded/*.csv").sort.each do |source|
-      Rails.logger.info "Read from #{source}"
-
-      CSV.foreach(source, col_sep: ",", encoding: "ISO-8859-1", headers: :first_row) do |row|
-        score = row["geo_score"].to_f
-        next if score == 0
-
-        company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
-        fail "Unknown company #{row["SIREN"]} #{row["NIC"]}" unless company
-        
-        next if company.lat.present? && company.lng.present?
-
-        lat = row["latitude"].to_f
-        lng = row["longitude"].to_f
-
-        if lat != 0 && lng != 0
-          Rails.logger.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
-          ompany.update_columns(lat: lat, lng: lng) 
-        end
-      end
-
-      File.delete(source)
-    end
-  end
 end
