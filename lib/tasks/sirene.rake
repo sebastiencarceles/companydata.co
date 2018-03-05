@@ -31,22 +31,15 @@ namespace :sirene do
       Rails.logger.info "Read from #{source}"
 
       CSV.foreach(source, col_sep: ",", encoding: "ISO-8859-1", headers: :first_row) do |row|
+        company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
+        unless company
+          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
+          company = Company.create!(base_attributes_from_row(row))
+        end
+      
         lat = row["latitude"].to_f
         lng = row["longitude"].to_f
         score = row["geo_score"].to_f
-
-        company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
-        unless company
-          attributes = base_attributes_from_row(row)
-          attributes[:lat] = lat if score != 0
-          attributes[:lng] = lng if score != 0
-          
-          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
-          company = Company.create!(attributes)
-          fail "Missing smooth name" if company.smooth_name.blank?
-          fail "Missing VAT" if company.vat.nil?
-        end
-      
         next if score == 0 || (company.lat.present? && company.lng.present?) || (lat == 0 || lng == 0)
         
         Rails.logger.info "Update geolocation of company #{company.id}: #{lat}, #{lng}"
