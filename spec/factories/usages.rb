@@ -6,6 +6,5 @@ FactoryBot.define do
     year Date.today.year
     month Date.today.month
     count 0
-    limit 100
   end
 end

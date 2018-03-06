@@ -85,7 +85,7 @@ fr:
         usage:
           description: Voici votre historique d'utilisation.
           title: Usage
-          usage: "%{count} appels à l'API / %{limit}"
+          usage: "%{count} appels à l'API"
       new:
         action: S'enregistrer
         log_in: Se connecter ?

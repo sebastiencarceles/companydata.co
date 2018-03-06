@@ -85,7 +85,7 @@ en:
         usage:
           description: Here is your historial usage.
           title: Usage
-          usage: "%{count} API calls / %{limit}"
+          usage: "%{count} API calls"
       new:
         action: Sign up
         log_in: Log in?

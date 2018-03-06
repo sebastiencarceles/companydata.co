@@ -3,7 +3,7 @@
 class ApiController < ActionController::API
   before_action :authenticate_from_api_key!
   before_action :check_authentication
-  before_action :increment_api_calls
+  after_action :increment_api_calls
 
   private
 
@@ -27,15 +27,15 @@ class ApiController < ActionController::API
     end
 
     def increment_api_calls
-      usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month) do |u|
-        u.limit = current_user.plan_limit
+      usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month)
+      if current_user.free_calls_count <= 0
+        count = usage.count + 1
+        usage.update_columns(count: count)
+        Tracking::Mixpanel&.people&.increment(current_user.id, "Paids calls": 1)
+      else
+        current_user.update_columns(free_calls_count: (current_user.free_calls_count - 1))
+        Tracking::Mixpanel&.people&.increment(current_user.id, "Free calls": 1)
       end
-      count = usage.count + 1
-      usage.update_columns(count: count)
-
       Tracking::Mixpanel&.track(current_user.id, "Authenticated API call")
-      Tracking::Mixpanel&.people&.increment(current_user.id, "calls": 1)
-
-      render json: { error: "plan limit reached" }, status: :forbidden unless usage.limit == 0 || count <= usage.limit
     end
 end

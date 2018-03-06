@@ -12,11 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def after_sign_up_path
-      plan = params[:plan]
-      if plan.present? && plan != "free"
-        payment_path(plan: plan)
-      else
-        root_path
-      end
+      # TODO redirect to getting started   
+      root_path
     end
 end

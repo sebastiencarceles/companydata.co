@@ -37,19 +37,6 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         end
       end
 
-      User::PLANS.each do |plan, limit|
-        context "when user has a #{plan} plan" do
-          before {
-            current_user.update!(plan: plan)
-            subject
-          }
-
-          it "sets the limit to #{limit}" do
-            expect(current_user.usages.last.limit).to eq(limit)
-          end
-        end
-      end
-
       context "when user already has an usage for the current month" do
         before { current_user.usages << create(:usage, user: current_user) }
 
@@ -58,36 +45,31 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         end
       end
 
-      it "increments the usage api calls counter" do
-        usage = create(:usage, user: current_user, count: 3)
-        expect { subject }.to change { usage.reload.count }.by(1)
-      end
 
-      context "when the usage limit is reached" do
-        before {
-          usage = current_user.usages.last
-          usage.update!(count: usage.limit)
-          subject
-        }
 
-        it "returns http forbidden" do
-          expect(response).to have_http_status(:forbidden)
+      context "when the user has remaining free calls" do
+        before { current_user.update!(free_calls_count: 1) }
+
+        it "decrements the free calls counter" do
+          expect { subject }.to change { current_user.reload.free_calls_count }.by(-1)
         end
 
-        it "returns a detailed error" do
-          expect(parsed_body["error"]).to eq "plan limit reached"
+        it "does not increment the usage api calls counter" do
+          usage = create(:usage, user: current_user, count: 3)
+          expect { subject }.not_to change { usage.reload.count }
         end
       end
 
-      context "when the usage limit is 0" do
-        before {
-          current_user.update!(plan: User::PLANS.keys.last)
-          subject
-        }
+      context "when the user has no remaining free call" do
+        before { current_user.update!(free_calls_count: 0) }
 
-        it "means that the limit can't be reached" do
-          expect(current_user.usages.last.limit).to eq(0)
-          expect(current_user.usages.last.count).to eq(1)
+        it "does not decrement the free calls counter" do
+          expect { subject }.not_to change { current_user.reload.free_calls_count }
+        end
+        
+        it "increments the usage api calls counter" do
+          usage = create(:usage, user: current_user, count: 3)
+          expect { subject }.to change { usage.reload.count }.by(1)
         end
       end
     end

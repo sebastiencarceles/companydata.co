@@ -19,11 +19,6 @@
             <p><%= t("devise.registrations.edit.api.description") %></p>
             <table class="table">
               <tr>
-                <td><strong><%= t("devise.registrations.edit.api.current_plan_title") %></strong></td>
-                <td><%= resource.plan.titleize %>: <%= current_user.plan_limit == 0 ? t("devise.registrations.edit.api.unlimited_plan") : t("devise.registrations.edit.api.limited_plan", limit: current_user.plan_limit) %></td>
-                <td><%= link_to t("devise.registrations.edit.api.change_plan"), pricing_path, class: "btn btn-primary btn-registrations pull-right" %></td>
-              </tr>
-              <tr>
                 <td><strong><%= t("devise.registrations.edit.api.api_key_title") %></strong></td>
                 <td><%= resource.api_key %></td>
                 <td><%= link_to t("devise.registrations.edit.api.renew_api_key"), renew_api_key_path, data: { confirm: t("devise.registrations.edit.api.confirm") }, class: "btn btn-primary btn-registrations  pull-right" %></td>
@@ -46,7 +41,7 @@
               <% current_user.usages.each do |usage| %>
                 <tr>
                   <td><strong><%= usage.year %>/<%= usage.month.to_s.rjust(2,"0") %></strong></td>
-                  <td><%= t("devise.registrations.edit.usage.usage", count: usage.count, limit: usage.limit) %></td>
+                  <td><%= t("devise.registrations.edit.usage.usage", count: usage.count) %></td>
                 </tr>
               <% end %>
             </table>
