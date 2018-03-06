@@ -176,25 +176,30 @@ fr:
       success: Bravo ! Votre plan est maintenant %{plan}
       upgrade: Augmenter
     show:
-      description_1: Vous devez utiliser un plan (même un gratuit) pour utiliser l'API. Enregistrez-vous et commencez dès maintenant avec le plan gratuit. Vous pourrez changer de plan à tout moment.
-      description_2: Les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels effectués.
-      description_3: Le premier paiement est dû le premier jour du mois prochain (en attendant, c'est gratuit !). Vous recevrez une facture PDF à chaque paiement.
+      call_to_action:
+        action: Enregistrement
+        title: Enregistrez-vous et commencez l'essai gratuit
+      description_1: Enregistrez-vous et commencez dès maintenant. Vous démarrez sur l'essai gratuit.
+      description_2: L'API d'autocomplétion et les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels.
+      description_3: Le service est facturé le premier jour de chaque mois. Vous recevrez une facture PDF à chaque paiement. On vous rappelera d'entrer vos informations de facturation avant la fin de l'essai gratuit.
       description_4: Il vous faut quelque chose de différent ?
       email_us: Contactez-nous !
-      plans:
-        calls_count: "%{count} appels à l'API par mois"
-        free:
-          description: Assez pour essayer avant de payer, ou pour les besoins occasionnels.
-          period: Oui, c'est gratuit
-        huge:
-          description: Pour les besoins plus importants, comme les équipes commerciales conséquentes.
-        normal:
-          description: Parfait pour les start-ups et les petites entreprises, et ça reste pas cher.
-        period: Par mois
-        unlimited:
-          calls_count: Appels illimités à l'API
-          description: Oui.<br>Ça fait beaucoup.
-      title: Choisissez un plan pour utiliser l'API
+      tiers_first:
+        description: "Accédez à toutes les données de sociétés pour un prix vraiment très bas : un centime par appel à l'API."
+        price: "<strong>0,01</strong><sup>€</sup><small>/ appel</small>"
+        sub_title: De 0 à 1000<br/>appels à l'API par mois
+        title: Première tranche
+      tiers_free:
+        description: Après la création de votre compte, vous disposez de 200 appels gratuits à l'API pour tout brancher sereinement.
+        price: "<strong>0</strong><sup>€</sup><small>/ appel</small>"
+        sub_title: Essayez avant d'acheter<br/>200 appels à l'API
+        title: Essai gratuit
+      tiers_second:
+        description: Quand vous avez des besoins plus importants, c'est encore moins cher ! Un demi centime par appel à l'API.
+        price: "<strong>0,005</strong><sup>€</sup><small>/ appel</small>"
+        sub_title: De 1001 à &infin;<br/>appels à l'API par mois
+        title: Second tiers
+      title: Super simple + économique
   search:
     company_name: Société
     search: Chercher

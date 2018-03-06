@@ -176,25 +176,30 @@ en:
       success: Success! Your plan is now %{plan}
       upgrade: Upgrade
     show:
-      description_1: You need a plan (even a free one) to use the API. Sign up and get started instantly. You can change your plan at any time.
-      description_2: Searches through the website remain free and don't count in the API usage.
-      description_3: First payment will is due on the first day of next month (meanwhile it's free, yay!). You receive a PDF invoice for each payment.
+      call_to_action:
+        action: Sign up
+        title: Sign up and start the free trial
+      description_1: Sign up and get started instantly. You will start on the free trial.
+      description_2: Autocomplete API and searches through the website remain free and don't count in the API usage.
+      description_3: The service is billed on the first day of the month. You receive a PDF invoice for each payment. You will be reminded to setup your billing info before the end of the free trial.
       description_4: Need something different?
       email_us: Feel free to contact us.
-      plans:
-        calls_count: "%{count} API calls per month"
-        free:
-          description: Enought to try before you pay, or for small needs.
-          period: Like, free
-        huge:
-          description: For frequent and recurrent needs, like for big sales teams.
-        normal:
-          description: Perfect for start-ups and small businesses, and still cheap.
-        period: Per Month
-        unlimited:
-          calls_count: Unlimited API calls
-          description: Yup.<br>That's a lot.
-      title: Choose a plan to use the API
+      tiers_first:
+        description: 'Access all the company data for a very low price: just 1 cent per API call.'
+        price: "<strong>0,01</strong><sup>€</sup><small>/ call</small>"
+        sub_title: From 0 to 1000<br/>API calls per month
+        title: First tiers
+      tiers_free:
+        description: After signing up, you have 200 free API calls to set things up and running.
+        price: "<strong>0</strong><sup>€</sup><small>/ call</small>"
+        sub_title: Try before you pay<br/>200 API calls
+        title: Free trial
+      tiers_second:
+        description: When you have more needs, it's even cheaper! Half of a cent per API call.
+        price: "<strong>0,005</strong><sup>€</sup><small>/ call</small>"
+        sub_title: From 1001 to &infin;<br/>API calls per month
+        title: Second tiers
+      title: Super simple + super cheap
   search:
     company_name: Company name
     search: Search
