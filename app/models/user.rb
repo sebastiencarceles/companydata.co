@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  validates_acceptance_of :terms_of_service
+
   has_secure_token :api_key
   has_many :usages, -> { order(year: :desc).order(month: :desc) }
 

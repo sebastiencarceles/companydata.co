@@ -4,3 +4,6 @@ fr:
       messages:
         blank: "%{value} est vide"
         invalid: "%{value} est invalide"
+        accepted: "doit être accepté"
+              
+

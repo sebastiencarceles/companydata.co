@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:usages) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
+  it { should validate_acceptance_of(:terms_of_service) }
 
   describe "usage" do
     let(:user) { build :user }
