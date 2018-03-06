@@ -185,19 +185,19 @@ en:
       description_4: Need something different?
       email_us: Feel free to contact us.
       tiers_first:
-        description: 'Access all the company data for a very low price: just 1 cent per API call.'
-        price: "<strong>0,01</strong><sup>€</sup><small>/ call</small>"
-        sub_title: From 0 to 1000<br/>API calls per month
+        description: 'Access all the company data for a very low price.'
+        price: "<strong>0.05</strong><sup>€</sup><small>/ call</small>"
+        sub_title: From 0 to 2000<br/>API calls per month
         title: First tiers
       tiers_free:
-        description: After signing up, you have 200 free API calls to set things up and running.
+        description: After signing up, you have 100 free API calls to set things up and running.
         price: "<strong>0</strong><sup>€</sup><small>/ call</small>"
-        sub_title: Try before you pay<br/>200 API calls
+        sub_title: Try before you pay<br/>100 API calls
         title: Free trial
       tiers_second:
-        description: When you have more needs, it's even cheaper! Half of a cent per API call.
-        price: "<strong>0,005</strong><sup>€</sup><small>/ call</small>"
-        sub_title: From 1001 to &infin;<br/>API calls per month
+        description: When you have more needs, it's even cheaper!
+        price: "<strong>0.02</strong><sup>€</sup><small>/ call</small>"
+        sub_title: From 2001 to &infin;<br/>API calls per month
         title: Second tiers
       title: Super simple + super cheap
   search:

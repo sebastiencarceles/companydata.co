@@ -185,19 +185,19 @@ fr:
       description_4: Il vous faut quelque chose de différent ?
       email_us: Contactez-nous !
       tiers_first:
-        description: "Accédez à toutes les données de sociétés pour un prix vraiment très bas : un centime par appel à l'API."
-        price: "<strong>0,01</strong><sup>€</sup><small>/ appel</small>"
-        sub_title: De 0 à 1000<br/>appels à l'API par mois
+        description: "Accédez à toutes les données de sociétés pour un prix vraiment très bas."
+        price: "<strong>0,05</strong><sup>€</sup><small>/ appel</small>"
+        sub_title: De 0 à 2000<br/>appels à l'API par mois
         title: Première tranche
       tiers_free:
-        description: Après la création de votre compte, vous disposez de 200 appels gratuits à l'API pour tout brancher sereinement.
+        description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour tout brancher sereinement.
         price: "<strong>0</strong><sup>€</sup><small>/ appel</small>"
-        sub_title: Essayez avant d'acheter<br/>200 appels à l'API
+        sub_title: Essayez avant d'acheter<br/>100 appels à l'API
         title: Essai gratuit
       tiers_second:
-        description: Quand vous avez des besoins plus importants, c'est encore moins cher ! Un demi centime par appel à l'API.
-        price: "<strong>0,005</strong><sup>€</sup><small>/ appel</small>"
-        sub_title: De 1001 à &infin;<br/>appels à l'API par mois
+        description: Quand vous avez des besoins plus importants, c'est encore moins cher !
+        price: "<strong>0,02</strong><sup>€</sup><small>/ appel</small>"
+        sub_title: De 2001 à &infin;<br/>appels à l'API par mois
         title: Second tiers
       title: Super simple + économique
   search:
