@@ -128,7 +128,7 @@ en:
       description_1: All the data about companies, instantly and freely available. No registration needed.
       description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
       description_3: Help your users type in their company with our free autocomplete solution. Follow the tutorial.
-      main_title: The no bullshit engine to get company data
+      main_title: The super simple API get company data
       title_1: Free search
       title_2: Enrichment API
       title_3: Company autocomplete
@@ -138,7 +138,7 @@ en:
       financial_years: Financial data
       title: Covered countries
     show:
-      description: Companydata.co is the no bullshit engine to get company data. Get started instantly for free. Register for API integration.
+      description: Companydata.co is the super simple API to get company data. Get started instantly for free. Register for API integration.
       sub_value_proposition: Include in your system all the data you need about your customers, your prospects and your competitors. Get started in minutes with our API and have access to headquarters and branches, verified VAT numbers, addresses, revenues and incomes...
       value_proposition: Company data, directly in your system.
     try:
