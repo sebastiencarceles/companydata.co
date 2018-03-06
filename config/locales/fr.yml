@@ -69,14 +69,10 @@ fr:
         action: Mettre à jour
         api:
           api_key_title: Clé d'API
-          change_plan: Changer de plan
           confirm: Vraiment ?
-          current_plan_title: Plan actuel
           description: Gardez votre clé d'API secrète ! Ne la stockez pas sur un dépôt public, préférez l'usage d'une variable d'environnement. Si vous pensez que votre clé a été volée, renouvelez-la et mettez à jour la variable d'environnement.
-          limited_plan: "%{limit} appels à l'API par mois"
           renew_api_key: Renouveler
           title: API
-          unlimited_plan: appels illimités par mois
         back: Retour
         cancel_account: Supprimer mon compte
         current_password_needed: Nous avons besoin de votre mot de passe actuel pour confirmer vos changements.
@@ -155,51 +151,35 @@ fr:
     home: Accueil
     legal: Mentions légales
     my_account: Mon compte
-    pricing: Prix
+    pricing: Tarifs
     sign_in: Connexion
     sign_out: Déconnexion
     sign_up: Enregistrement
-  payment:
-    show:
-      description: Le service est gratuit pour le moment. Vous avez un compte illimité. Vous serez notifié·e lorsque la période de gratuité se terminera.
-      subtitle: Sympa, non ?
-      title: C'était une blague !
-      what_now:
-        docs: Consulter la documentation et démarrer
-        title: Et maintenant ?
   pricing:
-    choose:
-      choose: Choisir
-      current: Plan actuel
-      downgrade: Réduire
-      not_signed_in: Vous serez redirigé vers la page de paiement après vous être enregistré
-      success: Bravo ! Votre plan est maintenant %{plan}
-      upgrade: Augmenter
-    show:
-      call_to_action:
-        action: Enregistrement
-        title: Enregistrez-vous et commencez l'essai gratuit
-      description_1: Enregistrez-vous et commencez dès maintenant. Vous démarrez sur l'essai gratuit.
-      description_2: L'API d'autocomplétion et les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels.
-      description_3: Le service est facturé le premier jour de chaque mois. Vous recevrez une facture PDF à chaque paiement. On vous rappelera d'entrer vos informations de facturation avant la fin de l'essai gratuit.
-      description_4: Il vous faut quelque chose de différent ?
-      email_us: Contactez-nous !
-      tiers_first:
-        description: "Accédez à toutes les données de sociétés pour un prix vraiment très bas."
-        price: "<strong>0,05</strong><sup>€</sup><small>/ appel</small>"
-        sub_title: De 0 à 2000<br/>appels à l'API par mois
-        title: Première tranche
-      tiers_free:
-        description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour tout brancher sereinement.
-        price: "<strong>0</strong><sup>€</sup><small>/ appel</small>"
-        sub_title: Essayez avant d'acheter<br/>100 appels à l'API
-        title: Essai gratuit
-      tiers_second:
-        description: Quand vous avez des besoins plus importants, c'est encore moins cher !
-        price: "<strong>0,02</strong><sup>€</sup><small>/ appel</small>"
-        sub_title: De 2001 à &infin;<br/>appels à l'API par mois
-        title: Second tiers
-      title: Super simple + économique
+    call_to_action:
+      action: Enregistrement
+      title: Enregistrez-vous et commencez l'essai gratuit
+    description_1: Enregistrez-vous et commencez dès maintenant à utiliser l'API d'enrichissement de société.
+    description_2: L'API d'autocomplétion et les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels.
+    description_3: Le service est facturé le premier jour de chaque mois. Vous recevrez une facture PDF à chaque paiement. On vous rappelera d'entrer vos informations de facturation avant la fin de l'essai gratuit.
+    description_4: Il vous faut quelque chose de différent ?
+    email_us: Contactez-nous !
+    tiers_first:
+      description: Accédez à toutes les données de sociétés pour un prix vraiment très bas.
+      price: "<strong>0,05</strong><sup>€</sup><small>/ appel</small>"
+      sub_title: De 0 à 2000 appels à l'API<br/>par mois
+      title: Première tranche
+    tiers_free:
+      description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour tout brancher sereinement.
+      price: "<strong>0</strong><sup>€</sup><small>/ appel</small>"
+      sub_title: 100 appels gratuits à l'API<br/>Essayez avant d'acheter
+      title: Essai gratuit
+    tiers_second:
+      description: Quand vous avez des besoins plus importants, c'est encore moins cher !
+      price: "<strong>0,02</strong><sup>€</sup><small>/ appel</small>"
+      sub_title: De 2001 à &infin; appels à l'API<br/>par mois
+      title: Deuxième tranche
+    title: Super simple + économique
   search:
     company_name: Société
     search: Chercher

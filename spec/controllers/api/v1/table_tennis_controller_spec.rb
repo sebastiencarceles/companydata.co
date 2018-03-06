@@ -45,8 +45,6 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         end
       end
 
-
-
       context "when the user has remaining free calls" do
         before { current_user.update!(free_calls_count: 1) }
 

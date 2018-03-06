@@ -69,14 +69,10 @@ en:
         action: Update
         api:
           api_key_title: API Key
-          change_plan: Change plan
           confirm: Really?
-          current_plan_title: Current plan
           description: Keep your API Key safe and secret! Don't store it in a repository, set it as an environment variable. If you feel like it has been stolen, just renew it and update the environment variable.
-          limited_plan: "%{limit} API calls per month"
           renew_api_key: Renew API Key
           title: API
-          unlimited_plan: unlimited API calls per month
         back: Back
         cancel_account: Cancel my account
         current_password_needed: We need your current password to confirm your changes.
@@ -159,47 +155,31 @@ en:
     sign_in: Sign in
     sign_out: Sign out
     sign_up: Sign up
-  payment:
-    show:
-      description: The service is free for now. You have an unlimited account. You will be notified when the free period ends.
-      subtitle: How awesome is that, right?
-      title: It's a joke!
-      what_now:
-        docs: Check out the docs and get started
-        title: What now?
   pricing:
-    choose:
-      choose: Choose
-      current: Your current plan
-      downgrade: Downgrade
-      not_signed_in: You will be redirected to the payment after creating an account
-      success: Success! Your plan is now %{plan}
-      upgrade: Upgrade
-    show:
-      call_to_action:
-        action: Sign up
-        title: Sign up and start the free trial
-      description_1: Sign up and get started instantly. You will start on the free trial.
-      description_2: Autocomplete API and searches through the website remain free and don't count in the API usage.
-      description_3: The service is billed on the first day of the month. You receive a PDF invoice for each payment. You will be reminded to setup your billing info before the end of the free trial.
-      description_4: Need something different?
-      email_us: Feel free to contact us.
-      tiers_first:
-        description: 'Access all the company data for a very low price.'
-        price: "<strong>0.05</strong><sup>€</sup><small>/ call</small>"
-        sub_title: From 0 to 2000<br/>API calls per month
-        title: First tiers
-      tiers_free:
-        description: After signing up, you have 100 free API calls to set things up and running.
-        price: "<strong>0</strong><sup>€</sup><small>/ call</small>"
-        sub_title: Try before you pay<br/>100 API calls
-        title: Free trial
-      tiers_second:
-        description: When you have more needs, it's even cheaper!
-        price: "<strong>0.02</strong><sup>€</sup><small>/ call</small>"
-        sub_title: From 2001 to &infin;<br/>API calls per month
-        title: Second tiers
-      title: Super simple + super cheap
+    call_to_action:
+      action: Sign up
+      title: Sign up and start the free trial
+    description_1: Sign up and start instantly to use the Enrichment API.
+    description_2: Autocomplete API and searches through the website remain free and don't count in the API usage.
+    description_3: The service is billed on the first day of the month. You receive a PDF invoice for each payment. You will be reminded to setup your billing info before the end of the free trial.
+    description_4: Need something different?
+    email_us: Feel free to contact us.
+    tiers_first:
+      description: Access all the company data for a very low price.
+      price: "<strong>0.05</strong><sup>€</sup><small>/ call</small>"
+      sub_title: From 0 to 2000 API calls<br/>per month
+      title: First tiers
+    tiers_free:
+      description: After signing up, you have 100 free API calls to set things up and running.
+      price: "<strong>0</strong><sup>€</sup><small>/ call</small>"
+      sub_title: 100 free API calls<br/>Try before you pay
+      title: Free trial
+    tiers_second:
+      description: When you need for more, it's even cheaper!
+      price: "<strong>0.02</strong><sup>€</sup><small>/ call</small>"
+      sub_title: From 2001 to &infin; API calls<br/>per month
+      title: Second tiers
+    title: Super simple + super cheap
   search:
     company_name: Company name
     search: Search
