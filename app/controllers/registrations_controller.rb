@@ -12,7 +12,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def after_sign_up_path
-      # TODO redirect to getting started   
-      root_path
+      page_path('getting_started')
     end
 end
