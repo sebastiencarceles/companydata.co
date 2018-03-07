@@ -35,4 +35,10 @@
   <%= render partial: 'landing/metrics' %>
 </section>
 
-<script type="text/javascript">mixpanel.track("Visit landing");</script>
+<script type="text/javascript">
+  mixpanel.track("Visit landing");
+  mixpanel.track_forms("#new_search", "Search", {
+    'query': $("#js-search-autocomplete").val()
+  });
+</script>
+
