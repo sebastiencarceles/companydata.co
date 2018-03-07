@@ -31,3 +31,11 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  mixpanel.track_forms("#new_search", "Search", {
+    'query': $("#js-search-autocomplete").val()
+  });
+  mixpanel.track_links("#nav-docs", "Visit docs");
+  mixpanel.track_links("#nav-autocomplete", "Visit autocomplete");
+</script>

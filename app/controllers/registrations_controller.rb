@@ -13,6 +13,5 @@ class RegistrationsController < Devise::RegistrationsController
 
     def after_sign_up_path
       page_path('getting_started')
-      Tracking::Mixpanel&.track(current_user.id, "Visit getting started")
     end
 end
