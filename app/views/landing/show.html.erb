@@ -5,6 +5,7 @@
         <div class="col-12 col-md-7 text-white mt-5 pt-5 pb-5">
           <h1 class="text-shadow-light leading-normal"><%= t("landing.show.value_proposition") %></h1>
           <p class="lead font-weight-medium text-shadow-light"><%= t("landing.show.sub_value_proposition") %></p>
+          <%= link_to t("landing.show.more"), "#data" %>
         </div>
         <div class="col-12 col-md-5 mt-5 pt-5 pb-5">
           <%= image_tag image_path("demo.gif") %>
@@ -22,7 +23,7 @@
   <%= render "landing/try" %>
 </section>
 
-<section class="mt-5 pt-5 mb-5 pb-5">
+<section class="mt-5 pt-5 mb-5 pb-5" id="data">
   <%= render partial: 'landing/data' %>
 </section>
 

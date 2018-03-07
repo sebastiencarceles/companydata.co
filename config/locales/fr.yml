@@ -139,6 +139,7 @@ fr:
       title: Pays couverts
     show:
       description: Companydata.co est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.
+      more: Plus d'infos
       sub_value_proposition: Intégrez dans votre système les infos qu'il vous faut sur vos clients, vos prospects et vos concurrents. Avec notre API, intégrable en quelques minutes, vous avez accès aux sièges sociaux, aux numéros de TVA vérifiés, aux adresses, aux chiffres d'affaires, aux résultats...
       value_proposition: Les données de sociétés, directement chez vous.
     try:

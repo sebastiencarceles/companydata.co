@@ -139,6 +139,7 @@ en:
       title: Covered countries
     show:
       description: Companydata.co is the super simple API to get company data. Get started instantly for free. Register for API integration.
+      more: More about data
       sub_value_proposition: Include in your system all the data you need about your customers, your prospects and your competitors. Get started in minutes with our API and have access to headquarters and branches, verified VAT numbers, addresses, revenues and incomes...
       value_proposition: Company data, directly in your system.
     try:
