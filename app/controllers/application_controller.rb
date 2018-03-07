@@ -2,9 +2,9 @@
 
 class ApplicationController < ActionController::Base
   layout "_base"
-  
+
   protect_from_forgery with: :exception
-  
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_locale
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     end
 
   private
-  
+
     def set_locale
       locale = params[:locale] || session[:locale] || I18n.default_locale
       I18n.locale = locale

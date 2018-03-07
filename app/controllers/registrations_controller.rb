@@ -12,6 +12,6 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def after_sign_up_path
-      page_path('getting_started')
+      page_path("getting_started")
     end
 end

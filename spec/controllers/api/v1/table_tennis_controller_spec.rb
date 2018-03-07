@@ -64,7 +64,7 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         it "does not decrement the free calls counter" do
           expect { subject }.not_to change { current_user.reload.free_calls_count }
         end
-        
+
         it "increments the usage api calls counter" do
           usage = create(:usage, user: current_user, count: 3)
           expect { subject }.to change { usage.reload.count }.by(1)
