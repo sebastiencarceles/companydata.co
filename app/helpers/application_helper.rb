@@ -9,7 +9,7 @@ module ApplicationHelper
     "sebastien@companydata.co"
   end
 
-  def docs_url
-    "http://sebastiencarceles.github.io/companydata-api-docs"
+  def docs_url(sub_path = nil)
+    "http://sebastiencarceles.github.io/companydata-api-docs#{sub_path}"
   end
 end

@@ -95,6 +95,7 @@ en:
         title: Login
   getting_started:
     api_key: 'Api Key: '
+    docs: technical documentation
     done: Here are your JSON results. You're done!
     email: 'Email:'
     go_docs: 'Now checkout the API docs to see how to integrate Companydata.co API to your system:'
@@ -111,6 +112,8 @@ en:
       description_2: Verified VAT number, registration number, legal form
       description_3: Simplified address, full detailled address and geolocation
       description_4: 'For the last years of activity: staff, revenue, income...'
+      docs: technical documentation
+      more_info: For more detailled info about the available data, read the
       subtitle: Get all the useful data about any company
       title: All the data you need
       title_1: General
@@ -134,7 +137,7 @@ en:
       title_3: Company autocomplete
     metrics:
       companies: Companies
-      description: "For now we cover France, with data coming from open data:"
+      description: 'For now we cover France, with data coming from open data:'
       description_ban: Base Adresse Nationale for geolocalized data
       description_eu: European Commission Services for VAT numbers
       description_infogreffe: Infogreffe for financial data

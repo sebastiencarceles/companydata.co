@@ -95,6 +95,7 @@ fr:
         title: Connexion
   getting_started:
     api_key: 'Api Key : '
+    docs: documentation technique
     done: Vos résultats s'affichent en JSON. C'est fini !
     email: 'Email :'
     go_docs: 'Maintenant consultez la documentation de l''API pour découvrir comment intégrer l''API Companydata.co à votre système d''information :'
@@ -111,6 +112,8 @@ fr:
       description_2: TVA intracommunautaire (vérifiée), SIREN, NIC, forme légale
       description_3: Adresse simplifiée ou très détaillée, géolocalisation
       description_4: 'Pour les derniers exercices fiscaux : équipe, chiffre d''affaires, revenu...'
+      docs: documentation technique
+      more_info: Pour voir le détail des données disponibles, consultez la
       subtitle: Obtenez toutes les informations pertinentes sur les sociétés
       title: Toutes les infos qu'il vous faut
       title_1: Général
