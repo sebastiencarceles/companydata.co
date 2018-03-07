@@ -136,6 +136,7 @@ fr:
       companies: de sociétés
       description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes et des pages sociétés sur LinkedIn et Facebook.
       financial_years: de données financières
+      geolocalized_companies: de sociétés géolocalisées
       title: Pays couverts
     show:
       description: Companydata.co est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.

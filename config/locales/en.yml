@@ -136,6 +136,7 @@ en:
       companies: Companies
       description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms or company pages on LinkedIn and Facebook.
       financial_years: Financial data
+      geolocalized_companies: Geolocalized companies
       title: Covered countries
     show:
       description: Companydata.co is the super simple API to get company data. Get started instantly for free. Register for API integration.

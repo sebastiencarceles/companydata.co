@@ -3,8 +3,9 @@
     <div class="col-12">
       <h2 class="leading-normal"><%= t("landing.metrics.title") %></h2>
       <p class="lead"><%= t("landing.metrics.description") %></p>
-      <div class="row no-gutters mt-5">
-        <div class="col-12 col-md-5">
+
+      <div class="row mt-5">
+        <div class="col-12 col-md-4">
           <div class="card card-mini">
             <div class="card-body">
               <div class="media">
@@ -14,14 +15,33 @@
                   </span>
                 </div>
                 <div class="media-body text-right">
-                  <h4 class="m-0"><%= number_to_human 10872416, precision: 2 %></h4>
+                  <h4 class="m-0"><%= number_to_human 11182197, precision: 2 %></h4>
                   <h6 class="m-0 text-muted"><%= t("landing.metrics.companies") %></h6>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-5 ml-md-auto">
+
+        <div class="col-12 col-md-4">
+          <div class="card card-mini">
+            <div class="card-body">
+              <div class="media">
+                <div class="d-flex align-self-center mr-3">
+                  <span>
+                    <i class="ti-world display-4"></i>
+                  </span>
+                </div>
+                <div class="media-body text-right">
+                  <h4 class="m-0"><%= number_to_human 10296523, precision: 2 %></h4>
+                  <h6 class="m-0 text-muted"><%= t("landing.metrics.geolocalized_companies") %></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
           <div class="card card-mini">
               <div class="card-body">
                 <div class="media">
