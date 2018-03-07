@@ -134,10 +134,16 @@ fr:
       title_3: Autocomplétion
     metrics:
       companies: de sociétés
-      description: A ce jour nous couvrons la France, avec des données issues d'instituts tels que l'INSEE et Infogreffe, de plateformes ouvertes et des pages sociétés sur LinkedIn et Facebook.
+      description: 'A ce jour nous couvrons la France, avec des données recoupées issues de l''open data :'
+      description_ban: Base Adresse Nationale pour les données géolocalisées
+      description_eu: Services de la Commission Européenne pour la TVA intracommunautaire
+      description_infogreffe: Infogreffe pour les données financières
+      description_other: Les données sont également issues de plateformes ouvertes et des pages LinkedIn et Facebook des sociétés.
+      description_sirene: SIRENE pour l'identité et les données administratives
       financial_years: de données financières
       geolocalized_companies: de sociétés géolocalisées
-      title: Pays couverts
+      title: Sources des données et mises à jour
+      update: Les données sont mises à jour quotidiennement pour ce qui est de l'open data, en temps réel pour la géolocalisation et la TVA et périodiquement pour le reste.
     show:
       description: Companydata.co est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.
       more: Plus d'infos

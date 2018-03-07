@@ -134,10 +134,16 @@ en:
       title_3: Company autocomplete
     metrics:
       companies: Companies
-      description: For now we cover France, with data coming from public institutes like INSEE and Infogreffe, open platforms or company pages on LinkedIn and Facebook.
+      description: "For now we cover France, with data coming from open data:"
+      description_ban: Base Adresse Nationale for geolocalized data
+      description_eu: European Commission Services for VAT numbers
+      description_infogreffe: Infogreffe for financial data
+      description_other: Data is also provided by open platforms and company pages on LinkedIn and Facebook.
+      description_sirene: SIRENE for administrative data
       financial_years: Financial data
       geolocalized_companies: Geolocalized companies
-      title: Covered countries
+      title: Data sources and updates
+      update: Updates are made on a daily basis for open data, in real time for geolocations and VAT numbers and periodically for other types.
     show:
       description: Companydata.co is the super simple API to get company data. Get started instantly for free. Register for API integration.
       more: More about data
