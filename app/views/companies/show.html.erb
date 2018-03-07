@@ -53,3 +53,7 @@
     </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  mixpanel.track("Visit company", {"company": "<%= @company.slug %>"});
+</script>

@@ -13,7 +13,7 @@
               <%= link_to t("navigation.get_started"), page_path('getting_started') %>
             </li>
             <li class="list-inline-item">
-              <%= link_to t("navigation.docs"), docs_url, target: "_blank", id: "nav-footer-docs" %>
+              <%= link_to t("navigation.docs"), docs_url, target: "_blank" %>
             </li>
             <li class="list-inline-item">
               <%= mail_to contact_email, t("navigation.contact") %>
@@ -31,7 +31,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  mixpanel.track_links("#nav-footer-docs", "Visit docs");
-</script>

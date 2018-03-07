@@ -17,7 +17,7 @@
       </div>
       <h3><%= t("landing.features.title_2") %></h3>
       <p><%= t("landing.features.description_2") %></p>
-      <%= link_to t("landing.features.action_2"), docs_url, class: "btn btn-primary", target: "_blank", id: "nav-docs" %>
+      <%= link_to t("landing.features.action_2"), docs_url, class: "btn btn-primary", target: "_blank" %>
     </div>
     <div class="col-12 col-md-4 text-center mb-5">
       <div class="bg-circle bg-primary-lightest text-white mb-4">
@@ -25,12 +25,7 @@
       </div>
       <h3><%= t("landing.features.title_3") %></h3>
       <p><%= t("landing.features.description_3") %></p>
-      <%= link_to t("landing.features.action_3"), "https://medium.com/@sebastien.carceles/company-name-autocomplete-a-short-tutorial-e3cca339e3b9", class: "btn btn-primary", target: "_blank", id: "nav-autocomplete" %>      
+      <%= link_to t("landing.features.action_3"), "https://medium.com/@sebastien.carceles/company-name-autocomplete-a-short-tutorial-e3cca339e3b9", class: "btn btn-primary", target: "_blank" %>
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  mixpanel.track_links("#nav-docs", "Visit docs");
-  mixpanel.track_links("#nav-autocomplete", "Visit autocomplete");
-</script>
