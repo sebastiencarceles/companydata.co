@@ -7,13 +7,13 @@
           <h6 class="text-white m-0 mr-4"><%= app_name %></h6>
           <ul class="list-inline m-0">
             <li class="list-inline-item">
-              <%= link_to t("navigation.pricing"), page_path('pricing') %>
+              <%= link_to t("navigation.pricing"), page_path('pricing'), id: "nav-pricing" %>
             </li>
             <li class="list-inline-item">
-              <%= link_to t("navigation.get_started"), page_path('getting_started') %>
+              <%= link_to t("navigation.get_started"), page_path('getting_started'), id: "nav-getting-started" %>
             </li>
             <li class="list-inline-item">
-              <%= link_to t("navigation.docs"), docs_url, target: "_blank" %>
+              <%= link_to t("navigation.docs"), docs_url, target: "_blank", id: "nav-docs" %>
             </li>
             <li class="list-inline-item">
               <%= mail_to contact_email, t("navigation.contact") %>
