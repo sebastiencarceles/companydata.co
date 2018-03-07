@@ -21,6 +21,7 @@ namespace :infogreffe do
     CSV.foreach(source, col_sep: ";", headers: :first_row) do |row|
       reg_1 = row["Siren"]
       reg_2 = row["Nic"]
+      next if reg_1.blank? || reg_2.blank?
       company = Company.where(registration_1: reg_1, registration_2: reg_2).first
       if company
         (1..3).each do |index|
@@ -39,6 +40,32 @@ namespace :infogreffe do
         end
       else
         Rails.logger.warn("No company found for #{reg_1} #{reg_2}")
+      end
+    end
+  end
+
+  task old_financial_years: :environment do
+    source = "db/raw/infogreffe/chiffres-cles-2014.csv"
+
+    Rails.logger.info "Load financial years from #{source}"
+
+    CSV.foreach(source, col_sep: ";", headers: :first_row) do |row|
+    puts row
+      reg_1 = row["Siren"]
+      next if reg_1.blank?
+
+      company = Company.where(registration_1: reg_1, quality: "headquarter").first
+      if company
+        ["2014", "2013", "2012"].each do |year|
+          financial_year = company.financial_years.find_or_initialize_by(year: year)
+          financial_year.currency = "€"
+          financial_year.revenue = row["CA #{year}"]
+          financial_year.income = row["Resultat #{year}"]
+          financial_year.staff = row["Effectif #{year}"]
+          financial_year.save!
+        end
+      else
+        Rails.logger.warn("No company found for #{reg_1}")
       end
     end
   end
