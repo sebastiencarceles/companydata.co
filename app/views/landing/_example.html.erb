@@ -1,6 +1,6 @@
 <div>
-  <div class="row no-gutters equal-cols align-items-center">
-    <div class="col-12 col-md-5 mx-md-auto">
+  <div class="row no-gutters align-items-center">
+    <div class="col-12 col-md-6 mx-md-auto">
       <h2 class="leading-normal"><%= t("landing.example.title") %></h2>
       <p class="lead"><%= t("landing.example.description") %></p>
       <%= link_to image_path('example_request.png'), target: "_blank" do %> 
@@ -8,7 +8,7 @@
       <% end %>
       <%= link_to t("landing.example.action"), page_path("getting_started"), class: "d-table btn btn-success btn-large text-uppercase", id: "nav-getting-started" %>
     </div>
-    <div class="col-12 col-md-5">
+    <div class="col-12 col-md-4">
       <%= link_to image_path('example_result.png'), target: "_blank" do %> 
         <img src="<%= image_path('example_result.png') %>" class="mb-3 mb-md-0" >
       <% end %>
