@@ -33,9 +33,6 @@ namespace :vats do
       "Autre personne morale de droit administratif ",
       "Autre personne morale de droit privé ",
       "Autre personne morale de droit étranger ",
-      "Autre société civile ",
-      "Autre société civile coopérative ",
-      "Autre société civile professionnelle",
       "SA coopérative (d'intérêt) maritime à conseil d'administration ",
       "SA coopérative artisanale à conseil d'administration ",
       "SA coopérative artisanale à directoire ",
@@ -129,19 +126,6 @@ namespace :vats do
       "Societe par actions simplifiee a capital variable",
       "Societe publique locale",
       "Société anonyme mixte d'intérêt agricole (SMIA) à conseil d'administration ",
-      "Société civile coopérative d'intérêt maritime ",
-      "Société civile coopérative de consommation ",
-      "Société civile coopérative de construction ",
-      "Société civile coopérative entre médecins ",
-      "Société civile d'attribution ",
-      "Société civile d'exploitation agricole ",
-      "Société civile d'intérêt collectif agricole (SICA) ",
-      "Société civile de moyens ",
-      "Société civile de placement collectif immobilier (SCPI) ",
-      "Société civile foncière ",
-      "Société civile immobilière ",
-      "Société civile immobilière d' accession progressive à la propriété",
-      "Société civile immobilière de construction-vente",
       "Société commerciale étrangère immatriculée au RCS",
       "Société coopérative agricole ",
       "Société coopérative de banque populaire ",
@@ -190,7 +174,12 @@ namespace :vats do
     scope.each_with_index do |vat, index|
       company = vat.company
       next unless company.legal_form.in?(legal_forms)
-      Rails.logger.info "#{index} / #{count} - Fetch VAT for company #{company.id}: #{company.vat_number}"
+      if company.vat_number
+        Rails.logger.info "#{index} / #{count} - Fetch VAT for company #{company.id}: #{company.vat_number}"
+        sleep (1..3).to_a.sample
+      else
+        Rails.logger.warn "Invalid VAT for company of legal form: #{company.legal_form}"
+      end
     end
     Rails.logger.info "Done"
   end
