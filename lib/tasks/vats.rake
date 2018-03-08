@@ -6,9 +6,11 @@ namespace :vats do
     Rails.logger.info "Create missing VATs"
 
     batch = []
-    Company.where(country: "France").order(:id).find_each do |company|
+    Company.where(country: "France").where.not(registration_1: ["", nil]).order(:id).find_each do |company|
       next if company.vat.present?
-      batch << Vat.new(company_id: company.id, country_code: "FR", status: "waiting_for_validation")
+
+      key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
+      batch << Vat.new(company_id: company.id, country_code: "FR", status: "waiting_for_validation", value: "FR#{key}#{company.registration_1}")
 
       if batch.count >= 10000
         Vat.import!(batch)
