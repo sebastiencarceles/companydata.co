@@ -6,11 +6,13 @@ namespace :companies do
   task dump: :environment do
     DataYaml.dump("db/raw", Company)
     DataYaml.dump("db/raw", FinancialYear)
+    DataYaml.dump("db/raw", Vat)
   end
 
   task load: :environment do
     DataYaml.load("db/raw", Company)
     DataYaml.load("db/raw", FinancialYear)
+    DataYaml.load("db/raw", Vat)
   end
 
   task load_from_s3: :environment do
