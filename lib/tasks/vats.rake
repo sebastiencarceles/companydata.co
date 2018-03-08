@@ -10,7 +10,7 @@ namespace :vats do
       next if company.vat.present?
       batch << Vat.new(company_id: company.id, country_code: "FR", status: "waiting_for_validation")
 
-      if batch.count >= 100000
+      if batch.count >= 10000
         Vat.import!(batch)
         Rails.logger.info "Total VATs in database: #{Vat.count}"
         batch.clear
