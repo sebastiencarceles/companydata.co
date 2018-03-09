@@ -84,8 +84,28 @@ class LehubScrapper
     data
   end
 
-  def update_or_create(company_data)
-    pp company_data
+  def update_or_create(raw_data)
+    # {
+    #   :siren=>"N° SIREN : 539157677",
+    #   :name=>"INVENTY",
+    #   :presentation=>"Inventy aide les entreprises à rendre leurs solutions SAP® plus agiles, plus sécurisées et moins chères. L'innovation d'Inventy repose sur le choix de disrupter l’écosystème SAP. Grâce à la plateforme PERFORMER FOR SAP® Inventy est capable de produire en 72H, un diagnostic, un benchmark sectoriel et un plan d'action concret pour rendre les solutions SAP plus agiles, plus sécurisés et moins chères.",
+    #   :creation=>"2012",
+    #   :website=>"http://www.inventy.com",
+    #   :email=>"luti.mambweni@inventy.com",
+    #   :phone=>"+33 6 74 33 38 83",
+    #   :logo=>"background-image: url(\"https://le-hub-assets.s3.eu-west-2.amazonaws.com/Startup_Logo/By-nF3Qrf.png%3Foh%3D328fc59549aadc818f18ab87a68df098%26oe%3D5AE4414A\");",
+    #   :facebook=>"https://facebook.com/270223316423061",
+    #   :twitter=>"https://twitter.com/InventyConsult",
+    #   :linkedin=>"http://www.linkedin.com/company/inventy"
+    # }
+     
+    pp raw_data
+    registration_1 = raw_data[:siren].split(" : ").last
+    company = Company.where(registration_1: registration_1, quality: "headquarter").first
+    fail "Unable to find company #{registration_1}" unless company
+    company.presentation = raw_data[:presentation] if company.presentation.blank?
+    company.name = raw_data[:name] if company.name
+    company.save!
   end
 
   def add!(hash, key, value)
