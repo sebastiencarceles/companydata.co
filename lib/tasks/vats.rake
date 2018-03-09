@@ -169,14 +169,14 @@ namespace :vats do
       "Sociétés Interprofessionnelles de Soins Ambulatoires",
       "Sociétés interprofessionnelles de soins ambulatoires",
     ]
-    scope = Vat.where(status: "waiting_for_validation")
-    count = scope.count
-    scope.each_with_index do |vat, index|
+    
+    Vat.order(:id).each do |vat|
+      next unless vat.status == "waiting_for_validation"
       company = vat.company
       next unless company.legal_form.in?(legal_forms)
       if company.vat_number
-        Rails.logger.info "#{index} / #{count} - Fetch VAT for company #{company.id}: #{company.vat_number}"
-        sleep (1..3).to_a.sample
+        Rails.logger.info "Fetch VAT for company #{company.id}: #{company.vat_number}"
+        sleep (1..2).to_a.sample
       else
         Rails.logger.warn "Invalid VAT for company of legal form: #{company.legal_form}"
       end

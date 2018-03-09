@@ -14,7 +14,7 @@ class LehubScrapper
 
   def execute
     login
-    scrap(1)
+    scrap(17)
   end
 
   def scrap(startup_id)
@@ -66,6 +66,8 @@ class LehubScrapper
 
     data = Hash.new
     add!(data, :siren, read_text(".StartupIdentityStyle__Siren-lu8hfj-1"))
+    return data unless data[:siren].present?
+    
     add!(data, :name, read_text(".StartupPresentationStyle__Name-s1hrglx-0"))
     add!(data, :presentation, read_text(".StartupPresentationStyle__Description-s1hrglx-1"))
     add!(data, :address, read_text(".StartupIdentityStyle__Content-lu8hfj-5"))
