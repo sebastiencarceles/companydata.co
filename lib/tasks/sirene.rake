@@ -77,12 +77,13 @@ namespace :sirene do
       Rails.logger.info "Update companies from #{source}"
       CSV.foreach(source, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
         company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
+        attributes = base_attributes_from(row)
         if company
           Rails.logger.info "Update company #{company.id}"
-          company.update_columns(base_attributes_from(row))
+          company.update!(attributes)
         else
-          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
-          Company.create!(base_attributes_from(row))
+          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]} with data #{attributes}"
+          Company.create!(attributes)
         end
       end
     end

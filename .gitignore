@@ -11,3 +11,4 @@ tmp/latest.dump
 
 # Ignore raw data
 db/raw/
+tmp/vats.csv

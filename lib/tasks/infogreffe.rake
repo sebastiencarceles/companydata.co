@@ -50,7 +50,7 @@ namespace :infogreffe do
     Rails.logger.info "Load financial years from #{source}"
 
     CSV.foreach(source, col_sep: ";", headers: :first_row) do |row|
-    puts row
+      puts row
       reg_1 = row["Siren"]
       next if reg_1.blank?
 

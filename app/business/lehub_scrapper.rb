@@ -67,7 +67,7 @@ class LehubScrapper
     data = Hash.new
     add!(data, :siren, read_text(".StartupIdentityStyle__Siren-lu8hfj-1"))
     return data unless data[:siren].present?
-    
+
     add!(data, :name, read_text(".StartupPresentationStyle__Name-s1hrglx-0"))
     add!(data, :presentation, read_text(".StartupPresentationStyle__Description-s1hrglx-1"))
     add!(data, :address, read_text(".StartupIdentityStyle__Content-lu8hfj-5"))
@@ -118,7 +118,7 @@ class LehubScrapper
   end
 
   def read_link_href(selector)
-    begin 
+    begin
       @session.find(selector)["href"]
     rescue
       nil
