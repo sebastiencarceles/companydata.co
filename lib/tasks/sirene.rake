@@ -82,7 +82,7 @@ namespace :sirene do
           Rails.logger.info "Update company #{company.id}"
           company.update!(attributes)
         else
-          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]} with data #{attributes}"
+          Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
           Company.create!(attributes)
         end
       end

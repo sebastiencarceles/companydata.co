@@ -182,7 +182,7 @@ namespace :vats do
   task export: :environment do
     Rails.logger.info "Export VATs"
 
-    CSV.open('tmp/vats.csv', "w", headers: true) do |csv|
+    CSV.open("tmp/vats.csv", "w", headers: true) do |csv|
       csv << ["id", "value", "status"]
       Vat.where.not(value: nil).where(status: "waiting_for_validation").joins(:company).where(companies: { legal_form: LEGAL_FORMS }).each do |vat|
         row = [vat.id, vat.value, vat.status]
