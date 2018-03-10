@@ -56,23 +56,20 @@ namespace :vats do
   end
 
   task import: :environment do
-    ARGV.each { |a| task a.to_sym do ; end }
-
-    source = ARGV[1]
-    fail "No source given" if source.blank?
-
-    Rails.logger.info "Import VATs from #{source}"
-
-    CSV.foreach(source, headers: true) do |row|
-      id = row["id"]
-      vat = Vat.find_by_id(id)
-      fail "Unable to find VAT #{id}" unless vat
-
-      if vat.status == "waiting_for_validation"
-        Rails.logger.info "Update VAT #{id}: #{row["status"]}"
-        vat.update!(status: row["status"], validated_at: DateTime.now)
-      else
-        Rails.logger.warn "Already fetched VAT #{id}: #{vat.status} (#{vat.validated_at})"
+    (1..20).each do |index|
+      source = "tmp/output-#{index.to_s.rjust(3, "0")}.csv"
+      Rails.logger.info "Import from #{source}"
+      CSV.foreach(source, headers: true) do |row|
+        id = row["id"]
+        vat = Vat.find_by_id(id)
+        fail "Unable to find VAT #{id}" unless vat
+        
+        if vat.status == "waiting_for_validation"
+          Rails.logger.info "Update VAT #{id}: #{row["status"]}"
+          vat.update!(status: row["status"], validated_at: DateTime.now)
+        else
+          Rails.logger.warn "Already fetched VAT #{id}: #{vat.status} (#{vat.validated_at})"
+        end
       end
     end
 
