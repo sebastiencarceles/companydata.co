@@ -39,7 +39,7 @@ namespace :vats do
 
     scope = vats_to_fetch
     p = 1
-    per_page = 155000
+    per_page = 510000
     while scope.page(p).per(per_page).count != 0
       CSV.open("tmp/vats-#{p.to_s.rjust(3, "0")}.csv", "w", headers: true) do |csv|
         csv << ["id", "value", "status"]
@@ -56,8 +56,7 @@ namespace :vats do
   end
 
   task import: :environment do
-    (1..20).each do |index|
-      source = "tmp/output-#{index.to_s.rjust(3, "0")}.csv"
+    Dir.glob("tmp/output-*.csv").sort.each do |source|
       Rails.logger.info "Import from #{source}"
       CSV.foreach(source, headers: true) do |row|
         id = row["id"]
@@ -71,6 +70,7 @@ namespace :vats do
           Rails.logger.warn "Already fetched VAT #{id}: #{vat.status} (#{vat.validated_at})"
         end
       end
+      File.delete(source)
     end
 
     Rails.logger.info "Done, remaining VATs to fetch: #{vats_to_fetch.count}"
