@@ -78,6 +78,16 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           end
         end
 
+        context "by vat number" do
+          before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns the company" do
+            expect(parsed_body["id"]).to eq company.id
+          end
+        end
+
         context "by registration number" do
           context "when there is only one company with this registration number" do
             before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header }
