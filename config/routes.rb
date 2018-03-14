@@ -15,6 +15,9 @@ Rails.application.routes.draw do
         collection do
           get "autocomplete", to: "unauth_companies#autocomplete"
         end
+        member do
+          get "/:registration_2", to: "companies#show_by_registration_numbers"
+        end
       end
     end
   end

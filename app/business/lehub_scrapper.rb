@@ -98,7 +98,7 @@ class LehubScrapper
     #   :twitter=>"https://twitter.com/InventyConsult",
     #   :linkedin=>"http://www.linkedin.com/company/inventy"
     # }
-     
+
     pp raw_data
     registration_1 = raw_data[:siren].split(" : ").last
     company = Company.where(registration_1: registration_1, quality: "headquarter").first

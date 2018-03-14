@@ -7,29 +7,23 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     context "when unauthenticated" do
       before { get "/api/v1/companies/3323344" }
 
-      it "returns http unauthorized" do
-        expect(response).to have_http_status(:unauthorized)
-      end
+      it { expect(response).to have_http_status :unauthorized }
     end
 
     context "when authenticated" do
       context "when the company can't be found" do
         before { get "/api/v1/companies/3323344", headers: authentication_header }
 
-        it "returns http not found" do
-          expect(response).to have_http_status(:not_found)
-        end
+        it { expect(response).to have_http_status :not_found }
       end
 
       context "when the company is found" do
-        let(:company) { create :company }
+        let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
 
         context "by id" do
           before { get "/api/v1/companies/#{company.id}", headers: authentication_header }
 
-          it "returns http success" do
-            expect(response).to be_success
-          end
+          it { expect(response).to be_success }
 
           it "returns the company" do
             expect(parsed_body["id"]).to eq company.id
@@ -77,37 +71,86 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         context "by slug" do
           before { get "/api/v1/companies/#{company.slug}", headers: authentication_header }
 
-          it "returns http success" do
-            expect(response).to be_success
-          end
+          it { expect(response).to be_success }
 
           it "returns the company" do
             expect(parsed_body["id"]).to eq company.id
           end
         end
 
-        context "by name" do
-          before { get "/api/v1/companies/#{company.name.parameterize}", headers: authentication_header }
+        context "by registration number" do
+          context "when there is only one company with this registration number" do
+            before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header }
 
-          it "returns http success" do
-            expect(response).to be_success
+            it { expect(response).to be_success }
+
+            it "returns the company" do
+              expect(parsed_body["id"]).to eq company.id
+              expect(Company.where(registration_1: company.registration_1).count).to eq 1
+            end
           end
 
-          it "returns the company" do
-            expect(parsed_body["id"]).to eq company.id
+          context "when there are multiple companies with this registration number" do
+            context "when there is a headquarter" do
+              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
+              }
+
+              it { expect(response).to be_success }
+
+              it "returns the headquarter company" do
+                expect(parsed_body["id"]).to eq company_hq.id
+                expect(Company.where(registration_1: company.registration_1).count).to eq 3
+              end
+            end
+
+            context "when there is no headquarter" do
+              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
+              }
+
+              it { expect(response).to be_success }
+
+              it "returns a branch" do
+                expect(parsed_body["id"]).to eq company.id
+                expect(Company.where(registration_1: company.registration_1).count).to eq 3
+              end
+            end
           end
         end
+      end
+    end
+  end
 
-        context "by smooth name" do
-          before { get "/api/v1/companies/#{company.smooth_name.parameterize}", headers: authentication_header }
+  describe "Getting a company with GET /api/v1/companies/[:registration_1]/[:registration_2]" do
+    context "when unauthenticated" do
+      before { get "/api/v1/companies/3323344/12345" }
 
-          it "returns http success" do
-            expect(response).to be_success
-          end
+      it { expect(response).to have_http_status :unauthorized }
+    end
 
-          it "returns the company" do
-            expect(parsed_body["id"]).to eq company.id
-          end
+    context "when authenticated" do
+      context "when the company can't be found" do
+        before { get "/api/v1/companies/3323344/123456", headers: authentication_header }
+
+        it { expect(response).to have_http_status :not_found }
+      end
+
+      context "when the company is found" do
+        let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
+
+        before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header }
+
+        it { expect(response).to be_success }
+
+        it "returns the company" do
+          expect(parsed_body["id"]).to eq company.id
         end
       end
     end
@@ -117,27 +160,21 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     context "when unauthenticated" do
       before { get "/api/v1/companies/" }
 
-      it "returns http unauthorized" do
-        expect(response).to have_http_status(:unauthorized)
-      end
+      it { expect(response).to have_http_status :unauthorized }
     end
 
     context "when authenticated" do
       context "when the query is not given" do
         before { get "/api/v1/companies/", headers: authentication_header }
 
-        it "returns http bad request" do
-          expect(response).to have_http_status(:bad_request)
-        end
+        it { expect(response).to have_http_status :bad_request }
       end
 
       context "when the query is given" do
         context "without pagination parameter" do
           before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
 
-          it "returns http success" do
-            expect(response).to be_success
-          end
+          it { expect(response).to be_success }
 
           it "returns a collection of companies" do
             expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totali", "motal"]

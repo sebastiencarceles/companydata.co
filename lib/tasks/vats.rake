@@ -62,7 +62,7 @@ namespace :vats do
         id = row["id"]
         vat = Vat.find_by_id(id)
         fail "Unable to find VAT #{id}" unless vat
-        
+
         if vat.status == "waiting_for_validation"
           Rails.logger.info "Update VAT #{id}: #{row["status"]}"
           vat.update!(status: row["status"], validated_at: DateTime.now)

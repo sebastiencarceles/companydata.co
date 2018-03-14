@@ -4,9 +4,16 @@ class Api::V1::CompaniesController < ApiController
   def show
     company = Company.find_by_id(params[:identifier])
     company ||= Company.find_by_slug(params[:identifier])
-    company ||= Company.find_by_name(params[:identifier])
-    company ||= Company.find_by_smooth_name(params[:identifier])
+    company ||= Company.where(registration_1: params[:identifier], quality: "headquarter").first
+    company ||= Company.where(registration_1: params[:identifier]).first
+    render(json: {}, status: :not_found) && (return) unless company
+    render json: company, serializer: Api::V1::FullCompanySerializer
+  end
 
+  def show_by_registration_numbers
+    registration_1 = params[:identifier]
+    registration_2 = params[:registration_2]
+    company = Company.where(registration_1: registration_1, registration_2: registration_2).first
     render(json: {}, status: :not_found) && (return) unless company
     render json: company, serializer: Api::V1::FullCompanySerializer
   end
