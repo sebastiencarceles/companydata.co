@@ -24,4 +24,34 @@ namespace :companies do
     Company.search_index.clean_indices
     Company.reindex
   end
+
+  task fix_nil_quality: :environment do
+    Rails.logger.info "Fix companies with no quality"
+    Company.where(quality: nil).order(:id).each do |company|
+      fail "No registration number for company #{company.id}" if company.registration_1.blank?
+      other_companies = Company.where.not(id: company.id).where(registration_1: company.registration_1)
+      quality = other_companies.empty? ? "headquarter" : "branch"
+      Rails.logger.info "Set quality for company #{company.id}: #{quality}"
+      company.update_columns(quality: quality)
+    end
+    Rails.logger.info "Done"
+  end
+
+  task check_headquarters: :environment do
+    Rails.logger.info "Check for consistency over headquarters"
+    Company.where(quality: "headquarter").each do |company|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     																																											
+      Rails.logger.info "Check for company #{company.id}"
+      other_headquarters = Company.where.not(id: company.id).where(quality: "headquarter", registration_1: company.registration_1)
+      fail "Multiple headquarters for headquarter company #{company.id}" if other_headquarters.any?
+    end
+    Rails.logger.info "Check completed successfully"
+  end
+
+  task check_branches: :environment do
+    Rails.logger.info "Check for consistency over branches"
+    Company.where(quality: "branch").each do |company|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     																																											
+      Rails.logger.warn "No headquarter for branch company #{company.id}" if company.headquarter.nil?
+    end
+    Rails.logger.info "Check completed successfully"
+  end
 end
