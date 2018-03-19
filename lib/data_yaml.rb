@@ -53,7 +53,7 @@ module DataYaml
     end
 
     def load_from_s3(indir_url, cls, gzip: true, on_duplicate_key_ignore: true)
-      Rails.logger.info "Load companies from AWS S3 #{indir_url}"
+      Rails.logger.info "Load entries from AWS S3 #{indir_url}"
       base_url = base_url(indir_url, cls)
       page = 1
       fileurl = fileurl(base_url, page, gzip: gzip)
