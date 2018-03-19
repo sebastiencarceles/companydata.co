@@ -39,7 +39,7 @@ namespace :vats do
 
     scope = vats_to_fetch
     p = 1
-    per_page = 140000
+    per_page = 55850
     while scope.page(p).per(per_page).count != 0
       CSV.open("tmp/vats-#{p.to_s.rjust(3, "0")}.csv", "w", headers: true) do |csv|
         csv << ["id", "value", "status"]
