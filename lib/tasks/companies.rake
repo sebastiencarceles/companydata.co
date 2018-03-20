@@ -28,7 +28,10 @@ namespace :companies do
   task fix_nil_quality: :environment do
     Rails.logger.info "Fix companies with no quality"
     Company.where(quality: nil).order(:id).each do |company|
-      fail "No registration number for company #{company.id}" if company.registration_1.blank?
+      if company.registration_1.blank?
+        Rails.logger.warn "No registration number for company #{company.id}"
+        next
+      end
       other_companies = Company.where.not(id: company.id).where(registration_1: company.registration_1)
       quality = other_companies.empty? ? "headquarter" : "branch"
       Rails.logger.info "Set quality for company #{company.id}: #{quality}"
