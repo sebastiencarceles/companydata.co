@@ -14,6 +14,7 @@ FactoryBot.define do
     specialities Faker::Lorem.paragraph
     presentation Faker::Lorem.paragraphs
     country "France"
+    quality "headquarter"
 
     # Note: This should be the last trait in the list so `reindex` is called after all the other callbacks complete.
     trait :reindex do

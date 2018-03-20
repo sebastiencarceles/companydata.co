@@ -20,11 +20,15 @@ RSpec.describe Api::V1::UnauthCompaniesController, type: :request do
       end
 
       it "returns a collection of companies" do
-        expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totali", "motal"]
+        expect(parsed_body.map { |body| body["name"] }).to eq ["total", "motal"]
       end
 
       it "returns ligth companies" do
         expect(parsed_body.first.keys.sort).to eq(["id", "name", "smooth_name", "website_url", "api_url", "city", "country"].sort)
+      end
+
+      it "only returns headquarters" do
+        expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:quality).uniq).to eq ["headquarter"]
       end
     end
   end

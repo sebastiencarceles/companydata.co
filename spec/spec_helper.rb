@@ -99,7 +99,6 @@ RSpec.configure do |config|
   config.before(:suite) do
     EphemeralResponse.activate
 
-    # reindex models
     Company.reindex
 
     # create a few companies
@@ -107,7 +106,7 @@ RSpec.configure do |config|
       FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
     end
 
-    FactoryBot.create :company, :reindex, name: "totali"
+    FactoryBot.create :company, :reindex, name: "totali", quality: "branch"
     FactoryBot.create :company, :reindex, name: "tube metal"
     FactoryBot.create :company, :reindex, name: "total"
     FactoryBot.create :company, :reindex, name: "edf"
@@ -125,8 +124,8 @@ RSpec.configure do |config|
   end
 
   config.around(:each, search: true) do |example|
-    Searchkick.enable_callbacks
-    example.run
-    Searchkick.disable_callbacks
+    Searchkick.callbacks(true) do
+      example.run
+    end
   end
 end

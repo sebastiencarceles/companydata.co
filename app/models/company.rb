@@ -24,6 +24,7 @@ class Company < ApplicationRecord
     {
       smooth_name: smooth_name,
       name: name,
+      quality: quality,
       city: city,
       country: country
     }
