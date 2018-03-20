@@ -26,7 +26,6 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
       "slug",
       "legal_form",
       "staff",
-      "specialities",
       "presentation",
       "logo_url",
       "activity",
@@ -45,7 +44,6 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["slug"]).not_to be_nil }
   it { expect(subject["legal_form"]).not_to be_nil }
   it { expect(subject["staff"]).not_to be_nil }
-  it { expect(subject["specialities"]).not_to be_nil }
   it { expect(subject["presentation"]).not_to be_nil }
   it { expect(subject["logo_url"]).not_to be_nil }
   it { expect(subject["activity"]).not_to be_nil }
@@ -62,7 +60,6 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["slug"]).to eql(@company.slug) }
   it { expect(subject["legal_form"]).to eql(@company.legal_form) }
   it { expect(subject["staff"]).to eql(@company.staff) }
-  it { expect(subject["specialities"]).to eql(@company.specialities) }
   it { expect(subject["presentation"]).to eql(@company.presentation) }
   it { expect(subject["logo_url"]).to eql(@company.logo_url) }
   it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at, format: "%Y-%m-%d")) }

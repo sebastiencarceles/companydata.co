@@ -21,7 +21,6 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
       "source_url",
       "legal_form",
       "staff",
-      "specialities",
       "presentation",
       "logo_url",
       "registration_1",

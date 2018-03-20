@@ -10,7 +10,6 @@ FactoryBot.define do
     legal_form "Limited"
     category "Retail"
     staff "1-10 employees"
-    specialities Faker::Lorem.paragraph
     presentation Faker::Lorem.paragraphs
     country "France"
     quality "headquarter"
@@ -30,7 +29,6 @@ FactoryBot.define do
     legal_form "Limited"
     staff "1-10 employees"
     category "Retail"
-    specialities Faker::Lorem.paragraph
     presentation Faker::Lorem.paragraphs
     logo_url "http://fr.seaicons.com/wp-content/uploads/2015/08/green-ok-icon.png"
     registration_1 "828022053"
