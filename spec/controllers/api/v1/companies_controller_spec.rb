@@ -262,7 +262,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
 
         context "with something else as quality" do
           before { get "/api/v1/companies", params: { q: "total", quality: "something" }, headers: authentication_header }
-          
+
           it { expect(response).to have_http_status :bad_request }
         end
       end
