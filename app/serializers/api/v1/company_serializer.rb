@@ -15,7 +15,9 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :country,
     :quality,
     :revenue,
-    :smooth_name
+    :smooth_name,
+    :headquarter_id,
+    :branch_ids
 
   def activity
     return object.category if object.activity_code.blank?
@@ -24,5 +26,13 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
 
   def address
     object.address_components.join(", ")
+  end
+
+  def headquarter_id
+    object.headquarter.try(:id)
+  end
+
+  def branch_ids
+    object.branches.map(&:id)
   end
 end

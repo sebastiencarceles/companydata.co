@@ -5,13 +5,15 @@ require "rails_helper"
 RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   before(:all) {
     @company = create :full_company
+    @other_branches = []
+    @other_branches << create(:full_company, registration_1: @company.registration_1, registration_2: "abc", quality: "branch")
+    @other_branches << create(:full_company, registration_1: @company.registration_1, registration_2: "def", quality: "branch")
   }
   after(:all) {
     @company.destroy!
+    @other_branches.each { |branch| branch.destroy! }
   }
-  before {
-    @company.reload
-  }
+  before { @company.reload }
 
   let(:serializer) { Api::V1::CompanySerializer.new(@company) }
   let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
@@ -33,7 +35,9 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
       "country",
       "quality",
       "revenue",
-      "smooth_name"
+      "smooth_name",
+      "headquarter_id",
+      "branch_ids"
     )
   end
 
@@ -52,6 +56,8 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["quality"]).not_to be_nil }
   it { expect(subject["revenue"]).not_to be_nil }
   it { expect(subject["smooth_name"]).not_to be_nil }
+  it { expect(subject["branch_ids"]).not_to be_nil }
+  it { expect(subject["branch_ids"]).not_to be_empty }
 
   it { expect(subject["id"]).to eql(@company.id) }
   it { expect(subject["name"]).to eql(@company.name) }
@@ -66,13 +72,32 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["quality"]).to eql(@company.quality) }
   it { expect(subject["revenue"]).to eql(@company.revenue) }
   it { expect(subject["smooth_name"]).to eql(@company.smooth_name) }
+  it { expect(subject["branch_ids"]).to eql @other_branches.map(&:id) }
 
-  context "when there is an activity code" do
-    it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }
+
+  describe "activity" do
+    context "when there is an activity code" do
+      it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }
+    end
+
+    context "when there is no activity code" do
+      before { @company.activity_code = nil }
+      it { expect(subject["activity"]).to eql(@company.category) }
+    end
   end
 
-  context "when there is no activity code" do
-    before { @company.activity_code = nil }
-    it { expect(subject["activity"]).to eql(@company.category) }
+  describe "headquarter_id" do
+    context "when the company is a headquarter" do
+      it { expect(subject["headquarter_id"]).to be_nil }
+    end
+
+    context "when the company is a branch" do
+      before(:all) { @headquarter = create :full_company, quality: "headquarter", registration_1: @company.registration_1 }
+      after(:all) { @headquarter.destroy! }
+      before { @company.update!(quality: "branch") }
+
+      it { expect(subject["headquarter_id"]).not_to be_nil }
+      it { expect(subject["headquarter_id"]).to eql @company.headquarter.id }
+    end
   end
 end
