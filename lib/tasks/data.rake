@@ -22,7 +22,7 @@ namespace :data do
     subfolder = ARGV[1]
     fail "No subfolder given" if subfolder.nil?
 
-    indir_url = "https://s3.eu-west-3.amazonaws.com/company-io/#{subfolder}"
+    indir_url = "https://s3.eu-west-3.amazonaws.com/companydata-production/#{subfolder}"
     ARGV.drop(2).each do |model|
       DataYaml.load_from_s3(indir_url, model.constantize)
     end
