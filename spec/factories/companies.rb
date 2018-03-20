@@ -7,7 +7,6 @@ FactoryBot.define do
     website Faker::Internet.url
     source_url "https://www.linkedin.com/company/1234"
     linkedin_id 1
-    headquarter_in Faker::Address.city
     legal_form "Limited"
     category "Retail"
     staff "1-10 employees"
@@ -28,7 +27,6 @@ FactoryBot.define do
     name Faker::Company.name
     website Faker::Internet.url
     source_url "https://www.linkedin.com/company/1234"
-    headquarter_in Faker::Address.city
     legal_form "Limited"
     staff "1-10 employees"
     category "Retail"

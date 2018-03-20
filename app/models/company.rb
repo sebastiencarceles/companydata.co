@@ -13,7 +13,6 @@ class Company < ApplicationRecord
   validates_inclusion_of :quality, in: QUALITIES, allow_blank: true
 
   before_validation :set_slug, if: :name?, unless: :slug?
-  before_save :set_headquarter_in, if: :quality? && :city?, unless: :headquarter_in?
   before_save :set_smooth_name, if: :name?, unless: :smooth_name?
   after_create :set_vat!, if: :country? && :registration_1?
 
@@ -99,10 +98,6 @@ class Company < ApplicationRecord
         counter += 1
       end
       self.slug = slug
-    end
-
-    def set_headquarter_in
-      self.headquarter_in = city if headquarter? && city.present?
     end
 
     def set_smooth_name

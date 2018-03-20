@@ -73,7 +73,6 @@ class LinkedinScrapper
     add!(data, :logo_url, read_image_source(".org-top-card-module__logo"))
     add!(data, :category, read_text(".company-industries"))
     add!(data, :website, read_text(".org-about-us-company-module__website"))
-    add!(data, :headquarter_in, read_text(".org-about-company-module__headquarters"))
     add!(data, :founded_in, read_text(".org-about-company-module__founded")) # TODO fix founded in -> founded at
     add!(data, :legal_form, read_text(".org-about-company-module__company-type"))
     add!(data, :staff, read_text(".org-about-company-module__company-staff-count-range"))
@@ -83,7 +82,6 @@ class LinkedinScrapper
     # add!(data, :logo_url, read_image_source(".image"))
     # add!(data, :category, read_text(".industry"))
     # add!(data, :website, read_text(".website"))
-    # add!(data, :headquarter_in, read_text("locality"))
     # add!(data, :address_line_1, read_text("street-address"))
     # add!(data, :city, read_text("locality"))
     # add!(data, :zipcode, read_text("postal-code"))
