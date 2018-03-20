@@ -49,7 +49,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
       "financial_years",
       "vat_number",
       "headquarter_id",
-      "branch_ids"
+      "branch_ids",
     )
   end
 
@@ -70,6 +70,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["region"]).not_to be_nil }
   it { expect(subject["geolocation"]).not_to be_nil }
   it { expect(subject["vat_number"]).not_to be_nil }
+  it { expect(subject["revenue"]).not_to be_nil }
   it { expect(subject["financial_years"]).not_to be_nil }
   it { expect(subject["financial_years"][0]["year"]).not_to be_nil }
   it { expect(subject["financial_years"][0]["currency"]).not_to be_nil }
@@ -97,6 +98,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at, format: "%Y-%m-%d")) }
   it { expect(subject["geolocation"]).to eql(@company.geolocation) }
   it { expect(subject["vat_number"]).to eql(@company.vat_number) }
+  it { expect(subject["revenue"]).to eql(@company.revenue) }
   it { expect(subject["financial_years"].length).to eq(@company.financial_years.count) }
   it { expect(subject["financial_years"][0]["year"]).to eql(@company.financial_years.first.year) }
   it { expect(subject["financial_years"][0]["currency"]).to eql(@company.financial_years.first.currency) }

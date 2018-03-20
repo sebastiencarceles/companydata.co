@@ -17,6 +17,7 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :department,
     :region,
     :geolocation,
+    :revenue,
     :vat_number
   has_many :financial_years
 end

@@ -34,7 +34,6 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
       "founded_at",
       "country",
       "quality",
-      "revenue",
       "smooth_name",
       "headquarter_id",
       "branch_ids"
@@ -54,7 +53,6 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["founded_at"]).not_to be_nil }
   it { expect(subject["country"]).not_to be_nil }
   it { expect(subject["quality"]).not_to be_nil }
-  it { expect(subject["revenue"]).not_to be_nil }
   it { expect(subject["smooth_name"]).not_to be_nil }
   it { expect(subject["branch_ids"]).not_to be_nil }
   it { expect(subject["branch_ids"]).not_to be_empty }
@@ -70,7 +68,6 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
   it { expect(subject["founded_at"]).to eql(I18n.l(@company.founded_at, format: "%Y-%m-%d")) }
   it { expect(subject["country"]).to eql(@company.country) }
   it { expect(subject["quality"]).to eql(@company.quality) }
-  it { expect(subject["revenue"]).to eql(@company.revenue) }
   it { expect(subject["smooth_name"]).to eql(@company.smooth_name) }
   it { expect(subject["branch_ids"]).to eql @other_branches.map(&:id) }
 

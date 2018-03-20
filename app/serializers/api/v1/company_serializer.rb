@@ -14,7 +14,6 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :founded_at,
     :country,
     :quality,
-    :revenue,
     :smooth_name,
     :headquarter_id,
     :branch_ids
