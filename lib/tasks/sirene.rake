@@ -51,27 +51,43 @@ namespace :sirene do
   end
 
   task daily_update: :environment do
-    filename = "sirene_#{Date.today.year}#{(Date.today.yday - 4).to_s.rjust(3, "0")}_E_Q.zip"
-    url = "http://files.data.gouv.fr/sirene/#{filename}"
-    Rails.logger.info "Company daily update from #{url}"
-    IO.copy_stream(open(url), filename)
-
-    Zip::File.open(filename) do |zip_file|
-      zip_file.each do |entry|
-        unziped_filename = entry.name
-        entry.extract(unziped_filename)
-        update_from(unziped_filename)
-        File.delete(unziped_filename)
-      end
-    end
-    File.delete(filename)
+    update_from_daily(Date.today)
   end
 
   task stock_update: :environment do
     update_from("db/raw/sirene/sirc-17804_9075_14209_201802_L_M_20180301_031325537.csv")
   end
 
+  task update_from_dailies: :environment do
+    (Date.parse("2017-01-01")..Date.today).each do |date|
+      update_from_daily(date)
+    end
+  end
+
   private
+
+    def update_from_daily(date)
+      filename = "sirene_#{date.year}#{(date.yday - 4).to_s.rjust(3, "0")}_E_Q.zip"
+      url = "http://files.data.gouv.fr/sirene/#{filename}"
+      Rails.logger.info "Company daily update from #{url}"
+      begin 
+        IO.copy_stream(open(url), filename) 
+      rescue OpenURI::HTTPError => error
+        Rails.logger.warn "Unavailable source #{filename}"
+        return if error.io.status.first == "404"
+        fail error
+      end
+
+      Zip::File.open(filename) do |zip_file|
+        zip_file.each do |entry|
+          unziped_filename = entry.name
+          entry.extract(unziped_filename)
+          update_from(unziped_filename)
+          File.delete(unziped_filename)
+        end
+      end
+      File.delete(filename)
+    end
 
     def update_from(source)
       Rails.logger.info "Update companies from #{source}"
