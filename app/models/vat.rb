@@ -17,6 +17,11 @@ class Vat < ApplicationRecord
   def validate!
     return unless status == "waiting_for_validation"
 
+    if value.blank?
+      set_value
+      save
+    end
+
     client = Savon.client(wsdl: "http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl")
     response = client.call(:check_vat, message: { vatNumber: value.gsub(country_code, ""), countryCode: country_code })
     status = response.body[:check_vat_response][:valid] ? "valid" : "invalid"
