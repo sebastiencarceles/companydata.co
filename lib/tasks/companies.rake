@@ -37,26 +37,14 @@ namespace :companies do
     Rails.logger.info "Done"
   end
 
-  task fix_headquarters: :environment do
-    Rails.logger.info "Check for consistency over headquarters"
-    count = 0
-    Company.headquarters.find_each do |company|
-      other_headquarters = Company.where.not(id: company.id).where(quality: "headquarter", registration_1: company.registration_1)
-      if other_headquarters.any?
-        Rails.logger.warn "Fix companies with registration number #{company.registration_1}"
-        companies = Company.where(quality: "headquarter", registration_1: company.registration_1).order(:founded_at).to_a
-        companies.shift
-        count += companies.map { |c| c.update_columns(quality: "branch") }.count
+  task fix_branches: :environment do
+    Rails.logger.info "Fix consistency over branches"
+    Company.branchs.find_each do |company|
+      if company.branches.empty?
+        Rails.logger.warn "Fix company #{company.id} which is not a branch but a headquarter"
+        company.update(quality: "headquarter")
       end
     end
-    Rails.logger.info "Done, #{count} companies fixed"
-  end
-
-  task check_branches: :environment do
-    Rails.logger.info "Check for consistency over branches"
-    Company.branches.find_each do |company|
-      Rails.logger.warn "No headquarter for branch company #{company.id}" if company.headquarter.nil?
-    end
-    Rails.logger.info "Check completed successfully"
+    Rails.logger.info "Done"
   end
 end
