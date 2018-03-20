@@ -37,19 +37,24 @@ namespace :companies do
     Rails.logger.info "Done"
   end
 
-  task check_headquarters: :environment do
+  task fix_headquarters: :environment do
     Rails.logger.info "Check for consistency over headquarters"
-    Company.where(quality: "headquarter").each do |company|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     																																											
-      Rails.logger.info "Check for company #{company.id}"
+    count = 0
+    Company.headquarters.find_each do |company|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     																																											
       other_headquarters = Company.where.not(id: company.id).where(quality: "headquarter", registration_1: company.registration_1)
-      fail "Multiple headquarters for headquarter company #{company.id}" if other_headquarters.any?
+      if other_headquarters.any?
+        Rails.logger.warn "Fix companies with registration number #{company.registration_1}"
+        companies = Company.where(quality: "headquarter", registration_1: company.registration_1).order(:founded_at).to_a
+        companies.shift
+        count += companies.map { |c| c.update_columns(quality: "branch") }.count
+      end
     end
-    Rails.logger.info "Check completed successfully"
+    Rails.logger.info "Done, #{count} companies fixed"
   end
 
   task check_branches: :environment do
     Rails.logger.info "Check for consistency over branches"
-    Company.where(quality: "branch").each do |company|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     																																											
+    Company.branches.find_each do |company|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     																																											
       Rails.logger.warn "No headquarter for branch company #{company.id}" if company.headquarter.nil?
     end
     Rails.logger.info "Check completed successfully"
