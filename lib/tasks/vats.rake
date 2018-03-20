@@ -26,10 +26,9 @@ namespace :vats do
   task fetch: :environment do
     scope = vats_to_fetch
     count = scope.count
-    scope.each_with_index do |vat, index|
+    scope.limit(10000).each_with_index do |vat, index|
       vat.validate!
       Rails.logger.info "#{index}/#{count} - Fetched VAT for company #{vat.company_id}: #{vat.reload.status}"
-      sleep (1..3).to_a.sample
     end
     Rails.logger.info "Done"
   end
