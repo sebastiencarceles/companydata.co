@@ -20,8 +20,13 @@ class Api::V1::CompaniesController < ApiController
 
   def index
     query = params[:q]
-    render(json: {}, status: :bad_request) && (return) unless query
-    scope = Company.search(query, fields: [:smooth_name], match: :word_start, page: page, per_page: per_page)
+    render(json: [], status: :bad_request) && (return) unless query
+
+    quality = params[:quality] || "headquarter"
+    render(json: [], status: :bad_request) && (return) unless quality.in?(Company::QUALITIES + ["all"])
+
+    where = quality == "all" ? {} : { quality: quality }
+    scope = Company.search(query, fields: [:smooth_name], match: :word_start, where: where, page: page, per_page: per_page)
     response.headers["X-Pagination-Limit-Value"] = scope.limit_value
     response.headers["X-Pagination-Total-Pages"] = scope.total_pages
     response.headers["X-Pagination-Current-Page"] = scope.current_page

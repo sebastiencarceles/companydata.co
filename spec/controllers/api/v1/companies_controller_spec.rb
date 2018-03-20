@@ -187,7 +187,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           it { expect(response).to be_success }
 
           it "returns a collection of companies" do
-            expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totali", "motal"]
+            expect(parsed_body.map { |body| body["name"] }).to eq ["total", "motal"]
           end
         end
 
@@ -218,6 +218,52 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           expect(response.headers["X-Pagination-First-Page"]).to be false
           expect(response.headers["X-Pagination-Last-Page"]).to be false
           expect(response.headers["X-Pagination-Out-Of-Range"]).to be false
+        end
+
+        context "without quality" do
+          before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns a collection of headquarters" do
+            expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
+          end
+        end
+
+        context "with 'headquarter' as quality" do
+          before { get "/api/v1/companies", params: { q: "total", quality: "headquarter" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns a collection of headquarters" do
+            expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
+          end
+        end
+
+        context "with 'branch' as quality" do
+          before { get "/api/v1/companies", params: { q: "total", quality: "branch" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns a collection of branches" do
+            expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["branch"]
+          end
+        end
+
+        context "with 'all' as quality" do
+          before { get "/api/v1/companies", params: { q: "total", quality: "all" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns a collection of headquarters and branches" do
+            expect(parsed_body.map { |body| body["quality"] }.uniq.sort).to eq ["branch", "headquarter"]
+          end
+        end
+
+        context "with something else as quality" do
+          before { get "/api/v1/companies", params: { q: "total", quality: "something" }, headers: authentication_header }
+          
+          it { expect(response).to have_http_status :bad_request }
         end
       end
     end
