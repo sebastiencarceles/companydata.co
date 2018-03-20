@@ -167,30 +167,28 @@ fr:
     sign_out: Déconnexion
     sign_up: Enregistrement
   pricing:
-    call_to_action:
-      action: Enregistrement
-      title: Enregistrez-vous et commencez l'essai gratuit
+    call_to_action: Choisir
     description_1: Enregistrez-vous et commencez dès maintenant à utiliser l'API d'enrichissement de société.
     description_2: L'API d'autocomplétion et les recherches sur le site web restent gratuites et ne comptent pas dans le nombre d'appels.
-    description_3: Le service est facturé le premier jour de chaque mois. Vous recevrez une facture PDF à chaque paiement. On vous rappelera d'entrer vos informations de facturation avant la fin de l'essai gratuit.
+    description_3: Le service est facturé de date à date. Vous recevrez une facture PDF à chaque paiement. Vous pouvez résilier ou changer de tarif à tout moment.
     description_4: Il vous faut quelque chose de différent ?
     email_us: Contactez-nous !
-    tiers_first:
-      description: Accédez à toutes les données de sociétés pour un prix vraiment très bas.
-      price: "<strong>0,05</strong><sup>€</sup><small>/ appel</small>"
-      sub_title: De 0 à 2000 appels à l'API<br/>par mois
-      title: Première tranche
-    tiers_free:
-      description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour tout brancher sereinement.
-      price: "<strong>0</strong><sup>€</sup><small>/ appel</small>"
-      sub_title: 100 appels gratuits à l'API<br/>Essayez avant d'acheter
+    free_trial:
+      description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour faire les branchements sereinement.
+      price: "<strong>0</strong><sup>€</sup><small>/ appel</small><br>&nbsp;"
+      sub_title: 100 appels gratuits à l'API
       title: Essai gratuit
-    tiers_second:
-      description: Quand vous avez des besoins plus importants, c'est encore moins cher !
-      price: "<strong>0,02</strong><sup>€</sup><small>/ appel</small>"
-      sub_title: De 2001 à &infin; appels à l'API<br/>par mois
-      title: Deuxième tranche
-    title: Super simple, super pas cher
+    package:
+      description: Jusqu'à 1000 appels à l'API par mois. Le budget reste fixe.<br>Contactez-nous pour un forfait plus important.
+      price: "<strong>29</strong><sup>€</sup><small>/ mois</small><br>&nbsp;"
+      sub_title: Budget fixe
+      title: Au forfait
+    title: Super simple, super économique
+    usage:
+      description: 0,05 € par appel jusqu'à 2000 appels, puis 0,02 € au-delà.<br>Accédez à toutes les données pour un prix vraiment très bas.
+      price: de <strong>0,05</strong><sup>€</sup><br>à <strong>0,02</strong><sup>€</sup><small>/ appel</small>
+      sub_title: Prix dégressif
+      title: Au consommé
   search:
     company_name: Société
     search: Chercher

@@ -16,31 +16,34 @@
           <div class="col-12 col-md-4">
             <div class="pricing-table-3 shadow">
               <header>
-                <h5 class="font-weight-bold text-center text-uppercase m-0"><%= t("pricing.tiers_free.title") %></h5>
-                <p class="text-muted text-uppercase mb-5"><%= raw t("pricing.tiers_free.sub_title") %></p>
-                <h1 class="font-weight-normal m-0 mb-4"><%= raw t("pricing.tiers_free.price") %></h1>
+                <h5 class="font-weight-bold text-center text-uppercase m-0"><%= t("pricing.free_trial.title") %></h5>
+                <p class="text-muted text-uppercase mb-5"><%= raw t("pricing.free_trial.sub_title") %></p>
+                <h1 class="font-weight-normal m-0 mb-4"><%= raw t("pricing.free_trial.price") %></h1>
+                <%= link_to t("pricing.call_to_action"), new_user_registration_path, class: "btn btn-lg btn-info p-4" %>
               </header>
-              <div class="p-5"><%= raw t("pricing.tiers_free.description") %></div>
+              <div class="p-5"><%= raw t("pricing.free_trial.description") %></div>
             </div>
           </div>
           <div class="col-12 col-md-4">
             <div class="pricing-table-3 shadow">
               <header>
-                <h5 class="font-weight-bold text-center text-uppercase m-0"><%= t("pricing.tiers_first.title") %></h5>
-                <p class="text-muted text-uppercase mb-5"><%= raw t("pricing.tiers_first.sub_title") %></p>
-                <h1 class="font-weight-normal m-0 mb-4"><%= raw t("pricing.tiers_first.price") %></h1>
+                <h5 class="font-weight-bold text-center text-uppercase m-0"><%= t("pricing.usage.title") %></h5>
+                <p class="text-muted text-uppercase mb-5"><%= raw t("pricing.usage.sub_title") %></p>
+                <h1 class="font-weight-normal m-0 mb-4"><%= raw t("pricing.usage.price") %></h1>
+                <%= link_to t("pricing.call_to_action"), new_user_registration_path, class: "btn btn-lg btn-info p-4" %>                
               </header>
-              <div class="p-5"><%= raw t("pricing.tiers_first.description") %></div>
+              <div class="p-5"><%= raw t("pricing.usage.description") %></div>
             </div>
           </div>
           <div class="col-12 col-md-4">
             <div class="pricing-table-3 shadow">
               <header>
-                <h5 class="font-weight-bold text-center text-uppercase m-0"><%= t("pricing.tiers_second.title") %></h5>
-                <p class="text-muted text-uppercase mb-5"><%= raw t("pricing.tiers_second.sub_title") %></p>
-                <h1 class="font-weight-normal m-0 mb-4"><%= raw t("pricing.tiers_second.price") %></h1>
+                <h5 class="font-weight-bold text-center text-uppercase m-0"><%= t("pricing.package.title") %></h5>
+                <p class="text-muted text-uppercase mb-5"><%= raw t("pricing.package.sub_title") %></p>
+                <h1 class="font-weight-normal m-0 mb-4"><%= raw t("pricing.package.price") %></h1>
+                <%= link_to t("pricing.call_to_action"), new_user_registration_path, class: "btn btn-lg btn-info p-4" %>                
               </header>
-              <div class="p-5"><%= raw t("pricing.tiers_second.description") %></div>
+              <div class="p-5"><%= raw t("pricing.package.description") %></div>
             </div>
           </div>
         </div>
@@ -50,22 +53,6 @@
             <p class="lead text-center"><%= t("pricing.description_4") %> <%= mail_to contact_email, t("pricing.email_us") %></p>
           </div>
         </div>
-        <% unless user_signed_in? %>
-          <div class="row mt-5 mb-5">
-            <div class="col-12">
-              <div class="container">
-                <div class="row no-gutter bg-dark">
-                  <div class="col-12">
-                    <div class="d-flex align-items-center justify-content-between flex-wrap p-5">
-                      <h2 class="text-white m-0"><%= t("pricing.call_to_action.title") %></h2>
-                      <%= link_to t("pricing.call_to_action.action"), new_user_registration_path, class: "btn btn-lg btn-info p-4" %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
       </div>
     </div>
   </div>

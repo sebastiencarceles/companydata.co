@@ -167,30 +167,28 @@ en:
     sign_out: Sign out
     sign_up: Sign up
   pricing:
-    call_to_action:
-      action: Sign up
-      title: Sign up and start the free trial
+    call_to_action: Choose
     description_1: Sign up and start instantly to use the Enrichment API.
     description_2: Autocomplete API and searches through the website remain free and don't count in the API usage.
-    description_3: The service is billed on the first day of the month. You receive a PDF invoice for each payment. You will be reminded to setup your billing info before the end of the free trial.
+    description_3: The service is billed from date to date. You receive a PDF invoice for each payment. You can cancel or change your plan at anytime.
     description_4: Need something different?
     email_us: Feel free to contact us.
-    tiers_first:
-      description: Access all the company data for a very low price.
-      price: "<strong>0.05</strong><sup>€</sup><small>/ call</small>"
-      sub_title: From 0 to 2000 API calls<br/>per month
-      title: First tiers
-    tiers_free:
+    free_trial:
       description: After signing up, you have 100 free API calls to set things up and running.
-      price: "<strong>0</strong><sup>€</sup><small>/ call</small>"
-      sub_title: 100 free API calls<br/>Try before you pay
+      price: "<strong>0</strong><sup>€</sup><small>/ call</small><br>&nbsp;"
+      sub_title: 100 free API calls
       title: Free trial
-    tiers_second:
-      description: When you need for more, it's even cheaper!
-      price: "<strong>0.02</strong><sup>€</sup><small>/ call</small>"
-      sub_title: From 2001 to &infin; API calls<br/>per month
-      title: Second tiers
+    package:
+      description: Up to 1000 API calls per month. Price is stable.<br>Contact us for a bigger pack.
+      price: "<strong>29</strong><sup>€</sup><small>/ month</small><br>&nbsp;"
+      sub_title: Stable price
+      title: Pack
     title: Super simple + super cheap
+    usage:
+      description: 0.05 € per call up to 2000 API calls, then 0.02 € per call.<br>Access all the company data for a very low price.
+      price: "<strong>0.05</strong><sup>€</sup><br>to <strong>0.02</strong><sup>€</sup><small>/ call</small>"
+      sub_title: Decreasing prices
+      title: Usage
   search:
     company_name: Company name
     search: Search

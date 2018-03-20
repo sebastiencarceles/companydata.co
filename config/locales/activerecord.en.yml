@@ -9,4 +9,4 @@ en:
         password_confirmation: Password confirmation
         current_password: Current password
         remember_me: Remember me
-        terms_of_service: I agree to be billed each month, depending on my usage, as described on the Pricing page, once I have consumed all the free API calls of the Free trial
+        terms_of_service: I agree to be billed as described on the Pricing page, once I have consumed all the free API calls of the Free trial
