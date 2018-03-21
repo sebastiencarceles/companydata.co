@@ -70,8 +70,8 @@ namespace :sirene do
       filename = "sirene_#{date.year}#{(date.yday - 4).to_s.rjust(3, "0")}_E_Q.zip"
       url = "http://files.data.gouv.fr/sirene/#{filename}"
       Rails.logger.info "Company daily update from #{url}"
-      begin 
-        IO.copy_stream(open(url), filename) 
+      begin
+        IO.copy_stream(open(url), filename)
       rescue OpenURI::HTTPError => error
         Rails.logger.warn "Unavailable source #{filename}"
         return if error.io.status.first == "404"
@@ -137,9 +137,9 @@ namespace :sirene do
 
     def civility(value)
       case value
-      when 1
+      when 1, "1"
         "Monsieur"
-      when 2
+      when 2, "2"
         "Madame"
       else
         nil
