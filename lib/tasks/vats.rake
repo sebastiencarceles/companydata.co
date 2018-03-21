@@ -4,21 +4,21 @@ namespace :vats do
   task create: :environment do
     Rails.logger.info "Create missing VATs"
 
-    batch = []
-    Company.find_each do |company|
-      next if company.vat.present? || company.registration_1.nil? || company.country != "France"
+    p = 1
+    per_page = 10000
+    while Company.page(p).per(per_page).any?
+      Rails.logger.info "Create VATS for page #{p}"
 
-      key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
-      batch << Vat.new(company_id: company.id, country_code: "FR", status: "waiting_for_validation", value: "FR#{key}#{company.registration_1}")
-
-      if batch.count >= 10000
-        Vat.import!(batch)
-        Rails.logger.info "Total VATs in database: #{Vat.count}"
-        batch.clear
+      batch = []
+      Company.page(p).per(per_page).each do |company|
+        next if company.vat.present? || company.registration_1.nil? || company.country != "France"
+        key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
+        batch << Vat.new(company_id: company.id, country_code: "FR", status: "waiting_for_validation", value: "FR#{key}#{company.registration_1}")
       end
+      Vat.import!(batch)
+
+      p += 1      
     end
-    Vat.import!(batch)
-    Rails.logger.info "Total VATs in database: #{Vat.count}"
 
     Rails.logger.info "Done"
   end
