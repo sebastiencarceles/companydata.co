@@ -18,6 +18,15 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :region,
     :geolocation,
     :revenue,
-    :vat_number
+    :vat_number,
+    :prefix,
+    :first_name,
+    :last_name,
+    :email,
+    :phone
   has_many :financial_years
+
+  def prefix
+    object.civility
+  end
 end

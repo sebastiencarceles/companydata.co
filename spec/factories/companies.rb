@@ -51,6 +51,11 @@ FactoryBot.define do
     quality "headquarter"
     revenue "1 to 5 billions USD"
     country "France"
+    civility Faker::Name.prefix
+    first_name Faker::Name.first_name
+    last_name Faker::Name.last_name
+    email Faker::Internet.email
+    phone Faker::PhoneNumber.phone_number
 
     after :create do |company|
       create_list :financial_year, 3, company: company

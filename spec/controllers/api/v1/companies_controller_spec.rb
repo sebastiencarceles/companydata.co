@@ -30,7 +30,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           end
 
           it "returns full companies" do
-            expect(parsed_body.keys.count).to eq 34
+            expect(parsed_body.keys.count).to eq 39
           end
         end
 
