@@ -85,26 +85,22 @@ class LehubScrapper
   end
 
   def update_or_create(raw_data)
-    # {
-    #   :siren=>"N° SIREN : 539157677",
-    #   :name=>"INVENTY",
-    #   :presentation=>"Inventy aide les entreprises à rendre leurs solutions SAP® plus agiles, plus sécurisées et moins chères. L'innovation d'Inventy repose sur le choix de disrupter l’écosystème SAP. Grâce à la plateforme PERFORMER FOR SAP® Inventy est capable de produire en 72H, un diagnostic, un benchmark sectoriel et un plan d'action concret pour rendre les solutions SAP plus agiles, plus sécurisés et moins chères.",
-    #   :creation=>"2012",
-    #   :website=>"http://www.inventy.com",
-    #   :email=>"luti.mambweni@inventy.com",
-    #   :phone=>"+33 6 74 33 38 83",
-    #   :logo=>"background-image: url(\"https://le-hub-assets.s3.eu-west-2.amazonaws.com/Startup_Logo/By-nF3Qrf.png%3Foh%3D328fc59549aadc818f18ab87a68df098%26oe%3D5AE4414A\");",
-    #   :facebook=>"https://facebook.com/270223316423061",
-    #   :twitter=>"https://twitter.com/InventyConsult",
-    #   :linkedin=>"http://www.linkedin.com/company/inventy"
-    # }
-
-    pp raw_data
     registration_1 = raw_data[:siren].split(" : ").last
     company = Company.where(registration_1: registration_1, quality: "headquarter").first
     fail "Unable to find company #{registration_1}" unless company
+    company.name = raw_data[:name] if company.name.blank?
     company.presentation = raw_data[:presentation] if company.presentation.blank?
-    company.name = raw_data[:name] if company.name
+    company.founded_at = parse_date(raw_data[:creation]) if company.founded_at.blank?
+    company.website = raw_data[:website] if company.website.blank?
+    company.email = raw_data[:email] if company.email.blank?
+    company.phone = raw_data[:phone] if company.phone.blank?
+    company.staff = raw_data[:staff] if company.staff.blank?
+    company.crunchbase = raw_data[:crunchbase] if company.crunchbase.blank?
+    company.linkedin = raw_data[:linkedin] if company.linkedin.blank?
+    company.twitter = raw_data[:twitter] if company.twitter.blank?
+    company.facebook = raw_data[:facebook] if company.facebook.blank?
+    company.logo_url = extract_logo_url(raw_data[:logo])
+    pp company
     company.save!
   end
 
@@ -143,5 +139,16 @@ class LehubScrapper
     rescue
       nil
     end
+  end
+
+  def parse_date(raw_date)
+    return nil if raw_date.blank?
+    return nil unless raw_date.length == 4
+    Date.parse("#{raw_date}-01-01")
+  end
+
+  def extract_logo_url(raw_logo_url)
+    return nil if raw_logo_url.blank?
+    raw_logo_url.gsub("background-image: url(\"", "").gsub("\");", "")
   end
 end

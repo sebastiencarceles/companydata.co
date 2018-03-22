@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320133722) do
+ActiveRecord::Schema.define(version: 20180322162256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,10 @@ ActiveRecord::Schema.define(version: 20180320133722) do
     t.string "last_name"
     t.string "email"
     t.string "phone"
+    t.string "linkedin"
+    t.string "facebook"
+    t.string "twitter"
+    t.string "crunchbase"
     t.index ["name"], name: "index_companies_on_name"
     t.index ["quality"], name: "index_companies_on_quality"
     t.index ["registration_1", "registration_2"], name: "index_companies_on_registration_1_and_registration_2"

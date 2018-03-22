@@ -17,7 +17,7 @@ namespace :vats do
       end
       Vat.import!(batch)
 
-      p += 1      
+      p += 1
     end
 
     Rails.logger.info "Done"
