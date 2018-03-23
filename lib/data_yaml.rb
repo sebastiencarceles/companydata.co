@@ -77,6 +77,22 @@ module DataYaml
       end
     end
 
+    def update_or_create(source, cls)
+      Rails.logger.info "Update entries from #{source}"
+      File.open(source, "r") do |file|
+        YAML.load_stream(file) do |raw_data|
+          entry = cls.find_by_id(raw_data["id"])
+          if entry
+            entry.update!(raw_data)
+            Rails.logger.info "Updated entry #{entry.id}"
+          else
+            entry = cls.create!(raw_data)
+            Rails.logger.info "Created entry #{entry.id}"
+          end
+        end
+      end
+    end
+
     private
 
       def write_into(file, scope)

@@ -27,4 +27,11 @@ namespace :data do
       DataYaml.load_from_s3(indir_url, model.constantize)
     end
   end
+
+  task update: :environment do
+    ARGV.each { |a| task a.to_sym do ; end }
+    model = ARGV[1]
+    source = ARGV[2]
+    DataYaml.update_or_create(source, model.constantize)
+  end
 end
