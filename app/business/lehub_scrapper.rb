@@ -2,9 +2,7 @@
 
 require "capybara"
 require "capybara/dsl"
-require "capybara/poltergeist"
 require "open-uri"
-
 
 class LehubScrapper
   def initialize(username, password)
@@ -58,11 +56,11 @@ class LehubScrapper
     #   Capybara::Selenium::Driver.new(app, browser: :chrome)
     # end
     Capybara.javascript_driver = :chrome
-    # Capybara.configure do |config|
-    #   config.default_max_wait_time = 30
-    #   config.default_driver = :selenium
-    # end
-    # Capybara.current_session.driver.browser.manage.window.resize_to(1_280, 1_024)
+    Capybara.configure do |config|
+      config.default_max_wait_time = 30
+      config.default_driver = :selenium
+    end
+    Capybara.current_session.driver.browser.manage.window.resize_to(1_280, 1_024)
   end
 
   def login
