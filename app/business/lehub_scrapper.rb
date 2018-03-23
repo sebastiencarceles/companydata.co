@@ -32,7 +32,8 @@ class LehubScrapper
     rescue => exception
       puts exception
       puts exception.backtrace
-      @session.save_screenshot "#{Rails.root.join('public').to_s}/#{startup_id}.png", full: true
+      # @session.save_screenshot "#{Rails.root.join('public').to_s}/#{startup_id}.png", full: true
+      scrap(startup_id + 1)
     else
       scrap(startup_id + 1)
     end
