@@ -40,8 +40,9 @@ fr:
       vat_number: TVA intracommunautaire
     resume:
       data_source: Source de données
+      facebook: Page Facebook
       founded: Fondée en %{year}
-      linkedin: Profil LinkedIn
+      linkedin: Page LinkedIn
     settlement:
       branch: Filiale
       details: Détails de société

@@ -10,10 +10,10 @@
 
     <div class="card-body">
       <% if @company.linkedin.present? %>
-        <%= link_to fa_icon_tag("linkedin-square"), @company.linkedin, "data-toggle": "tooltip", "data-original-title": t("companies.resume.linkedin"), target: "_blank" %>
+        <%= link_to fa_icon_tag("linkedin-square"), @company.linkedin, "data-toggle": "tooltip", "data-original-title": t("companies.resume.linkedin"), target: "_blank" %>          
       <% end %>
-      <% if linkedin_url(@company) %>
-        <%= link_to fa_icon_tag("linkedin-square"), linkedin_url(@company), "data-toggle": "tooltip", "data-original-title": t("companies.resume.linkedin"), target: "_blank" %>
+      <% if @company.facebook.present? %>
+        <%= link_to fa_icon_tag("facebook-f"), @company.facebook, "data-toggle": "tooltip", "data-original-title": t("companies.resume.facebook"), target: "_blank" %>
       <% end %>
       <% if @company.source_url.present? %>
         <%= link_to fa_icon_tag("external-link"), @company.source_url, "data-toggle": "tooltip", "data-original-title": t("companies.resume.data_source"), target: "_blank" %>    

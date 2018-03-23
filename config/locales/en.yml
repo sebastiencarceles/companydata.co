@@ -40,8 +40,9 @@ en:
       vat_number: VAT number
     resume:
       data_source: Main data source
+      facebook: Facebook page
       founded: Founded in %{year}
-      linkedin: LinkedIn profile
+      linkedin: LinkedIn page
     settlement:
       branch: Branch
       details: Company details
