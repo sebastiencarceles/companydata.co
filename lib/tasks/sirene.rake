@@ -59,9 +59,14 @@ namespace :sirene do
   end
 
   task update_from_dailies: :environment do
-    (Date.parse("2017-01-01")..Date.today).each do |date|
-      update_from_daily(date)
-    end
+    ARGV.each { |a| task a.to_sym do ; end }
+
+    start_date = Date.parse(ARGV[1]) rescue nil
+    end_date = Date.parse(ARGV[2]) rescue nil
+    fail "No start date" if start_date.blank?
+    fail "No end date" if end_date.blank?
+
+    (start_date..end_date).each { |date| update_from_daily(date) }
   end
 
   private
