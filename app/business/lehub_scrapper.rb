@@ -66,7 +66,8 @@ class LehubScrapper
     @session.visit "https://lehub.bpifrance.fr/auth/linkedin"
     @session.fill_in "session_key-login", with: @username
     @session.fill_in "session_password-login", with: @password
-    @session.click_button "S’identifier"
+    sleep 5
+    @session.find("#mini-profile--js > li.button.form-actions > div.form-buttons > input").click
     sleep 5
     @session.click_link "Continuer"
   end
