@@ -38,15 +38,26 @@ class LehubScrapper
   end
 
   def build_session
-    Capybara.register_driver :selenium do |app|
-      Capybara::Selenium::Driver.new(app, browser: :chrome)
+    chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
+
+    chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
+
+    Capybara.register_driver :chrome do |app|
+      Capybara::Selenium::Driver.new(
+        app,
+        browser: :chrome,
+        desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(chrome_opts)
+      )
     end
-    Capybara.javascript_driver = :chrome
-    Capybara.configure do |config|
-      config.default_max_wait_time = 30
-      config.default_driver = :selenium
-    end
-    Capybara.current_session.driver.browser.manage.window.resize_to(1_280, 1_024)
+    # Capybara.register_driver :selenium do |app|
+    #   Capybara::Selenium::Driver.new(app, browser: :chrome)
+    # end
+    # Capybara.javascript_driver = :chrome
+    # Capybara.configure do |config|
+    #   config.default_max_wait_time = 30
+    #   config.default_driver = :selenium
+    # end
+    # Capybara.current_session.driver.browser.manage.window.resize_to(1_280, 1_024)
   end
 
   def login
