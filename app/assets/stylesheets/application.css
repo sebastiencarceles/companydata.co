@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require rrt
+ *= require font-awesome
  */
 
 .image--xxs {
