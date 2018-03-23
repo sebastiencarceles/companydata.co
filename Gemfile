@@ -35,6 +35,7 @@ gem "jbuilder", "~> 2.5"
 gem "capybara", "~> 2.15.1"
 gem "selenium-webdriver"
 gem "chromedriver-helper"
+gem 'poltergeist'
 
 # Manage config var
 gem "figaro"
