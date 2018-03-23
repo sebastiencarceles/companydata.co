@@ -13,50 +13,6 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   let(:serialization) { ActiveModelSerializers::Adapter.create(serializer) }
   let(:subject) { JSON.parse(serialization.to_json) }
 
-  it "includes the expected attributes" do
-    expect(subject.keys).to contain_exactly(
-      "id",
-      "name",
-      "slug",
-      "source_url",
-      "legal_form",
-      "staff",
-      "presentation",
-      "logo_url",
-      "registration_1",
-      "registration_2",
-      "activity_code",
-      "activity",
-      "address",
-      "address_line_1",
-      "address_line_2",
-      "address_line_3",
-      "address_line_4",
-      "address_line_5",
-      "cedex",
-      "zipcode",
-      "city",
-      "department_code",
-      "department",
-      "region",
-      "founded_at",
-      "geolocation",
-      "country",
-      "quality",
-      "revenue",
-      "smooth_name",
-      "financial_years",
-      "vat_number",
-      "headquarter_id",
-      "branch_ids",
-      "prefix",
-      "first_name",
-      "last_name",
-      "phone",
-      "email"
-    )
-  end
-
   it { expect(subject["source_url"]).not_to be_nil }
   it { expect(subject["registration_1"]).not_to be_nil }
   it { expect(subject["registration_2"]).not_to be_nil }
@@ -80,6 +36,11 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["last_name"]).not_to be_nil }
   it { expect(subject["email"]).not_to be_nil }
   it { expect(subject["phone"]).not_to be_nil }
+  it { expect(subject["website"]).not_to be_nil }
+  it { expect(subject["facebook"]).not_to be_nil }
+  it { expect(subject["linkedin"]).not_to be_nil }
+  it { expect(subject["twitter"]).not_to be_nil }
+  it { expect(subject["crunchbase"]).not_to be_nil }  
   it { expect(subject["financial_years"]).not_to be_nil }
   it { expect(subject["financial_years"][0]["year"]).not_to be_nil }
   it { expect(subject["financial_years"][0]["currency"]).not_to be_nil }
@@ -113,6 +74,11 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["last_name"]).to eql(@company.last_name) }
   it { expect(subject["email"]).to eql(@company.email) }
   it { expect(subject["phone"]).to eql(@company.phone) }
+  it { expect(subject["website"]).to eql(@company.website) }
+  it { expect(subject["facebook"]).to eql(@company.facebook) }
+  it { expect(subject["linkedin"]).to eql(@company.linkedin) }
+  it { expect(subject["twitter"]).to eql(@company.twitter) }
+  it { expect(subject["crunchbase"]).to eql(@company.crunchbase) }
   it { expect(subject["financial_years"].length).to eq(@company.financial_years.count) }
   it { expect(subject["financial_years"][0]["year"]).to eql(@company.financial_years.first.year) }
   it { expect(subject["financial_years"][0]["currency"]).to eql(@company.financial_years.first.currency) }

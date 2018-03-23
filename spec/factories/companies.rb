@@ -56,7 +56,11 @@ FactoryBot.define do
     last_name Faker::Name.last_name
     email Faker::Internet.email
     phone Faker::PhoneNumber.phone_number
-
+    facebook "https://www.facebook.com/mycompany"
+    twitter "https://www.twitter.com/mycompany"
+    linkedin "https://www.linkedin.com/mycompany"
+    crunchbase "https://www.crunchbase.com/mycompany"
+    
     after :create do |company|
       create_list :financial_year, 3, company: company
     end

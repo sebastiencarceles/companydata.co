@@ -23,7 +23,12 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :first_name,
     :last_name,
     :email,
-    :phone
+    :phone,
+    :website,
+    :facebook,
+    :linkedin,
+    :twitter,
+    :crunchbase
   has_many :financial_years
 
   def prefix
