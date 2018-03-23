@@ -101,7 +101,7 @@ class LehubScrapper
     company.linkedin = raw_data[:linkedin] if company.linkedin.blank?
     company.twitter = raw_data[:twitter] if company.twitter.blank?
     company.facebook = raw_data[:facebook] if company.facebook.blank?
-    company.logo_url = extract_logo_url(raw_data[:logo])
+    company.logo_url = extract_logo_url(raw_data[:logo]) if company.logo_url.blank?
     pp company
     company.save!
   end
