@@ -15,6 +15,11 @@ en:
       title: API Connection
     breadcrumb:
       title: Search result
+    contact:
+      email: Email
+      full_name: Name
+      phone: Phone
+      title: Contact
     financial_year:
       duration: "%{months} months"
       employees: employees

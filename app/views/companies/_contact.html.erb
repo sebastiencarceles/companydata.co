@@ -1,0 +1,27 @@
+<div class="m-1 card card-tabbed">
+  <div class="card-header">
+    <h6><%= t("companies.contact.title") %></h6>
+  </div>
+  <div class="card-body">
+    <table class="table table-sm font-size-small">
+      <% if contact_full_name(@company).present? %>
+        <tr>
+          <td><strong><%= t("companies.contact.full_name") %></strong></td>
+          <td><%= contact_full_name(@company) %></td>
+        </tr>
+      <% end %>
+      <% if @company.email.present? %>
+        <tr>
+          <td><strong><%= t("companies.contact.email") %></strong></td>
+          <td><%= mail_to @company.email, @company.email %></td>
+        </tr>
+      <% end %>
+      <% if @company.phone.present? %>
+        <tr>
+          <td><strong><%= t("companies.contact.phone") %></strong></td>
+          <td><%= @company.phone %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

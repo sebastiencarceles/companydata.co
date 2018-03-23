@@ -40,4 +40,12 @@ module CompaniesHelper
     return nil if code.blank?
     "#{I18n.t("activity_codes.#{code}")} (#{code})"
   end
+
+  def has_contact_info?(company)
+    [company.first_name.present?, company.last_name.present?, company.email.present?, company.phone.present?].any?
+  end
+
+  def contact_full_name(company)
+    [company.civility, company.first_name, company.last_name].compact.join(" ")
+  end
 end

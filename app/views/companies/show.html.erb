@@ -23,6 +23,11 @@
       </div>
     </div>
     <div class="col-md-6">
+      <% if has_contact_info?(@company) %>
+        <div class="row">
+          <%= render "contact" %>
+        </div>
+      <% end %>
       <div class="row">
         <%= render "profile" %>
       </div>

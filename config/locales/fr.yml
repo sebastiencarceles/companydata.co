@@ -15,6 +15,11 @@ fr:
       title: Connexion à l'API
     breadcrumb:
       title: Résultat de recherche
+    contact:
+      email: Email
+      full_name: Nom
+      phone: Téléphone
+      title: Contact
     financial_year:
       duration: "%{months} mois"
       employees: salarié·e·s
