@@ -5,20 +5,23 @@ require "capybara/dsl"
 require "open-uri"
 
 class LehubScrapper
-  def initialize(username, password)
+  def initialize(username, password, from_id, to_id)
     @username = username
     @password = password
     build_session
     @session = Capybara.current_session
+    @from_id = from_id
+    @to_id = to_id
+    puts "Scrap from #{from_id} to #{to_id}"
   end
 
   def execute
     login
-    scrap(17)
+    scrap(@from_id)
   end
 
   def scrap(startup_id)
-    return if startup_id >= 1000
+    return if startup_id >= @to_id
     begin
       open_company_page(startup_id)
       company_data = read_company_data(startup_id)
