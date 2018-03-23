@@ -32,8 +32,8 @@ class LehubScrapper
     rescue => exception
       puts exception
       puts exception.backtrace
-      # @session.save_screenshot "#{Rails.root.join('public').to_s}/#{startup_id}.png", full: true
-      scrap(startup_id + 1)
+      @session.save_screenshot "#{Rails.root.join('public').to_s}/#{startup_id}.png", full: true
+      # scrap(startup_id + 1)
     else
       scrap(startup_id + 1)
     end
@@ -118,8 +118,11 @@ class LehubScrapper
     company.twitter = raw_data[:twitter] if company.twitter.blank?
     company.facebook = raw_data[:facebook] if company.facebook.blank?
     company.logo_url = extract_logo_url(raw_data[:logo]) if company.logo_url.blank?
-    pp company
     company.save!
+
+    File.open("db/raw/companies/companies.yml", "a") do |file|
+      file.write(company.attributes.to_yaml)
+    end
   end
 
   def add!(hash, key, value)
