@@ -39,10 +39,12 @@ en:
       title: Profile
       vat_number: VAT number
     resume:
+      crunchbase: Crunchbase
       data_source: Main data source
-      facebook: Facebook page
+      facebook: Facebook
       founded: Founded in %{year}
-      linkedin: LinkedIn page
+      linkedin: LinkedIn
+      twitter: Twitter
     settlement:
       branch: Branch
       details: Company details

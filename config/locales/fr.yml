@@ -39,10 +39,12 @@ fr:
       title: Profil
       vat_number: TVA intracommunautaire
     resume:
+      crunchbase: Crunchbase
       data_source: Source de données
-      facebook: Page Facebook
+      facebook: Facebook
       founded: Fondée en %{year}
-      linkedin: Page LinkedIn
+      linkedin: LinkedIn
+      twitter: Twitter
     settlement:
       branch: Filiale
       details: Détails de société
