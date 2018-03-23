@@ -58,7 +58,7 @@ class LehubScrapper
     Capybara.javascript_driver = :chrome
     Capybara.configure do |config|
       config.default_max_wait_time = 30
-      config.default_driver = :selenium
+      config.default_driver = :chrome
     end
     # Capybara.current_session.driver.browser.manage.window.resize_to(1_280, 1_024)
   end

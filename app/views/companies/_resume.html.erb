@@ -13,7 +13,7 @@
         <%= link_to fa_icon_tag("linkedin-square"), @company.linkedin, "data-toggle": "tooltip", "data-original-title": t("companies.resume.linkedin"), target: "_blank" %>          
       <% end %>
       <% if @company.facebook.present? %>
-        <%= link_to fa_icon_tag("th"), @company.facebook, "data-toggle": "tooltip", "data-original-title": t("companies.resume.facebook"), target: "_blank" %>
+        <%= link_to fa_icon_tag("facebook-messenger"), @company.facebook, "data-toggle": "tooltip", "data-original-title": t("companies.resume.facebook"), target: "_blank" %>
       <% end %>
       <% if @company.twitter.present? %>
         <%= link_to fa_icon_tag("twitter"), @company.twitter, "data-toggle": "tooltip", "data-original-title": t("companies.resume.twitter"), target: "_blank" %>
