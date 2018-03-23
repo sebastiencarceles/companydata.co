@@ -2,7 +2,7 @@
 
 require "capybara"
 require "capybara/dsl"
-require 'capybara/poltergeist'
+require "capybara/poltergeist"
 require "open-uri"
 
 
@@ -38,10 +38,15 @@ class LehubScrapper
   end
 
   def build_session
-    chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
+    chrome_bin = ENV.fetch("GOOGLE_CHROME_SHIM", nil)
+    Rails.logger.info("====== >FOUND CHROMEBIN: #{chrome_bin}")
 
-    chrome_opts = chrome_bin ? { "chromeOptions" => { "binary" => chrome_bin } } : {}
-
+    chrome_opts = chrome_bin ? { 
+      chromeOptions: { 
+        binary: chrome_bin, 
+        args: %w(headless disable-gpu) 
+        } 
+      } : {}
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
         app,
@@ -52,7 +57,7 @@ class LehubScrapper
     # Capybara.register_driver :selenium do |app|
     #   Capybara::Selenium::Driver.new(app, browser: :chrome)
     # end
-    # Capybara.javascript_driver = :chrome
+    Capybara.javascript_driver = :chrome
     # Capybara.configure do |config|
     #   config.default_max_wait_time = 30
     #   config.default_driver = :selenium
