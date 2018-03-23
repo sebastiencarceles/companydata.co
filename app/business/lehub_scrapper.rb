@@ -18,6 +18,7 @@ class LehubScrapper
   end
 
   def scrap(startup_id)
+    return if startup_id >= 1000
     begin
       open_company_page(startup_id)
       company_data = read_company_data(startup_id)
@@ -87,6 +88,7 @@ class LehubScrapper
   def update_or_create(raw_data)
     registration_1 = raw_data[:siren].split(" : ").last
     company = Company.where(registration_1: registration_1, quality: "headquarter").first
+    company ||= Company.find_or_initialize_by(registration_1: registration_1)
     fail "Unable to find company #{registration_1}" unless company
     company.name = raw_data[:name] if company.name.blank?
     company.presentation = raw_data[:presentation] if company.presentation.blank?
