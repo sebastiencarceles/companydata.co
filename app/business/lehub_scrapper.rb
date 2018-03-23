@@ -40,11 +40,11 @@ class LehubScrapper
 
   def build_session
     chrome_bin = ENV.fetch("GOOGLE_CHROME_SHIM", nil)
-    chrome_opts = chrome_bin ? { 
-      chromeOptions: { 
-        binary: chrome_bin, 
-        args: %w(headless disable-gpu) 
-        } 
+    chrome_opts = chrome_bin ? {
+      chromeOptions: {
+        binary: chrome_bin,
+        args: %w(headless disable-gpu)
+        }
       } : {}
     Capybara.register_driver :chrome do |app|
       Capybara::Selenium::Driver.new(
