@@ -115,7 +115,7 @@ fr:
     title: Démarrage rapide
   landing:
     data:
-      description_1: Nom légal, logo, présentation, activité ou industrie, siège et établissements...
+      description_1: Nom légal, logo, présentation, activité ou industrie, siège et établissements, sites et réseaux sociaux...
       description_2: TVA intracommunautaire (vérifiée), SIREN, NIC, forme légale
       description_3: Adresse simplifiée ou très détaillée, géolocalisation
       description_4: 'Pour les derniers exercices fiscaux : équipe, chiffre d''affaires, revenu...'
@@ -157,8 +157,8 @@ fr:
     show:
       description: Companydata.co est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.
       more: Plus d'infos
-      sub_value_proposition: Intégrez dans votre système les infos qu'il vous faut sur vos clients, vos prospects et vos concurrents. Avec notre API, intégrable en quelques minutes, vous avez accès aux sièges sociaux, aux numéros de TVA vérifiés, aux adresses, aux chiffres d'affaires, aux résultats...
-      value_proposition: Les données de sociétés, directement chez vous.
+      sub_value_proposition: Intégrez l'API pour accéder aux sièges sociaux, aux numéros de TVA vérifiés, aux adresses géolocalisées, aux chiffres d'affaires, aux résultats...<br><br>Démarrez en quelques minutes avec l'offre gratuite.
+      value_proposition: Les données de sociétés, chez vous.
     try:
       description: Essayez gratuitement. Faites une recherche.
       title: Besoin d'en voir plus ?
