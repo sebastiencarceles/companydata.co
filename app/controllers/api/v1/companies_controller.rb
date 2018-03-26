@@ -7,7 +7,11 @@ class Api::V1::CompaniesController < ApiController
     company ||= Company.find_by_slug(identifier)
     company ||= Company.where(registration_1: identifier, quality: "headquarter").first
     company ||= Company.where(registration_1: identifier).first
-    company ||= Vat.find_by_value(identifier).try(:company)
+    if company.nil?
+      company_ids = Vat.where(value: identifier).pluck(:company_id)
+      company ||= Company.where(id: company_ids, quality: "headquarter").first
+      company ||= Company.where(id: company_ids).first
+    end
     render(json: {}, status: :not_found) && (return) unless company
     render json: company, serializer: Api::V1::FullCompanySerializer
   end

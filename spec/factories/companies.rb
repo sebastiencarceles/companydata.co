@@ -60,7 +60,7 @@ FactoryBot.define do
     twitter "https://www.twitter.com/mycompany"
     linkedin "https://www.linkedin.com/mycompany"
     crunchbase "https://www.crunchbase.com/mycompany"
-    
+
     after :create do |company|
       create_list :financial_year, 3, company: company
     end
