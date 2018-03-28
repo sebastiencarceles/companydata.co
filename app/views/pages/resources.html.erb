@@ -1,0 +1,32 @@
+<section class="bg-dark p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-white">
+        <h1><%= t("resources.title") %></h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <h3><%= t("resources.essentials.title") %></h3>
+      <ul>
+        <li><%= link_to t("resources.essentials.get_started"), page_path('getting_started') %></li>
+        <li><%= link_to t("resources.essentials.api_docs"), docs_url %></li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-6">
+      <h3><%= t("resources.tutorials.title") %></h3>
+      <ul>
+        <li><%= link_to t("resources.tutorials.company_name_autocomplete"), "https://medium.com/@sebastien.carceles/company-name-autocomplete-a-short-tutorial-e3cca339e3b9" %></li>
+        <li><%= link_to t("resources.tutorials.company_form_autocomplete"), "https://medium.com/@sebastien.carceles/un-formulaire-société-qui-se-remplit-tout-seul-16e28f6c692b" %> (+ <%= link_to t("resources.tutorials.source_code"), "https://github.com/sebastiencarceles/company_form_autocomplete" %>)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  mixpanel.track("Visit resources");
+</script>

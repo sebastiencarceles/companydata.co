@@ -7,7 +7,7 @@ fr:
     title: À propos
   companies:
     api_connection:
-      description: Hello ! Il semblerait que vous ne vous soyez pas encore enregistré. Une fois votre compte créé, vous pouvez utiliser l'API depuis votre propre application, même avec un plan gratuit. Ainsi vous pouvez enrichir votre propre base de sociétés, proposer  une autocomplétion de noms de sociétés à vos utilisateurs ou construire quoi que ce soit d'utile pour votre business. Essayez !
+      description: Hello ! Il semblerait que vous ne vous soyez pas encore enregistré. Une fois votre compte créé, vous pouvez utiliser l'API depuis votre propre application, même avec un plan gratuit. Ainsi vous pouvez enrichir votre propre base de sociétés, proposer  une autocomplétion noms ou de formulaires de sociétés à vos utilisateurs ou construire quoi que ce soit d'utile pour votre business. Essayez !
       get_started: Démarrage rapide
       important: Important
       register: Enregistrement
@@ -130,10 +130,10 @@ fr:
     features:
       action_1: Essayer
       action_2: Documentation
-      action_3: Tutoriel
+      action_3: Tutoriels
       description_1: Toutes les infos sur les sociétés, gratuitement et immédiatement accessibles. Sans même créer un compte.
       description_2: Besoin d'intégration dans votre propre workflow ? Démarrez immédiatement et soyez opérationnels en quelques minutes.
-      description_3: Aidez vos utilisateurs à saisir le nom de leur société avec notre solution d'autocomplétion gratuite. Suivez le guide.
+      description_3: Aidez vos utilisateurs à saisir le nom de leur société avec notre API gratuite. Voire un formulaire société en entier.
       main_title: L'API super simple pour obtenir des infos sur les sociétés
       title_1: Consultation gratuite
       title_2: API pour enrichir
@@ -167,6 +167,7 @@ fr:
     legal: Mentions légales
     my_account: Mon compte
     pricing: Tarifs
+    resources: Ressources
     sign_in: Connexion
     sign_out: Déconnexion
     sign_up: Enregistrement
@@ -193,6 +194,17 @@ fr:
       price: de <strong>0,05</strong><sup>€</sup><br>à <strong>0,02</strong><sup>€</sup><small>/ appel</small>
       sub_title: Prix dégressif
       title: Au consommé
+  resources:
+    essentials:
+      api_docs: Documentation de l'API
+      get_started: Démarrage rapide
+      title: Les essentiels
+    title: Ressources
+    tutorials:
+      company_form_autocomplete: Formulaire de société en autocompletion
+      company_name_autocomplete: Champ nom de société en autocompletion
+      source_code: projet exemple
+      title: Les tutoriaux
   search:
     company_name: Société
     search: Chercher

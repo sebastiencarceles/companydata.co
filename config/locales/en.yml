@@ -7,7 +7,7 @@ en:
     title: About
   companies:
     api_connection:
-      description: Hey! It looks like you haven't registered yet. Once registered, you can use the API from your own application, even with a free plan. So you can enrich your own company database, build a company name autocomplete for your users or anything than make sense for you. Don't miss it!
+      description: Hey! It looks like you haven't registered yet. Once registered, you can use the API from your own application, even with a free plan. So you can enrich your own company database, build a company name / form autocomplete for your users or anything than make sense for you. Don't miss it!
       get_started: Get started
       important: Important
       register: Register
@@ -130,10 +130,10 @@ en:
     features:
       action_1: Try now
       action_2: Documentation
-      action_3: Tutorial
+      action_3: Tutorials
       description_1: All the data about companies, instantly and freely available. No registration needed.
       description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
-      description_3: Help your users type in their company with our free autocomplete solution. Follow the tutorial.
+      description_3: Help your users type in their company name with our free API. Or fill a complete company form.
       main_title: The super simple API get company data
       title_1: Free search
       title_2: Enrichment API
@@ -167,6 +167,7 @@ en:
     legal: Legal
     my_account: My account
     pricing: Pricing
+    resources: Resources
     sign_in: Sign in
     sign_out: Sign out
     sign_up: Sign up
@@ -193,6 +194,17 @@ en:
       price: "<strong>0.05</strong><sup>€</sup><br>to <strong>0.02</strong><sup>€</sup><small>/ call</small>"
       sub_title: Decreasing prices
       title: Usage
+  resources:
+    essentials:
+      api_docs: API documentation
+      get_started: Get started
+      title: Essentials
+    title: Resources
+    tutorials:
+      company_form_autocomplete: Company form autocomplete
+      company_name_autocomplete: Company name autocomplete
+      source_code: sample project
+      title: Tutorials
   search:
     company_name: Company name
     search: Search
