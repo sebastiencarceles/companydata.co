@@ -14,22 +14,10 @@
     </div>
     <div class="col-12 col-md-10">
       <% if user_signed_in? %>
-        <p><%= t("getting_started.step_1.signed_in") %></p>
-        <ul>
-          <li>
-            <strong><%= t("getting_started.email") %></strong>
-            <%= current_user.email %>
-          </li>
-          <li>
-            <strong><%= t("getting_started.api_key") %></strong>
-            <%= current_user.api_key %>
-          </li>
-        </ul>
         <p><%= t("getting_started.step_2") %></p>
-        
+
         <pre>
-          curl -u <%= current_user.email %>:<%= current_user.api_key %> \
-          https://www.companydata.co/api/v1/companies?q=librairie%20mollat
+          curl -u <%= current_user.api_key %>: https://www.companydata.co/api/v1/companies?q=justdo
         </pre>
       <% else %>
         <h2><%= t("getting_started.subtitle") %></h2>
@@ -44,10 +32,8 @@
         </ol>
 
         <pre>
-          curl -u email@domain.com:api_key \
-          https://www.companydata.co/api/v1/companies?q=librairie%20mollat
+          curl -u YOUR_API_KEY: https://www.companydata.co/api/v1/companies?q=justdo
         </pre>
-        <small><%= t("getting_started.replace") %></small>
       <% end %>
       <p><%= t("getting_started.done") %></p>
       <p>

@@ -101,15 +101,11 @@ fr:
         sign_up: Enregistrement
         title: Connexion
   getting_started:
-    api_key: 'Api Key : '
     docs: documentation technique
     done: Vos résultats s'affichent en JSON. C'est fini !
-    email: 'Email :'
     go_docs: 'Maintenant consultez la documentation de l''API pour découvrir comment intégrer l''API Companydata.co à votre système d''information :'
-    replace: "(Remplacez 'email@domain.com' et 'api_key' avec vos valeurs.)"
     step_1:
       not_signed_in: 'Enregistrez-vous et consultez votre compte pour noter votre API Key :'
-      signed_in: 'Notez votre email et votre API Key :'
     step_2: 'Pour effectuer votre premier appel à l''API, ouvrez un terminal et collez-y :'
     subtitle: Deux étapes pour démarrer
     title: Démarrage rapide

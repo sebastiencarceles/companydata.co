@@ -15,10 +15,9 @@ class ApiController < ActionController::API
       return if encoded.blank?
 
       plain = Base64.decode64(encoded)
-      email = plain.split(":").first
-      api_key = plain.split(":").last
+      api_key = plain.split(":").first
 
-      user = User.where(email: email, api_key: api_key).first
+      user = User.find_by_api_key(api_key)
       sign_in(user) if user
     end
 

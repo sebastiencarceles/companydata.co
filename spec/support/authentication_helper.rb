@@ -7,7 +7,7 @@ module AuthenticationHelper
 
   def authentication_header
     {
-      HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials(current_user.email, current_user.api_key)
+      HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials(current_user.api_key, "")
     }
   end
 end

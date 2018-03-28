@@ -101,15 +101,11 @@ en:
         sign_up: Sign up
         title: Login
   getting_started:
-    api_key: 'Api Key: '
     docs: technical documentation
     done: Here are your JSON results. You're done!
-    email: 'Email:'
     go_docs: 'Now checkout the API docs to see how to integrate Companydata.co API to your system:'
-    replace: "(Replace 'email@domain.com' and 'api_key' with your values.)"
     step_1:
       not_signed_in: 'Register and go to your account to copy your API Key:'
-      signed_in: 'Note your email and your API Key:'
     step_2: 'To make your first call, open a terminal and paste:'
     subtitle: Two steps to get started
     title: Getting started
