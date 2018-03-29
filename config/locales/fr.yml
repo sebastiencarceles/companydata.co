@@ -50,6 +50,7 @@ fr:
       founded: Fondée en %{year}
       linkedin: LinkedIn
       twitter: Twitter
+      website: Site web
     settlement:
       branch: Filiale
       details: Détails de société

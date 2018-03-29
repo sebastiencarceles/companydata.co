@@ -50,6 +50,7 @@ en:
       founded: Founded in %{year}
       linkedin: LinkedIn
       twitter: Twitter
+      website: Website
     settlement:
       branch: Branch
       details: Company details

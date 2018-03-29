@@ -21,8 +21,8 @@
       <% if @company.crunchbase.present? %>
         <%= link_to fa_icon("external-link-square"), @company.crunchbase, "data-toggle": "tooltip", "data-original-title": t("companies.resume.crunchbase"), target: "_blank" %>
       <% end %>
-      <% if @company.source_url.present? %>
-        <%= link_to fa_icon("link"), @company.source_url, "data-toggle": "tooltip", "data-original-title": t("companies.resume.data_source"), target: "_blank" %>    
+      <% if @company.website.present? %>
+        <%= link_to fa_icon("link"), @company.website, "data-toggle": "tooltip", "data-original-title": t("companies.resume.website"), target: "_blank" %>    
       <% end %>
     </div>
   </div>
