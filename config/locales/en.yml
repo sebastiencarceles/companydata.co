@@ -45,7 +45,6 @@ en:
       vat_number: VAT number
     resume:
       crunchbase: Crunchbase
-      data_source: Main data source
       facebook: Facebook
       founded: Founded in %{year}
       linkedin: LinkedIn

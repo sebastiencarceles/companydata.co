@@ -10,19 +10,19 @@
 
     <div class="card-body">
       <% if @company.linkedin.present? %>
-        <%= link_to fa_icon("linkedin-square"), @company.linkedin, "data-toggle": "tooltip", "data-original-title": t("companies.resume.linkedin"), target: "_blank" %>          
+        <%= link_to fa_icon("linkedin-square"), @company.linkedin, "data-toggle": "tooltip", "data-original-title": t("companies.resume.linkedin") %>          
       <% end %>
       <% if @company.facebook.present? %>
-        <%= link_to fa_icon("facebook-square"), @company.facebook, "data-toggle": "tooltip", "data-original-title": t("companies.resume.facebook"), target: "_blank" %>
+        <%= link_to fa_icon("facebook-square"), @company.facebook, "data-toggle": "tooltip", "data-original-title": t("companies.resume.facebook") %>
       <% end %>
       <% if @company.twitter.present? %>
-        <%= link_to fa_icon("twitter-square"), @company.twitter, "data-toggle": "tooltip", "data-original-title": t("companies.resume.twitter"), target: "_blank" %>
+        <%= link_to fa_icon("twitter-square"), @company.twitter, "data-toggle": "tooltip", "data-original-title": t("companies.resume.twitter") %>
       <% end %>
       <% if @company.crunchbase.present? %>
-        <%= link_to fa_icon("external-link-square"), @company.crunchbase, "data-toggle": "tooltip", "data-original-title": t("companies.resume.crunchbase"), target: "_blank" %>
+        <%= link_to fa_icon("external-link-square"), @company.crunchbase, "data-toggle": "tooltip", "data-original-title": t("companies.resume.crunchbase") %>
       <% end %>
       <% if @company.website.present? %>
-        <%= link_to fa_icon("link"), @company.website, "data-toggle": "tooltip", "data-original-title": t("companies.resume.website"), target: "_blank" %>    
+        <%= link_to fa_icon("link"), @company.website, "data-toggle": "tooltip", "data-original-title": t("companies.resume.website") %>    
       <% end %>
     </div>
   </div>
