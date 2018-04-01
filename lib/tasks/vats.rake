@@ -24,9 +24,12 @@ namespace :vats do
   end
 
   task fetch: :environment do
+    ARGV.each { |a| task a.to_sym do ; end }
+    limit = ARGV[1].to_i
+
     scope = vats_to_fetch
     count = scope.count
-    scope.limit(10000).each_with_index do |vat, index|
+    scope.limit(limit).each_with_index do |vat, index|
       vat.validate!
       Rails.logger.info "#{index}/#{count} - Fetched VAT for company #{vat.company_id}: #{vat.reload.status}"
     end
