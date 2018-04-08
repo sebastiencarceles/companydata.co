@@ -30,6 +30,9 @@ class Api::V1::CompaniesController < ApiController
 
     where = quality == "all" ? {} : { quality: quality }
     where = where.merge(activity_code: params[:activity_code]) if params[:activity_code].present?
+    where = where.merge(city: params[:city]) if params[:city].present?
+    where = where.merge(zipcode: params[:zipcode]) if params[:zipcode].present?
+    where = where.merge(country: params[:country]) if params[:country].present?
 
     scope = if query
       Company.search(query, fields: [:smooth_name], match: :word_start, where: where, page: page, per_page: per_page)

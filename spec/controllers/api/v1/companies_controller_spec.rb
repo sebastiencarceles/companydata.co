@@ -296,6 +296,28 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           end
         end
       end
+
+      describe "city parameter" do
+        context "when city is given and there are results" do
+          before { get "/api/v1/companies", params: { city: "Fronsac" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns a collection of companies with the right city" do
+            expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:city).uniq).to eq ["Fronsac"]
+          end
+        end
+
+        context "when city is given and there is no result" do
+          before { get "/api/v1/companies", params: { city: "Bordeaux" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns no company" do
+            expect(parsed_body).to be_empty
+          end
+        end
+      end
     end
   end
 end
