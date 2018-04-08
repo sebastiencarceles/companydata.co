@@ -7,7 +7,7 @@ namespace :vats do
     p = 1
     per_page = 10000
     while Company.page(p).per(per_page).any?
-      Rails.logger.info "Create VATS for page #{p}"
+      Rails.logger.info "Create VATs for page #{p}"
 
       batch = []
       Company.page(p).per(per_page).each do |company|
@@ -34,6 +34,10 @@ namespace :vats do
       Rails.logger.info "#{index}/#{count} - Fetched VAT for company #{vat.company_id}: #{vat.reload.status}"
     end
     Rails.logger.info "Done"
+  end
+
+  task remaining: :environment do
+    Rails.logger.info "#{vats_to_fetch.count} remaining VATs to fetch"
   end
 
   task export: :environment do
