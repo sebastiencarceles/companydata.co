@@ -318,6 +318,52 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           end
         end
       end
+
+      describe "zipcode parameter" do
+        context "when zipcode is given and there are results" do
+          before { get "/api/v1/companies", params: { zipcode: "33126" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it { expect(parsed_body).not_to be_empty }          
+
+          it "returns a collection of companies with the right zipcode" do
+            expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:zipcode).uniq).to eq ["33126"]
+          end
+        end
+
+        context "when zipcode is given and there is no result" do
+          before { get "/api/v1/companies", params: { zipcode: "33000" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns no company" do
+            expect(parsed_body).to be_empty
+          end
+        end
+      end
+
+      describe "country parameter" do
+        context "when country is given and there are results" do
+          before { get "/api/v1/companies", params: { country: "France" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns a collection of companies with the right country" do
+            expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:country).uniq).to eq ["France"]
+          end
+        end
+
+        context "when country is given and there is no result" do
+          before { get "/api/v1/companies", params: { country: "Belgium" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns no company" do
+            expect(parsed_body).to be_empty
+          end
+        end
+      end
     end
   end
 end
