@@ -106,11 +106,11 @@ RSpec.configure do |config|
       FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
     end
 
-    FactoryBot.create :company, :reindex, name: "totali", quality: "branch"
-    FactoryBot.create :company, :reindex, name: "tube metal"
+    FactoryBot.create :company, :reindex, name: "totali", quality: "branch", activity_code: "6201Z"
+    FactoryBot.create :company, :reindex, name: "tube metal", activity_code: "6201Z"
     FactoryBot.create :company, :reindex, name: "total"
     FactoryBot.create :company, :reindex, name: "edf"
-    FactoryBot.create :company, :reindex, name: "motal"
+    FactoryBot.create :company, :reindex, name: "motal", activity_code: "6201Z"
 
     # and disable callbacks
     Searchkick.disable_callbacks
