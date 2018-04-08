@@ -188,25 +188,25 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
       describe "pagination" do
         context "without pagination parameter" do
           before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
-          
+
           it { expect(response).to be_success }
-          
+
           it "returns a collection of companies" do
             expect(parsed_body.map { |body| body["name"] }).to eq ["total", "motal"]
           end
         end
-        
+
         context "with pagination parameters" do
           it "returns the asked page" do
             get "/api/v1/companies", params: { q: "company", page: 1 }, headers: authentication_header
             first_page = parsed_body.map { |body| body["name"] }
-            
+
             get "/api/v1/companies", params: { q: "company", page: 2 }, headers: authentication_header
             second_page = parsed_body.map { |body| body["name"] }
-            
+
             expect(first_page & second_page).to be_empty
           end
-          
+
           it "returns the asked quantity" do
             get "/api/v1/companies", params: { q: "company", per_page: 5 }, headers: authentication_header
             expect(parsed_body.count).to eq(5)
@@ -229,138 +229,100 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
       describe "quality parameter" do
         context "without quality" do
           before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
-          
+
           it { expect(response).to be_success }
-          
+
+          it { expect(parsed_body).not_to be_empty }
+
           it "returns a collection of headquarters" do
             expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
           end
         end
-        
+
         context "with 'headquarter' as quality" do
           before { get "/api/v1/companies", params: { q: "total", quality: "headquarter" }, headers: authentication_header }
-          
+
           it { expect(response).to be_success }
-          
+
+          it { expect(parsed_body).not_to be_empty }
+
           it "returns a collection of headquarters" do
             expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
           end
         end
-        
+
         context "with 'branch' as quality" do
           before { get "/api/v1/companies", params: { q: "total", quality: "branch" }, headers: authentication_header }
-          
+
           it { expect(response).to be_success }
-          
+
+          it { expect(parsed_body).not_to be_empty }
+
           it "returns a collection of branches" do
             expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["branch"]
           end
         end
-        
+
         context "with 'all' as quality" do
           before { get "/api/v1/companies", params: { q: "total", quality: "all" }, headers: authentication_header }
-          
+
           it { expect(response).to be_success }
-          
+
+          it { expect(parsed_body).not_to be_empty }
+
           it "returns a collection of headquarters and branches" do
             expect(parsed_body.map { |body| body["quality"] }.uniq.sort).to eq ["branch", "headquarter"]
           end
         end
-        
+
         context "with something else as quality" do
           before { get "/api/v1/companies", params: { q: "total", quality: "something" }, headers: authentication_header }
-          
+
           it { expect(response).to have_http_status :bad_request }
         end
       end
 
-      describe "activity_code parameter" do
-        context "when activity_code is given and there are results" do
-          before { get "/api/v1/companies", params: { activity_code: "6201Z" }, headers: authentication_header }
+      [
+        {
+          name: :activity_code,
+          valid: "6201Z",
+          invalid: "6201Y"
+        },
+        {
+          name: :city,
+          valid: "Fronsac",
+          invalid: "Bordeaux"
+        },
+        {
+          name: :zipcode,
+          valid: "33126",
+          invalid: "33000"
+        },
+        {
+          name: :country,
+          valid: "France",
+          invalid: "India"
+        }
+      ].each do |filter|
+        describe "#{filter[:name]} parameter" do
+          context "when #{filter[:name]} is given and there are results" do
+            before { get "/api/v1/companies", params: { "#{filter[:name]}": filter[:valid] }, headers: authentication_header }
 
-          it { expect(response).to be_success }
+            it { expect(response).to be_success }
 
-          it "returns a collection of companies with the right activity" do
-            expect(parsed_body.map { |body| body["name"] }).to eq ["tube metal", "motal"]
-            expect(parsed_body.map { |body| body["activity"] }.uniq).to eq ["Programmation informatique"]
+            it { expect(parsed_body).not_to be_empty }
+
+            it "returns a collection of companies with the right #{filter[:name]}" do
+              expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(filter[:name]).uniq).to eq [filter[:valid]]
+            end
           end
-        end
 
-        context "when activity_code is given and there is no result" do
-          before { get "/api/v1/companies", params: { quality: "all", activity_code: "6201Y" }, headers: authentication_header }
+          context "when #{filter[:name]} is given and there is no result" do
+            before { get "/api/v1/companies", params: { "#{filter[:name]}": filter[:invalid] }, headers: authentication_header }
 
-          it { expect(response).to be_success }
+            it { expect(response).to be_success }
 
-          it "returns no company" do
-            expect(parsed_body).to be_empty
-          end
-        end
-      end
-
-      describe "city parameter" do
-        context "when city is given and there are results" do
-          before { get "/api/v1/companies", params: { city: "Fronsac" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns a collection of companies with the right city" do
-            expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:city).uniq).to eq ["Fronsac"]
-          end
-        end
-
-        context "when city is given and there is no result" do
-          before { get "/api/v1/companies", params: { city: "Bordeaux" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns no company" do
-            expect(parsed_body).to be_empty
-          end
-        end
-      end
-
-      describe "zipcode parameter" do
-        context "when zipcode is given and there are results" do
-          before { get "/api/v1/companies", params: { zipcode: "33126" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it { expect(parsed_body).not_to be_empty }          
-
-          it "returns a collection of companies with the right zipcode" do
-            expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:zipcode).uniq).to eq ["33126"]
-          end
-        end
-
-        context "when zipcode is given and there is no result" do
-          before { get "/api/v1/companies", params: { zipcode: "33000" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns no company" do
-            expect(parsed_body).to be_empty
-          end
-        end
-      end
-
-      describe "country parameter" do
-        context "when country is given and there are results" do
-          before { get "/api/v1/companies", params: { country: "France" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns a collection of companies with the right country" do
-            expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(:country).uniq).to eq ["France"]
-          end
-        end
-
-        context "when country is given and there is no result" do
-          before { get "/api/v1/companies", params: { country: "Belgium" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns no company" do
-            expect(parsed_body).to be_empty
+            it { expect(parsed_body).to be_empty }
           end
         end
       end
