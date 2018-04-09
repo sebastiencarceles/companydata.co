@@ -1,4 +1,4 @@
-class CommandsController < ActionController::API
+class Api::V1::CommandsController < ActionController::API
   def create
     return render json: {}, status: 403 unless valid_slack_token?
     pp params    
