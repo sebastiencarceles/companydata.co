@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   
   get "renew_api_key", to: "users#renew"
   
-  resources :companies, only: [:show, :index]
+  post "commands", to: "commands#create"
+
+  resources :companies, only: [:show, :index]  
 
   namespace :api do
     namespace :v1 do
