@@ -67,7 +67,7 @@ gem "simple_form"
 gem "sendgrid-ruby"
 
 # Bugs
-gem "airbrake"
+gem "airbrake", "~> 7.2"
 
 # Translations
 gem "i18n-tasks", "~> 0.9.20"

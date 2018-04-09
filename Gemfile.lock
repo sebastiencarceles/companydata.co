@@ -385,7 +385,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   activerecord-import
-  airbrake
+  airbrake (~> 7.2)
   byebug
   capybara (~> 2.15.1)
   chromedriver-helper
