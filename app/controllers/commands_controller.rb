@@ -1,7 +1,7 @@
 class CommandsController < ApplicationController
   def create
     return render json: {}, status: 403 unless valid_slack_token?
-    
+    pp params    
     render json: { response_type: "ephemeral" }, status: :created
   end
 
