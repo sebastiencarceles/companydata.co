@@ -28,11 +28,11 @@ class Api::V1::CompaniesController < ApiController
     quality = params[:quality] || "headquarter"
     render(json: [], status: :bad_request) && (return) unless quality.in?(Company::QUALITIES + ["all"])
 
-    where = quality == "all" ? {} : { quality: quality }
-    where = where.merge(activity_code: params[:activity_code]) if params[:activity_code].present?
-    where = where.merge(city: params[:city]) if params[:city].present?
-    where = where.merge(zipcode: params[:zipcode]) if params[:zipcode].present?
-    where = where.merge(country: params[:country]) if params[:country].present?
+    where = quality == "all" ? {} : { quality: quality.downcase }
+    where = where.merge(activity_code: params[:activity_code].downcase) if params[:activity_code].present?
+    where = where.merge(city: params[:city].downcase) if params[:city].present?
+    where = where.merge(zipcode: params[:zipcode].downcase) if params[:zipcode].present?
+    where = where.merge(country: params[:country].downcase) if params[:country].present?
 
     scope = if query
       Company.search(query, fields: [:smooth_name], match: :word_start, where: where, page: page, per_page: per_page)

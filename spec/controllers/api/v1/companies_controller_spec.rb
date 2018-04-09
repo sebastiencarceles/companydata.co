@@ -285,13 +285,13 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
       [
         {
           name: :activity_code,
-          valid: "6201Z",
-          invalid: "6201Y"
+          valid: "6201z",
+          invalid: "6201y"
         },
         {
           name: :city,
-          valid: "Fronsac",
-          invalid: "Bordeaux"
+          valid: "fronsac",
+          invalid: "bordeaux"
         },
         {
           name: :zipcode,
@@ -300,8 +300,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         },
         {
           name: :country,
-          valid: "France",
-          invalid: "India"
+          valid: "france",
+          invalid: "india"
         }
       ].each do |filter|
         describe "#{filter[:name]} parameter" do
@@ -313,7 +313,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
             it { expect(parsed_body).not_to be_empty }
 
             it "returns a collection of companies with the right #{filter[:name]}" do
-              expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(filter[:name]).uniq).to eq [filter[:valid]]
+              expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(filter[:name]).uniq.first.downcase).to eq filter[:valid]
             end
           end
 

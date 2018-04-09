@@ -23,11 +23,11 @@ class Company < ApplicationRecord
     {
       smooth_name: smooth_name,
       name: name,
-      quality: quality,
-      activity_code: activity_code,
-      zipcode: zipcode,
-      city: city,
-      country: country
+      quality: quality&.downcase,
+      activity_code: activity_code&.downcase,
+      zipcode: zipcode&.downcase,
+      city: city&.downcase,
+      country: country&.downcase
     }
   end
 
