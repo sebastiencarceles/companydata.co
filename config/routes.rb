@@ -6,10 +6,8 @@ Rails.application.routes.draw do
   
   get "renew_api_key", to: "users#renew"
   
-  post "commands", to: "commands#create"
-
   resources :companies, only: [:show, :index]  
-
+  
   namespace :api do
     namespace :v1 do
       get "ping" => "table_tennis#ping"
@@ -21,6 +19,7 @@ Rails.application.routes.draw do
           get "/:registration_2", to: "companies#show_by_registration_numbers"
         end
       end
+      resources :commands, only: :create
     end
   end
 end
