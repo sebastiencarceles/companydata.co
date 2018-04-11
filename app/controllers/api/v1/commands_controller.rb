@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Api::V1::CommandsController < ActionController::API
   def create
     return render json: {}, status: 403 unless valid_slack_token?
-    pp params    
+    pp params
     render json: { response_type: "ephemeral" }, status: :created
   end
 

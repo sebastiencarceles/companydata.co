@@ -12,6 +12,7 @@ FactoryBot.define do
     staff "1-10 employees"
     presentation Faker::Lorem.paragraphs
     country "France"
+    country_code "FR"
     quality "headquarter"
 
     # Note: This should be the last trait in the list so `reindex` is called after all the other callbacks complete.
@@ -51,6 +52,7 @@ FactoryBot.define do
     quality "headquarter"
     revenue "1 to 5 billions USD"
     country "France"
+    country_code "FR"
     civility Faker::Name.prefix
     first_name Faker::Name.first_name
     last_name Faker::Name.last_name

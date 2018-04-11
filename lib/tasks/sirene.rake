@@ -131,6 +131,7 @@ namespace :sirene do
         staff: row["LIBTEFEN"],
         founded_at: row["DCREN"].nil? ? nil : (Date.parse(row["DCREN"]) rescue nil),
         country: "France",
+        country_code: "FR",
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret",
         civility: civility(row["CIVILITE"]),
         first_name: row["PRENOM"],
@@ -138,6 +139,10 @@ namespace :sirene do
         email: row["ADR_MAIL"],
         phone: row["TEL"]
       }
+
+      if row["L7_NORMALISEE"].present? && row["L7_NORMALISEE"] != "FRANCE"
+        Airbrake.notify("New country to manage: #{row["L7_NORMALISEE"]}")
+      end
     end
 
     def civility(value)

@@ -50,4 +50,17 @@ namespace :companies do
     end
     Rails.logger.info "Done"
   end
+
+  task country_codes: :environment do
+    Rails.logger.info "Populate country codes"
+    scope = Company.where(country: "France", country_code: nil)
+    count = scope.count
+    counter = 1
+    scope.find_each do |company|
+      Rails.logger.info "#{counter} / #{count}"
+      company.update_columns(country_code: "FR")
+      counter += 1
+    end
+    Rails.logger.info "Done"
+  end
 end

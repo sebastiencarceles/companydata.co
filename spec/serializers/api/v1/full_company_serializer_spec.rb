@@ -41,6 +41,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["linkedin"]).not_to be_nil }
   it { expect(subject["twitter"]).not_to be_nil }
   it { expect(subject["crunchbase"]).not_to be_nil }
+  it { expect(subject["country_code"]).not_to be_nil }
   it { expect(subject["financial_years"]).not_to be_nil }
   it { expect(subject["financial_years"][0]["year"]).not_to be_nil }
   it { expect(subject["financial_years"][0]["currency"]).not_to be_nil }
@@ -79,6 +80,7 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["linkedin"]).to eql(@company.linkedin) }
   it { expect(subject["twitter"]).to eql(@company.twitter) }
   it { expect(subject["crunchbase"]).to eql(@company.crunchbase) }
+  it { expect(subject["country_code"]).to eql(@company.country_code) }
   it { expect(subject["financial_years"].length).to eq(@company.financial_years.count) }
   it { expect(subject["financial_years"][0]["year"]).to eql(@company.financial_years.first.year) }
   it { expect(subject["financial_years"][0]["currency"]).to eql(@company.financial_years.first.currency) }

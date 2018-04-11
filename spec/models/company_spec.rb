@@ -7,6 +7,8 @@ RSpec.describe Company, type: :model do
   it { should have_one(:vat) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:slug) }
+  it { should validate_presence_of(:country) }
+  it { should validate_presence_of(:country_code) }
   it { should validate_uniqueness_of(:slug) }
   it { should validate_inclusion_of(:quality).in_array(Company::QUALITIES).allow_blank(true) }
   it { should callback(:set_slug).before(:validation).if(:name?).unless(:slug?) }

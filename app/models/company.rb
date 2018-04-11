@@ -8,7 +8,7 @@ class Company < ApplicationRecord
   has_many :financial_years, -> { order(year: :desc) }, dependent: :destroy
   has_one :vat, dependent: :destroy
 
-  validates_presence_of :name, :slug
+  validates_presence_of :name, :slug, :country, :country_code
   validates_uniqueness_of :slug
   validates_inclusion_of :quality, in: QUALITIES, allow_blank: true
 
