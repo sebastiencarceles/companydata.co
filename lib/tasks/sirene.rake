@@ -101,6 +101,7 @@ namespace :sirene do
         attributes = base_attributes_from(row)
         if company
           Rails.logger.info "Update company #{company.id}"
+          pp attributes
           company.update!(attributes)
         else
           Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
@@ -110,6 +111,10 @@ namespace :sirene do
     end
 
     def base_attributes_from(row)
+      if row["L7_NORMALISEE"].present? && row["L7_NORMALISEE"] != "FRANCE"
+        Airbrake.notify("New country to manage: #{row["L7_NORMALISEE"]}")
+      end
+
       {
         registration_1: row["SIREN"],
         registration_2: row["NIC"],
@@ -139,10 +144,6 @@ namespace :sirene do
         email: row["ADR_MAIL"],
         phone: row["TEL"]
       }
-
-      if row["L7_NORMALISEE"].present? && row["L7_NORMALISEE"] != "FRANCE"
-        Airbrake.notify("New country to manage: #{row["L7_NORMALISEE"]}")
-      end
     end
 
     def civility(value)
