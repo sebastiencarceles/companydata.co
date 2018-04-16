@@ -20,8 +20,6 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :revenue,
     :vat_number,
     :prefix,
-    :first_name,
-    :last_name,
     :email,
     :phone,
     :website,

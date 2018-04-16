@@ -32,8 +32,6 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["vat_number"]).not_to be_nil }
   it { expect(subject["revenue"]).not_to be_nil }
   it { expect(subject["prefix"]).not_to be_nil }
-  it { expect(subject["first_name"]).not_to be_nil }
-  it { expect(subject["last_name"]).not_to be_nil }
   it { expect(subject["email"]).not_to be_nil }
   it { expect(subject["phone"]).not_to be_nil }
   it { expect(subject["website"]).not_to be_nil }
@@ -71,8 +69,6 @@ RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(subject["vat_number"]).to eql(@company.vat_number) }
   it { expect(subject["revenue"]).to eql(@company.revenue) }
   it { expect(subject["prefix"]).to eql(@company.civility) }
-  it { expect(subject["first_name"]).to eql(@company.first_name) }
-  it { expect(subject["last_name"]).to eql(@company.last_name) }
   it { expect(subject["email"]).to eql(@company.email) }
   it { expect(subject["phone"]).to eql(@company.phone) }
   it { expect(subject["website"]).to eql(@company.website) }

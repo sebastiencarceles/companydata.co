@@ -4,12 +4,6 @@
   </div>
   <div class="card-body">
     <table class="table table-sm font-size-small">
-      <% if contact_full_name(@company).present? %>
-        <tr>
-          <td><strong><%= t("companies.contact.full_name") %></strong></td>
-          <td><%= contact_full_name(@company) %></td>
-        </tr>
-      <% end %>
       <% if @company.email.present? %>
         <tr>
           <td><strong><%= t("companies.contact.email") %></strong></td>
