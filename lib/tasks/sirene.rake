@@ -98,10 +98,18 @@ namespace :sirene do
       Rails.logger.info "Update companies from #{source}"
       CSV.foreach(source, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
         company = Company.where(registration_1: row["SIREN"], registration_2: row["NIC"]).first
+
+        if closed?(row)
+          if company
+            Rails.logger.info "Company #{company.registration_1} #{company.registration_2} is closed, destroy it"
+            company.destroy!
+          end
+          next
+        end
+
         attributes = base_attributes_from(row)
         if company
           Rails.logger.info "Update company #{company.id}"
-          pp attributes
           company.update!(attributes)
         else
           Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
@@ -144,6 +152,10 @@ namespace :sirene do
         email: row["ADR_MAIL"],
         phone: row["TEL"]
       }
+    end
+
+    def closed?(row)
+      row["VMAJ"] == "E"
     end
 
     def civility(value)
