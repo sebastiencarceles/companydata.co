@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  searchkick word_start: [:smooth_name], filterable: [:quality, :activity_code, :city, :zipcode, :country]
+  searchkick word_start: [:smooth_name], filterable: [:quality, :activity_code, :city, :zipcode, :country, :country_code]
 
   QUALITIES = %w[headquarter branch]
 
@@ -27,7 +27,8 @@ class Company < ApplicationRecord
       activity_code: activity_code&.downcase,
       zipcode: zipcode&.downcase,
       city: city&.downcase,
-      country: country&.downcase
+      country: country&.downcase,
+      country_code: country_code&.downcase
     }
   end
 

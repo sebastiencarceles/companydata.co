@@ -119,10 +119,7 @@ namespace :sirene do
     end
 
     def base_attributes_from(row)
-      if row["L7_NORMALISEE"].present? && row["L7_NORMALISEE"] != "FRANCE"
-        Airbrake.notify("New country to manage: #{row["L7_NORMALISEE"]}")
-      end
-
+      country, country_code = get_country(row)
       {
         registration_1: row["SIREN"],
         registration_2: row["NIC"],
@@ -143,8 +140,8 @@ namespace :sirene do
         legal_form: row["LIBNJ"],
         staff: row["LIBTEFEN"],
         founded_at: row["DCREN"].nil? ? nil : (Date.parse(row["DCREN"]) rescue nil),
-        country: "France",
-        country_code: "FR",
+        country: country,
+        country_code: country_code,
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret",
         civility: civility(row["CIVILITE"]),
         first_name: row["PRENOM"],
@@ -166,6 +163,81 @@ namespace :sirene do
         "Madame"
       else
         nil
+      end
+    end
+
+    def get_country(row)
+      return "France", "FR" if row["L7_NORMALISEE"].blank?
+
+      case row["L7_NORMALISEE"]
+      when "ALGERIE"
+        ["Algeria", "DZ"]
+      when "ALLEMAGNE"
+        ["Germany", "DE"]
+      when "BELGIQUE"
+        ["Belgium", "BE"]
+      when "CHINE"
+        ["China", "CN"]
+      when "CHYPRE"
+        ["Cyprus", "CY"]
+      when "COTE D'IVOIRE"
+        ["Côte d'Ivoire", "CI"]
+      when "DANEMARK"
+        ["Denmark", "DK"]
+      when "ESPAGNE"
+        ["Spain", "ES"]
+      when "ETATS-UNIS"
+        ["United States", "US"]
+      when "FINLANDE"
+        ["Finland", "FI"]
+      when "FRANCE"
+        ["France", "FR"]
+      when "ILES BAHREIN"
+        ["Bahrain", "BH"]
+      when "ILES MAURICE"
+        ["Mauritius", "MU"]
+      when "IRLANDE"
+        ["Ireland", "IE"]
+      when "ISRAEL"
+        ["Israel", "IL"]
+      when "ITALIE"
+        ["Italy", "IT"]
+      when "LIECHTENSTEIN"
+        ["Liechtenstein", "LI"]
+      when "LUXEMBOURG"
+        ["Luxembourg", "LU"]
+      when "MALTE"
+        ["Malta", "MT"]
+      when "MONACO"
+        ["Monaco", "MC"]
+      when "NORVEGE"
+        ["Norway", "NO"]
+      when "PAYS BAS"
+        ["Netherlands", "NL"]
+      when "POLOGNE"
+        ["Poland", "PL"]
+      when "PORTUGAL"
+        ["Portugal", "PT"]
+      when "REPUBLIQUE TCHEQUE"
+        ["Czech Republic", "CZ"]
+      when "ROUMANIE"
+        ["Romania", "RO"]
+      when "ROYAUME-UNI"
+        ["United Kingdom", "GB"]
+      when "SLOVAQUIE"
+        ["Slovakia", "SK"]
+      when "SUEDE"
+        ["Sweden", "SE"]
+      when "SUISSE"
+        ["Switzerland", "CH"]
+      when "VIET NAM"
+        ["Viet Nam", "VN"]
+      when "TERRITOIRE DU ROYAUME UNI ANTILLES"
+        Airbrake.notify("West Indies: #{row}")        
+        ["France", "FR"]
+      else
+        Airbrake.notify("New country to manage: #{row["L7_NORMALISEE"]}")
+        ["France", "FR"]
       end
     end
 end
