@@ -174,6 +174,8 @@ namespace :sirene do
         ["Algeria", "DZ"]
       when "ALLEMAGNE"
         ["Germany", "DE"]
+      when "AUTRICHE"
+        ["Austria", "AT"]
       when "BELGIQUE"
         ["Belgium", "BE"]
       when "CHINE"
