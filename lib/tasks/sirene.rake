@@ -323,6 +323,7 @@ namespace :sirene do
       when "ILES BAHREIN"
         ["Bahrain", "BH"]
       when "ILES MARSHALL"
+        ["Marshall Islands", "MH"]        
       when "ILES MAURICE"
         ["Mauritius", "MU"]
       when "INDE"
