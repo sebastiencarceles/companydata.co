@@ -148,7 +148,7 @@ namespace :sirene do
         attributes = base_attributes_from(row)
         if company
           Rails.logger.info "Update company #{company.id}"
-          company.update!(attributes)
+          company.update!(attributes) if attributes[:country_code] != "FR" # TODO remove this
         else
           Rails.logger.info "Create missing company #{row["SIREN"]} #{row["NIC"]}"
           Company.create!(attributes)
