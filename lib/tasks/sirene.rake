@@ -480,17 +480,12 @@ namespace :sirene do
         ["Yemen", "YE"]
       when "", " "
         ["France", "FR"]        
-      when "ANTILLES NEERLANDAISES"
-        Airbrake.notify("Antilles neerlandaises: #{row}")        
-        ["France", "FR"]
-      when "POSSESSIONS DES ETATS UNIS D'AMERIQ"
-        Airbrake.notify("US Possessions: #{row}")        
-        ["France", "FR"]
-      when "TERRITOIRE DU ROYAUME UNI ANTILLES"
-        Airbrake.notify("West Indies: #{row}")        
-        ["France", "FR"]
       else
-        Airbrake.notify("New country to manage: #{row["L7_NORMALISEE"]}")
+        begin
+          raise "#{row["L7_NORMALISEE"]}: #{row}"
+        rescue Exception => e
+          Bugsnag.notify(e)
+        end
         ["France", "FR"]
       end
     end

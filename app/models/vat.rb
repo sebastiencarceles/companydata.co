@@ -29,7 +29,7 @@ class Vat < ApplicationRecord
 
     rescue Savon::SOAPFault => error
       Rails.logger.error error.to_hash
-      Airbrake.notify(error)
+      Bugsnag.notify(error)
   end
 
   private
