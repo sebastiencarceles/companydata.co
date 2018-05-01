@@ -1,0 +1,2 @@
+class KboCode < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class KboEstablishment < ApplicationRecord
+end

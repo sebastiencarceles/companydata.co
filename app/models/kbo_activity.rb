@@ -1,0 +1,2 @@
+class KboActivity < ApplicationRecord
+end

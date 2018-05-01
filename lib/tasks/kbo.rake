@@ -15,10 +15,13 @@ namespace :kbo do
       end
     end
 
-    codes = load_codes
-    import_enterprises(codes)
-    import_establishements
-    import_names
+    import_codes
+    import_enterprises
+    import_establishments
+    import_denominations
+    import_addresses
+    import_activities
+    import_contacts
 
     unziped_files.each do |filename|
       Rails.logger.info "Delete file #{filename}"
@@ -28,83 +31,90 @@ namespace :kbo do
 
   private
 
-    def import_enterprises(codes)
-      count = 0
-      CSV.foreach("enterprise.csv", headers: true) do |row|
-        count += 1
-
-        registration_1 = row["EnterpriseNumber"]
-        next if Company.where(registration_1: registration_1).exists?
-
-        legal_form = case row["TypeOfEnterprise"]
-        when "1"
-          "Personne physique"
-        when "2"
-          codes["JuridicalForm"][row["JuridicalForm"]]
-        end
-        founded_at = Date.strptime(row["StartDate"], "%d-%m-%Y")
-        company = Company.new(registration_1: registration_1, legal_form: legal_form, founded_at: founded_at)
-        Rails.logger.info "#{count}/ Create company: #{registration_1} of legal form #{legal_form}, founded at #{founded_at}"
-        company.save(validate: false)
+    def import_codes
+      Rails.logger.info "Import codes"
+      CSV.foreach("code.csv", headers: true) do |row|
+        KboCode.find_or_create_by!(
+          category: row["Category"],
+          code: row["Code"],
+          language: row["Language"],
+          description: row["Description"]
+        )
       end
     end
 
-    def import_establishements
-      count = 0
+    def import_enterprises
+      Rails.logger.info "Import enterprises"
+      CSV.foreach("enterprise.csv", headers: true) do |row|
+        KboEnterprise.find_or_create_by!(
+          enterprise_number: row["EnterpriseNumber"],
+          type_of_enterprise: row["TypeOfEnterprise"],
+          juridical_form: row["JuridicalForm"],
+          start_date: row["StartDate"]
+        )
+      end
+    end
+
+    def import_establishments
+      Rails.logger.info "Import establishments"
       CSV.foreach("establishment.csv", headers: true) do |row|
-        count += 1
-
-        registration_1 = row["EnterpriseNumber"]
-        registration_2 = row["EstablishmentNumber"]
-        next if Company.where(registration_1: registration_1, registration_2: registration_2).exists?
-
-        founded_at = Date.strptime(row["StartDate"], "%d-%m-%Y")
-        company = Company.where(registration_1: registration_1, registration_2: nil)
-        if company
-          company.registration_2 = registration_2
-          fail "compare the dates: #{founded_at} VS #{company.founded_at}" unless founded_at == company.founded_at
-          Rails.logger.info "#{count}/ Update company: #{registration_1} with registration 2: #{registration_2}"
-        else
-          legal_form = Company.where(registration_1: registration_1).pluck(:legal_form).first
-          company = Company.new(registration_1: registration_1, registration_2: registration_2, founded_at: founded_at, legal_form: legal_form)
-          Rails.logger.info "#{count}/ Create company: #{registration_1} of legal form #{legal_form}, founded at #{founded_at}"
-        end
-        company.save(validate: false)
+        KboEstablishment.find_or_create_by!(
+          enterprise_number: row["EnterpriseNumber"],
+          establishment_number: row["EstablishmentNumber"],
+          start_date: row["StartDate"]
+        )
       end      
     end
 
-    def import_names
-      count = 0
+    def import_denominations
       CSV.foreach("denomination.csv", headers: true) do |row|
-        count += 1
-
-        entity_number = row["EntityNumber"]
-        case entity_number.length
-        when 12
-          registration_1 = entity_number
-          
-        when 14
-          registration_2 = entity_number
-        else
-          fail "unknown entity number format: #{entity_number}"
-        end
-
+        KboDenomination.find_or_create_by!(
+          entity_number: row["EntityNumber"],
+          language: row["Language"],
+          type_of_denomination: row["TypeOfDenomination"],
+          denomination: row["Denomination"]
+        )
       end
     end
 
-    def load_codes
-      codes = Hash.new
-      CSV.foreach("code.csv", headers: true) do |row|
-        next unless row["Language"] == "FR"
-        
-        category = row["Category"]
-        value = row["Code"]
-        description = row["Description"]
-        
-        codes[category] = Hash.new unless codes.has_key?(category)
-        codes[category][value] = description
+    def import_addresses
+      CSV.foreach("address.csv", headers: true) do |row|
+        KboAddress.find_or_create_by!(
+          entity_number: row["EntityNumber"],
+          type_of_address: row["TypeOfAddress"],
+          country: row["CountryFR"],
+          zipcode: row["Zipcode"],
+          municipality: row["MunicipalityFR"],
+          street: row["StreetFR"],
+          house_number: row["HouseNumber"],
+          box: row["Box"],
+          extra_address_info: row["ExtraAddressInfo"],
+          date_striking_off: row["DateStrikingOff"]
+        )
       end
-      codes
+    end
+
+    def import_activities
+      CSV.foreach("activity.csv", headers: true) do |row|
+        KboActivity.find_or_create_by!(
+          entity_number: row["EntityNumber"],
+          activity_group: row["ActivityGroup"],
+          nace_version: row["NaceVersion"],
+          nace_code: row["NaceCode"],
+          classification: row["Classification"]
+        )
+      end
+    end
+    
+    def import_contacts
+      CSV.foreach("contact.csv", headers: true) do |row|
+        KboContact.find_or_create_by!(
+          entity_number: row["EntityNumber"],
+          entity_contact: row["EntityContact"],
+          contact_type: row["ContactType"],
+          value: row["Value"]
+        )
+      end
     end
 
     def download_zipped_source(filename)

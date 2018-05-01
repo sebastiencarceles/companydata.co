@@ -1,0 +1,2 @@
+class KboEnterprise < ApplicationRecord
+end

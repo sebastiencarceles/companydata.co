@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410160732) do
+ActiveRecord::Schema.define(version: 20180501155759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "codes", force: :cascade do |t|
+    t.string "category"
+    t.string "code"
+    t.string "language"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"
@@ -80,6 +89,75 @@ ActiveRecord::Schema.define(version: 20180410160732) do
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_financial_years_on_company_id"
     t.index ["year", "closing_date"], name: "index_financial_years_on_year_and_closing_date"
+  end
+
+  create_table "kbo_activities", force: :cascade do |t|
+    t.string "entity_number"
+    t.string "activity_group"
+    t.string "nace_version"
+    t.string "nace_code"
+    t.string "classification"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kbo_addresses", force: :cascade do |t|
+    t.string "entity_number"
+    t.string "type_of_address"
+    t.string "country"
+    t.string "zipcode"
+    t.string "municipality"
+    t.string "street"
+    t.string "house_number"
+    t.string "box"
+    t.string "extra_address_info"
+    t.string "date_striking_off"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kbo_codes", force: :cascade do |t|
+    t.string "category"
+    t.string "code"
+    t.string "language"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kbo_contacts", force: :cascade do |t|
+    t.string "entity_number"
+    t.string "entity_contact"
+    t.string "contact_type"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kbo_denominations", force: :cascade do |t|
+    t.string "entity_number"
+    t.string "language"
+    t.string "type_of_denomination"
+    t.string "denomination"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kbo_enterprises", force: :cascade do |t|
+    t.string "enterprise_number"
+    t.string "type_of_enterprise"
+    t.string "juridical_form"
+    t.string "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kbo_establishments", force: :cascade do |t|
+    t.string "enterprise_number"
+    t.string "establishment_number"
+    t.string "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "usages", force: :cascade do |t|

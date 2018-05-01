@@ -1,0 +1,2 @@
+class KboAddress < ApplicationRecord
+end
