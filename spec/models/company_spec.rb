@@ -99,23 +99,28 @@ RSpec.describe Company, type: :model do
   end
 
   describe "#set_vat!" do
-    let(:company) { build :company, country: "France", registration_1: "123456789" }
+    context "when the country is France" do
+      let(:company) { build :company, country: "France", country_code: "FR", registration_1: "123456789" }
 
-    it "creates a Vat with when country is France" do
-      expect { company.save! }.to change { Vat.count }.by(1)
-      expect(company.vat.id).to eq(Vat.last.id)
-    end
-
-    describe "created Vat" do
-      before { company.save! }
-
-      it "has the correct country code" do
+      it "creates a Vat with the correct country code" do
+        expect { company.save! }.to change { Vat.count }.by(1)
+        expect(company.vat.id).to eq(Vat.last.id)
         expect(company.vat.country_code).to eq("FR")
       end
     end
 
-    it "does not create a Vat when country is not France" do
-      company.country = "Belgium"
+    context "when the country is Belgium" do
+      let(:company) { build :company, country: "Belgium", country_code: "BE", registration_1: "123456789" }
+
+      it "creates a Vat with the correct country code" do
+        expect { company.save! }.to change { Vat.count }.by(1)
+        expect(company.vat.id).to eq(Vat.last.id)
+        expect(company.vat.country_code).to eq("BE")
+      end
+    end
+    
+    it "does not create a Vat otherwise" do
+      company = build :company, country: "Spain", country_code: "ES", registration_1: "123456789"
       expect { company.save! }.not_to change { Vat.count }
     end
   end

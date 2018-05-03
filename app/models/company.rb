@@ -109,6 +109,6 @@ class Company < ApplicationRecord
 
     def set_vat!
       return unless vat.nil?
-      create_vat!(country_code: "FR") if country == "France"
+      create_vat!(country_code: country_code) if country == "France" || country == "Belgium"
     end
 end
