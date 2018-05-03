@@ -100,6 +100,7 @@ namespace :kbo do
   end
 
   task create_companies: :environment do
+    batch = []
     KboAddress.where(date_striking_off: nil).find_each do |address|
       attributes = {}
       attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
@@ -150,8 +151,15 @@ namespace :kbo do
       attributes[:country] = country
       attributes[:country_code] = country_code
 
-      pp attributes
+      batch << Company.new(attributes)
+      if batch.count >= 10000
+        Company.import!(batch)
+        puts "Total companies in database: #{Company.count}"
+        batch.clear
+      end
     end
+    Company.import!(batch)
+    puts "Total companies in database: #{Company.count}"
   end
 
   private
