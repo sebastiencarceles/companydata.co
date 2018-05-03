@@ -643,11 +643,12 @@ namespace :kbo do
         ["Zambia", "ZM"]
       when "Zaïre (République du)"
         ["Democratic Republic of the Congo", "CD"]
-      when "Indéterminé", "pas encore définitivement établie", "Rayé pour l'étranger", "Yougoslavie", "Yougoslavie (Serbie-Montenegro)"
+      when "Pacifique/Iles du/", "Antilles françaises", "Antilles néerlandaises"
+        ["Curaçao", "CW"]
+      when "Indéterminé", "pas encore définitivement établie", "Rayé pour l'étranger", "Yougoslavie", "Yougoslavie (Serbie-Montenegro)", "Antilles américaines"
         ["Belgium", "BE"]
-      when "Pacifique/Iles du/", "Antilles américaines", "Antilles britanniques", "Antilles françaises", "Antilles néerlandaises"
-        pp address
-        fail address.country
+      when "Antilles britanniques"
+        ["British Virgin Islands", "VG"]
       else
         error(address, "unknown country #{address.country}")
       end
