@@ -100,7 +100,7 @@ namespace :kbo do
   end
 
   task create_companies: :environment do
-    KboAddress.offset(1500000).find_each do |address|
+    KboAddress.find_each do |address|
       attributes = {}
       attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
 
@@ -125,7 +125,7 @@ namespace :kbo do
       
       attributes[:name] = get_name(establishment)
       attributes[:name] ||= get_name(enterprise)
-      error(address, "unable to find a name") if attributes[:name].blank?
+      error(address, "unable to find a name") unless attributes[:name]
 
       attributes[:website] = get_website(establishment)
       attributes[:website] ||= get_website(enterprise)
@@ -138,8 +138,9 @@ namespace :kbo do
 
       attributes[:legal_form] = get_legal_form(address, enterprise)
 
-      
-      # t.string "activity_code"
+      attributes[:activity_code] = get_activity_code(establishment)
+      attributes[:activity_code] ||= get_activity_code(enterprise)
+
       # t.string "address_line_1"
       # t.string "address_line_2"
       # t.string "zipcode"
@@ -152,8 +153,6 @@ namespace :kbo do
       # t.string "address_line_4"
       # t.string "address_line_5"
       # t.string "cedex"
-      # t.string "revenue"
-      # t.string "smooth_name"
       # t.float "lat"
       # t.float "lng"
       # t.datetime "geolocalized_at"
@@ -231,6 +230,16 @@ namespace :kbo do
       else
         error(address, "unknown type of enterprise #{enterprise.type_of_enterprise}")
       end
+    end
+
+    def get_activity_code(entity)
+      return nil unless entity
+
+      activity = KboActivity.where(entity_number: entity.entity_number, nace_version: "2008", classification: "MAIN").first
+      activity ||= KboActivity.where(entity_number: entity.entity_number, nace_version: "2003", classification: "MAIN").first
+      return nil unless activity
+
+      "Nace#{activity.nace_version}-#{activity.nace_code}"
     end
 
     def error(address, message)
