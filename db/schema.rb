@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180501155759) do
+ActiveRecord::Schema.define(version: 20180503132004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20180501155759) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category", "code", "language"], name: "index_kbo_codes_on_category_and_code_and_language"
   end
 
   create_table "kbo_contacts", force: :cascade do |t|
@@ -132,6 +133,7 @@ ActiveRecord::Schema.define(version: 20180501155759) do
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["entity_number", "contact_type"], name: "index_kbo_contacts_on_entity_number_and_contact_type"
   end
 
   create_table "kbo_denominations", force: :cascade do |t|
@@ -141,6 +143,7 @@ ActiveRecord::Schema.define(version: 20180501155759) do
     t.string "denomination"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["entity_number", "language", "type_of_denomination"], name: "number_language_type"
   end
 
   create_table "kbo_enterprises", force: :cascade do |t|
