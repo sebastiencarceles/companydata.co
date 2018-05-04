@@ -126,7 +126,10 @@ namespace :kbo do
       
       attributes[:name] = get_name(establishment)
       attributes[:name] ||= get_name(enterprise)
-      error(address, "unable to find a name") unless attributes[:name]
+      unless attributes[:name]
+        Rails.logger.error("Unable to find a name for address #{address.id}")
+        next
+      end
 
       attributes[:website] = get_website(establishment)
       attributes[:website] ||= get_website(enterprise)
@@ -154,12 +157,11 @@ namespace :kbo do
       batch << Company.new(attributes)
       if batch.count >= 10000
         Company.import!(batch)
-        puts "Total companies in database: #{Company.count}"
         batch.clear
       end
     end
     Company.import!(batch)
-    puts "Total companies in database: #{Company.count}"
+    Rails.logger.info("Done")
   end
 
   private
