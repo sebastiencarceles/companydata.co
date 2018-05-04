@@ -11,9 +11,9 @@ RSpec.describe Company, type: :model do
   it { should validate_presence_of(:country_code) }
   it { should validate_uniqueness_of(:slug) }
   it { should validate_inclusion_of(:quality).in_array(Company::QUALITIES).allow_blank(true) }
-  it { should callback(:set_slug).before(:validation).if("name.present?").unless("slug.present?") }
-  it { should callback(:set_smooth_name).before(:validation).if("name.present?").unless("smooth_name.present?") }
-  it { should callback(:set_vat!).after(:create).if("country.present? && registration_1.present?") }
+  it { should callback(:set_slug).before(:validation).if(:should_set_slug?) }
+  it { should callback(:set_smooth_name).before(:validation).if(:should_set_smooth_name?) }
+  it { should callback(:set_vat!).after(:create).if(:should_set_vat?) }
   it { should delegate_method(:vat_number).to(:vat) }
 
   let(:registration_1) { "rego" }
