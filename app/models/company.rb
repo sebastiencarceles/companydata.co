@@ -12,9 +12,9 @@ class Company < ApplicationRecord
   validates_uniqueness_of :slug
   validates_inclusion_of :quality, in: QUALITIES, allow_blank: true
 
-  before_validation :set_slug, if: :name?, unless: :slug?
-  before_save :set_smooth_name, if: :name?, unless: :smooth_name?
-  after_create :set_vat!, if: :country? && :registration_1?
+  before_validation :set_slug, if: "name.present?", unless: "slug.present?"
+  before_validation :set_smooth_name, if: "name.present?", unless: "smooth_name.present?"
+  after_create :set_vat!, if: "country.present? && registration_1.present?"
 
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
@@ -91,8 +91,8 @@ class Company < ApplicationRecord
     ].reject(&:blank?)
   end
 
-  private
-
+  private   
+    
     def set_slug
       counter = 1
       slug = name.parameterize
@@ -102,7 +102,7 @@ class Company < ApplicationRecord
       end
       self.slug = slug
     end
-
+    
     def set_smooth_name
       self.smooth_name = name.gsub("*", " ").gsub("/", " ").titleize.strip
     end
