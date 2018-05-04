@@ -220,7 +220,7 @@ namespace :kbo do
         "Personne physique"
       when "2", "0"
         code = KboCode.where(category: "JuridicalForm", code: enterprise.juridical_form, language: "FR").first
-        error(address, "unable to find corresponding JuridicalForm #{enterprise.juridical_form} for FR") unless code
+        return nil unless code
         code.description
       else
         error(address, "unknown type of enterprise #{enterprise.type_of_enterprise}")
