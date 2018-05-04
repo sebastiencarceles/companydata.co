@@ -100,7 +100,6 @@ namespace :kbo do
   end
 
   task create_companies: :environment do
-    batch = []
     KboAddress.where(date_striking_off: nil).find_each do |address|
       attributes = {}
       attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
@@ -115,6 +114,13 @@ namespace :kbo do
         error(address, "unknown entity number format #{address.entity_number}")
       end
 
+      attributes[:name] = get_name(establishment)
+      attributes[:name] ||= get_name(enterprise)
+      if attributes[:name].blank?
+        Rails.logger.error("Unable to find a name for address #{address.id}")
+        next
+      end
+
       attributes[:founded_at] = get_founded_at(establishment)
       attributes[:founded_at] ||= get_founded_at(enterprise)
 
@@ -124,13 +130,6 @@ namespace :kbo do
 
       attributes[:quality] = get_quality(address)
       
-      attributes[:name] = get_name(establishment)
-      attributes[:name] ||= get_name(enterprise)
-      unless attributes[:name]
-        Rails.logger.error("Unable to find a name for address #{address.id}")
-        next
-      end
-
       attributes[:website] = get_website(establishment)
       attributes[:website] ||= get_website(enterprise)
 
@@ -154,13 +153,8 @@ namespace :kbo do
       attributes[:country] = country
       attributes[:country_code] = country_code
 
-      batch << Company.new(attributes)
-      if batch.count >= 10000
-        Company.import!(batch)
-        batch.clear
-      end
+      Company.find_or_create_by!(attributes)
     end
-    Company.import!(batch)
     Rails.logger.info("Done")
   end
 
