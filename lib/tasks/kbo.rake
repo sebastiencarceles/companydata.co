@@ -252,11 +252,14 @@ namespace :kbo do
     end
 
     def download_zipped_source(filename)
-      path = "db/raw/kbo/#{filename}.zip"
+      path_dir = "db/raw/kbo"
+      
+      path = File.join(path_dir, "#{filename}.zip")
       return path if File.exists?(path)
-
+      
       source = "https://s3.eu-west-3.amazonaws.com/companydata-production/belgium/#{filename}.zip"
       Rails.logger.info "Download #{source} into #{path}"
+      FileUtils.mkdir_p(path_dir)
       IO.copy_stream(open(source), path)
       return path
     end
