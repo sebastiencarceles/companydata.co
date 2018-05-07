@@ -12,6 +12,7 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :address,
     :founded_at,
     :country,
+    :country_code,
     :quality,
     :smooth_name,
     :headquarter_id,
