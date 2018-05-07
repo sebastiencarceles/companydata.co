@@ -14,7 +14,7 @@ class Company < ApplicationRecord
 
   before_validation :set_slug, if: :should_set_slug?
   before_validation :set_smooth_name, if: :should_set_smooth_name?
-  after_create :set_vat!, if: :should_set_vat?
+  after_save :set_vat!, if: :should_set_vat?
 
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
@@ -126,6 +126,6 @@ class Company < ApplicationRecord
     end
 
     def should_set_vat?
-      vat.nil? && country.present? && registration_1.present? && (country == "France" || country == "Belgium")
+      vat.nil? && country.present? && registration_1.present? && ["FR", "BE"].include?(country_code)
     end
 end

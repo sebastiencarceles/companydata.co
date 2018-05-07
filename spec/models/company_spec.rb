@@ -13,7 +13,7 @@ RSpec.describe Company, type: :model do
   it { should validate_inclusion_of(:quality).in_array(Company::QUALITIES).allow_blank(true) }
   it { should callback(:set_slug).before(:validation).if(:should_set_slug?) }
   it { should callback(:set_smooth_name).before(:validation).if(:should_set_smooth_name?) }
-  it { should callback(:set_vat!).after(:create).if(:should_set_vat?) }
+  it { should callback(:set_vat!).after(:save).if(:should_set_vat?) }
   it { should delegate_method(:vat_number).to(:vat) }
 
   let(:registration_1) { "rego" }

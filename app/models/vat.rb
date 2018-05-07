@@ -3,7 +3,7 @@
 class Vat < ApplicationRecord
   belongs_to :company
 
-  STATUSES = %w[waiting_for_validation valid invalid]
+  STATUSES = %w[waiting_for_validation valid invalid in_progress]
 
   before_validation :set_value, unless: :value?
 
@@ -15,7 +15,7 @@ class Vat < ApplicationRecord
   end
 
   def validate!
-    return unless status == "waiting_for_validation"
+    return unless status == "waiting_for_validation" || status == "in_progress"
 
     if value.blank?
       set_value

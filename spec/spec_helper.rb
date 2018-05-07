@@ -106,11 +106,11 @@ RSpec.configure do |config|
       FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
     end
 
-    FactoryBot.create :company, :reindex, name: "totali", quality: "branch", activity_code: "6201Z", zipcode: "12345", country: "United Kingdom", country_code: "uk"
-    FactoryBot.create :company, :reindex, name: "tube metal", activity_code: "6201Z", zipcode: "47000", country: "France", country_code: "fr"
-    FactoryBot.create :company, :reindex, name: "total", city: "Fronsac", zipcode: "33126", country: "France", country_code: "fr"
-    FactoryBot.create :company, :reindex, name: "edf", city: "Fronsac", zipcode: "33126", country: "France", country_code: "fr"
-    FactoryBot.create :company, :reindex, name: "motal", activity_code: "6201Z", city: "Agen", zipcode: "47000", country: "France", country_code: "fr"
+    FactoryBot.create :company, :reindex, name: "totali", quality: "branch", activity_code: "6201Z", zipcode: "12345", country: "United Kingdom", country_code: "UK"
+    FactoryBot.create :company, :reindex, name: "tube metal", activity_code: "6201Z", zipcode: "47000", country: "France", country_code: "FR"
+    FactoryBot.create :company, :reindex, name: "total", city: "Fronsac", zipcode: "33126", country: "France", country_code: "FR"
+    FactoryBot.create :company, :reindex, name: "edf", city: "Fronsac", zipcode: "33126", country: "France", country_code: "FR"
+    FactoryBot.create :company, :reindex, name: "motal", activity_code: "6201Z", city: "Agen", zipcode: "47000", country: "France", country_code: "FR"
 
     # and disable callbacks
     Searchkick.disable_callbacks

@@ -21,5 +21,13 @@ Rails.application.routes.draw do
       end
       resources :commands, only: :create
     end
+    
+    namespace :admin do
+      resources :vats do 
+        collection do
+          get "to_check", to: "vats#to_check"
+        end
+      end
+    end
   end
 end
