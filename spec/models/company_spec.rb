@@ -88,6 +88,12 @@ RSpec.describe Company, type: :model do
         expect(company_3.slug).to eq "virgin-1"
       end
     end
+
+    context "when a company has - as name" do
+      it "can't be created" do
+        expect(build(:company, name: "-").save).to eq false
+      end
+    end
   end
 
   describe "#set_smooth_name" do

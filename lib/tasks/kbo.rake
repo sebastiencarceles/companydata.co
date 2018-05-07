@@ -116,8 +116,8 @@ namespace :kbo do
 
       attributes[:name] = get_name(establishment)
       attributes[:name] ||= get_name(enterprise)
-      if attributes[:name].blank?
-        Rails.logger.error("Unable to find a name for address #{address.id}")
+      if attributes[:name].blank? || attributes[:name] == "-"
+        Rails.logger.error("Unable to find a valid name for address #{address.id}")
         next
       end
 
