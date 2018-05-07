@@ -11,13 +11,8 @@ class Api::Admin::VatsController < Api::Admin::ApiController
   def update
     vat = Vat.find_by_id(params[:id])
     render(json: {}, status: :not_found) && (return) unless vat
-    render(json: vat) && (return) if vat.update(vat_params)
+    render(json: { error: "missing status" }, status: :bad_request) && return if params[:status].blank?
+    render(json: vat) && (return) if vat.update(status: params[:status])
     render json: vat.errors.details, status: :bad_request
   end
-
-  private
-
-    def vat_params
-      params.require(:vat).permit(:status)
-    end
 end

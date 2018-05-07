@@ -35,10 +35,8 @@ RSpec.describe Api::Admin::VatsController, type: :request do
       end
 
       context "when there is no vat to check" do
-        subject { get "/api/admin/vats/to_check", headers: admin_authentication_header }
-
         it "returns no content" do
-          subject
+          get "/api/admin/vats/to_check", headers: admin_authentication_header
           expect(response).to have_http_status :no_content
         end
       end
@@ -60,20 +58,21 @@ RSpec.describe Api::Admin::VatsController, type: :request do
 
     context "when authenticated with an admin" do
       context "when the Vat can't be found" do
-        subject { patch "/api/admin/vats/totoro", headers: admin_authentication_header }
-
         it "returns http not found" do
-          subject
+          patch "/api/admin/vats/totoro", headers: admin_authentication_header
           expect(response).to have_http_status :not_found
         end
       end
 
       context "when the Vat can be found" do
-        subject { patch "/api/admin/vats/#{vat.id}", params: { vat: { status: "valid" } }, headers: admin_authentication_header }
-
-        it "returns http success" do
-          subject
+        it "returns http success when params are valid" do
+          patch "/api/admin/vats/#{vat.id}", params: { status: "valid" }, headers: admin_authentication_header
           expect(response).to be_success
+        end
+
+        it "returns a bad request when params are invalid" do
+          patch "/api/admin/vats/#{vat.id}", headers: admin_authentication_header
+          expect(response).to have_http_status :bad_request
         end
       end
     end
