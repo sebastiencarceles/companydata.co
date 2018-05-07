@@ -93,7 +93,7 @@ class Company < ApplicationRecord
 
   def activity
     activity = Activity.where(country_code: country_code, code: activity_code).first if country_code.present? && activity_code.present?
-    activity ||= Activity.find_by_activity_code(activity_code) if activity_code.present?
+    activity ||= Activity.find_by_code(activity_code) if activity_code.present?
     activity&.label_fr
   end
 

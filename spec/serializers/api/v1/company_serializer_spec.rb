@@ -79,7 +79,7 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
 
     context "when there is no activity code" do
       before { @company.activity_code = nil }
-      it { expect(subject["activity"]).to eql(@company.category) }
+      it { expect(subject["activity"]).to be nil }
     end
   end
 
