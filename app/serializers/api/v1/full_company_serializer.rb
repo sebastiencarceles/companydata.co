@@ -26,8 +26,7 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :facebook,
     :linkedin,
     :twitter,
-    :crunchbase,
-    :country_code
+    :crunchbase
   has_many :financial_years
 
   def prefix

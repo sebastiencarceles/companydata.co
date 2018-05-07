@@ -1,0 +1,2 @@
+class KboDenomination < ApplicationRecord
+end

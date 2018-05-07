@@ -1,0 +1,2 @@
+class KboContact < ApplicationRecord
+end

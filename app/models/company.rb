@@ -12,9 +12,9 @@ class Company < ApplicationRecord
   validates_uniqueness_of :slug
   validates_inclusion_of :quality, in: QUALITIES, allow_blank: true
 
-  before_validation :set_slug, if: :name?, unless: :slug?
-  before_save :set_smooth_name, if: :name?, unless: :smooth_name?
-  after_create :set_vat!, if: :country? && :registration_1?
+  before_validation :set_slug, if: :should_set_slug?
+  before_validation :set_smooth_name, if: :should_set_smooth_name?
+  after_create :set_vat!, if: :should_set_vat?
 
   scope :headquarters, -> { where(quality: "headquarter") }
   scope :branchs, -> { where(quality: "branch") }
@@ -51,7 +51,7 @@ class Company < ApplicationRecord
   end
 
   def vat_number
-    set_vat!
+    set_vat! if should_set_vat?
     vat&.validate!
     vat&.vat_number
   end
@@ -91,8 +91,14 @@ class Company < ApplicationRecord
     ].reject(&:blank?)
   end
 
-  private
+  def activity
+    activity = Activity.where(country_code: country_code, code: activity_code).first if country_code.present? && activity_code.present?
+    activity ||= Activity.find_by_activity_code(activity_code) if activity_code.present?
+    activity&.label_fr
+  end
 
+  private   
+    
     def set_slug
       counter = 1
       slug = name.parameterize
@@ -102,13 +108,24 @@ class Company < ApplicationRecord
       end
       self.slug = slug
     end
-
+    
     def set_smooth_name
       self.smooth_name = name.gsub("*", " ").gsub("/", " ").titleize.strip
     end
 
     def set_vat!
-      return unless vat.nil?
-      create_vat!(country_code: "FR") if country == "France"
+      create_vat!(country_code: country_code)
+    end
+
+    def should_set_slug?
+      name.present? && slug.blank?
+    end
+
+    def should_set_smooth_name?
+      name.present? && smooth_name.blank?
+    end
+
+    def should_set_vat?
+      vat.nil? && country.present? && registration_1.present? && (country == "France" || country == "Belgium")
     end
 end

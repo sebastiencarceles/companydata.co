@@ -10,7 +10,9 @@ module CompaniesHelper
     attributes << [t("companies.profile.registration_1"), company.registration_1] if company.registration_1.present?
     attributes << [t("companies.profile.registration_2"), company.registration_2] if company.registration_2.present?
     attributes << [t("companies.profile.vat_number"), company.vat_number] if company.vat_number.present?
-    attributes << [t("companies.profile.activity"), activity(company)] if activity(company)
+    activity = company.activity
+    attributes << [t("companies.profile.activity"), activity] if activity.present?
+    attributes << [t("companies.profile.activity_code"), company.activity_code] if company.activity_code.present?
     attributes
   end
 
@@ -33,12 +35,6 @@ module CompaniesHelper
 
   def full_address_inline(company)
     company.address_components.join(" ")
-  end
-
-  def activity(company)
-    code = company.activity_code
-    return nil if code.blank?
-    "#{I18n.t("activity_codes.#{code}")} (#{code})"
   end
 
   def has_contact_info?(company)

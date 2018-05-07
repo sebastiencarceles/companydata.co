@@ -294,7 +294,13 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           name: :country,
           valid: "france",
           invalid: "india"
+        },
+        {
+          name: :country_code,
+          valid: "fr",
+          invalid: "rc"
         }
+
       ].each do |filter|
         describe "#{filter[:name]} parameter" do
           context "when #{filter[:name]} is given and there are results" do
