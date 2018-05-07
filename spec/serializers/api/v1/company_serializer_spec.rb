@@ -74,7 +74,7 @@ RSpec.describe Api::V1::CompanySerializer, type: :serializer do
 
   describe "activity" do
     context "when there is an activity code" do
-      it { expect(subject["activity"]).to eql("#{I18n.t("activity_codes.#{@company.activity_code}")}") }
+      it { expect(subject["activity"]).to eql(@company.activity) }
     end
 
     context "when there is no activity code" do

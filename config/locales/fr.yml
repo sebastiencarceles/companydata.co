@@ -35,6 +35,7 @@ fr:
       title: Présentation
     profile:
       activity: Activité
+      activity_code: Code activité
       category: Catégorie
       legal_form: Forme juridique
       legal_name: Nom légal

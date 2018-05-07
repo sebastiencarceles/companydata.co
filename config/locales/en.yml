@@ -35,6 +35,7 @@ en:
       title: Presentation
     profile:
       activity: Activity
+      activity_code: Activity code
       category: Category
       legal_form: Legal form
       legal_name: Legal name

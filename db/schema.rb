@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180503134441) do
+ActiveRecord::Schema.define(version: 20180507092852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.string "country_code"
+    t.string "code"
+    t.string "label_fr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_code", "code"], name: "index_activities_on_country_code_and_code"
+  end
 
   create_table "codes", force: :cascade do |t|
     t.string "category"

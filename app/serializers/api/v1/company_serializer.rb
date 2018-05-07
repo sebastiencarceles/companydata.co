@@ -18,11 +18,6 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :headquarter_id,
     :branch_ids
 
-  def activity
-    return object.category if object.activity_code.blank?
-    "#{I18n.t("activity_codes.#{object.activity_code}")}"
-  end
-
   def address
     object.address_components.join(", ")
   end
