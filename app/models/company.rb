@@ -97,8 +97,8 @@ class Company < ApplicationRecord
     activity&.label_fr
   end
 
-  private   
-    
+  private
+
     def set_slug
       counter = 1
       slug = name.parameterize
@@ -108,7 +108,7 @@ class Company < ApplicationRecord
       end
       self.slug = slug
     end
-    
+
     def set_smooth_name
       self.smooth_name = name.gsub("*", " ").gsub("/", " ").titleize.strip
     end

@@ -33,7 +33,7 @@ RSpec.describe Vat, type: :model do
     it "does not set value otherwise" do
       company.country_code = "GB"
       company.registration_1 = "123456789"
-      expect { company.save! }.not_to change { Vat.count }      
+      expect { company.save! }.not_to change { Vat.count }
     end
   end
 end

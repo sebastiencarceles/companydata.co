@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::Admin::ApiController < ActionController::API
   before_action :authenticate_froom_api_key!
   before_action :check_authentication

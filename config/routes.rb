@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
     
     namespace :admin do
-      resources :vats do 
+      resources :vats, only: :update do 
         collection do
           get "to_check", to: "vats#to_check"
         end

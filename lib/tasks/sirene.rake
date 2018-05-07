@@ -94,7 +94,7 @@ namespace :sirene do
         zip_file.each do |entry|
           unziped_filename = entry.name
           entry.extract(unziped_filename)
-          
+
           CSV.foreach(unziped_filename, col_sep: ";", encoding: "ISO-8859-1", headers: :first_row) do |row|
             countries << row["L7_NORMALISEE"] unless countries.include?(row["L7_NORMALISEE"])
           end
@@ -323,7 +323,7 @@ namespace :sirene do
       when "ILES BAHREIN"
         ["Bahrain", "BH"]
       when "ILES MARSHALL"
-        ["Marshall Islands", "MH"]        
+        ["Marshall Islands", "MH"]
       when "ILES MAURICE"
         ["Mauritius", "MU"]
       when "INDE"
@@ -473,13 +473,13 @@ namespace :sirene do
       when "URUGUAY"
         ["Uruguay", "UY"]
       when "VENEZUELA"
-        ["Venezuela", "VE"]        
+        ["Venezuela", "VE"]
       when "VIET NAM"
         ["Viet Nam", "VN"]
       when "YEMEN"
         ["Yemen", "YE"]
       when "", " "
-        ["France", "FR"]        
+        ["France", "FR"]
       else
         begin
           raise "#{row["L7_NORMALISEE"]}: #{row}"

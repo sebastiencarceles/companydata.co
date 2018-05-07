@@ -13,7 +13,7 @@ namespace :kbo do
           Rails.logger.warn "Destination file already exists"
         end
       end
-      
+
       import_codes
       import_enterprises
       import_establishments
@@ -26,7 +26,7 @@ namespace :kbo do
 
   def import_codes
     import_from("code.csv", KboCode) do |row|
-      { 
+      {
         category: row["Category"],
         code: row["Code"],
         language: row["Language"],
@@ -37,7 +37,7 @@ namespace :kbo do
 
   def import_enterprises
     import_from("enterprise.csv", KboEnterprise) do |row|
-      { 
+      {
         enterprise_number: row["EnterpriseNumber"],
         type_of_enterprise: row["TypeOfEnterprise"],
         juridical_form: row["JuridicalForm"],
@@ -48,7 +48,7 @@ namespace :kbo do
 
   def import_establishments
     import_from("establishment.csv", KboEstablishment) do |row|
-      { 
+      {
         enterprise_number: row["EnterpriseNumber"],
         establishment_number: row["EstablishmentNumber"],
         start_date: row["StartDate"]
@@ -133,11 +133,11 @@ namespace :kbo do
       attributes[:founded_at] ||= get_founded_at(enterprise)
 
       attributes[:registration_1] = enterprise.enterprise_number
-      
+
       attributes[:registration_2] = establishment&.establishment_number
 
       attributes[:quality] = get_quality(address)
-      
+
       attributes[:website] = get_website(establishment)
       attributes[:website] ||= get_website(enterprise)
 
@@ -261,10 +261,10 @@ namespace :kbo do
 
     def download_zipped_source(filename)
       path_dir = "db/raw/kbo"
-      
+
       path = File.join(path_dir, "#{filename}.zip")
       return path if File.exists?(path)
-      
+
       source = "https://s3.eu-west-3.amazonaws.com/companydata-production/belgium/#{filename}.zip"
       Rails.logger.info "Download #{source} into #{path}"
       FileUtils.mkdir_p(path_dir)

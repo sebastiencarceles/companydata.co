@@ -124,7 +124,7 @@ RSpec.describe Company, type: :model do
         expect(company.vat.country_code).to eq("BE")
       end
     end
-    
+
     it "does not create a Vat otherwise" do
       company = build :company, country: "Spain", country_code: "ES", registration_1: "123456789"
       expect { company.save! }.not_to change { Vat.count }

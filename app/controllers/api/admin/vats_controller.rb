@@ -3,9 +3,21 @@
 class Api::Admin::VatsController < Api::Admin::ApiController
   def to_check
     vat = Vat.where(status: "waiting_for_validation").first
-    render json: {}, status: :no_content and return unless vat
-    
-    vat.update!(status: "in_progress")
-    render json: { value: vat.value }
+    render(json: {}, status: :no_content) && (return) unless vat
+    render(json: vat) && (return) if vat.update(status: "in_progress")
+    render json: vat.errors.details, status: :bad_request
   end
+
+  def update
+    vat = Vat.find_by_id(params[:id])
+    render(json: {}, status: :not_found) && (return) unless vat
+    render(json: vat) && (return) if vat.update(vat_params)
+    render json: vat.errors.details, status: :bad_request
+  end
+
+  private
+
+    def vat_params
+      params.require(:vat).permit(:status)
+    end
 end
