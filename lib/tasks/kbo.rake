@@ -3,7 +3,7 @@
 require "csv"
 
 namespace :kbo do
-  task download: :environment do
+  task import: :environment do
     Zip::File.open(download_zipped_source("KboOpenData_0051_2018_04_Full")) do |zip_file|
       zip_file.each do |entry|
         Rails.logger.info "Unzip file #{entry.name}"
@@ -12,11 +12,19 @@ namespace :kbo do
         rescue Zip::DestinationFileExistsError => e
           Rails.logger.warn "Destination file already exists"
         end
+
+        import_codes
+        import_enterprises
+        import_establishments
+        import_denominations
+        import_addresses
+        import_activities
+        import_contacts
       end
     end
   end
 
-  task import_codes: :environment do
+  def import_codes
     import_from("code.csv", KboCode) do |row|
       { 
         category: row["Category"],
@@ -27,7 +35,7 @@ namespace :kbo do
     end
   end
 
-  task import_enterprises: :environment do    
+  def import_enterprises
     import_from("enterprise.csv", KboEnterprise) do |row|
       { 
         enterprise_number: row["EnterpriseNumber"],
@@ -38,7 +46,7 @@ namespace :kbo do
     end
   end
 
-  task import_establishments: :environment do
+  def import_establishments
     import_from("establishment.csv", KboEstablishment) do |row|
       { 
         enterprise_number: row["EnterpriseNumber"],
@@ -48,7 +56,7 @@ namespace :kbo do
     end
   end
 
-  task import_denominations: :environment do
+  def import_denominations
     import_from("denomination.csv", KboDenomination) do |row|
       {
         entity_number: row["EntityNumber"],
@@ -59,7 +67,7 @@ namespace :kbo do
     end
   end
 
-  task import_addresses: :environment do
+  def import_addresses
     import_from("address.csv", KboAddress) do |row|
       {
         entity_number: row["EntityNumber"],
@@ -76,7 +84,7 @@ namespace :kbo do
     end
   end
 
-  task import_activities: :environment do
+  def import_activities
     import_from("activity.csv", KboActivity) do |row|
       {
         entity_number: row["EntityNumber"],
@@ -88,7 +96,7 @@ namespace :kbo do
     end
   end
 
-  task import_contacts: :environment do
+  def import_contacts
     import_from("contact.csv", KboContact) do |row|
       {
         entity_number: row["EntityNumber"],
