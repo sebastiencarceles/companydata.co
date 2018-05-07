@@ -12,15 +12,15 @@ namespace :kbo do
         rescue Zip::DestinationFileExistsError => e
           Rails.logger.warn "Destination file already exists"
         end
-
-        import_codes
-        import_enterprises
-        import_establishments
-        import_denominations
-        import_addresses
-        import_activities
-        import_contacts
       end
+      
+      import_codes
+      import_enterprises
+      import_establishments
+      import_denominations
+      import_addresses
+      import_activities
+      import_contacts
     end
   end
 
