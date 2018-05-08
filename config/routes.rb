@@ -19,6 +19,7 @@ Rails.application.routes.draw do
           get "/:registration_2", to: "companies#show_by_registration_numbers"
         end
       end
+      resources :vats, only: :show, param: :value
       resources :commands, only: :create
     end
     
