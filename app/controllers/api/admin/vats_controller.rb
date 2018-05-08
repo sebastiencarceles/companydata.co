@@ -12,7 +12,7 @@ class Api::Admin::VatsController < Api::Admin::ApiController
     vat = Vat.find_by_id(params[:id])
     render(json: {}, status: :not_found) && (return) unless vat
     render(json: { error: "missing status" }, status: :bad_request) && return if params[:status].blank?
-    render(json: vat) && (return) if vat.update(status: params[:status])
+    render(json: vat) && (return) if vat.update(status: params[:status], validated_at: DateTime.now)
     render json: vat.errors.details, status: :bad_request
   end
 end
