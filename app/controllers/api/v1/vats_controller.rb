@@ -6,6 +6,8 @@ class Api::V1::VatsController < ApiController
     vat = Vat.find_by_value(value)
     render(json: {}, status: :not_found) && (return) unless vat
 
+    vat.validate!
+
     render json: vat
   end
 end
