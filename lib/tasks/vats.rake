@@ -82,6 +82,18 @@ namespace :vats do
     Rails.logger.info "Done, remaining VATs to fetch: #{vats_to_fetch.count}"
   end
 
+  task fix: :environment do
+    Rails.logger.info "Populate VATs with missing values"
+
+    Vat.where(value: nil, country_code: ["FR", "BE"]).find_each do |vat|
+      vat.set_value
+      vat.save
+      Rails.logger.info "Set value for vat #{vat.id}: #{vat.reload.value}"
+    end
+
+    Rails.logger.info "Done"
+  end
+
   private
 
     def vats_to_fetch

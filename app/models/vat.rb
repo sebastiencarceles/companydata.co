@@ -32,14 +32,12 @@ class Vat < ApplicationRecord
       Bugsnag.notify(error)
   end
 
-  private
-
-    def set_value
-      if country_code == "FR"
-        key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
-        self.value = "FR#{key}#{company.registration_1}"
-      elsif country_code == "BE"
-        self.value = "BE#{company.registration_1.gsub(".", "")}"
-      end
+  def set_value
+    if country_code == "FR"
+      key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
+      self.value = "FR#{key}#{company.registration_1}"
+    elsif country_code == "BE"
+      self.value = "BE#{company.registration_1.gsub(".", "")}"
     end
+  end
 end
