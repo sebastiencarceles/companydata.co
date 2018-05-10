@@ -24,7 +24,7 @@ namespace :data do
 
     indir_url = "https://s3.eu-west-3.amazonaws.com/companydata-production/#{subfolder}"
     ARGV.drop(2).each do |model|
-      DataYaml.load_from_s3(indir_url, model.constantize)
+      DataYaml.load_from_s3(indir_url, model.constantize, on_duplicate_key_ignore: false)
     end
   end
 
