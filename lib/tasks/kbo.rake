@@ -124,7 +124,7 @@ namespace :kbo do
 
       attributes[:name] = get_name(establishment)
       attributes[:name] ||= get_name(enterprise)
-      if attributes[:name].blank? || attributes[:name] == "-"
+      if attributes[:name].nil?
         Rails.logger.error("Unable to find a valid name for address #{address.id}")
         next
       end
@@ -191,7 +191,7 @@ namespace :kbo do
       %w[1 2 3 4 0].each do |language| # Language priority: FR, NL, DE, EN, unknown
         %w[001 003 002].each do |type| # Type of denomination priority: social, commecial, shorten
           result = KboDenomination.where(entity_number: entity.entity_number, language: language, type_of_denomination: type).first
-          return result.denomination if result
+          return result.denomination if result && ![nil, "", ".", "-",  "³"].include?(result.denomination)
         end
       end
 
