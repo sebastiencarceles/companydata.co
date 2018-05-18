@@ -109,9 +109,6 @@ namespace :kbo do
 
   task create_companies: :environment do
     KboAddress.where(date_striking_off: nil).find_each do |address|
-      attributes = {}
-      attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
-
       case address.entity_number.length
       when 12
         enterprise = KboEnterprise.find_by_enterprise_number(address.entity_number)
@@ -122,6 +119,13 @@ namespace :kbo do
         error(address, "unknown entity number format #{address.entity_number}")
       end
 
+      next unless enterprise
+      
+      attributes = {}
+      attributes[:registration_1] = enterprise.enterprise_number
+      attributes[:registration_2] = establishment&.establishment_number
+      next if Company.where(attributes).exists?
+
       attributes[:name] = get_name(establishment)
       attributes[:name] ||= get_name(enterprise)
       if attributes[:name].nil?
@@ -129,12 +133,9 @@ namespace :kbo do
         next
       end
 
+      attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
       attributes[:founded_at] = get_founded_at(establishment)
       attributes[:founded_at] ||= get_founded_at(enterprise)
-
-      attributes[:registration_1] = enterprise.enterprise_number
-
-      attributes[:registration_2] = establishment&.establishment_number
 
       attributes[:quality] = get_quality(address)
 
@@ -161,7 +162,7 @@ namespace :kbo do
       attributes[:country] = country
       attributes[:country_code] = country_code
 
-      Company.find_or_create_by!(attributes)
+      Company.create!(attributes)
     end
     Rails.logger.info("Done")
   end
@@ -191,7 +192,7 @@ namespace :kbo do
       %w[1 2 3 4 0].each do |language| # Language priority: FR, NL, DE, EN, unknown
         %w[001 003 002].each do |type| # Type of denomination priority: social, commecial, shorten
           result = KboDenomination.where(entity_number: entity.entity_number, language: language, type_of_denomination: type).first
-          return result.denomination if result && ![nil, "", ".", "-",  "³"].include?(result.denomination)
+          return result.denomination if result && result.denomination&.parameterize&.present?
         end
       end
 
