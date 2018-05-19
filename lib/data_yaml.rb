@@ -116,6 +116,7 @@ module DataYaml
       end
 
       def scope(cls, page, per_page)
+        # TODO remove where
         cls.where("created_at >= ?", "2018-05-01").order(:id).page(page).per(per_page)
       end
 
