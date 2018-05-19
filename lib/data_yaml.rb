@@ -97,7 +97,7 @@ module DataYaml
 
       def write_into(file, scope)
         scope.each do |entity|
-          file.write(entity.attributes.to_yaml)
+          file.write(entity.attributes.except("id").to_yaml)
         end
       end
 
@@ -116,7 +116,7 @@ module DataYaml
       end
 
       def scope(cls, page, per_page)
-        cls.order(:id).page(page).per(per_page)
+        cls.where("created_at >= ?", "2018-05-01").order(:id).page(page).per(per_page)
       end
 
       def prepare_output_directory(outdir, cls)
