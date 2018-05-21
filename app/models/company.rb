@@ -50,12 +50,6 @@ class Company < ApplicationRecord
     Company.branchs.where(registration_1: registration_1).where.not(id: id)
   end
 
-  def vat_number
-    set_vat! if should_set_vat?
-    vat&.validate!
-    vat&.vat_number
-  end
-
   def geolocation
     return [lat, lng].join(",") if lat.present? && lng.present?
     return nil if geolocalized_at.present?
@@ -97,6 +91,22 @@ class Company < ApplicationRecord
     activity&.label_fr
   end
 
+  ## VAT ##
+
+  def vat_number
+    set_vat! if should_set_vat?
+    vat&.validate!
+    vat&.vat_number
+  end
+
+  def set_vat!
+    create_vat!(country_code: country_code)
+  end
+
+  def should_set_vat?
+    vat.nil? && country.present? && registration_1.present? && ["FR", "BE"].include?(country_code)
+  end
+
   private
 
     def set_slug
@@ -113,19 +123,11 @@ class Company < ApplicationRecord
       self.smooth_name = name.gsub("*", " ").gsub("/", " ").titleize.strip
     end
 
-    def set_vat!
-      create_vat!(country_code: country_code)
-    end
-
     def should_set_slug?
       name.present? && slug.blank?
     end
-
+    
     def should_set_smooth_name?
       name.present? && smooth_name.blank?
-    end
-
-    def should_set_vat?
-      vat.nil? && country.present? && registration_1.present? && ["FR", "BE"].include?(country_code)
     end
 end
