@@ -1,8 +1,12 @@
-.value-proposition {
+.value-proposition-wrapper {
   background-image: image-url("background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.value-proposition {
   padding-top: 100px;
   padding-bottom: 100px;
+  background-color: rgba(0, 0, 0, 0.3)  
 }
