@@ -129,14 +129,14 @@ fr:
       description: Ça ne pourrait pas être plus simple. Quand vous souhaitez chercher des sociétés, voici la requête. Et ci-contre, voici le résultat.
       title: Facile à utiliser
     features:
-      action_1: Essayer
+      action_1: Documentation
       action_2: Documentation
       action_3: Tutoriels
-      description_1: Toutes les infos sur les sociétés, gratuitement et immédiatement accessibles. Sans même créer un compte.
+      description_1: Vérifiez instantannément un numéro de TVA. Au passage, récoltez les données sur la société concernée.
       description_2: Besoin d'intégration dans votre propre workflow ? Démarrez immédiatement et soyez opérationnels en quelques minutes.
       description_3: Aidez vos utilisateurs à saisir le nom de leur société avec notre API gratuite. Voire un formulaire société en entier.
       main_title: L'API super simple pour obtenir des infos sur les sociétés
-      title_1: Consultation gratuite
+      title_1: Validation de TVA
       title_2: API pour enrichir
       title_3: Autocomplétion
     metrics:

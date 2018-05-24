@@ -5,14 +5,6 @@
   <div class="row">
     <div class="col-12 col-md-4 text-center mb-5">
       <div class="bg-circle bg-primary-lightest text-white mb-4">
-        <%= theme_icon_tag "search", class: "display-3" %>
-      </div>
-      <h3><%= t("landing.features.title_1") %></h3>
-      <p><%= t("landing.features.description_1") %></p>
-      <%= link_to t("landing.features.action_1"), "#try", class: "btn btn-primary" %>
-    </div>
-    <div class="col-12 col-md-4 text-center mb-5">
-      <div class="bg-circle bg-primary-lightest text-white mb-4">
         <%= fa_icon_tag "connectdevelop", class: "display-3" %>
       </div>
       <h3><%= t("landing.features.title_2") %></h3>
@@ -27,5 +19,13 @@
       <p><%= t("landing.features.description_3") %></p>
       <%= link_to t("landing.features.action_3"), page_path('resources'), class: "btn btn-primary" %>
     </div>
+    <div class="col-12 col-md-4 text-center mb-5">
+        <div class="bg-circle bg-primary-lightest text-white mb-4">
+          <%= theme_icon_tag "search", class: "display-3" %>
+        </div>
+        <h3><%= t("landing.features.title_1") %></h3>
+        <p><%= t("landing.features.description_1") %></p>
+        <%= link_to t("landing.features.action_2"), docs_url, class: "btn btn-primary" %>
+      </div>
   </div>
 </div>

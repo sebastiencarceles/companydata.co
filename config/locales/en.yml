@@ -129,14 +129,14 @@ en:
       description: This can't be simpler. When you want to search for companies, here is the request. Beside is the result.
       title: Super simple use
     features:
-      action_1: Try now
+      action_1: Documentation
       action_2: Documentation
       action_3: Tutorials
-      description_1: All the data about companies, instantly and freely available. No registration needed.
+      description_1: Check instantly a VAT number, and get the corresponding company data in return.
       description_2: Need to integration company data in your own workflow? Checkout how to get started instantly.
       description_3: Help your users type in their company name with our free API. Or fill a complete company form.
       main_title: The super simple API get company data
-      title_1: Free search
+      title_1: VAT number check
       title_2: Enrichment API
       title_3: Company autocomplete
     metrics:
