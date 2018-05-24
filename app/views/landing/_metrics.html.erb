@@ -2,7 +2,11 @@
   <div class="row no-gutters equal-cols align-items-center">
     <div class="col-12">
       <div class="text-white">
-        <h2 class="leading-normal"><%= t("landing.metrics.title") %></h2>
+        <h2 class="leading-normal">
+          <%= image_tag "flag_fr.png"  %>
+          <%= image_tag "flag_be.png" %>
+          <%= t("landing.metrics.title") %>
+        </h2>
         <p><%= t("landing.metrics.description") %></p>
         <ul>
           <li><%= t("landing.metrics.description_sirene") %></li>
@@ -25,7 +29,7 @@
                   </span>
                 </div>
                 <div class="media-body text-right">
-                  <h4 class="m-0"><%= number_to_human 11182197, precision: 2 %></h4>
+                  <h4 class="m-0"><%= number_to_human 14201765, precision: 2 %></h4>
                   <h6 class="m-0 text-muted"><%= t("landing.metrics.companies") %></h6>
                 </div>
               </div>

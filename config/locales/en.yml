@@ -141,12 +141,12 @@ en:
       title_3: Company autocomplete
     metrics:
       companies: Companies
-      description: 'For now we cover France, with data coming from open data:'
+      description: 'For now we cover France and Belgium, with data coming from open data:'
       description_ban: Base Adresse Nationale for geolocalized data
       description_eu: European Commission Services for VAT numbers
       description_infogreffe: Infogreffe for financial data
       description_other: Data is also provided by open platforms and company pages on LinkedIn and Facebook.
-      description_sirene: SIRENE for administrative data
+      description_sirene: SIRENE and Banque-Carrefour des Entreprises for administrative data
       financial_years: Financial data
       geolocalized_companies: Geolocalized companies
       title: Data sources and updates
