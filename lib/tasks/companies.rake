@@ -64,11 +64,11 @@ namespace :companies do
     Rails.logger.info "Done"
   end
 
-  task fix_geolocalized_at: :environment do
-    Rails.logger.info "Fix geolocalized at: set it to created_at for companies already geocoded"
-    Company.where(geolocalized_at: nil).find_each do |company|
-      Rails.logger.info "Fix company #{company.id}"
-      company.update_columns(geolocalized_at: company.created_at)
+  task geolocalize: :environment do
+    Rails.logger.info "Geolocalize unlocalized companies"
+    Company.where(geolocalized_at: nil, lat: nil, lng: nil).find_each do |company|
+      company.geolocalize_with_nominatim
+      Rails.logger.info "Localized company #{company.id}: #{company.reload.geolocation}"
     end
     Rails.logger.info "Done"
   end

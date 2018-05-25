@@ -55,6 +55,8 @@ class Company < ApplicationRecord
   end
 
   def geolocalize_with_google_maps
+    update_columns(geolocalized_at: DateTime.now)
+
     uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{address_for_geocoding}&key=#{Figaro.env.GOOGLE_API_KEY}")
     response = open(uri).read()
     results = JSON.parse(response)["results"]
@@ -62,19 +64,24 @@ class Company < ApplicationRecord
     if results.any?
       lat = results.first["geometry"]["location"]["lat"]&.to_f
       lng = results.first["geometry"]["location"]["lng"]&.to_f
-      update_columns(lat: lat, lng: lng, geolocalized_at: DateTime.now) if lat.present? && lng.present? && lat != 0 && lng != 0
+      update_columns(lat: lat, lng: lng) if lat.present? && lng.present? && lat != 0 && lng != 0
     end
   end
 
   def geolocalize_with_nominatim
-    uri = URI.escape("https://nominatim.openstreetmap.org/search/#{address_for_geocoding}?format=json&limit=1&polygon_svg=1")
+    update_columns(geolocalized_at: DateTime.now)
+
+    uri = URI.escape("https://nominatim.openstreetmap.org/search/#{address_for_geocoding}?format=json&limit=1")
     response = open(uri).read()
     results = JSON.parse(response)
+
     if results.any?
       lat = results[0]["lat"]
       lng = results[0]["lon"]
-      update_columns(lat: lat, lng: lng, geolocalized_at: DateTime.now) if lat.present? && lng.present? && lat != 0 && lng != 0
+      update_columns(lat: lat, lng: lng) if lat.present? && lng.present? && lat != 0 && lng != 0
     end
+  rescue JSON::ParserError
+    nil
   end
 
   def address_components
@@ -137,6 +144,6 @@ class Company < ApplicationRecord
     end
 
     def address_for_geocoding
-      [address_line_1, address_line_2, address_line_3, zipcode, city, country].reject(&:blank?).join(", ")
+      [address_line_1, address_line_2, address_line_3, address_line_4, address_line_5, zipcode, city, country].reject(&:blank?).join(", ")
     end
 end
