@@ -120,7 +120,7 @@ namespace :kbo do
       end
 
       next unless enterprise
-      
+
       attributes = {}
       attributes[:registration_1] = enterprise.enterprise_number
       attributes[:registration_2] = establishment&.establishment_number

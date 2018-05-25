@@ -52,23 +52,28 @@ class Company < ApplicationRecord
 
   def geolocation
     return [lat, lng].join(",") if lat.present? && lng.present?
-    return nil if geolocalized_at.present?
+  end
 
-    update_columns(geolocalized_at: DateTime.now)
-
-    full_address = [address_line_1, address_line_2, address_line_3, zipcode, city, country].reject(&:blank?).join(", ")
-    uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{full_address}&key=#{Figaro.env.GOOGLE_API_KEY}")
+  def geolocalize_with_google_maps
+    uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{address_for_geocoding}&key=#{Figaro.env.GOOGLE_API_KEY}")
     response = open(uri).read()
     results = JSON.parse(response)["results"]
 
     if results.any?
       lat = results.first["geometry"]["location"]["lat"]&.to_f
       lng = results.first["geometry"]["location"]["lng"]&.to_f
+      update_columns(lat: lat, lng: lng, geolocalized_at: DateTime.now) if lat.present? && lng.present? && lat != 0 && lng != 0
+    end
+  end
 
-      if lat.present? && lng.present? && lat != 0 && lng != 0
-        update_columns(lat: lat, lng: lng)
-        return [lat, lng].join(",")
-      end
+  def geolocalize_with_nominatim
+    uri = URI.escape("https://nominatim.openstreetmap.org/search/#{address_for_geocoding}?format=json&limit=1&polygon_svg=1")
+    response = open(uri).read()
+    results = JSON.parse(response)
+    if results.any?
+      lat = results[0]["lat"]
+      lng = results[0]["lon"]
+      update_columns(lat: lat, lng: lng, geolocalized_at: DateTime.now) if lat.present? && lng.present? && lat != 0 && lng != 0
     end
   end
 
@@ -126,8 +131,12 @@ class Company < ApplicationRecord
     def should_set_slug?
       name.present? && slug.blank?
     end
-    
+
     def should_set_smooth_name?
       name.present? && smooth_name.blank?
+    end
+
+    def address_for_geocoding
+      [address_line_1, address_line_2, address_line_3, zipcode, city, country].reject(&:blank?).join(", ")
     end
 end
