@@ -69,6 +69,17 @@ namespace :companies do
     Company.where(geolocalized_at: nil, lat: nil, lng: nil).find_each do |company|
       company.geolocalize_with_nominatim
       Rails.logger.info "Localized company #{company.id}: #{company.reload.geolocation}"
+      sleep 1
+    end
+    Rails.logger.info "Done"
+  end
+
+  task geolocalize_with_google_maps: :environment do
+    Rails.logger.info "Geolocalize unlocalized companies with google maps (max 2500 req / day)"
+    Company.where(geolocalized_at: nil, lat: nil, lng: nil).limit(2500).find_each do |company|
+      company.geolocalize_with_google_maps
+      Rails.logger.info "Localized company #{company.id}: #{company.reload.geolocation}"
+      sleep 1
     end
     Rails.logger.info "Done"
   end
