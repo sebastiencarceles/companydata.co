@@ -76,7 +76,7 @@ namespace :companies do
 
   task geolocalize_with_google_maps: :environment do
     Rails.logger.info "Geolocalize unlocalized companies with google maps (max 2500 req / day)"
-    Company.where(geolocalized_at: nil, lat: nil, lng: nil).limit(2500).find_each do |company|
+    Company.where(geolocalized_at: nil, lat: nil, lng: nil).order(created_at: :desc).limit(2500).each do |company|
       company.geolocalize_with_google_maps
       Rails.logger.info "Localized company #{company.id}: #{company.reload.geolocation}"
       sleep 1
