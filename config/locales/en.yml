@@ -194,7 +194,7 @@ en:
       description: 0.05 € per call up to 2000 API calls, then 0.02 € per call.<br>Access all the company data for a very low price.
       price: "<strong>0.05</strong><sup>€</sup><br>to <strong>0.02</strong><sup>€</sup><small>/ call</small>"
       sub_title: Decreasing prices
-      title: Usage
+      title: Pay as you go
   resources:
     essentials:
       api_docs: API documentation
