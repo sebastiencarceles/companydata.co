@@ -85,11 +85,12 @@ en:
         cancel_account: Cancel my account
         current_password_needed: We need your current password to confirm your changes.
         do_not_change_password: Leave it blank if you don't want to change it.
+        subscription:
+          description: You can change your plan anytime, update your billing infos or download your invoices.
+          current: Current plan
+          customer_portal: Billing
+          title: Plan
         title: Account
-        usage:
-          description: Here is your historial usage.
-          title: Usage
-          usage: "%{count} API calls"
       new:
         action: Sign up
         log_in: Log in?

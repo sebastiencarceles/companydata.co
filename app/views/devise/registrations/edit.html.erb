@@ -33,17 +33,16 @@
       <div class="col-12 col-md-8 mr-auto ml-auto">
         <div class="card">
           <div class="card-header">
-            <h6><%= t("devise.registrations.edit.usage.title") %></h6>
+            <h6><%= t("devise.registrations.edit.subscription.title") %></h6>
           </div>
           <div class="card-body">
-            <p><%= t("devise.registrations.edit.usage.description") %></p>
+              <p><%= t("devise.registrations.edit.subscription.description") %></p>
             <table class="table">
-              <% current_user.usages.each do |usage| %>
-                <tr>
-                  <td><strong><%= usage.year %>/<%= usage.month.to_s.rjust(2,"0") %></strong></td>
-                  <td><%= t("devise.registrations.edit.usage.usage", count: usage.count) %></td>
-                </tr>
-              <% end %>
+              <tr>
+                <td><strong><%= t("devise.registrations.edit.subscription.current") %></strong></td>
+                <td><span id="subscription-name"></span></td>
+                <td><%= link_to t("devise.registrations.edit.subscription.customer_portal"), customer_portal_path, class: "btn btn-primary btn-registrations pull-right" %></td>
+              </tr>
             </table>
           </div>
         </div>

@@ -85,11 +85,12 @@ fr:
         cancel_account: Supprimer mon compte
         current_password_needed: Nous avons besoin de votre mot de passe actuel pour confirmer vos changements.
         do_not_change_password: Laissez vide si vous ne souhaitez pas changer le mot de passe.
+        subscription:
+          description: Vous pouvez changer d'offre à tout instant, mettre à jour vos données de facturation ou télécharger vos factures.
+          current: Offre actuelle
+          customer_portal: Offres et paiement
+          title: Abonnement
         title: Compte
-        usage:
-          description: Voici votre historique d'utilisation.
-          title: Usage
-          usage: "%{count} appels à l'API"
       new:
         action: S'enregistrer
         log_in: Se connecter ?
