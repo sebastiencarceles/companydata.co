@@ -17,7 +17,6 @@ fr:
       title: Résultat de recherche
     contact:
       email: Email
-      full_name: Nom
       phone: Téléphone
       title: Contact
     financial_year:
@@ -86,9 +85,9 @@ fr:
         current_password_needed: Nous avons besoin de votre mot de passe actuel pour confirmer vos changements.
         do_not_change_password: Laissez vide si vous ne souhaitez pas changer le mot de passe.
         subscription:
-          description: Vous pouvez changer d'offre à tout instant, mettre à jour vos données de facturation ou télécharger vos factures.
           current: Offre actuelle
           customer_portal: Offres et paiement
+          description: Vous pouvez changer d'offre à tout instant, mettre à jour vos données de facturation ou télécharger vos factures.
           title: Abonnement
         title: Compte
       new:
@@ -130,7 +129,6 @@ fr:
       description: Ça ne pourrait pas être plus simple. Quand vous souhaitez chercher des sociétés, voici la requête. Et ci-contre, voici le résultat.
       title: Facile à utiliser
     features:
-      action_1: Documentation
       action_2: Documentation
       action_3: Tutoriels
       description_1: Vérifiez instantannément un numéro de TVA. Au passage, récoltez les données sur la société concernée.
@@ -154,7 +152,6 @@ fr:
       update: Les données sont mises à jour quotidiennement pour ce qui est de l'open data, en temps réel pour la géolocalisation et la TVA et périodiquement pour le reste.
     show:
       description: Companydata.co est la manière la plus directe d'obtenir des infos sur les sociétés. Démarrez gratuitement en un instant. Enregistrez-vous pour intégrer l'API.
-      more: Plus d'infos
       sub_value_proposition: Intégrez l'API pour accéder aux sièges sociaux, aux numéros de TVA vérifiés, aux adresses géolocalisées, aux chiffres d'affaires, aux résultats...<br><br>Démarrez en quelques minutes avec l'offre gratuite.
       value_proposition: Les données de sociétés, chez vous.
     try:
