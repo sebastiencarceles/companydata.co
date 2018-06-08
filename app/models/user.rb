@@ -18,6 +18,10 @@ class User < ApplicationRecord
     self.find_by_email(email)
   end
 
+  def admin?
+    email == "sebastien@companydata.co"
+  end
+
   private
 
     def create_usage!
