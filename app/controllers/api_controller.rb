@@ -30,11 +30,11 @@ class ApiController < ActionController::API
       if current_user.free_calls_count <= 0
         count = usage.count + 1
         usage.update_columns(count: count)
-        Tracking::Mixpanel&.people&.increment(current_user.id, "Paids calls": 1)
+        Tracking::IncrementWorker.perform_async(current_user.id, "Paid calls")
       else
         current_user.update_columns(free_calls_count: (current_user.free_calls_count - 1))
-        Tracking::Mixpanel&.people&.increment(current_user.id, "Free calls": 1)
+        Tracking::IncrementWorker.perform_async(current_user.id, "Free calls")
       end
-      Tracking::Mixpanel&.track(current_user.id, "Authenticated API call")
+      Tracking::TrackWorker.perform_async(current_user.id, "Authenticated API call")
     end
 end

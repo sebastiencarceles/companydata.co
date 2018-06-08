@@ -10,7 +10,8 @@ class User < ApplicationRecord
 
   after_create :create_usage!
   after_create :track_creation
-  after_update :track_update
+  after_create :track_update
+  after_update :track_update, if: :email_changed?
 
   def self.from_token_request(request)
     email = request.params["auth"] && request.params["auth"]["email"]
@@ -24,11 +25,10 @@ class User < ApplicationRecord
     end
 
     def track_creation
-      Tracking::Mixpanel&.track(id, "Registration")
-      track_update
+      Tracking::TrackWorker.perform_async(id, "Registration")
     end
 
     def track_update
-      Tracking::Mixpanel&.people&.set(id, 'email': email)
+      Tracking::EmailWorker.perform_async(id, email)
     end
 end
