@@ -11,7 +11,7 @@ class User < ApplicationRecord
   after_create :create_usage!
   after_create :track_creation
   after_create :track_update
-  after_update :track_update, if: :email_changed?
+  after_update :track_update, if: :saved_change_to_email?
 
   def self.from_token_request(request)
     email = request.params["auth"] && request.params["auth"]["email"]
