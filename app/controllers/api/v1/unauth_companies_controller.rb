@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UnauthCompaniesController < ActionController::API
-  after_action :track_unauth_api_call
+  after_action :track_api_call
 
   def autocomplete
     query = params[:q]
@@ -21,7 +21,7 @@ class Api::V1::UnauthCompaniesController < ActionController::API
 
   private
 
-    def track_unauth_api_call
+    def track_api_call
       Tracking::TrackWorker.perform_async("unauthenticated_user", "Unauthenticated API call")      
     end
 end
