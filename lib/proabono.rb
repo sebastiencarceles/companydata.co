@@ -23,11 +23,11 @@ class Proabono
   def subscribe(offer = "free_trial")
     post("/Subscription", ReferenceCustomer: @user.id, ReferenceOffer: offer)
   end
-  
+
   def subscription
     get("/Subscription", ReferenceCustomer: @user.id)
   end
-  
+
   def subscription_name
     subscription&.dig(:TitleLocalized)
   end

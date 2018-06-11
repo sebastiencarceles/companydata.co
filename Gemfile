@@ -111,7 +111,7 @@ gem "httparty"
 
 group :test do
   # Spec jobs
-  gem 'rspec-sidekiq'
+  gem "rspec-sidekiq"
 end
 
 group :development, :test do
