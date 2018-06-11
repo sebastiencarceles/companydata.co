@@ -178,7 +178,7 @@ en:
     description_4: Need something different?
     email_us: Feel free to contact us.
     free_trial:
-      description: After signing up, you have 100 free API calls to set things up and running.
+      description: After signing up, you have 100 free API calls to set things up and running, for 7 days.
       price: "<strong>0</strong><sup>€</sup><small>/ call</small><br>&nbsp;"
       sub_title: 100 free API calls
       title: Free trial

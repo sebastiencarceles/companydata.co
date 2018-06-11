@@ -178,7 +178,7 @@ fr:
     description_4: Il vous faut quelque chose de différent ?
     email_us: Contactez-nous !
     free_trial:
-      description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour faire les branchements sereinement.
+      description: Après la création de votre compte, vous disposez de 100 appels gratuits à l'API pour tester sereinement, pendant 7 jours.
       price: "<strong>0</strong><sup>€</sup><small>/ appel</small><br>&nbsp;"
       sub_title: 100 appels gratuits à l'API
       title: Essai gratuit
