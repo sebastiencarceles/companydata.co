@@ -9,9 +9,10 @@ class User < ApplicationRecord
   has_many :usages, -> { order(year: :desc).order(month: :desc) }
 
   after_create :create_usage!
+  after_create :sign
+  after_create :subscribe
   after_create :track_creation
   after_create :track_update
-  after_update :track_update, if: :saved_change_to_email?
 
   def self.from_token_request(request)
     email = request.params["auth"] && request.params["auth"]["email"]
@@ -26,6 +27,14 @@ class User < ApplicationRecord
 
     def create_usage!
       usages.create!(year: Date.today.year, month: Date.today.month)
+    end
+
+    def sign
+      Billing::SignWorker.perform_async(id)
+    end
+
+    def subscribe
+      Billing::SubscribeWorker.perform_in(1.minute, id)
     end
 
     def track_creation

@@ -282,6 +282,9 @@ GEM
       rspec-expectations (~> 3.6.0)
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
+    rspec-sidekiq (3.0.3)
+      rspec-core (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
     rspec-support (3.6.0)
     rubocop (0.50.0)
       parallel (~> 1.10)
@@ -429,6 +432,7 @@ DEPENDENCIES
   rails-i18n (~> 5.1)
   rrt (~> 1.0.17)!
   rspec-rails (~> 3.6)
+  rspec-sidekiq
   rubocop
   rubocop-rails
   rubyzip (>= 1.0.0)
