@@ -211,3 +211,6 @@ en:
   searches:
     create:
       no_companies: Oops, no companies.
+  user_mailer:
+    init_subscription:
+      subject: Your subscription has been initiated

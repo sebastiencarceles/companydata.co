@@ -13,3 +13,4 @@ tmp/latest.dump
 db/raw/
 tmp/vats.csv
 log/newrelic_agent.log
+log/mailers.log

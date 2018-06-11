@@ -211,3 +211,6 @@ fr:
   searches:
     create:
       no_companies: Oups, pas de résultat.
+  user_mailer:
+    init_subscription:
+      subject: Votre abonnement a été initialisé

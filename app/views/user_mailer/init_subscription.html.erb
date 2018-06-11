@@ -1,0 +1,29 @@
+<h1>Votre abonnement a été initialisé</h1>
+
+<p>Bonjour !</p>
+
+<p>
+  Tout d'abord merci d'utiliser <%= app_name %>.
+</p>
+
+<p>
+  La période de bêta étant terminée, votre abonnement a été initialisé. Pour vous laisser le temps de vous organiser, il est valable deux semaines et vous permet d'effectuer gratuitement encore 2000 appels authentifiés à l'API (pour rappel, les appels à l'autocomplete ne sont pas comptabilisés et restent gratuits).
+</p>
+
+<p>
+  D'ici à la fin de cet abonnement de transition, merci de vous connecter <%= link_to "à votre compte", edit_user_registration_url %> (bouton "Offres et paiement") afin de choisir une formule entre :
+</p>
+
+<ul>
+  <li>Au consommé : 0.05 €HT / appel jusqu'à 2000 appels par mois puis 0.02 €HT / appel</li>
+  <li>Au forfait : 29 €HT pour 1000 appels par mois </li>
+</ul>
+
+<p>
+  Vous souhaitez un forfait différent ? <%= mail_to contact_email, "Contactez-nous !" %>
+</p>
+
+<p>
+  À très vite sur <%= link_to app_name, root_url %>,<br>
+  Sébastien
+</p>
