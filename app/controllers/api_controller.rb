@@ -27,14 +27,8 @@ class ApiController < ActionController::API
 
     def increment_api_calls
       usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month)
-      if current_user.free_calls_count <= 0
-        count = usage.count + 1
-        usage.update_columns(count: count)
-        Tracking::IncrementWorker.perform_async(current_user.id, "Paid calls")
-      else
-        current_user.update_columns(free_calls_count: (current_user.free_calls_count - 1))
-        Tracking::IncrementWorker.perform_async(current_user.id, "Free calls")
-      end
+      usage.update_columns(count: (usage.count + 1))
+      Tracking::IncrementWorker.perform_async(current_user.id, "Authenticated API call")      
       Tracking::TrackWorker.perform_async(current_user.id, "Authenticated API call")
     end
 end

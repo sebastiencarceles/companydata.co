@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507131556) do
+ActiveRecord::Schema.define(version: 20180610092055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,7 +193,6 @@ ActiveRecord::Schema.define(version: 20180507131556) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.integer "free_calls_count", default: 100
     t.boolean "terms_of_service", default: false
     t.index ["api_key"], name: "index_users_on_api_key", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

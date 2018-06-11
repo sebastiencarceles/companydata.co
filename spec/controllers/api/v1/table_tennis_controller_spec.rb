@@ -45,30 +45,9 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         end
       end
 
-      context "when the user has remaining free calls" do
-        before { current_user.update!(free_calls_count: 1) }
-
-        it "decrements the free calls counter" do
-          expect { subject }.to change { current_user.reload.free_calls_count }.by(-1)
-        end
-
-        it "does not increment the usage api calls counter" do
-          usage = create(:usage, user: current_user, count: 3)
-          expect { subject }.not_to change { usage.reload.count }
-        end
-      end
-
-      context "when the user has no remaining free call" do
-        before { current_user.update!(free_calls_count: 0) }
-
-        it "does not decrement the free calls counter" do
-          expect { subject }.not_to change { current_user.reload.free_calls_count }
-        end
-
-        it "increments the usage api calls counter" do
-          usage = create(:usage, user: current_user, count: 3)
-          expect { subject }.to change { usage.reload.count }.by(1)
-        end
+      it "increments the usage api calls counter" do
+        usage = create(:usage, user: current_user, count: 3)
+        expect { subject }.to change { usage.reload.count }.by(1)
       end
     end
   end
