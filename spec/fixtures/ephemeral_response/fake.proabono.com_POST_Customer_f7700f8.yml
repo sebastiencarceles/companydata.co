@@ -1,0 +1,61 @@
+--- !ruby/object:EphemeralResponse::Fixture
+uri: !ruby/object:URI::HTTPS
+  scheme: https
+  user: 
+  password: 
+  host: fake.proabono.com
+  port: 443
+  path: "/Customer"
+  query: 
+  opaque: 
+  fragment: 
+  parser: !ruby/object:URI::RFC3986_Parser
+    regexp:
+      :SCHEME: !ruby/regexp /\A[A-Za-z][A-Za-z0-9+\-.]*\z/
+      :USERINFO: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=A-Z_a-z~])*\z/
+      :HOST: !ruby/regexp /\A(?:(?<IP-literal>\[(?:(?<IPv6address>(?:\h{1,4}:){6}(?<ls32>\h{1,4}:\h{1,4}|(?<IPv4address>(?<dec-octet>[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]|\d)\.\g<dec-octet>\.\g<dec-octet>\.\g<dec-octet>))|::(?:\h{1,4}:){5}\g<ls32>|\h{,4}::(?:\h{1,4}:){4}\g<ls32>|(?:(?:\h{1,4}:)?\h{1,4})?::(?:\h{1,4}:){3}\g<ls32>|(?:(?:\h{1,4}:){,2}\h{1,4})?::(?:\h{1,4}:){2}\g<ls32>|(?:(?:\h{1,4}:){,3}\h{1,4})?::\h{1,4}:\g<ls32>|(?:(?:\h{1,4}:){,4}\h{1,4})?::\g<ls32>|(?:(?:\h{1,4}:){,5}\h{1,4})?::\h{1,4}|(?:(?:\h{1,4}:){,6}\h{1,4})?::)|(?<IPvFuture>v\h+\.[!$&-.0-;=A-Z_a-z~]+))\])|\g<IPv4address>|(?<reg-name>(?:%\h\h|[!$&-.0-9;=A-Z_a-z~])*))\z/
+      :ABS_PATH: !ruby/regexp /\A\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+      :REL_PATH: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~])+(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+      :QUERY: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+      :FRAGMENT: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+      :OPAQUE: !ruby/regexp /\A(?:[^\/].*)?\z/
+      :PORT: !ruby/regexp /\A[\x09\x0a\x0c\x0d ]*\d*[\x09\x0a\x0c\x0d ]*\z/
+request: !ruby/object:Net::HTTP::Post
+  method: POST
+  request_has_body: true
+  response_has_body: true
+  uri: 
+  path: "/Customer"
+  decode_content: true
+  header:
+    :accept:
+    - application/json
+    authorization:
+    - Basic ZmFrZTpmYWtl
+  body: ReferenceCustomer=249&Email=sadie_lockman%40mcclurerunolfsdottir.biz
+  body_stream: 
+  body_data: 
+created_at: 2018-06-11 08:59:30.310842506 +02:00
+response: !ruby/object:Net::HTTPUnauthorized
+  http_version: '1.1'
+  code: '401'
+  message: Unauthorized
+  header:
+    cache-control:
+    - private
+    content-type:
+    - application/json; charset=utf-8
+    server:
+    - Microsoft-IIS/8.5
+    date:
+    - Mon, 11 Jun 2018 06:59:30 GMT
+    content-length:
+    - '83'
+  body: "{\r\n  \"Code\": \"Error.AuthenticationFailed\",\r\n  \"Message\": \"Authentication
+    failed\"\r\n}"
+  read: true
+  uri: 
+  decode_content: true
+  socket: 
+  body_exist: true
+file_name: fake.proabono.com_POST_Customer_f7700f8.yml

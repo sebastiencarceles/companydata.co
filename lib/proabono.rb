@@ -8,28 +8,34 @@ class Proabono
     @user = user
   end
 
-  def update
+  ## Customer part
+
+  def sign
     post("/Customer", ReferenceCustomer: @user.id, Email: @user.email)
   end
 
   def customer_portal
-    update[:Links].select { |link| link[:rel] == "hosted-home" }.first[:href]
+    sign[:Links].select { |link| link[:rel] == "hosted-home" }.first[:href]
   end
 
-  def usage
-    post("/Usage", ReferenceCustomer: @user.id, ReferenceFeature: "api_call", Increment: 1, DateStamp: DateTime.now)
-  end
+  ## Subscription
 
   def subscribe
     post("/Subscription", ReferenceCustomer: @user.id, ReferenceOffer: "free_trial")
   end
-
+  
   def subscription
     get("/Subscription", ReferenceCustomer: @user.id)
   end
-
+  
   def subscription_name
     subscription&.dig(:TitleLocalized)
+  end
+
+  ## Usage
+
+  def increment
+    post("/Usage", ReferenceCustomer: @user.id, ReferenceFeature: "api_call", Increment: 1, DateStamp: DateTime.now)
   end
 
   private
