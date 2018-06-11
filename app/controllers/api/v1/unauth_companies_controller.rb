@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::UnauthCompaniesController < ActionController::API
+  after_action :track_unauth_api_call
+
   def autocomplete
     query = params[:q]
     render(json: {}, status: :bad_request) && (return) unless query
@@ -16,4 +18,10 @@ class Api::V1::UnauthCompaniesController < ActionController::API
     )
     render json: results, each_serializer: Api::V1::LigthCompanySerializer
   end
+
+  private
+
+    def track_unauth_api_call
+      Tracking::TrackWorker.perform_async("unauthenticated_user", "Unauthenticated API call")      
+    end
 end
