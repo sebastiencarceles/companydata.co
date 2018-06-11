@@ -9,5 +9,5 @@ fr:
         password_confirmation: Confirmation de mot de passe
         current_password: Mot de passe actuel
         remember_me: Rester connecté
-        terms_of_service: J'accepte d'être facturé conformément aux tarifs indiqués sur la page Tarifs, après avoir consommé tous les appels offerts dans l'Essai gratuit
+        terms_of_service: J'accepte les conditions d'utilisation du service. Je choisirais si je le souhaite une formule d'abonnement au terme de l'Essai gratuit (facultatif).
         
