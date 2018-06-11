@@ -20,8 +20,8 @@ class Proabono
 
   ## Subscription
 
-  def subscribe
-    post("/Subscription", ReferenceCustomer: @user.id, ReferenceOffer: "free_trial")
+  def subscribe(offer = "free_trial")
+    post("/Subscription", ReferenceCustomer: @user.id, ReferenceOffer: offer)
   end
   
   def subscription
@@ -35,7 +35,12 @@ class Proabono
   ## Usage
 
   def increment
-    post("/Usage", ReferenceCustomer: @user.id, ReferenceFeature: "api_call", Increment: 1, DateStamp: DateTime.now)
+    increment_by(1)
+  end
+
+  def increment_by(to_add)
+    body = { ReferenceCustomer: @user.id, ReferenceFeature: "api_call", Increment: to_add, DateStamp: DateTime.now }
+    self.class.post("/Usage", body: body, basic_auth: auth, headers: headers)
   end
 
   private
@@ -45,7 +50,7 @@ class Proabono
     end
 
     def post(path, body)
-      self.class.post(path, body: body, basic_auth: auth,  headers: headers).parsed_response&.with_indifferent_access
+      self.class.post(path, body: body, basic_auth: auth, headers: headers).parsed_response&.with_indifferent_access
     end
 
     def auth
