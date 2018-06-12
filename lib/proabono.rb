@@ -34,13 +34,8 @@ class Proabono
 
   ## Usage
 
-  def increment
-    increment_by(1)
-  end
-
   def increment_by(to_add)
-    body = { ReferenceCustomer: @user.id, ReferenceFeature: "api_call", Increment: to_add, DateStamp: DateTime.now }
-    self.class.post("/Usage", body: body, basic_auth: auth, headers: headers)
+    post("/Usage", ReferenceCustomer: @user.id, ReferenceFeature: "api_call", Increment: to_add, DateStamp: DateTime.now)
   end
 
   private

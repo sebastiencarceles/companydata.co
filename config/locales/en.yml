@@ -214,3 +214,5 @@ en:
   user_mailer:
     init_subscription:
       subject: Your subscription has been initiated
+    no_subscription:
+      subject: You don't have a subscription

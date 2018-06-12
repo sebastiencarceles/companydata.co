@@ -5,4 +5,9 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     mail to: @user.email
   end
+
+  def no_subscription
+    @user = params[:user]
+    mail to: @user.email
+  end
 end
