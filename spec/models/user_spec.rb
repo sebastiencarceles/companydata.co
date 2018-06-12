@@ -3,31 +3,16 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  it { should have_many(:usages) }
+# TODO  it { should have_many(:usages) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should validate_acceptance_of(:terms_of_service) }
-  it { should callback(:create_usage!).after(:create) }
   it { should callback(:sign).after(:create) }
   it { should callback(:subscribe).after(:create) }
   it { should callback(:track_creation).after(:create) }
   it { should callback(:track_update).after(:create) }
 
   let(:user) { build :user }
-
-  describe "usage" do
-    context "after create" do
-      it "creates an usage" do
-        expect { user.save! }.to change { user.usages.count }.by(1)
-      end
-
-      it "has the current year and month" do
-        user.save!
-        expect(user.usages.last.year).to eq(Date.today.year)
-        expect(user.usages.last.month).to eq(Date.today.month)
-      end
-    end
-  end
 
   describe "sign" do
     context "after create" do

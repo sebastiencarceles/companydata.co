@@ -26,8 +26,7 @@ class ApiController < ActionController::API
     end
 
     def increment_api_calls
-      usage = current_user.usages.find_or_create_by!(year: Date.today.year, month: Date.today.month)
-      usage.update_columns(count: (usage.count + 1))
+      # TODO current_user.usages.for(Date.today).increment!
       Tracking::IncrementWorker.perform_async(current_user.id, "Authenticated API call")
       Tracking::TrackWorker.perform_async(current_user.id, "Authenticated API call")
     end

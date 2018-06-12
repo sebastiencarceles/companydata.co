@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_secure_token :api_key
   has_many :usages, -> { order(year: :desc).order(month: :desc) }
 
-  after_create :create_usage!
   after_create :sign
   after_create :subscribe
   after_create :track_creation
@@ -24,10 +23,6 @@ class User < ApplicationRecord
   end
 
   private
-
-    def create_usage!
-      usages.create!(year: Date.today.year, month: Date.today.month)
-    end
 
     def sign
       Billing::SignWorker.perform_async(id)

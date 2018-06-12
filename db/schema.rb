@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180610092055) do
+ActiveRecord::Schema.define(version: 20180612062434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,17 +164,6 @@ ActiveRecord::Schema.define(version: 20180610092055) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "usages", force: :cascade do |t|
-    t.integer "year"
-    t.integer "month"
-    t.integer "count", default: 0
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "year", "month"], name: "index_usages_on_user_id_and_year_and_month"
-    t.index ["user_id"], name: "index_usages_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -214,6 +203,5 @@ ActiveRecord::Schema.define(version: 20180610092055) do
   end
 
   add_foreign_key "financial_years", "companies"
-  add_foreign_key "usages", "users"
   add_foreign_key "vats", "companies"
 end
