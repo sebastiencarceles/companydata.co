@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates_acceptance_of :terms_of_service
 
   has_secure_token :api_key
-  has_many :usages, -> { order(year: :desc).order(month: :desc) }
+  has_many :counters, dependent: :destroy
 
   after_create :sign
   after_create :subscribe

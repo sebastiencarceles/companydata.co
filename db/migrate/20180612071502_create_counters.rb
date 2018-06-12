@@ -8,5 +8,7 @@ class CreateCounters < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :counters, :date
   end
 end
