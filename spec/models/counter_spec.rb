@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Counter, type: :model do
   it { should belong_to(:user) }
@@ -14,7 +16,7 @@ RSpec.describe Counter, type: :model do
     end
   end
 
-  describe '#bill!' do
+  describe "#bill!" do
     it "sets the counter as billed" do
       expect { counter.bill! }.to change { counter.reload.billed }.from(false).to(true)
     end
