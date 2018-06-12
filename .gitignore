@@ -5,6 +5,7 @@ db/development.sqlite3
 tmp/pids/server.pid
 tmp/cache/
 tmp/latest.dump
+tmp/letter_opener/
 
 # Ignore application configuration
 /config/application.yml
@@ -13,3 +14,4 @@ tmp/latest.dump
 db/raw/
 tmp/vats.csv
 log/newrelic_agent.log
+log/mailers.log

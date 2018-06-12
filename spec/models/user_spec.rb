@@ -3,23 +3,31 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  it { should have_many(:usages) }
+  it { should have_many(:counters) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:password) }
   it { should validate_acceptance_of(:terms_of_service) }
+  it { should callback(:sign).after(:create) }
+  it { should callback(:subscribe).after(:create) }
+  it { should callback(:track_creation).after(:create) }
+  it { should callback(:track_update).after(:create) }
 
-  describe "usage" do
-    let(:user) { build :user }
+  let(:user) { build :user }
 
-    context "after creation" do
-      it "creates an usage" do
-        expect { user.save! }.to change { user.usages.count }.by(1)
+  describe "sign" do
+    context "after create" do
+      it "starts the sign worker" do
+        expect { user.save! }.to change { Billing::SignWorker.jobs.size }.by(1)
+        expect(Billing::SignWorker).to have_enqueued_sidekiq_job(user.id)
       end
+    end
+  end
 
-      it "has the current year and month" do
-        user.save!
-        expect(user.usages.last.year).to eq(Date.today.year)
-        expect(user.usages.last.month).to eq(Date.today.month)
+  describe "subscribe" do
+    context "after create" do
+      it "starts the subscription worker" do
+        expect { user.save! }.to change { Billing::SubscribeWorker.jobs.size }.by(1)
+        expect(Billing::SubscribeWorker).to have_enqueued_sidekiq_job(user.id)
       end
     end
   end

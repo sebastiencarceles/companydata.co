@@ -29,46 +29,26 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
         expect(parsed_body["response"]).to eq "pong"
       end
 
-      context "when user has no usage for the current month" do
-        before { current_user.usages.delete_all }
+      context "when user has no counter for the current day" do
+        before { current_user.counters.delete_all }
 
-        it "creates an usage" do
-          expect { subject }.to change { current_user.usages.count }.by(1)
+        it "creates an counter" do
+          expect { subject }.to change { current_user.counters.count }.by(1)
+          expect(current_user.reload.counters.last.date).to eq Date.today
         end
       end
 
-      context "when user already has an usage for the current month" do
-        before { current_user.usages << create(:usage, user: current_user) }
+      context "when user already has an counter for the current day" do
+        before { current_user.counters << create(:counter, date: Date.today, user: current_user) }
 
-        it "does not create another usage" do
-          expect { subject }.not_to change { current_user.usages.count }
+        it "does not create another counter" do
+          expect { subject }.not_to change { current_user.counters.count }
         end
       end
 
-      context "when the user has remaining free calls" do
-        before { current_user.update!(free_calls_count: 1) }
-
-        it "decrements the free calls counter" do
-          expect { subject }.to change { current_user.reload.free_calls_count }.by(-1)
-        end
-
-        it "does not increment the usage api calls counter" do
-          usage = create(:usage, user: current_user, count: 3)
-          expect { subject }.not_to change { usage.reload.count }
-        end
-      end
-
-      context "when the user has no remaining free call" do
-        before { current_user.update!(free_calls_count: 0) }
-
-        it "does not decrement the free calls counter" do
-          expect { subject }.not_to change { current_user.reload.free_calls_count }
-        end
-
-        it "increments the usage api calls counter" do
-          usage = create(:usage, user: current_user, count: 3)
-          expect { subject }.to change { usage.reload.count }.by(1)
-        end
+      it "increments the counter api calls counter" do
+        counter = create(:counter, user: current_user, value: 77)
+        expect { subject }.to change { counter.reload.value }.by(1)
       end
     end
   end

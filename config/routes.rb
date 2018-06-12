@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
   
   get "renew_api_key", to: "users#renew"
-  
+  get "customer_portal", to: "users#customer_portal"
+  get "subscription_name", to: "users#subscription_name"
+
   resources :companies, only: [:show, :index]  
   
   namespace :api do

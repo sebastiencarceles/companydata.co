@@ -6,12 +6,12 @@ class User < ApplicationRecord
   validates_acceptance_of :terms_of_service
 
   has_secure_token :api_key
-  has_many :usages, -> { order(year: :desc).order(month: :desc) }
+  has_many :counters, dependent: :destroy
 
-  after_create :create_usage!
+  after_create :sign
+  after_create :subscribe
   after_create :track_creation
   after_create :track_update
-  after_update :track_update, if: :saved_change_to_email?
 
   def self.from_token_request(request)
     email = request.params["auth"] && request.params["auth"]["email"]
@@ -24,8 +24,12 @@ class User < ApplicationRecord
 
   private
 
-    def create_usage!
-      usages.create!(year: Date.today.year, month: Date.today.month)
+    def sign
+      Billing::SignWorker.perform_async(id)
+    end
+
+    def subscribe
+      Billing::SubscribeWorker.perform_in(1.minute, id)
     end
 
     def track_creation

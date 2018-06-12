@@ -26,6 +26,8 @@ module CompanyIo
       end
     end
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.i18n.available_locales = [:en, :fr]
     config.i18n.default_locale = :fr
   end

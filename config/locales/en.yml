@@ -17,7 +17,6 @@ en:
       title: Search result
     contact:
       email: Email
-      full_name: Name
       phone: Phone
       title: Contact
     financial_year:
@@ -85,11 +84,12 @@ en:
         cancel_account: Cancel my account
         current_password_needed: We need your current password to confirm your changes.
         do_not_change_password: Leave it blank if you don't want to change it.
+        subscription:
+          current: Current plan
+          customer_portal: Billing
+          description: You can change your plan anytime, update your billing infos or download your invoices.
+          title: Plan
         title: Account
-        usage:
-          description: Here is your historial usage.
-          title: Usage
-          usage: "%{count} API calls"
       new:
         action: Sign up
         log_in: Log in?
@@ -129,7 +129,6 @@ en:
       description: This can't be simpler. When you want to search for companies, here is the request. Beside is the result.
       title: Super simple use
     features:
-      action_1: Documentation
       action_2: Documentation
       action_3: Tutorials
       description_1: Check instantly a VAT number, and get the corresponding company data in return.
@@ -153,7 +152,6 @@ en:
       update: Updates are made on a daily basis for open data, in real time for geolocations and VAT numbers and periodically for other types.
     show:
       description: Companydata.co is the super simple API to get company data. Get started instantly for free. Register for API integration.
-      more: More about data
       sub_value_proposition: Integrate the API and have access to headquarters and branches, verified VAT numbers, geolocalized addresses, revenues and incomes...<br><br>Get started in minutes for free.
       value_proposition: Company data, directly in your system.
     try:
@@ -180,7 +178,7 @@ en:
     description_4: Need something different?
     email_us: Feel free to contact us.
     free_trial:
-      description: After signing up, you have 100 free API calls to set things up and running.
+      description: After signing up, you have 100 free API calls to set things up and running, for 7 days.
       price: "<strong>0</strong><sup>€</sup><small>/ call</small><br>&nbsp;"
       sub_title: 100 free API calls
       title: Free trial
@@ -213,3 +211,12 @@ en:
   searches:
     create:
       no_companies: Oops, no companies.
+  user_mailer:
+    init_subscription:
+      subject: Your subscription has been initiated
+    missing_payment_method:
+      subject: Missing payment setting
+    no_subscription:
+      subject: You don't have a subscription
+    unpaid_invoices:
+      subject: Unpaid invoices
