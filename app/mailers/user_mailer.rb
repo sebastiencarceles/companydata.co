@@ -2,12 +2,12 @@
 
 class UserMailer < ApplicationMailer
   def init_subscription
-    @user = params[:user]
+    @user = User.find(params[:user_id])
     mail to: @user.email
   end
 
   def no_subscription
-    @user = params[:user]
+    @user = User.find(params[:user_id])
     mail to: @user.email
   end
 end

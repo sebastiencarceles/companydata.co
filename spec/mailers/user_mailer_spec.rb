@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe UserMailer, type: :mailer do
   describe "init_subscription" do
     let(:user) { create(:user) }
-    let(:mail) { UserMailer.with(user: user).init_subscription }
+    let(:mail) { UserMailer.with(user_id: user.id).init_subscription }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Votre abonnement a été initialisé")
@@ -20,7 +20,7 @@ RSpec.describe UserMailer, type: :mailer do
 
   describe "no_subscription" do
     let(:user) { create(:user) }
-    let(:mail) { UserMailer.with(user: user).no_subscription }
+    let(:mail) { UserMailer.with(user_id: user.id).no_subscription }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Vous n'avez pas d'abonnement")
