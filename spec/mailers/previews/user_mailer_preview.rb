@@ -6,6 +6,6 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def no_subscription
-    UserMailer.with(user: User.last).no_subscription
+    UserMailer.with(user: User.first).no_subscription
   end
 end
