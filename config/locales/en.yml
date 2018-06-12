@@ -214,5 +214,9 @@ en:
   user_mailer:
     init_subscription:
       subject: Your subscription has been initiated
+    missing_payment_method:
+      subject: Missing payment setting
     no_subscription:
       subject: You don't have a subscription
+    unpaid_invoices:
+      subject: Unpaid invoices
