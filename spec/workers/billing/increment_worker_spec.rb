@@ -5,11 +5,11 @@ require "rails_helper"
 RSpec.describe Billing::IncrementWorker, type: :worker do
   let(:user) { create :user }
   let(:proabono) { double :proabono }
-  subject { Billing::IncrementWorker.new.perform(user.id) }
+  subject { Billing::IncrementWorker.new.perform(user.id, 77) }
 
   it "calls Proabono to increment usage" do
     expect(Proabono).to receive(:new).with(user).and_return(proabono)
-    expect(proabono).to receive(:increment)
+    expect(proabono).to receive(:increment_by).with(77)
     subject
   end
 

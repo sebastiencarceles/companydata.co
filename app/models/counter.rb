@@ -14,6 +14,7 @@ class Counter < ApplicationRecord
   end
 
   def bill!
+    Billing::IncrementWorker.perform_async(user_id, value)
     self.update(billed: true)
   end
 end

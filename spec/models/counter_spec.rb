@@ -12,11 +12,16 @@ RSpec.describe Counter, type: :model do
 
   describe "#increment_value!" do
     it "increments the value by 1" do
-      expect { counter.increment_value! }.to change { counter.reload.value }.by(1)
+      expect { counter.increment_value! }.to change { counter.reload.value }.by 1
     end
   end
 
   describe "#bill!" do
+    it "starts the increment worker of billing" do
+      expect { counter.bill! }.to change { Billing::IncrementWorker.jobs.size }.by 1
+      expect(Billing::IncrementWorker).to have_enqueued_sidekiq_job(counter.user_id, counter.value)
+    end
+
     it "sets the counter as billed" do
       expect { counter.bill! }.to change { counter.reload.billed }.from(false).to(true)
     end
