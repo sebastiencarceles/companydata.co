@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 namespace :users do
+  desc "Init the subscriptions for existing users"
   task init_subscriptions: :environment do
     User.order(:id).each do |user|
       Rails.logger.info "Initializing subscription for #{user.email}"
