@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180612062434) do
+ActiveRecord::Schema.define(version: 20180612071502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,16 @@ ActiveRecord::Schema.define(version: 20180612062434) do
     t.index ["registration_1", "registration_2"], name: "index_companies_on_registration_1_and_registration_2"
     t.index ["slug"], name: "index_companies_on_slug", unique: true
     t.index ["smooth_name"], name: "index_companies_on_smooth_name"
+  end
+
+  create_table "counters", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "date"
+    t.boolean "billed", default: false
+    t.integer "value", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_counters_on_user_id"
   end
 
   create_table "financial_years", force: :cascade do |t|
@@ -202,6 +212,7 @@ ActiveRecord::Schema.define(version: 20180612062434) do
     t.index ["value"], name: "index_vats_on_value"
   end
 
+  add_foreign_key "counters", "users"
   add_foreign_key "financial_years", "companies"
   add_foreign_key "vats", "companies"
 end
