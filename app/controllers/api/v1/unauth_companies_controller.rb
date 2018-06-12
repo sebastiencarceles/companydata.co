@@ -22,6 +22,6 @@ class Api::V1::UnauthCompaniesController < ActionController::API
   private
 
     def track_api_call
-      Tracking::TrackWorker.perform_async("unauthenticated_user", "Unauthenticated API call")      
+      Tracking::TrackWorker.perform_async("unauthenticated_user", "Unauthenticated API call")
     end
 end
