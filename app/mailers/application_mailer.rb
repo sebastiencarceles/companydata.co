@@ -4,5 +4,5 @@ class ApplicationMailer < ActionMailer::Base
   helper ApplicationHelper
 
   default from: "Sébastien de Companydata.co <sebastien@companydata.co>"
-  layout "mailer"
+  layout "email"
 end
