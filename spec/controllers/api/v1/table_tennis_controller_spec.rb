@@ -47,7 +47,7 @@ RSpec.describe Api::V1::TableTennisController, type: :request do
       end
 
       it "increments the counter api calls counter" do
-        counter = create(:counter, user: current_user, value: 77)
+        counter = create(:counter, date: Date.today, user: current_user, value: 77)
         expect { subject }.to change { counter.reload.value }.by(1)
       end
     end
