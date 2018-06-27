@@ -170,6 +170,7 @@ en:
     sign_in: Sign in
     sign_out: Sign out
     sign_up: Sign up
+    subscriptions: Subscriptions managed by ProAbono
   pricing:
     call_to_action: Choose
     description_1: Sign up and start instantly to use the Enrichment API.

@@ -7,18 +7,6 @@
           <h6 class="text-white m-0 mr-4"><%= app_name %></h6>
           <ul class="list-inline m-0">
             <li class="list-inline-item">
-              <%= link_to t("navigation.pricing"), page_path('pricing') %>
-            </li>
-            <li class="list-inline-item">
-              <%= link_to t("navigation.get_started"), page_path('getting_started') %>
-            </li>
-            <li class="list-inline-item">
-              <%= link_to t("navigation.docs"), docs_url %>
-            </li>
-            <li class="list-inline-item">
-              <%= link_to t("navigation.resources"), page_path('resources') %>
-            </li>
-            <li class="list-inline-item">
               <%= mail_to contact_email, t("navigation.contact") %>
             </li>
             <li class="list-inline-item">
@@ -29,8 +17,10 @@
             </li>
           </ul>
         </div>
+        <span><%= link_to t("navigation.subscriptions"), "https://www.proabono.com/fr/", target: "_blank" %></span>
         <p class="small text-muted m-0">JustDo &copy; <%= Date.today.year %></p>
       </div>
     </div>
   </div>
+  
 </div>

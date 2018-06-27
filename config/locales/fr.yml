@@ -170,6 +170,7 @@ fr:
     sign_in: Connexion
     sign_out: Déconnexion
     sign_up: Enregistrement
+    subscriptions: Abonnements gérés avec ProAbono
   pricing:
     call_to_action: Choisir
     description_1: Enregistrez-vous et commencez dès maintenant à utiliser l'API d'enrichissement de société.
