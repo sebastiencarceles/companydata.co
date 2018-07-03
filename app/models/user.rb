@@ -25,18 +25,18 @@ class User < ApplicationRecord
   private
 
     def sign
-      Billing::SignWorker.perform_async(id)
+      Billing::SignWorker.perform_in(30.seconds, id)
     end
 
     def subscribe
-      Billing::SubscribeWorker.perform_in(1.minute, id)
+      Billing::SubscribeWorker.perform_in(2.minutes, id)
     end
 
     def track_creation
-      Tracking::TrackWorker.perform_async(id, "Registration")
+      Tracking::TrackWorker.perform_in(30.seconds, id, "Registration")
     end
 
     def track_update
-      Tracking::EmailWorker.perform_async(id, email)
+      Tracking::EmailWorker.perform_in(30.seconds, id, email)
     end
 end
