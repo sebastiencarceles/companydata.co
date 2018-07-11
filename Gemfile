@@ -109,6 +109,10 @@ gem "rails-i18n", "~> 5.1"
 # HTTP Client
 gem "httparty"
 
+# Fake data for testing and sandbox mode
+gem "faker", git: "git://github.com/stympy/faker.git", branch: "master"
+gem "factory_bot_rails", "~> 4.0"
+
 group :test do
   # Spec jobs
   gem "rspec-sidekiq"
@@ -122,8 +126,6 @@ group :development, :test do
 
   # Test tools
   gem "rspec-rails", "~> 3.6"
-  gem "faker", git: "git://github.com/stympy/faker.git", branch: "master"
-  gem "factory_bot_rails", "~> 4.0"
   gem "shoulda-matchers", "~> 3.1"
   gem "shoulda-callback-matchers", "~> 1.1", ">= 1.1.3"
 end

@@ -9,10 +9,12 @@ module AuthenticationHelper
     @admin ||= create :user, email: "sebastien@companydata.co"
   end
 
-  def authentication_header
-    {
+  def authentication_header(sandbox: false)
+    headers = {
       HTTP_AUTHORIZATION: ActionController::HttpAuthentication::Basic.encode_credentials(current_user.api_key, "")
     }
+    headers["X-Sandbox"] = true if sandbox
+    headers
   end
 
   def admin_authentication_header

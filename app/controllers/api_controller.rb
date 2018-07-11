@@ -5,6 +5,12 @@ class ApiController < ActionController::API
   before_action :check_authentication
   after_action :increment_api_calls
 
+  protected
+
+    def sandbox?
+      request.headers["X-Sandbox"].present?
+    end
+
   private
 
     def authenticate_from_api_key!
