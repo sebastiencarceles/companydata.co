@@ -3,7 +3,7 @@
 class ApiController < ActionController::API
   before_action :authenticate_from_api_key!
   before_action :check_authentication
-  after_action :increment_api_calls
+  after_action :increment_api_calls, unless: :sandbox?
 
   protected
 
