@@ -11,128 +11,144 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     end
 
     context "when authenticated" do
-      context "when the company can't be found" do
-        before { get "/api/v1/companies/3323344", headers: authentication_header }
+      context "when sandbox" do
+        before { get "/api/v1/companies/any-slug", headers: authentication_header(sandbox: true) }
 
-        it { expect(response).to have_http_status :not_found }
+        it { expect(response).to be_success }
+
+        it "returns the company" do
+          expect(parsed_body["slug"]).to eq "any-slug"
+        end
+
+        it "returns full companies" do
+          expect(parsed_body.keys.count).to eq 43
+        end
       end
 
-      context "when the company is found" do
-        let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
+      context "when not sandbox" do
+        context "when the company can't be found" do
+          before { get "/api/v1/companies/3323344", headers: authentication_header }
 
-        context "by id" do
-          before { get "/api/v1/companies/#{company.id}", headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns the company" do
-            expect(parsed_body["id"]).to eq company.id
-          end
-
-          it "returns full companies" do
-            expect(parsed_body.keys.count).to eq 43
-          end
+          it { expect(response).to have_http_status :not_found }
         end
 
-        context "by slug" do
-          before { get "/api/v1/companies/#{company.slug}", headers: authentication_header }
+        context "when the company is found" do
+          let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
 
-          it { expect(response).to be_success }
-
-          it "returns the company" do
-            expect(parsed_body["id"]).to eq company.id
-          end
-        end
-
-        context "by vat number" do
-          context "when there is only one company with this VAT number" do
-            before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header }
+          context "by id" do
+            before { get "/api/v1/companies/#{company.id}", headers: authentication_header }
 
             it { expect(response).to be_success }
 
             it "returns the company" do
               expect(parsed_body["id"]).to eq company.id
-              expect(Vat.where(value: company.vat.value).count).to eq 1
+            end
+
+            it "returns full companies" do
+              expect(parsed_body.keys.count).to eq 43
             end
           end
 
-          context "when there are multiple companies with this VAT number" do
-            context "when there is a headquarter" do
-              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
-              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-              before {
-                company.update!(quality: "branch")
-                get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
-              }
-
-              it { expect(response).to be_success }
-
-              it "returns the headquarter company" do
-                expect(parsed_body["id"]).to eq company_hq.id
-                expect(Vat.where(value: company.vat.value).count).to eq 3
-              end
-            end
-
-            context "when there is no headquarter" do
-              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
-              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-              before {
-                company.update!(quality: "branch")
-                get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
-              }
-
-              it { expect(response).to be_success }
-
-              it "returns a branch" do
-                expect(parsed_body["id"]).to eq company.id
-                expect(Vat.where(value: company.vat.value).count).to eq 3
-              end
-            end
-          end
-        end
-
-        context "by registration number" do
-          context "when there is only one company with this registration number" do
-            before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header }
+          context "by slug" do
+            before { get "/api/v1/companies/#{company.slug}", headers: authentication_header }
 
             it { expect(response).to be_success }
 
             it "returns the company" do
               expect(parsed_body["id"]).to eq company.id
-              expect(Company.where(registration_1: company.registration_1).count).to eq 1
             end
           end
 
-          context "when there are multiple companies with this registration number" do
-            context "when there is a headquarter" do
-              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
-              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-              before {
-                company.update!(quality: "branch")
-                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
-              }
+          context "by vat number" do
+            context "when there is only one company with this VAT number" do
+              before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header }
 
               it { expect(response).to be_success }
 
-              it "returns the headquarter company" do
-                expect(parsed_body["id"]).to eq company_hq.id
-                expect(Company.where(registration_1: company.registration_1).count).to eq 3
+              it "returns the company" do
+                expect(parsed_body["id"]).to eq company.id
+                expect(Vat.where(value: company.vat.value).count).to eq 1
               end
             end
 
-            context "when there is no headquarter" do
-              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
-              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-              before {
-                company.update!(quality: "branch")
-                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
-              }
+            context "when there are multiple companies with this VAT number" do
+              context "when there is a headquarter" do
+                let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+                before {
+                  company.update!(quality: "branch")
+                  get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
+                }
+
+                it { expect(response).to be_success }
+
+                it "returns the headquarter company" do
+                  expect(parsed_body["id"]).to eq company_hq.id
+                  expect(Vat.where(value: company.vat.value).count).to eq 3
+                end
+              end
+
+              context "when there is no headquarter" do
+                let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+                before {
+                  company.update!(quality: "branch")
+                  get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
+                }
+
+                it { expect(response).to be_success }
+
+                it "returns a branch" do
+                  expect(parsed_body["id"]).to eq company.id
+                  expect(Vat.where(value: company.vat.value).count).to eq 3
+                end
+              end
+            end
+          end
+
+          context "by registration number" do
+            context "when there is only one company with this registration number" do
+              before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header }
 
               it { expect(response).to be_success }
 
-              it "returns a branch" do
+              it "returns the company" do
                 expect(parsed_body["id"]).to eq company.id
-                expect(Company.where(registration_1: company.registration_1).count).to eq 3
+                expect(Company.where(registration_1: company.registration_1).count).to eq 1
+              end
+            end
+
+            context "when there are multiple companies with this registration number" do
+              context "when there is a headquarter" do
+                let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+                before {
+                  company.update!(quality: "branch")
+                  get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
+                }
+
+                it { expect(response).to be_success }
+
+                it "returns the headquarter company" do
+                  expect(parsed_body["id"]).to eq company_hq.id
+                  expect(Company.where(registration_1: company.registration_1).count).to eq 3
+                end
+              end
+
+              context "when there is no headquarter" do
+                let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+                before {
+                  company.update!(quality: "branch")
+                  get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
+                }
+
+                it { expect(response).to be_success }
+
+                it "returns a branch" do
+                  expect(parsed_body["id"]).to eq company.id
+                  expect(Company.where(registration_1: company.registration_1).count).to eq 3
+                end
               end
             end
           end

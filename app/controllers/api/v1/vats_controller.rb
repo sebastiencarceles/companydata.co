@@ -16,6 +16,6 @@ class Api::V1::VatsController < ApiController
   private
 
     def show_sandbox
-      render json: FactoryBot.build(:vat, value: params[:value])
+      render json: FactoryBot.build(:vat, id: 42, value: params[:value])
     end
 end

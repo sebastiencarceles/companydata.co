@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::CompaniesController < ApiController
+  before_action :show_sandbox, if: :sandbox?
+
   def show
     identifier = params[:identifier]
     company = Company.find_by_id(identifier)
@@ -52,6 +54,10 @@ class Api::V1::CompaniesController < ApiController
   end
 
   private
+
+    def show_sandbox
+      render json: FactoryBot.build(:full_company, id: 42, slug: params[:identifier]), serializer: Api::V1::FullCompanySerializer
+    end
 
     def page
       params[:page].presence || 1
