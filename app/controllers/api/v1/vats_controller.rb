@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::VatsController < ApiController
-  before_action :show_sandbox, if: :sandbox?
-
   def show
     value = params[:value]
     vat = Vat.find_by_value(value)
@@ -10,12 +8,6 @@ class Api::V1::VatsController < ApiController
 
     vat.validate!
 
-    render json: vat
+    render json: vat, sandbox: sandbox?
   end
-
-  private
-
-    def show_sandbox
-      render json: FactoryBot.build(:vat, id: 42, value: params[:value])
-    end
 end

@@ -11,144 +11,213 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     end
 
     context "when authenticated" do
-      context "when sandbox" do
-        before { get "/api/v1/companies/any-slug", headers: authentication_header(sandbox: true) }
+      context "when the company can't be found" do
+        before { get "/api/v1/companies/3323344", headers: authentication_header }
 
-        it { expect(response).to be_success }
-
-        it "returns the company" do
-          expect(parsed_body["slug"]).to eq "any-slug"
-        end
-
-        it "returns full companies" do
-          expect(parsed_body.keys.count).to eq 43
-        end
+        it { expect(response).to have_http_status :not_found }
       end
 
-      context "when not sandbox" do
-        context "when the company can't be found" do
-          before { get "/api/v1/companies/3323344", headers: authentication_header }
+      context "when the company is found" do
+        let(:company) { create :full_company, registration_1: "828022153", registration_2: "00016" }
 
-          it { expect(response).to have_http_status :not_found }
+        context "by id" do
+          before { get "/api/v1/companies/#{company.id}", headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns the company" do
+            expect(parsed_body["id"]).to eq company.id
+          end
+
+          it "returns full companies" do
+            expect(parsed_body.keys.count).to eq 43
+          end
+
         end
 
-        context "when the company is found" do
-          let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
+        context "by id (sandboxed)" do
+          before { get "/api/v1/companies/#{company.id}", headers: authentication_header(sandbox: true) }
 
-          context "by id" do
-            before { get "/api/v1/companies/#{company.id}", headers: authentication_header }
+          it "returns obfuscated data" do
+            expect(parsed_body["name"]).to include "*"
+          end
+        end
+
+        context "by slug" do
+          before { get "/api/v1/companies/#{company.slug}", headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns the company" do
+            expect(parsed_body["id"]).to eq company.id
+          end
+        end
+
+        context "by slug (sandboxed)" do
+          before { get "/api/v1/companies/#{company.slug}", headers: authentication_header(sandbox: true) }
+
+          it "returns obfuscated data" do
+            expect(parsed_body["name"]).to include "*"
+          end
+        end
+
+        context "by vat number" do
+          context "when there is only one company with this VAT number" do
+            before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header }
 
             it { expect(response).to be_success }
 
             it "returns the company" do
               expect(parsed_body["id"]).to eq company.id
-            end
-
-            it "returns full companies" do
-              expect(parsed_body.keys.count).to eq 43
+              expect(Vat.where(value: company.vat.value).count).to eq 1
             end
           end
 
-          context "by slug" do
-            before { get "/api/v1/companies/#{company.slug}", headers: authentication_header }
+          context "when there is only one company with this VAT number (sandboxed)" do
+            before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true) }
+
+            it "returns obfuscated data" do
+              expect(parsed_body["name"]).to include "*"
+            end
+          end
+
+          context "when there are multiple companies with this VAT number" do
+            context "when there is a headquarter" do
+              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
+              }
+
+              it { expect(response).to be_success }
+
+              it "returns the headquarter company" do
+                expect(parsed_body["id"]).to eq company_hq.id
+                expect(Vat.where(value: company.vat.value).count).to eq 3
+              end
+            end
+
+            context "when there is a headquarter (sandboxed)" do
+              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true)
+              }
+
+              it "returns obfuscated data" do
+                expect(parsed_body["name"]).to include "*"
+              end
+            end
+
+            context "when there is no headquarter" do
+              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
+              }
+
+              it { expect(response).to be_success }
+
+              it "returns a branch" do
+                expect(parsed_body["id"]).to eq company.id
+                expect(Vat.where(value: company.vat.value).count).to eq 3
+              end
+            end
+
+            context "when there is no headquarter (sandboxed)" do
+              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true)
+              }
+
+              it "returns obfuscated data" do
+                expect(parsed_body["name"]).to include "*"
+              end
+            end
+          end
+        end
+
+        context "by registration number" do
+          context "when there is only one company with this registration number" do
+            before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header }
 
             it { expect(response).to be_success }
 
             it "returns the company" do
               expect(parsed_body["id"]).to eq company.id
+              expect(Company.where(registration_1: company.registration_1).count).to eq 1
             end
           end
 
-          context "by vat number" do
-            context "when there is only one company with this VAT number" do
-              before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header }
+          context "when there is only one company with this registration number (sandbox)" do
+            before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true) }
 
-              it { expect(response).to be_success }
-
-              it "returns the company" do
-                expect(parsed_body["id"]).to eq company.id
-                expect(Vat.where(value: company.vat.value).count).to eq 1
-              end
-            end
-
-            context "when there are multiple companies with this VAT number" do
-              context "when there is a headquarter" do
-                let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
-                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-                before {
-                  company.update!(quality: "branch")
-                  get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
-                }
-
-                it { expect(response).to be_success }
-
-                it "returns the headquarter company" do
-                  expect(parsed_body["id"]).to eq company_hq.id
-                  expect(Vat.where(value: company.vat.value).count).to eq 3
-                end
-              end
-
-              context "when there is no headquarter" do
-                let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
-                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-                before {
-                  company.update!(quality: "branch")
-                  get "/api/v1/companies/#{company.vat.value}", headers: authentication_header
-                }
-
-                it { expect(response).to be_success }
-
-                it "returns a branch" do
-                  expect(parsed_body["id"]).to eq company.id
-                  expect(Vat.where(value: company.vat.value).count).to eq 3
-                end
-              end
+            it "returns obfuscated data" do
+              expect(parsed_body["name"]).to include "*"
             end
           end
 
-          context "by registration number" do
-            context "when there is only one company with this registration number" do
-              before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header }
+          context "when there are multiple companies with this registration number" do
+            context "when there is a headquarter" do
+              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
+              }
 
               it { expect(response).to be_success }
 
-              it "returns the company" do
-                expect(parsed_body["id"]).to eq company.id
-                expect(Company.where(registration_1: company.registration_1).count).to eq 1
+              it "returns the headquarter company" do
+                expect(parsed_body["id"]).to eq company_hq.id
+                expect(Company.where(registration_1: company.registration_1).count).to eq 3
               end
             end
 
-            context "when there are multiple companies with this registration number" do
-              context "when there is a headquarter" do
-                let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
-                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-                before {
-                  company.update!(quality: "branch")
-                  get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
-                }
+            context "when there is a headquarter (sandboxed)" do
+              let!(:company_hq) { create :company, quality: "headquarter", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true)
+              }
 
-                it { expect(response).to be_success }
-
-                it "returns the headquarter company" do
-                  expect(parsed_body["id"]).to eq company_hq.id
-                  expect(Company.where(registration_1: company.registration_1).count).to eq 3
-                end
+              it "returns obfuscated data" do
+                expect(parsed_body["name"]).to include "*"
               end
+            end
 
-              context "when there is no headquarter" do
-                let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
-                let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
-                before {
-                  company.update!(quality: "branch")
-                  get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
-                }
+            context "when there is no headquarter" do
+              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header
+              }
 
-                it { expect(response).to be_success }
+              it { expect(response).to be_success }
 
-                it "returns a branch" do
-                  expect(parsed_body["id"]).to eq company.id
-                  expect(Company.where(registration_1: company.registration_1).count).to eq 3
-                end
+              it "returns a branch" do
+                expect(parsed_body["id"]).to eq company.id
+                expect(Company.where(registration_1: company.registration_1).count).to eq 3
+              end
+            end
+
+            context "when there is no headquarter (sandboxed)" do
+              let!(:company_2) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00002" }
+              let!(:company_3) { create :company, quality: "branch", registration_1: company.registration_1, registration_2: "00003" }
+              before {
+                company.update!(quality: "branch")
+                get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true)
+              }
+
+              it "returns obfuscated data" do
+                expect(parsed_body["name"]).to include "*"
               end
             end
           end
@@ -165,34 +234,31 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     end
 
     context "when authenticated" do
-      context "when sandbox" do
-        before { get "/api/v1/companies/123/456", headers: authentication_header(sandbox: true) }
+      context "when the company can't be found" do
+        before { get "/api/v1/companies/3323344/123456", headers: authentication_header }
+
+        it { expect(response).to have_http_status :not_found }
+      end
+
+      context "when the company is found" do
+        let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
+
+        before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header }
 
         it { expect(response).to be_success }
 
         it "returns the company" do
-          expect(parsed_body["registration_1"]).to eq "123"
-          expect(parsed_body["registration_2"]).to eq "456"
+          expect(parsed_body["id"]).to eq company.id
         end
       end
 
-      context "when not sandbox" do
-        context "when the company can't be found" do
-          before { get "/api/v1/companies/3323344/123456", headers: authentication_header }
+      context "when the company is found (sandboxed)" do
+        let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
 
-          it { expect(response).to have_http_status :not_found }
-        end
+        before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header(sandbox: true) }
 
-        context "when the company is found" do
-          let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
-
-          before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it "returns the company" do
-            expect(parsed_body["id"]).to eq company.id
-          end
+        it "returns obfuscated data" do
+          expect(parsed_body["name"]).to include "*"
         end
       end
     end
@@ -217,6 +283,16 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           end
         end
 
+        context "without pagination parameter (sandboxed)" do
+          before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header(sandbox: true) }
+
+          it "returns obfuscated data" do
+            parsed_body.each do |body|
+              expect(body["name"]).to include "*"
+            end
+          end
+        end
+
         context "with pagination parameters" do
           it "returns the asked page" do
             get "/api/v1/companies", params: { q: "company", page: 1 }, headers: authentication_header
@@ -233,123 +309,123 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
             expect(parsed_body.count).to eq(5)
           end
         end
-      end
 
-      it "returns the pagination data in the response headers" do
-        get "/api/v1/companies", params: { q: "company", page: 2, per_page: 5 }, headers: authentication_header
-        expect(response.headers["X-Pagination-Limit-Value"]).to eq(5)
-        expect(response.headers["X-Pagination-Total-Pages"]).to eq(4)
-        expect(response.headers["X-Pagination-Current-Page"]).to eq(2)
-        expect(response.headers["X-Pagination-Next-Page"]).to eq(3)
-        expect(response.headers["X-Pagination-Prev-Page"]).to eq(1)
-        expect(response.headers["X-Pagination-First-Page"]).to be false
-        expect(response.headers["X-Pagination-Last-Page"]).to be false
-        expect(response.headers["X-Pagination-Out-Of-Range"]).to be false
-      end
-
-      describe "quality parameter" do
-        context "without quality" do
-          before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it { expect(parsed_body).not_to be_empty }
-
-          it "returns a collection of headquarters" do
-            expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
-          end
+        it "returns the pagination data in the response headers" do
+          get "/api/v1/companies", params: { q: "company", page: 2, per_page: 5 }, headers: authentication_header
+          expect(response.headers["X-Pagination-Limit-Value"]).to eq(5)
+          expect(response.headers["X-Pagination-Total-Pages"]).to eq(4)
+          expect(response.headers["X-Pagination-Current-Page"]).to eq(2)
+          expect(response.headers["X-Pagination-Next-Page"]).to eq(3)
+          expect(response.headers["X-Pagination-Prev-Page"]).to eq(1)
+          expect(response.headers["X-Pagination-First-Page"]).to be false
+          expect(response.headers["X-Pagination-Last-Page"]).to be false
+          expect(response.headers["X-Pagination-Out-Of-Range"]).to be false
         end
 
-        context "with 'headquarter' as quality" do
-          before { get "/api/v1/companies", params: { q: "total", quality: "headquarter" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it { expect(parsed_body).not_to be_empty }
-
-          it "returns a collection of headquarters" do
-            expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
-          end
-        end
-
-        context "with 'branch' as quality" do
-          before { get "/api/v1/companies", params: { q: "total", quality: "branch" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it { expect(parsed_body).not_to be_empty }
-
-          it "returns a collection of branches" do
-            expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["branch"]
-          end
-        end
-
-        context "with 'all' as quality" do
-          before { get "/api/v1/companies", params: { q: "total", quality: "all" }, headers: authentication_header }
-
-          it { expect(response).to be_success }
-
-          it { expect(parsed_body).not_to be_empty }
-
-          it "returns a collection of headquarters and branches" do
-            expect(parsed_body.map { |body| body["quality"] }.uniq.sort).to eq ["branch", "headquarter"]
-          end
-        end
-
-        context "with something else as quality" do
-          before { get "/api/v1/companies", params: { q: "total", quality: "something" }, headers: authentication_header }
-
-          it { expect(response).to have_http_status :bad_request }
-        end
-      end
-
-      [
-        {
-          name: :activity_code,
-          valid: "6201z",
-          invalid: "6201y"
-        },
-        {
-          name: :city,
-          valid: "fronsac",
-          invalid: "bordeaux"
-        },
-        {
-          name: :zipcode,
-          valid: "33126",
-          invalid: "33000"
-        },
-        {
-          name: :country,
-          valid: "france",
-          invalid: "india"
-        },
-        {
-          name: :country_code,
-          valid: "fr",
-          invalid: "rc"
-        }
-
-      ].each do |filter|
-        describe "#{filter[:name]} parameter" do
-          context "when #{filter[:name]} is given and there are results" do
-            before { get "/api/v1/companies", params: { "#{filter[:name]}": filter[:valid] }, headers: authentication_header }
+        describe "quality parameter" do
+          context "without quality" do
+            before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
 
             it { expect(response).to be_success }
 
             it { expect(parsed_body).not_to be_empty }
 
-            it "returns a collection of companies with the right #{filter[:name]}" do
-              expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(filter[:name]).uniq.first.downcase).to eq filter[:valid]
+            it "returns a collection of headquarters" do
+              expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
             end
           end
 
-          context "when #{filter[:name]} is given and there is no result" do
-            before { get "/api/v1/companies", params: { "#{filter[:name]}": filter[:invalid] }, headers: authentication_header }
+          context "with 'headquarter' as quality" do
+            before { get "/api/v1/companies", params: { q: "total", quality: "headquarter" }, headers: authentication_header }
 
             it { expect(response).to be_success }
 
-            it { expect(parsed_body).to be_empty }
+            it { expect(parsed_body).not_to be_empty }
+
+            it "returns a collection of headquarters" do
+              expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["headquarter"]
+            end
+          end
+
+          context "with 'branch' as quality" do
+            before { get "/api/v1/companies", params: { q: "total", quality: "branch" }, headers: authentication_header }
+
+            it { expect(response).to be_success }
+
+            it { expect(parsed_body).not_to be_empty }
+
+            it "returns a collection of branches" do
+              expect(parsed_body.map { |body| body["quality"] }.uniq).to eq ["branch"]
+            end
+          end
+
+          context "with 'all' as quality" do
+            before { get "/api/v1/companies", params: { q: "total", quality: "all" }, headers: authentication_header }
+
+            it { expect(response).to be_success }
+
+            it { expect(parsed_body).not_to be_empty }
+
+            it "returns a collection of headquarters and branches" do
+              expect(parsed_body.map { |body| body["quality"] }.uniq.sort).to eq ["branch", "headquarter"]
+            end
+          end
+
+          context "with something else as quality" do
+            before { get "/api/v1/companies", params: { q: "total", quality: "something" }, headers: authentication_header }
+
+            it { expect(response).to have_http_status :bad_request }
+          end
+        end
+
+        [
+          {
+            name: :activity_code,
+            valid: "6201z",
+            invalid: "6201y"
+          },
+          {
+            name: :city,
+            valid: "fronsac",
+            invalid: "bordeaux"
+          },
+          {
+            name: :zipcode,
+            valid: "33126",
+            invalid: "33000"
+          },
+          {
+            name: :country,
+            valid: "france",
+            invalid: "india"
+          },
+          {
+            name: :country_code,
+            valid: "fr",
+            invalid: "rc"
+          }
+
+        ].each do |filter|
+          describe "#{filter[:name]} parameter" do
+            context "when #{filter[:name]} is given and there are results" do
+              before { get "/api/v1/companies", params: { "#{filter[:name]}": filter[:valid] }, headers: authentication_header }
+
+              it { expect(response).to be_success }
+
+              it { expect(parsed_body).not_to be_empty }
+
+              it "returns a collection of companies with the right #{filter[:name]}" do
+                expect(Company.where(id: parsed_body.map { |body| body["id"] }).pluck(filter[:name]).uniq.first.downcase).to eq filter[:valid]
+              end
+            end
+
+            context "when #{filter[:name]} is given and there is no result" do
+              before { get "/api/v1/companies", params: { "#{filter[:name]}": filter[:invalid] }, headers: authentication_header }
+
+              it { expect(response).to be_success }
+
+              it { expect(parsed_body).to be_empty }
+            end
           end
         end
       end

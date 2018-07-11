@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO fix typo in naming
 class Api::V1::LigthCompanySerializer < ActiveModel::Serializer
   attributes :id,
     :smooth_name,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::CompanySerializer < ActiveModel::Serializer
+class Api::V1::CompanySerializer < Api::V1::Serializer
   attributes :id,
     :name,
     :slug,
@@ -18,8 +18,26 @@ class Api::V1::CompanySerializer < ActiveModel::Serializer
     :headquarter_id,
     :branch_ids
 
+  [
+    :name,
+    :legal_form,
+    :staff,
+    :presentation,
+    :logo_url,
+    :activity,
+    :founded_at,
+    :country,
+    :country_code,
+    :quality,
+    :smooth_name
+  ].each do |attribute_name|
+    define_method(attribute_name) do
+      sandboxize(object.send(attribute_name))
+    end
+  end
+
   def address
-    object.address_components.join(", ")
+    sandboxize(object.address_components.join(", "))
   end
 
   def headquarter_id

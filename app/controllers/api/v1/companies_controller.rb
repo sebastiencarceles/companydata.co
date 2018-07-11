@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class Api::V1::CompaniesController < ApiController
-  before_action :show_sandbox, if: :sandbox?, only: :show
-  before_action :show_by_registration_numbers_sandbox, if: :sandbox?, only: :show_by_registration_numbers
-
   def show
     identifier = params[:identifier]
     company = Company.find_by_id(identifier)
@@ -16,13 +13,13 @@ class Api::V1::CompaniesController < ApiController
       company ||= Company.where(id: company_ids).first
     end
     render(json: {}, status: :not_found) && (return) unless company
-    render json: company, serializer: Api::V1::FullCompanySerializer
+    render json: company, serializer: Api::V1::FullCompanySerializer, sandbox: sandbox?
   end
 
   def show_by_registration_numbers
     company = Company.where(registration_1: params[:identifier], registration_2: params[:registration_2]).first
     render(json: {}, status: :not_found) && (return) unless company
-    render json: company, serializer: Api::V1::FullCompanySerializer
+    render json: company, serializer: Api::V1::FullCompanySerializer, sandbox: sandbox?
   end
 
   def index
@@ -51,18 +48,10 @@ class Api::V1::CompaniesController < ApiController
     response.headers["X-Pagination-First-Page"] = scope.first_page?
     response.headers["X-Pagination-Last-Page"] = scope.last_page?
     response.headers["X-Pagination-Out-Of-Range"] = scope.out_of_range?
-    render json: scope
+    render json: scope, sandbox: sandbox?
   end
 
   private
-
-    def show_sandbox
-      render json: FactoryBot.build(:full_company, id: 42, slug: params[:identifier]), serializer: Api::V1::FullCompanySerializer
-    end
-
-    def show_by_registration_numbers_sandbox
-      render json: FactoryBot.build(:full_company, id: 42, registration_1: params[:identifier], registration_2: params[:registration_2]), serializer: Api::V1::FullCompanySerializer
-    end
 
     def page
       params[:page].presence || 1
