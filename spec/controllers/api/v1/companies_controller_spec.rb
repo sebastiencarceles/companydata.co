@@ -165,21 +165,34 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     end
 
     context "when authenticated" do
-      context "when the company can't be found" do
-        before { get "/api/v1/companies/3323344/123456", headers: authentication_header }
-
-        it { expect(response).to have_http_status :not_found }
-      end
-
-      context "when the company is found" do
-        let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
-
-        before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header }
+      context "when sandbox" do
+        before { get "/api/v1/companies/123/456", headers: authentication_header(sandbox: true) }
 
         it { expect(response).to be_success }
 
         it "returns the company" do
-          expect(parsed_body["id"]).to eq company.id
+          expect(parsed_body["registration_1"]).to eq "123"
+          expect(parsed_body["registration_2"]).to eq "456"
+        end
+      end
+
+      context "when not sandbox" do
+        context "when the company can't be found" do
+          before { get "/api/v1/companies/3323344/123456", headers: authentication_header }
+
+          it { expect(response).to have_http_status :not_found }
+        end
+
+        context "when the company is found" do
+          let(:company) { create :company, registration_1: "828022153", registration_2: "00016" }
+
+          before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it "returns the company" do
+            expect(parsed_body["id"]).to eq company.id
+          end
         end
       end
     end
