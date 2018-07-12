@@ -14,6 +14,6 @@ class Api::V1::UnauthCompaniesController < ActionController::API
       load: false,
       misspellings: { below: 5 }
     )
-    render json: results, each_serializer: Api::V1::LigthCompanySerializer
+    render json: results, each_serializer: Api::V1::LightCompanySerializer
   end
 end

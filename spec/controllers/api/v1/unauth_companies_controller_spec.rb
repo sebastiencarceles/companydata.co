@@ -23,7 +23,7 @@ RSpec.describe Api::V1::UnauthCompaniesController, type: :request do
         expect(parsed_body.map { |body| body["name"] }).to eq ["total", "motal"]
       end
 
-      it "returns ligth companies" do
+      it "returns light companies" do
         expect(parsed_body.first.keys.sort).to eq(["id", "name", "smooth_name", "website_url", "api_url", "city", "country"].sort)
       end
 
