@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::FullCompanySerializer, type: :serializer do
   it { expect(described_class).to be < Api::V1::CompanySerializer }
 
-  before(:all) { @company = create :full_company }
+  before(:all) { @company = create :full_company, registration_1: "828022053", country: "France", country_code: "FR" }
   after(:all) { @company.destroy! }
   before { @company.reload }
 

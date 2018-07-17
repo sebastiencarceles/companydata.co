@@ -274,7 +274,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
     context "when authenticated" do
       describe "pagination" do
         context "without pagination parameter" do
-          before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header }
+          before { get "/api/v1/companies", params: { q: "total", quality: "headquarter" }, headers: authentication_header }
 
           it { expect(response).to be_success }
 
@@ -311,7 +311,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         end
 
         it "returns the pagination data in the response headers" do
-          get "/api/v1/companies", params: { q: "company", page: 2, per_page: 5 }, headers: authentication_header
+          get "/api/v1/companies", params: { q: "company", quality: "all", page: 2, per_page: 5 }, headers: authentication_header
           expect(response.headers["X-Pagination-Limit-Value"]).to eq(5)
           expect(response.headers["X-Pagination-Total-Pages"]).to eq(4)
           expect(response.headers["X-Pagination-Current-Page"]).to eq(2)
