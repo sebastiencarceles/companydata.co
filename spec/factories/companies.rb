@@ -33,7 +33,7 @@ FactoryBot.define do
     logo_url { Faker::Company.logo }
     registration_1 { Faker::Company.french_siren_number }
     registration_2 { Faker::Number.number(5) }
-    activity_code { Faker::Number.number(5) }
+    activity_code Activity.where(country_code: "FR").sample.code
     address_line_1 { Faker::Address.street_address }
     address_line_2 { Faker::Address.secondary_address }
     address_line_3 { Faker::Address.community }
@@ -50,8 +50,8 @@ FactoryBot.define do
     lng { Faker::Address.longitude }
     quality { Company::QUALITIES.sample }
     revenue "1 to 5 billions USD"
-    country { Faker::Address.country }
-    country_code { Faker::Address.country_code }
+    country "France"
+    country_code "FR"
     civility { Faker::Name.prefix }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
