@@ -33,7 +33,7 @@ FactoryBot.define do
     logo_url { Faker::Company.logo }
     registration_1 { Faker::Company.french_siren_number }
     registration_2 { Faker::Number.number(5) }
-    activity_code Activity.where(country_code: "FR").sample.code
+    activity_code { %w(0899Z 6201Z 2011Z 2550B 4213A 4645Z).sample }
     address_line_1 { Faker::Address.street_address }
     address_line_2 { Faker::Address.secondary_address }
     address_line_3 { Faker::Address.community }

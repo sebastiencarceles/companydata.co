@@ -39,7 +39,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           before { get "/api/v1/companies/#{company.id}", headers: authentication_header(sandbox: true) }
 
           it "returns obfuscated data" do
-            expect(parsed_body["name"]).to include "*"
+            expect(parsed_body["name"]).not_to be nil
+            expect(parsed_body["name"]).not_to eq company.name
           end
         end
 
@@ -57,7 +58,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           before { get "/api/v1/companies/#{company.slug}", headers: authentication_header(sandbox: true) }
 
           it "returns obfuscated data" do
-            expect(parsed_body["name"]).to include "*"
+            expect(parsed_body["name"]).not_to be nil
+            expect(parsed_body["name"]).not_to eq company.name
           end
         end
 
@@ -77,7 +79,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
             before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true) }
 
             it "returns obfuscated data" do
-              expect(parsed_body["name"]).to include "*"
+              expect(parsed_body["name"]).not_to be nil
+              expect(parsed_body["name"]).not_to eq company.name
             end
           end
 
@@ -107,7 +110,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
               }
 
               it "returns obfuscated data" do
-                expect(parsed_body["name"]).to include "*"
+                expect(parsed_body["name"]).not_to be nil
+                expect(parsed_body["name"]).not_to eq company.name
               end
             end
 
@@ -136,7 +140,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
               }
 
               it "returns obfuscated data" do
-                expect(parsed_body["name"]).to include "*"
+                expect(parsed_body["name"]).not_to be nil
+                expect(parsed_body["name"]).not_to eq company.name
               end
             end
           end
@@ -158,7 +163,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
             before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true) }
 
             it "returns obfuscated data" do
-              expect(parsed_body["name"]).to include "*"
+              expect(parsed_body["name"]).not_to be nil
+              expect(parsed_body["name"]).not_to eq company.name
             end
           end
 
@@ -188,7 +194,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
               }
 
               it "returns obfuscated data" do
-                expect(parsed_body["name"]).to include "*"
+                expect(parsed_body["name"]).not_to be nil
+                expect(parsed_body["name"]).not_to eq company.name
               end
             end
 
@@ -217,7 +224,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
               }
 
               it "returns obfuscated data" do
-                expect(parsed_body["name"]).to include "*"
+                expect(parsed_body["name"]).not_to be nil
+                expect(parsed_body["name"]).not_to eq company.name
               end
             end
           end
@@ -258,7 +266,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header(sandbox: true) }
 
         it "returns obfuscated data" do
-          expect(parsed_body["name"]).to include "*"
+          expect(parsed_body["name"]).not_to be nil
+          expect(parsed_body["name"]).not_to eq company.name
         end
       end
     end
@@ -288,7 +297,8 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
 
           it "returns obfuscated data" do
             parsed_body.each do |body|
-              expect(body["name"]).to include "*"
+              expect(body["name"]).not_to be nil
+              expect(body["name"]).not_to eq "total"
             end
           end
         end

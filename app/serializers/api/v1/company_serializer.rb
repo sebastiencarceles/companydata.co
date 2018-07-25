@@ -32,12 +32,16 @@ class Api::V1::CompanySerializer < Api::V1::Serializer
     :smooth_name
   ].each do |attribute_name|
     define_method(attribute_name) do
-      sandboxize(object.send(attribute_name))
+      sandboxize(object, attribute_name)
     end
   end
 
   def address
-    sandboxize(object.address_components.join(", "))
+    if sandbox?
+      build_fake.address_components.join(", ")
+    else
+      object.address_components.join(", ")
+    end
   end
 
   def headquarter_id
