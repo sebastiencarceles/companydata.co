@@ -6,13 +6,13 @@ class Api::V1::Serializer < ActiveModel::Serializer
       instance_options[:sandbox].present?
     end
 
-    def build_fake
-      FactoryBot.build(object.class.name.underscore.to_sym)
+    def build_fake(factory)
+      FactoryBot.build(factory)
     end
 
-    def sandboxize(object, attribute_name)
+    def sandboxize(factory, object, attribute_name)
       if sandbox?
-        build_fake.send(attribute_name)
+        build_fake(factory).send(attribute_name)
       else
         object.send(attribute_name)
       end

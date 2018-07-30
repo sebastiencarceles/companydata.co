@@ -57,13 +57,13 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :crunchbase
   ].each do |attribute_name|
     define_method(attribute_name) do
-      sandboxize(object, attribute_name)
+      sandboxize(:full_company, object, attribute_name)
     end
   end
 
   def prefix
     if sandbox?
-      build_fake.civility
+      build_fake(:full_company).civility
     else
       object.civility
     end

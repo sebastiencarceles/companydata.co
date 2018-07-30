@@ -8,11 +8,20 @@ FactoryBot.define do
     source_url { Faker::Internet.url }
     legal_form { Faker::Company.type }
     category { Faker::Company.industry }
-    staff "1-10 employees"
-    presentation Faker::Lorem.paragraphs
+    staff { ["1-10 employees", "10-50 employees", "50-100 employees", "100-200 employees"].sample }
+    presentation { Faker::Lorem.sentence }
     country { Faker::Address.country }
     country_code { Faker::Address.country_code }
     quality { Company::QUALITIES.sample }
+    activity_code { %w(0899Z 6201Z 2011Z 2550B 4213A 4645Z).sample }
+    address_line_1 { Faker::Address.street_address }
+    address_line_2 { Faker::Address.secondary_address }
+    address_line_3 { Faker::Address.community }
+    address_line_4 { Faker::Address.secondary_address }
+    cedex { Faker::Address.zip_code }
+    zipcode { Faker::Address.zip_code }
+    city { Faker::Address.city }
+    founded_at { Faker::Date.backward(3650) }
 
     # Note: This should be the last trait in the list so `reindex` is called after all the other callbacks complete.
     trait :reindex do
@@ -27,9 +36,9 @@ FactoryBot.define do
     website { Faker::Internet.url }
     source_url { Faker::Internet.url }
     legal_form { Faker::Company.type }
-    staff "1-10 employees"
+    staff { ["1-10 employees", "10-50 employees", "50-100 employees", "100-200 employees"].sample }
     category { Faker::Company.industry }
-    presentation { Faker::Lorem.paragraphs }
+    presentation { Faker::Lorem.sentence }
     logo_url { Faker::Company.logo }
     registration_1 { Faker::Company.french_siren_number }
     registration_2 { Faker::Number.number(5) }
@@ -45,7 +54,7 @@ FactoryBot.define do
     department_code "69"
     department "Nouveau Rhône"
     region "Rhône-Alpes"
-    founded_at "2013-06-06"
+    founded_at { Faker::Date.backward(3650) }
     lat { Faker::Address.latitude }
     lng { Faker::Address.longitude }
     quality { Company::QUALITIES.sample }
@@ -62,7 +71,7 @@ FactoryBot.define do
     linkedin { Faker::Internet.url("linkedin.com", "/mycompany") }
     crunchbase { Faker::Internet.url("crunchbase.com", "/mycompany") }
 
-    after :create do |company|
+    after(:create) do |company|
       create_list :financial_year, 3, company: company
     end
   end

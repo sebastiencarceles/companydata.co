@@ -19,7 +19,6 @@ class Api::V1::CompanySerializer < Api::V1::Serializer
     :branch_ids
 
   [
-    :name,
     :legal_form,
     :staff,
     :presentation,
@@ -28,17 +27,16 @@ class Api::V1::CompanySerializer < Api::V1::Serializer
     :founded_at,
     :country,
     :country_code,
-    :quality,
-    :smooth_name
+    :quality
   ].each do |attribute_name|
     define_method(attribute_name) do
-      sandboxize(object, attribute_name)
+      sandboxize(:company, object, attribute_name)
     end
   end
 
   def address
     if sandbox?
-      build_fake.address_components.join(", ")
+      build_fake(:company).address_components.join(", ")
     else
       object.address_components.join(", ")
     end

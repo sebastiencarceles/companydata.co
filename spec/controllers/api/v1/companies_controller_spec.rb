@@ -38,9 +38,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         context "by id (sandboxed)" do
           before { get "/api/v1/companies/#{company.id}", headers: authentication_header(sandbox: true) }
 
-          it "returns obfuscated data" do
-            expect(parsed_body["name"]).not_to be nil
-            expect(parsed_body["name"]).not_to eq company.name
+          it "returns sandboxed data" do
+            expect(parsed_body["presentation"]).not_to be nil
+            expect(parsed_body["presentation"]).not_to eq company.presentation
           end
         end
 
@@ -57,9 +57,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         context "by slug (sandboxed)" do
           before { get "/api/v1/companies/#{company.slug}", headers: authentication_header(sandbox: true) }
 
-          it "returns obfuscated data" do
-            expect(parsed_body["name"]).not_to be nil
-            expect(parsed_body["name"]).not_to eq company.name
+          it "returns sandboxed data" do
+            expect(parsed_body["presentation"]).not_to be nil
+            expect(parsed_body["presentation"]).not_to eq company.presentation
           end
         end
 
@@ -78,9 +78,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           context "when there is only one company with this VAT number (sandboxed)" do
             before { get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true) }
 
-            it "returns obfuscated data" do
-              expect(parsed_body["name"]).not_to be nil
-              expect(parsed_body["name"]).not_to eq company.name
+            it "returns sandboxed data" do
+              expect(parsed_body["presentation"]).not_to be nil
+              expect(parsed_body["presentation"]).not_to eq company.presentation
             end
           end
 
@@ -109,9 +109,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
                 get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true)
               }
 
-              it "returns obfuscated data" do
-                expect(parsed_body["name"]).not_to be nil
-                expect(parsed_body["name"]).not_to eq company.name
+              it "returns sandboxed data" do
+                expect(parsed_body["presentation"]).not_to be nil
+                expect(parsed_body["presentation"]).not_to eq company.presentation
               end
             end
 
@@ -139,9 +139,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
                 get "/api/v1/companies/#{company.vat.value}", headers: authentication_header(sandbox: true)
               }
 
-              it "returns obfuscated data" do
-                expect(parsed_body["name"]).not_to be nil
-                expect(parsed_body["name"]).not_to eq company.name
+              it "returns sandboxed data" do
+                expect(parsed_body["presentation"]).not_to be nil
+                expect(parsed_body["presentation"]).not_to eq company.presentation
               end
             end
           end
@@ -162,9 +162,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
           context "when there is only one company with this registration number (sandbox)" do
             before { get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true) }
 
-            it "returns obfuscated data" do
-              expect(parsed_body["name"]).not_to be nil
-              expect(parsed_body["name"]).not_to eq company.name
+            it "returns sandboxed data" do
+              expect(parsed_body["presentation"]).not_to be nil
+              expect(parsed_body["presentation"]).not_to eq company.presentation
             end
           end
 
@@ -193,9 +193,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
                 get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true)
               }
 
-              it "returns obfuscated data" do
-                expect(parsed_body["name"]).not_to be nil
-                expect(parsed_body["name"]).not_to eq company.name
+              it "returns sandboxed data" do
+                expect(parsed_body["presentation"]).not_to be nil
+                expect(parsed_body["presentation"]).not_to eq company.presentation
               end
             end
 
@@ -223,9 +223,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
                 get "/api/v1/companies/#{company.registration_1}", headers: authentication_header(sandbox: true)
               }
 
-              it "returns obfuscated data" do
-                expect(parsed_body["name"]).not_to be nil
-                expect(parsed_body["name"]).not_to eq company.name
+              it "returns sandboxed data" do
+                expect(parsed_body["presentation"]).not_to be nil
+                expect(parsed_body["presentation"]).not_to eq company.presentation
               end
             end
           end
@@ -265,9 +265,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
 
         before { get "/api/v1/companies/#{company.registration_1}/#{company.registration_2}", headers: authentication_header(sandbox: true) }
 
-        it "returns obfuscated data" do
-          expect(parsed_body["name"]).not_to be nil
-          expect(parsed_body["name"]).not_to eq company.name
+        it "returns sandboxed data" do
+          expect(parsed_body["presentation"]).not_to be nil
+          expect(parsed_body["presentation"]).not_to eq company.presentation
         end
       end
     end
@@ -295,10 +295,9 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         context "without pagination parameter (sandboxed)" do
           before { get "/api/v1/companies", params: { q: "total" }, headers: authentication_header(sandbox: true) }
 
-          it "returns obfuscated data" do
+          it "returns sandboxed data" do
             parsed_body.each do |body|
-              expect(body["name"]).not_to be nil
-              expect(body["name"]).not_to eq "total"
+              expect(parsed_body[0]["presentation"]).not_to be nil
             end
           end
         end

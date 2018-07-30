@@ -6,7 +6,7 @@ class Api::V1::VatSerializer < Api::V1::Serializer
 
   [:value, :country_code, :status, :validated_at].each do |attribute_name|
     define_method(attribute_name) do
-      sandboxize(object, attribute_name)
+      sandboxize(:vat, object, attribute_name)
     end
   end
 end
