@@ -36,7 +36,7 @@ class Api::V1::CompanySerializer < Api::V1::Serializer
 
   def address
     if sandbox?
-      build_fake(:company).address_components.join(", ")
+      FactoryBot.build(:company).address_components.join(", ")
     else
       object.address_components.join(", ")
     end
