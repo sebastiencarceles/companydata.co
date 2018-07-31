@@ -32,8 +32,9 @@ RSpec.describe Api::V1::VatsController, type: :request do
       context "when the Vat exists (sandboxed)" do
         before { get "/api/v1/vats/#{vat.value}", headers: authentication_header(sandbox: true) }
 
-        it "returns obfuscated data" do
-          expect(parsed_body["value"]).to include "#########"
+        it "returns sandboxed data" do
+          expect(parsed_body["value"]).not_to be nil
+          expect(parsed_body["value"]).not_to eq vat.value
         end
       end
     end

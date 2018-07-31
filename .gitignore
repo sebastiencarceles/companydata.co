@@ -16,3 +16,4 @@ tmp/vats.csv
 log/newrelic_agent.log
 log/mailers.log
 .DS_Store
+spec/fixtures/ephemeral_response

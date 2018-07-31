@@ -47,7 +47,6 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :region,
     :geolocation,
     :revenue,
-    :vat_number,
     :email,
     :phone,
     :website,
@@ -57,11 +56,25 @@ class Api::V1::FullCompanySerializer < Api::V1::CompanySerializer
     :crunchbase
   ].each do |attribute_name|
     define_method(attribute_name) do
-      sandboxize(object.send(attribute_name))
+      sandboxize(:full_company, object, attribute_name)
     end
   end
 
   def prefix
-    sandboxize(object.civility)
+    if sandbox?
+      FactoryBot.build(:full_company).civility
+    else
+      object.civility
+    end
+  end
+
+  def vat_number
+    if sandbox?
+      company = FactoryBot.build(:full_company)
+      key = ((12 + 3 * (company.registration_1.to_i % 97)) % 97).to_s.rjust(2, "0")
+      "#{company.country_code}#{key}#{company.registration_1}"
+    else
+      object.vat_number
+    end
   end
 end

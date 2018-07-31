@@ -1,0 +1,73 @@
+--- !ruby/object:EphemeralResponse::Fixture
+uri: !ruby/object:URI::HTTP
+  scheme: http
+  user: 
+  password: 
+  host: ec.europa.eu
+  port: 80
+  path: "/taxation_customs/vies/services/checkVatService"
+  query: 
+  opaque: 
+  fragment: 
+  parser: !ruby/object:URI::RFC3986_Parser
+    regexp:
+      :SCHEME: !ruby/regexp /\A[A-Za-z][A-Za-z0-9+\-.]*\z/
+      :USERINFO: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=A-Z_a-z~])*\z/
+      :HOST: !ruby/regexp /\A(?:(?<IP-literal>\[(?:(?<IPv6address>(?:\h{1,4}:){6}(?<ls32>\h{1,4}:\h{1,4}|(?<IPv4address>(?<dec-octet>[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]|\d)\.\g<dec-octet>\.\g<dec-octet>\.\g<dec-octet>))|::(?:\h{1,4}:){5}\g<ls32>|\h{,4}::(?:\h{1,4}:){4}\g<ls32>|(?:(?:\h{1,4}:)?\h{1,4})?::(?:\h{1,4}:){3}\g<ls32>|(?:(?:\h{1,4}:){,2}\h{1,4})?::(?:\h{1,4}:){2}\g<ls32>|(?:(?:\h{1,4}:){,3}\h{1,4})?::\h{1,4}:\g<ls32>|(?:(?:\h{1,4}:){,4}\h{1,4})?::\g<ls32>|(?:(?:\h{1,4}:){,5}\h{1,4})?::\h{1,4}|(?:(?:\h{1,4}:){,6}\h{1,4})?::)|(?<IPvFuture>v\h+\.[!$&-.0-;=A-Z_a-z~]+))\])|\g<IPv4address>|(?<reg-name>(?:%\h\h|[!$&-.0-9;=A-Z_a-z~])*))\z/
+      :ABS_PATH: !ruby/regexp /\A\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+      :REL_PATH: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~])+(?:\/(?:%\h\h|[!$&-.0-;=@-Z_a-z~])*)*\z/
+      :QUERY: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+      :FRAGMENT: !ruby/regexp /\A(?:%\h\h|[!$&-.0-;=@-Z_a-z~\/?])*\z/
+      :OPAQUE: !ruby/regexp /\A(?:[^\/].*)?\z/
+      :PORT: !ruby/regexp /\A[\x09\x0a\x0c\x0d ]*\d*[\x09\x0a\x0c\x0d ]*\z/
+request: !ruby/object:Net::HTTP::Post
+  method: POST
+  request_has_body: true
+  response_has_body: true
+  uri: 
+  path: "/taxation_customs/vies/services/checkVatService"
+  decode_content: true
+  header:
+    soapaction:
+    - '"checkVat"'
+    content-type:
+    - text/xml;charset=UTF-8
+    content-length:
+    - '479'
+    accept-encoding:
+    - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+    accept:
+    - "*/*"
+    user-agent:
+    - Ruby
+  body: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns1="urn:ec.europa.eu:taxud:vies:services:checkVat"
+    xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ins0="urn:ec.europa.eu:taxud:vies:services:checkVat:types"><env:Body><ins0:checkVat><ins0:vatNumber>01528479244</ins0:vatNumber><ins0:countryCode>FR</ins0:countryCode></ins0:checkVat></env:Body></env:Envelope>
+  body_stream: 
+  body_data: 
+created_at: 2018-07-13 18:49:31.741614000 +02:00
+response: !ruby/object:Net::HTTPOK
+  http_version: '1.1'
+  code: '200'
+  message: OK
+  header:
+    date:
+    - Fri, 13 Jul 2018 16:49:31 GMT
+    transfer-encoding:
+    - chunked
+    content-type:
+    - text/xml; charset=UTF-8
+    server:
+    - Europa
+    proxy-connection:
+    - Keep-Alive
+    connection:
+    - Keep-Alive
+  body: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><checkVatResponse
+    xmlns="urn:ec.europa.eu:taxud:vies:services:checkVat:types"><countryCode>FR</countryCode><vatNumber>01528479244</vatNumber><requestDate>2018-07-13+02:00</requestDate><valid>false</valid><name></name><address></address></checkVatResponse></soap:Body></soap:Envelope>
+  read: true
+  uri: 
+  decode_content: true
+  socket: 
+  body_exist: true
+file_name: ec.europa.eu_POST_taxation_customs-vies-services-checkVatService_1038868.yml

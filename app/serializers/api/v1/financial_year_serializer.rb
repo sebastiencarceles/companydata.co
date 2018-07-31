@@ -14,11 +14,9 @@ class Api::V1::FinancialYearSerializer < Api::V1::Serializer
     :revenue,
     :income,
     :staff,
-    :duration,
-    :closing_date
   ].each do |attribute_name|
     define_method(attribute_name) do
-      sandboxize(object.send(attribute_name))
+      sandboxize(:financial_year, object, attribute_name)
     end
   end
 end
