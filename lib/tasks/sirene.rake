@@ -181,7 +181,7 @@ namespace :sirene do
         country: country,
         country_code: country_code,
         source_url: "https://www.data.gouv.fr/fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret",
-        civility: civility(row["CIVILITE"]),
+        civility: civility_from(row["CIVILITE"]),
         first_name: row["PRENOM"],
         last_name: row["NOM"],
         email: row["ADR_MAIL"],
@@ -193,7 +193,7 @@ namespace :sirene do
       row["VMAJ"] == "E"
     end
 
-    def civility(value)
+    def civility_from(value)
       case value
       when 1, "1"
         "Monsieur"
