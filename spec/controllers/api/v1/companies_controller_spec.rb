@@ -388,7 +388,7 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
 
       describe "founded_from parameter" do
         context "when founded_from is given and there are results" do
-          before { get "/api/v1/companies", params: { founded_from: "20170101" }, headers: authentication_header }
+          before { get "/api/v1/companies", params: { founded_from: "2017-01-01" }, headers: authentication_header }
 
           it { expect(response).to be_success }
 
@@ -396,13 +396,13 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
 
           it "returns a collection of companies founded from the given date" do
             Company.where(id: parsed_body.map { |body| body["id"] }).each do |company|
-              expect(company.founded_at).to be >= Date.parse("20170101")
+              expect(company.founded_at).to be >= Date.parse("2017-01-01")
             end
           end
         end
 
         context "when founded_from is given and there is no result" do
-          before { get "/api/v1/companies", params: { founded_from: "20180901" }, headers: authentication_header }
+          before { get "/api/v1/companies", params: { founded_from: "2018-09-01" }, headers: authentication_header }
 
           it { expect(response).to be_success }
 
