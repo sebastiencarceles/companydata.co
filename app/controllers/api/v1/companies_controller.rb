@@ -34,6 +34,7 @@ class Api::V1::CompaniesController < ApiController
     where = where.merge(zipcode: params[:zipcode].downcase) if params[:zipcode].present?
     where = where.merge(country: params[:country].downcase) if params[:country].present?
     where = where.merge(country_code: params[:country_code].downcase) if params[:country_code].present?
+    where = where.merge(founded_at: { gt: Date.parse(params[:founded_from]) }) if params[:founded_from].present?
 
     scope = if query
       Company.search(query, fields: [:smooth_name], match: :word_start, where: where, page: page, per_page: per_page)

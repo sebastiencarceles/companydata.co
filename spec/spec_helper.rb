@@ -99,18 +99,16 @@ RSpec.configure do |config|
   config.before(:suite) do
     EphemeralResponse.activate
 
-    Company.reindex
-
     # create a few companies
     (1..20).each do |index|
       FactoryBot.create :company, :reindex, name: "company #{index.to_s.rjust(2, "0")}"
     end
 
-    FactoryBot.create :company, :reindex, name: "totali", quality: "branch", activity_code: "6201Z", zipcode: "12345", country: "United Kingdom", country_code: "UK"
-    FactoryBot.create :company, :reindex, name: "tube metal", quality: "headquarter", activity_code: "6201Z", zipcode: "47000", country: "France", country_code: "FR"
-    FactoryBot.create :company, :reindex, name: "total", quality: "headquarter", city: "Fronsac", zipcode: "33126", country: "France", country_code: "FR"
-    FactoryBot.create :company, :reindex, name: "edf", city: "Fronsac", zipcode: "33126", country: "France", country_code: "FR"
-    FactoryBot.create :company, :reindex, name: "motal", activity_code: "6201Z", city: "Agen", zipcode: "47000", country: "France", country_code: "FR"
+    FactoryBot.create :company, :reindex, name: "totali", quality: "branch", activity_code: "6201Z", zipcode: "12345", country: "United Kingdom", country_code: "UK", founded_at: "20150801"
+    FactoryBot.create :company, :reindex, name: "tube metal", quality: "headquarter", activity_code: "6201Z", zipcode: "47000", country: "France", country_code: "FR", founded_at: "20160801"
+    FactoryBot.create :company, :reindex, name: "total", quality: "headquarter", city: "Fronsac", zipcode: "33126", country: "France", country_code: "FR", founded_at: "20170801"
+    FactoryBot.create :company, :reindex, name: "edf", city: "Fronsac", zipcode: "33126", country: "France", country_code: "FR", founded_at: "20180101"
+    FactoryBot.create :company, :reindex, name: "totallo", quality: "headquarter", activity_code: "6201Z", city: "Agen", zipcode: "47000", country: "France", country_code: "FR", founded_at: "20180801"
 
     # and disable callbacks
     Searchkick.disable_callbacks
@@ -119,7 +117,7 @@ RSpec.configure do |config|
   config.after(:suite) do
     Vat.delete_all
     Company.delete_all
-
+    Company.reindex
     EphemeralResponse.deactivate
   end
 

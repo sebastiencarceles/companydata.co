@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UnauthCompaniesController, type: :request do
       end
 
       it "returns a collection of companies" do
-        expect(parsed_body.map { |body| body["name"] }).to eq ["total", "motal"]
+        expect(parsed_body.map { |body| body["name"] }).to eq ["total", "totallo"]
       end
 
       it "returns light companies" do
