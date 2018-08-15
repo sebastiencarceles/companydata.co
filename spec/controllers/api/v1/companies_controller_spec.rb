@@ -410,6 +410,30 @@ RSpec.describe Api::V1::CompaniesController, type: :request do
         end
       end
 
+      describe "founded_until parameter" do
+        context "when founded_until is given and there are results" do
+          before { get "/api/v1/companies", params: { founded_until: "2017-01-01" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it { expect(parsed_body).not_to be_empty }
+
+          it "returns a collection of companies founded from the given date" do
+            Company.where(id: parsed_body.map { |body| body["id"] }).each do |company|
+              expect(company.founded_at).to be <= Date.parse("2017-01-01")
+            end
+          end
+        end
+
+        context "when founded_until is given and there is no result" do
+          before { get "/api/v1/companies", params: { founded_until: "2007-09-01" }, headers: authentication_header }
+
+          it { expect(response).to be_success }
+
+          it { expect(parsed_body).to be_empty }
+        end
+      end
+
       [
         {
           name: :activity_code,

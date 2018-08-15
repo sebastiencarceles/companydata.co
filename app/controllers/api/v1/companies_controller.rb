@@ -34,25 +34,33 @@ class Api::V1::CompaniesController < ApiController
     where = where.merge(zipcode: params[:zipcode].downcase) if params[:zipcode].present?
     where = where.merge(country: params[:country].downcase) if params[:country].present?
     where = where.merge(country_code: params[:country_code].downcase) if params[:country_code].present?
-    where = where.merge(founded_at: { gte: Date.parse(params[:founded_from]) }) if params[:founded_from].present?
+
+    founded_at = {}
+    founded_at[:gte] = Date.parse(params[:founded_from]) if params[:founded_from].present?
+    founded_at[:lte] = Date.parse(params[:founded_until]) if params[:founded_until].present?
+    where = where.merge(founded_at: founded_at) if founded_at.any?
 
     scope = if query
       Company.search(query, fields: [:smooth_name], match: :word_start, where: where, page: page, per_page: per_page)
     else
       Company.search(where: where, page: page, per_page: per_page)
     end
-    response.headers["X-Pagination-Limit-Value"] = scope.limit_value
-    response.headers["X-Pagination-Total-Pages"] = scope.total_pages
-    response.headers["X-Pagination-Current-Page"] = scope.current_page
-    response.headers["X-Pagination-Next-Page"] = scope.next_page
-    response.headers["X-Pagination-Prev-Page"] = scope.prev_page
-    response.headers["X-Pagination-First-Page"] = scope.first_page?
-    response.headers["X-Pagination-Last-Page"] = scope.last_page?
-    response.headers["X-Pagination-Out-Of-Range"] = scope.out_of_range?
+
+    add_pagination_headers(scope)
     render json: scope, sandbox: sandbox?
   end
 
   private
+    def add_pagination_headers(scope)
+      response.headers["X-Pagination-Limit-Value"] = scope.limit_value
+      response.headers["X-Pagination-Total-Pages"] = scope.total_pages
+      response.headers["X-Pagination-Current-Page"] = scope.current_page
+      response.headers["X-Pagination-Next-Page"] = scope.next_page
+      response.headers["X-Pagination-Prev-Page"] = scope.prev_page
+      response.headers["X-Pagination-First-Page"] = scope.first_page?
+      response.headers["X-Pagination-Last-Page"] = scope.last_page?
+      response.headers["X-Pagination-Out-Of-Range"] = scope.out_of_range?
+    end
 
     def page
       params[:page].presence || 1
