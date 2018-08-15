@@ -203,6 +203,7 @@ fr:
     tutorials:
       company_form_autocomplete: Formulaire de société en autocompletion
       company_name_autocomplete: Champ nom de société en autocompletion
+      competitive_intelligence: Suivre les création d'entreprises sur un secteur d'activité
       source_code: projet exemple
       title: Les tutoriaux
   search:

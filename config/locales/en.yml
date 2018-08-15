@@ -203,6 +203,7 @@ en:
     tutorials:
       company_form_autocomplete: Company form autocomplete
       company_name_autocomplete: Company name autocomplete
+      competitive_intelligence: Competitive intelligence
       source_code: sample project
       title: Tutorials
   search:
