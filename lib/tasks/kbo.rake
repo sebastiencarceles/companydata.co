@@ -4,7 +4,7 @@ require "csv"
 
 namespace :kbo do
   task import: :environment do
-    Zip::File.open(download_zipped_source("KboOpenData_0051_2018_04_Full")) do |zip_file|
+    Zip::File.open(download_zipped_source("KboOpenData_0056_2018_09_Full")) do |zip_file|
       zip_file.each do |entry|
         Rails.logger.info "Unzip file #{entry.name}"
         begin
@@ -40,6 +40,24 @@ namespace :kbo do
 
   private
 
+    def check_address(filename)
+      Rails.logger.info "Check address from #{filename}"
+
+      Zip::File.open(download_zipped_source(filename)) do |zip_file|
+        zip_file.each do |entry|
+          Rails.logger.info "Unzip file #{entry.name}"
+          begin
+            entry.extract(entry.name)
+          rescue Zip::DestinationFileExistsError => e
+            Rails.logger.warn "Destination file already exists"
+          end
+        end
+      end
+
+      import_addresses(is_update: true)
+      KboAddress.all.each { |address| get_country_and_country_code(address) }
+    end
+
     def update_belgium_from(filename)
       Rails.logger.info "Update from #{filename}"
 
@@ -65,16 +83,6 @@ namespace :kbo do
         Rails.logger.info "Delete companies for enterprise #{row["EstablishmentNumber"]}"
         Company.where(registration_2: row["EstablishmentNumber"]).first&.destroy!
       end
-
-      import_codes
-      import_enterprises(is_update: true)
-      import_establishments(is_update: true)
-      import_denominations(is_update: true)
-      import_addresses(is_update: true)
-      import_activities(is_update: true)
-      import_contacts(is_update: true)
-
-      create_companies_from_kbo_data
     end
 
     def import_codes
@@ -297,7 +305,6 @@ namespace :kbo do
 
     def import_from(filename, is_update, model)
       Rails.logger.info "Import #{filename}"
-      model.delete_all
       batch = []
       CSV.foreach("#{filename}#{is_update ? "_insert.csv" : ".csv"}", headers: true) do |row|
         batch << model.new(yield row)
@@ -602,6 +609,10 @@ namespace :kbo do
         ["Uzbekistan", "UZ"]
       when "Pakistan"
         ["Pakistan", "PK"]
+      when "Palestine"
+        ["Palestine", "PS"]
+      when "Papouasie-Nouvelle-Guinée"
+        ["Papouasie-Nouvelle-Guinée", "PG"]
       when "Panama"
         ["Panama", "PA"]
       when "Paraguay"
@@ -717,7 +728,7 @@ namespace :kbo do
       when "Antilles britanniques"
         ["British Virgin Islands", "VG"]
       else
-        error(address, "unknown country #{address.country}")
+        Rails.logger.error("Error for address #{address.id}: unknown country #{address.country}")
       end
     end
 end
