@@ -114,7 +114,7 @@ namespace :kbo do
         enterprise = KboEnterprise.find_by_enterprise_number(address.entity_number)
       when 13
         establishment = KboEstablishment.find_by_establishment_number(address.entity_number)
-        enterprise = KboEnterprise.find_by_enterprise_number(establishment.enterprise_number)
+        enterprise = KboEnterprise.find_by_enterprise_number(establishment.enterprise_number) if establishment
       else
         error(address, "unknown entity number format #{address.entity_number}")
       end
