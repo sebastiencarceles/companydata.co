@@ -4,7 +4,8 @@ class Billing::IncrementWorker
   include Sidekiq::Worker
 
   def perform(user_id, value)
-    case Proabono.new(User.find(user_id)).increment_by(value)[:Code]
+    response = Proabono.new(User.find(user_id)).increment_by(value)
+    case response[:Code]
     when nil
       Rails.logger.info "#{value} calls sent to billing for user #{user_id}"
     when "Error.Api.Usage.NoneMatching"
@@ -14,7 +15,7 @@ class Billing::IncrementWorker
     when "Error.Customer.Billing.CappingReached"
       UserMailer.with(user_id: user_id).unpaid_invoices.deliver_later
     else
-      raise "Unknown case! Unable to send calls to value for user #{user_id}"
+      raise "Unknown case! Unable to send calls to value for user #{user_id} with value #{value}: #{response}"
     end
   end
 end
