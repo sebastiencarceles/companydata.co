@@ -4,7 +4,7 @@ require "csv"
 
 namespace :kbo do
   task import: :environment do
-    Zip::File.open(download_zipped_source("KboOpenData_0051_2018_04_Full")) do |zip_file|
+    Zip::File.open(download_zipped_source("KboOpenData_0056_2018_09_Full")) do |zip_file|
       zip_file.each do |entry|
         Rails.logger.info "Unzip file #{entry.name}"
         begin
@@ -24,150 +24,209 @@ namespace :kbo do
     end
   end
 
-  def import_codes
-    import_from("code.csv", KboCode) do |row|
-      {
-        category: row["Category"],
-        code: row["Code"],
-        language: row["Language"],
-        description: row["Description"]
-      }
-    end
-  end
-
-  def import_enterprises
-    import_from("enterprise.csv", KboEnterprise) do |row|
-      {
-        enterprise_number: row["EnterpriseNumber"],
-        type_of_enterprise: row["TypeOfEnterprise"],
-        juridical_form: row["JuridicalForm"],
-        start_date: row["StartDate"]
-      }
-    end
-  end
-
-  def import_establishments
-    import_from("establishment.csv", KboEstablishment) do |row|
-      {
-        enterprise_number: row["EnterpriseNumber"],
-        establishment_number: row["EstablishmentNumber"],
-        start_date: row["StartDate"]
-      }
-    end
-  end
-
-  def import_denominations
-    import_from("denomination.csv", KboDenomination) do |row|
-      {
-        entity_number: row["EntityNumber"],
-        language: row["Language"],
-        type_of_denomination: row["TypeOfDenomination"],
-        denomination: row["Denomination"]
-      }
-    end
-  end
-
-  def import_addresses
-    import_from("address.csv", KboAddress) do |row|
-      {
-        entity_number: row["EntityNumber"],
-        type_of_address: row["TypeOfAddress"],
-        country: row["CountryFR"],
-        zipcode: row["Zipcode"],
-        municipality: row["MunicipalityFR"],
-        street: row["StreetFR"],
-        house_number: row["HouseNumber"],
-        box: row["Box"],
-        extra_address_info: row["ExtraAddressInfo"],
-        date_striking_off: row["DateStrikingOff"]
-      }
-    end
-  end
-
-  def import_activities
-    import_from("activity.csv", KboActivity) do |row|
-      {
-        entity_number: row["EntityNumber"],
-        activity_group: row["ActivityGroup"],
-        nace_version: row["NaceVersion"],
-        nace_code: row["NaceCode"],
-        classification: row["Classification"]
-      }
-    end
-  end
-
-  def import_contacts
-    import_from("contact.csv", KboContact) do |row|
-      {
-        entity_number: row["EntityNumber"],
-        entity_contact: row["EntityContact"],
-        contact_type: row["ContactType"],
-        value: row["Value"]
-      }
-    end
+  task update: :environment do
+    [
+      "KboOpenData_0052_2018_05_Update",
+      "KboOpenData_0053_2018_06_Update",
+      "KboOpenData_0054_2018_07_Update",
+      "KboOpenData_0055_2018_08_Update",
+      "KboOpenData_0056_2018_09_Update"
+    ].each { |filename| update_belgium_from(filename) }
   end
 
   task create_companies: :environment do
-    KboAddress.where(date_striking_off: nil).find_each do |address|
-      case address.entity_number.length
-      when 12
-        enterprise = KboEnterprise.find_by_enterprise_number(address.entity_number)
-      when 13
-        establishment = KboEstablishment.find_by_establishment_number(address.entity_number)
-        enterprise = KboEnterprise.find_by_enterprise_number(establishment.enterprise_number) if establishment
-      else
-        error(address, "unknown entity number format #{address.entity_number}")
-      end
-
-      next unless enterprise
-
-      attributes = {}
-      attributes[:registration_1] = enterprise.enterprise_number
-      attributes[:registration_2] = establishment&.establishment_number
-      next if Company.where(attributes).exists?
-
-      attributes[:name] = get_name(establishment)
-      attributes[:name] ||= get_name(enterprise)
-      if attributes[:name].nil?
-        Rails.logger.error("Unable to find a valid name for address #{address.id}")
-        next
-      end
-
-      attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
-      attributes[:founded_at] = get_founded_at(establishment)
-      attributes[:founded_at] ||= get_founded_at(enterprise)
-
-      attributes[:quality] = get_quality(address)
-
-      attributes[:website] = get_website(establishment)
-      attributes[:website] ||= get_website(enterprise)
-
-      attributes[:email] = get_email(establishment)
-      attributes[:email] ||= get_email(enterprise)
-
-      attributes[:phone] = get_phone(establishment)
-      attributes[:phone] ||= get_phone(enterprise)
-
-      attributes[:legal_form] = get_legal_form(address, enterprise)
-
-      attributes[:activity_code] = get_activity_code(establishment)
-      attributes[:activity_code] ||= get_activity_code(enterprise)
-
-      attributes[:address_line_1] = [address.house_number.presence, address.box.presence].compact.join(" boîte ")
-      attributes[:address_line_2] = address.street
-      attributes[:address_line_3] = address.extra_address_info
-      attributes[:zipcode] = address.zipcode
-      attributes[:city] = address.municipality
-      country, country_code = get_country_and_country_code(address)
-      attributes[:country] = country
-      attributes[:country_code] = country_code
-
-      Company.create!(attributes)
-    end
-    Rails.logger.info("Done")
+    create_companies_from_kbo_data
   end
 
   private
+
+    def check_address(filename)
+      Rails.logger.info "Check address from #{filename}"
+
+      Zip::File.open(download_zipped_source(filename)) do |zip_file|
+        zip_file.each do |entry|
+          Rails.logger.info "Unzip file #{entry.name}"
+          begin
+            entry.extract(entry.name)
+          rescue Zip::DestinationFileExistsError => e
+            Rails.logger.warn "Destination file already exists"
+          end
+        end
+      end
+
+      import_addresses(is_update: true)
+      KboAddress.all.each { |address| get_country_and_country_code(address) }
+    end
+
+    def update_belgium_from(filename)
+      Rails.logger.info "Update from #{filename}"
+
+      Zip::File.open(download_zipped_source(filename)) do |zip_file|
+        zip_file.each do |entry|
+          Rails.logger.info "Unzip file #{entry.name}"
+          begin
+            entry.extract(entry.name)
+          rescue Zip::DestinationFileExistsError => e
+            Rails.logger.warn "Destination file already exists"
+          end
+        end
+      end
+
+      Rails.logger.info "Destroy companies corresponding to deleted enterprises"
+      CSV.foreach("enterprise_delete.csv", headers: true) do |row|
+        Rails.logger.info "Delete companies for enterprise #{row["EnterpriseNumber"]}"
+        Company.where(registration_1: row["EnterpriseNumber"]).first&.destroy!
+      end
+
+      Rails.logger.info "Destroy companies corresponding to deleted establishments"
+      CSV.foreach("establishment_delete.csv", headers: true) do |row|
+        Rails.logger.info "Delete companies for enterprise #{row["EstablishmentNumber"]}"
+        Company.where(registration_2: row["EstablishmentNumber"]).first&.destroy!
+      end
+    end
+
+    def import_codes
+      import_from("code", false, KboCode) do |row|
+        {
+          category: row["Category"],
+          code: row["Code"],
+          language: row["Language"],
+          description: row["Description"]
+        }
+      end
+    end
+
+    def import_enterprises(is_update: false)
+      import_from("enterprise", is_update, KboEnterprise) do |row|
+        {
+          enterprise_number: row["EnterpriseNumber"],
+          type_of_enterprise: row["TypeOfEnterprise"],
+          juridical_form: row["JuridicalForm"],
+          start_date: row["StartDate"]
+        }
+      end
+    end
+
+    def import_establishments(is_update: false)
+      import_from("establishment", is_update, KboEstablishment) do |row|
+        {
+          enterprise_number: row["EnterpriseNumber"],
+          establishment_number: row["EstablishmentNumber"],
+          start_date: row["StartDate"]
+        }
+      end
+    end
+
+    def import_denominations(is_update: false)
+      import_from("denomination", is_update, KboDenomination) do |row|
+        {
+          entity_number: row["EntityNumber"],
+          language: row["Language"],
+          type_of_denomination: row["TypeOfDenomination"],
+          denomination: row["Denomination"]
+        }
+      end
+    end
+
+    def import_addresses(is_update: false)
+      import_from("address", is_update, KboAddress) do |row|
+        {
+          entity_number: row["EntityNumber"],
+          type_of_address: row["TypeOfAddress"],
+          country: row["CountryFR"],
+          zipcode: row["Zipcode"],
+          municipality: row["MunicipalityFR"],
+          street: row["StreetFR"],
+          house_number: row["HouseNumber"],
+          box: row["Box"],
+          extra_address_info: row["ExtraAddressInfo"],
+          date_striking_off: row["DateStrikingOff"]
+        }
+      end
+    end
+
+    def import_activities(is_update: false)
+      import_from("activity", is_update, KboActivity) do |row|
+        {
+          entity_number: row["EntityNumber"],
+          activity_group: row["ActivityGroup"],
+          nace_version: row["NaceVersion"],
+          nace_code: row["NaceCode"],
+          classification: row["Classification"]
+        }
+      end
+    end
+
+    def import_contacts(is_update: false)
+      import_from("contact", is_update, KboContact) do |row|
+        {
+          entity_number: row["EntityNumber"],
+          entity_contact: row["EntityContact"],
+          contact_type: row["ContactType"],
+          value: row["Value"]
+        }
+      end
+    end
+
+    def create_companies_from_kbo_data
+      KboAddress.where(date_striking_off: nil).find_each do |address|
+        case address.entity_number.length
+        when 12
+          enterprise = KboEnterprise.find_by_enterprise_number(address.entity_number)
+        when 13
+          establishment = KboEstablishment.find_by_establishment_number(address.entity_number)
+          enterprise = KboEnterprise.find_by_enterprise_number(establishment.enterprise_number) if establishment
+        else
+          error(address, "unknown entity number format #{address.entity_number}")
+        end
+
+        next unless enterprise
+
+        attributes = {}
+        attributes[:registration_1] = enterprise.enterprise_number
+        attributes[:registration_2] = establishment&.establishment_number
+        next if Company.where(attributes).exists?
+
+        attributes[:name] = get_name(establishment)
+        attributes[:name] ||= get_name(enterprise)
+        if attributes[:name].nil?
+          Rails.logger.error("Unable to find a valid name for address #{address.id}")
+          next
+        end
+
+        attributes[:source_url] = "https://kbopub.economie.fgov.be/kbo-open-data"
+        attributes[:founded_at] = get_founded_at(establishment)
+        attributes[:founded_at] ||= get_founded_at(enterprise)
+
+        attributes[:quality] = get_quality(address)
+
+        attributes[:website] = get_website(establishment)
+        attributes[:website] ||= get_website(enterprise)
+
+        attributes[:email] = get_email(establishment)
+        attributes[:email] ||= get_email(enterprise)
+
+        attributes[:phone] = get_phone(establishment)
+        attributes[:phone] ||= get_phone(enterprise)
+
+        attributes[:legal_form] = get_legal_form(address, enterprise)
+
+        attributes[:activity_code] = get_activity_code(establishment)
+        attributes[:activity_code] ||= get_activity_code(enterprise)
+
+        attributes[:address_line_1] = [address.house_number.presence, address.box.presence].compact.join(" boîte ")
+        attributes[:address_line_2] = address.street
+        attributes[:address_line_3] = address.extra_address_info
+        attributes[:zipcode] = address.zipcode
+        attributes[:city] = address.municipality
+        country, country_code = get_country_and_country_code(address)
+        attributes[:country] = country
+        attributes[:country_code] = country_code
+
+        Company.create!(attributes)
+      end
+      Rails.logger.info("Done")
+    end
 
     def get_founded_at(entity)
       return nil unless entity
@@ -244,11 +303,10 @@ namespace :kbo do
       fail "Error for address #{address.id}: #{message}"
     end
 
-    def import_from(filename, model)
+    def import_from(filename, is_update, model)
       Rails.logger.info "Import #{filename}"
-      model.delete_all
       batch = []
-      CSV.foreach(filename, headers: true) do |row|
+      CSV.foreach("#{filename}#{is_update ? "_insert.csv" : ".csv"}", headers: true) do |row|
         batch << model.new(yield row)
         if batch.count >= 10000
           model.import!(batch)
@@ -551,6 +609,10 @@ namespace :kbo do
         ["Uzbekistan", "UZ"]
       when "Pakistan"
         ["Pakistan", "PK"]
+      when "Palestine"
+        ["Palestine", "PS"]
+      when "Papouasie-Nouvelle-Guinée"
+        ["Papouasie-Nouvelle-Guinée", "PG"]
       when "Panama"
         ["Panama", "PA"]
       when "Paraguay"
@@ -666,7 +728,7 @@ namespace :kbo do
       when "Antilles britanniques"
         ["British Virgin Islands", "VG"]
       else
-        error(address, "unknown country #{address.country}")
+        Rails.logger.error("Error for address #{address.id}: unknown country #{address.country}")
       end
     end
 end
