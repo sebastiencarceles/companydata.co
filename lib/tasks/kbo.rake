@@ -185,7 +185,12 @@ namespace :kbo do
         attributes = {}
         attributes[:registration_1] = enterprise.enterprise_number
         attributes[:registration_2] = establishment&.establishment_number
-        next if Company.where(attributes).exists?
+        if Company.where(attributes).exists?
+          Rails.logger.info("Company #{attributes[:registration_1]} #{attributes[:registration_2]} already exists")
+          next
+        else
+          Rails.logger.info("Create company #{attributes[:registration_1]} #{attributes[:registration_2]}")
+        end
 
         attributes[:name] = get_name(establishment)
         attributes[:name] ||= get_name(enterprise)
