@@ -169,7 +169,7 @@ namespace :kbo do
     end
 
     def create_companies_from_kbo_data
-      KboAddress.where(date_striking_off: nil).find_each do |address|
+      KboAddress.where(date_striking_off: nil, company_exists: false).find_each do |address|
         case address.entity_number.length
         when 12
           enterprise = KboEnterprise.find_by_enterprise_number(address.entity_number)
@@ -187,6 +187,7 @@ namespace :kbo do
         attributes[:registration_2] = establishment&.establishment_number
         if Company.where(attributes).exists?
           Rails.logger.info("Company #{attributes[:registration_1]} #{attributes[:registration_2]} already exists")
+          address.update(company_exists: true)
           next
         else
           Rails.logger.info("Create company #{attributes[:registration_1]} #{attributes[:registration_2]}")
@@ -229,6 +230,7 @@ namespace :kbo do
         attributes[:country_code] = country_code
 
         Company.create!(attributes)
+        address.update(company_exists: true)
       end
       Rails.logger.info("Done")
     end
