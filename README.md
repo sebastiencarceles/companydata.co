@@ -1,6 +1,6 @@
 # README
 
-# Why open source?
+## Why open source?
 
 I started this side project to provide company data through an easy-to-use API.
 
